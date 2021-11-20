@@ -5,11 +5,12 @@ import santaJam.states.StateManager;
 import santaJam.window.Window;
 
 public class Game {
+	public static final int WIDTH=990, HEIGHT=660,SCALE=3;
 	private Window window;
 	private boolean running=true;
 	
 	public Game() {
-		window = new Window(900, 600);
+		window = new Window(WIDTH,HEIGHT);
 		StateManager.setCurrentState(new GameState());
 	}
 	

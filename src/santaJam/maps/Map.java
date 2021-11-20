@@ -12,8 +12,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import santaJam.states.Camera;
+
 public class Map {
-	public static final int TILESIZE=10;
+	public static final int TILESIZE=12;
 	private int [][] tiles;
 	private int wallTile=1;
 	private int width,height;
@@ -50,13 +52,19 @@ public class Map {
 		
 	}
 	
-	public void render(Graphics2D g) {
+	public void render(Graphics2D g, Camera camera) {
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
 				if(checkWall(x, y)) {
-					g.setColor(Color.darkGray);
-					g.fillRect(x*TILESIZE,y*TILESIZE, TILESIZE,TILESIZE);
+					g.setColor(new Color(43,173,50));
+					
+				}else if((Math.round(x/5)%2==0&&Math.round(y/5)%2==1)||(Math.round(x/5)%2==1&&Math.round(y/5)%2==0)) {
+					g.setColor(new Color(57,11,50));
+				}else {
+					g.setColor(new Color(78,16,69));
 				}
+				g.fillRect(x*TILESIZE-camera.getxOffset(),y*TILESIZE-camera.getyOffset(), TILESIZE,TILESIZE);
+					
 			}
 		}
 		

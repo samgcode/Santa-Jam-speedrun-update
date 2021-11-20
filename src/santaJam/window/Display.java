@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import santaJam.Game;
 import santaJam.states.StateManager;
 
 public class Display extends JPanel {
@@ -19,7 +20,7 @@ public class Display extends JPanel {
 	 * everything is drawn onto a display which is then added onto the window,
 	 * because you aren't supposed to draw directly onto it
 	 */
-	private int width, height, scale=3;
+	private int width, height, scale=Game.SCALE;
 	public Display(int width, int height ) {
 		// setting the proper size so that the window will pack properly
 		// the display is scaled up to look 8-bit so the

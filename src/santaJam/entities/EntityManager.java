@@ -3,6 +3,8 @@ package santaJam.entities;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import santaJam.states.Camera;
+
 public class EntityManager {
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	
@@ -11,9 +13,9 @@ public class EntityManager {
 			i.update();
 		}
 	}
-	public void render(Graphics2D g) {
+	public void render(Graphics2D g, Camera camera) {
 		for(Entity i:entities) {
-			i.render(g);
+			i.render(g, camera);
 		}
 	}
 	

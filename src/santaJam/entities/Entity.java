@@ -3,13 +3,12 @@ package santaJam.entities;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import santaJam.maps.Map;
+import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public abstract class Entity {
-	public static final double GRAVITY=0.9;
+	public static final double GRAVITY=0.65, MAXGRAVITY=6.5;
 	
 	protected static EntityManager manager = new EntityManager();
 	
@@ -31,7 +30,7 @@ public abstract class Entity {
 	
 	public abstract void update();
 	
-	public abstract void render(Graphics2D g);
+	public abstract void render(Graphics2D g, Camera camera);
 	
 	public static EntityManager getManager() {
 		return manager;
@@ -43,7 +42,7 @@ public abstract class Entity {
  		Rectangle xCollide=bounds.getBounds();
 		Rectangle yCollide=bounds.getBounds();
 		Rectangle totalCollide=bounds.getBounds();
-		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,2);
+		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,3);
 		xCollide.x+=Math.round(velX);
 		yCollide.y+=Math.round(velY);
 		totalCollide.x+=Math.round(velX);
@@ -58,13 +57,11 @@ public abstract class Entity {
 				grounded=true;
 			}
 			if(i.intersects(yCollide)) {
-				
 				velY=0;	
 				hitWall=true;
 			}
 			
 			if(i.intersects(xCollide)) {
-				
 				velX=0;
 				hitWall=true;
 			}				
@@ -79,61 +76,14 @@ public abstract class Entity {
 				}
 			}
 		}
-		x+=velX;
-		y+=velY;
+		x+=Math.round(velX);
+		y+=Math.round(velY);
 		bounds.x=(int)Math.round(x);
 		bounds.y=(int)Math.round(y);
 		
 	}
-		
-		/*ArrayList<Rectangle> walls = StateManager.getGameState().getMap().getWalls();
-		
-		Rectangle xCollide=bounds;
-		Rectangle yCollide=bounds;
-		Rectangle totalCollide=bounds;
-		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,2);
-		xCollide.x+=velX;
-		yCollide.y+=velY;
-		totalCollide.x+=velX;
-		totalCollide.y+=velY;
-		boolean hitwall=false;
-		
-		grounded=false;
-		
-		for(Rectangle i:walls) {
-			
-			if(xCollide.intersects(i)) {
-				velX=0;
-				hitwall=true;
-			}
-			if(yCollide.intersects(i)) {
-				
-				velY=0;
-				hitwall=true;
-				
-			}
-			if(groundedBounds.intersects(i)) {
-				grounded=true;
-			}
-		}
-		/*if(!hitwall) {
-			for(Rectangle i:walls) {
-				if(totalCollide.intersects(i)) {
-					velX=0;
-					velY=0;
-				}
-			}
-		}*/
-		
-		
-		
-		
-		
-		
-		
 	
-	
-	
-	
-
+	public Rectangle getBounds() {
+		return bounds;
+	}
 }

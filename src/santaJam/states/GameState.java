@@ -10,25 +10,31 @@ public class GameState implements State {
 	int x=0, y=0,xVel=0,yVel=0;
 	
 	Map map;
+	Camera camera;
+	Player player;
 	
 
 	
 	@Override
 	public void start(State prevState) {
-		Entity.getManager().addEntity(new Player());
+		player = new Player();
+		Entity.getManager().addEntity(player);
 		map = new Map("res/test.json");
+		camera = new Camera();
 	}
 	
 	@Override
 	public void update() {
 		Entity.getManager().update();
+		camera.moveToEntity(player);
+		camera.update();
 		
 	}
 
 	@Override
 	public void render(Graphics2D g) {
-		map.render(g);
-		Entity.getManager().render(g);
+		map.render(g, camera);
+		Entity.getManager().render(g, camera);
 	}
 
 	@Override
