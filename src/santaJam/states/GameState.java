@@ -3,7 +3,7 @@ package santaJam.states;
 import java.awt.Graphics2D;
 
 import santaJam.entities.Entity;
-import santaJam.entities.Player;
+import santaJam.entities.player.Player;
 import santaJam.maps.Map;
 
 public class GameState implements State {

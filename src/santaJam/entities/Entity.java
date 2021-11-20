@@ -86,4 +86,16 @@ public abstract class Entity {
 	public Rectangle getBounds() {
 		return bounds;
 	}
+	
+	public double getVelX() {
+		return velX;
+	}
+	public double getVelY() {
+		return velY;
+	}
+	public int getHealth() {
+		return health;
+	}public boolean isGrounded() {
+		return grounded;
+	}
 }
