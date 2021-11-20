@@ -3,7 +3,7 @@ package santaJam.entities.player;
 import santaJam.inputs.Inputs;
 
 public class Jumping extends PlayerState{
-	private final double JUMPSTRENGTH=10;
+	private final double JUMPSTRENGTH=10, STOPSTRENGTH=0.75;
 	boolean firstFrame;
 
 	@Override
@@ -23,9 +23,8 @@ public class Jumping extends PlayerState{
 		firstFrame=false;
 		
 		if(player.getVelY()<0) {
-			if(!Inputs.jumpHeld()) {
-			//	normalGravity(player);
-			//	normalGravity(player);
+			if(!Inputs.jump().isHeld()) {
+				player.addVelY(STOPSTRENGTH);
 			//	normalGravity(player);
 			}
 			

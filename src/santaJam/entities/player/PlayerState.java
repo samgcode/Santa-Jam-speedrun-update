@@ -15,9 +15,9 @@ public abstract class PlayerState {
 	public abstract void end();
 	
 	protected void normalMoveLeftRight(Player player) {
-		if(Inputs.left()) {
+		if(Inputs.left().isHeld()) {
 			player.addVelX(-WALKACCELERATION);
-		}if(Inputs.right()) {
+		}if(Inputs.right().isHeld()) {
 			player.addVelX(WALKACCELERATION);
 		}
 		if(player.getVelX()>FRICTION) {

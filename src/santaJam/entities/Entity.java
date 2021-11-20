@@ -8,7 +8,7 @@ import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public abstract class Entity {
-	public static final double GRAVITY=0.65, MAXGRAVITY=6.5;
+	public static final double GRAVITY=0.5, MAXGRAVITY=6.3;
 	
 	protected static EntityManager manager = new EntityManager();
 	
@@ -39,43 +39,58 @@ public abstract class Entity {
 	protected void updateBounds(){
 		
 		ArrayList<Rectangle> walls = StateManager.getGameState().getMap().getWalls();
- 		Rectangle xCollide=bounds.getBounds();
-		Rectangle yCollide=bounds.getBounds();
-		Rectangle totalCollide=bounds.getBounds();
+		//if we on;y check wall near the entity it will be faster, but thats kinda complicted for now
+		//ArrayList<Rectangle> relaventWalls = StateManager.getGameState().getMap().getWalls();
+ 		Rectangle newBounds=bounds.getBounds();
 		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,3);
-		xCollide.x+=Math.round(velX);
-		yCollide.y+=Math.round(velY);
-		totalCollide.x+=Math.round(velX);
-		totalCollide.y+=Math.round(velY);
+		newBounds.x+=Math.round(velX);
 		grounded=false;
-		boolean hitWall=false;
 		
-		for(Rectangle i:walls) {
-			
-		
+		//horizontal collisions
+		for(Rectangle i:walls) {		
 			if(groundedBounds.intersects(i)) {
 				grounded=true;
 			}
-			if(i.intersects(yCollide)) {
-				velY=0;	
-				hitWall=true;
+			
+			if(i.intersects(newBounds)) {
+				if(velX>0) {
+					while(i.intersects(newBounds)&&newBounds.x>bounds.x) {
+						velX--;
+						newBounds.x--;
+					}
+				}else if(velX<0) {
+					while(i.intersects(newBounds)&&newBounds.x<bounds.x) {
+						velX++;
+						newBounds.x++;
+					}
+				}
+			}								
+		}
+		newBounds.y+=Math.round(velY);
+		for(Rectangle i:walls) {		
+			if(groundedBounds.intersects(i)) {
+				grounded=true;
 			}
 			
-			if(i.intersects(xCollide)) {
-				velX=0;
-				hitWall=true;
-			}				
-				
-						
-		}
-		if(!hitWall) {
-			for(Rectangle i:walls) {
-				if(i.getBounds().intersects(totalCollide)) {
-					velX=0;
-					velY=0;
+			if(i.intersects(newBounds)) {
+				if(velY>0) {
+					while(i.intersects(newBounds)&&newBounds.y>bounds.y) {
+						velY--;
+						newBounds.y--;
+					}
+				}else if(velY<0) {
+					while(i.intersects(newBounds)&&newBounds.y<bounds.y) {
+						velY++;
+						newBounds.y++;
+					}
 				}
-			}
+			}								
 		}
+		
+		
+		
+		
+		
 		x+=Math.round(velX);
 		y+=Math.round(velY);
 		bounds.x=(int)Math.round(x);

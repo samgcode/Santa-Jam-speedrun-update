@@ -1,5 +1,6 @@
 package santaJam;
 
+import santaJam.inputs.Inputs;
 import santaJam.states.GameState;
 import santaJam.states.StateManager;
 import santaJam.window.Window;
@@ -21,8 +22,11 @@ public class Game {
 			double startTime= System.nanoTime();//getting the time at the start of the frame
 			
 			//updating
+			
+			Inputs.update();
 			StateManager.update();
 			window.render();
+			
 			
 			
 			

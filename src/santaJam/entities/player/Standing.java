@@ -5,30 +5,21 @@ import santaJam.inputs.Inputs;
 public class Standing extends PlayerState{
 	
 	private int coyoteTime=5;
-	private boolean holdingJump=false;
 	
-
 	@Override
 	public void start(PlayerState prevState) {
-		coyoteTime=0;
-		if(Inputs.jumpHeld()) {
-			holdingJump=true;
-		}
-		
+		coyoteTime=0;	
 	}
+	
 	@Override
 	public PlayerState update(Player player) {
 		normalMoveLeftRight(player);
 		normalGravity(player);
 		
-		
-		if(Inputs.jumpPushed()) {
-			if(!holdingJump) {
+		if(Inputs.jump().getHoldLength()<15&&Inputs.jump().getHoldLength()>0) {
 				return jumping;
-			}
-		}else {
-			holdingJump=false;
 		}
+		
 		if(!player.isGrounded()) {
 			coyoteTime--;
 			if(coyoteTime==0) {

@@ -4,14 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import santaJam.entities.Entity;
-import santaJam.inputs.Inputs;
 import santaJam.states.Camera;
 
 public class Player extends Entity {
-	
-	private double topSpeed=2.5, friction=0.5;
-	private int coyoteTime=0, jumpTime=0;
-	
+
 	private PlayerState currentState = PlayerState.standing;
 	
 	
@@ -29,7 +25,7 @@ public class Player extends Entity {
 			currentState=nextState;
 		}
 		
-		System.out.println(currentState.toString());
+		//System.out.println(currentState.toString());
 		
 		updateBounds();
 		
