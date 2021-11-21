@@ -17,13 +17,16 @@ public class Standing extends PlayerState{
 		normalGravity(player);
 		
 		if(Inputs.jump().getHoldLength()<15&&Inputs.jump().getHoldLength()>0) {
-				return jumping;
+				return new Jumping();
+		}
+		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
+			return new Attacking(this);
 		}
 		
 		if(!player.isGrounded()) {
 			coyoteTime--;
 			if(coyoteTime==0) {
-				return falling;
+				return new Falling();
 			}
 		}else {
 			coyoteTime=5;
@@ -32,9 +35,5 @@ public class Standing extends PlayerState{
 		
 	}
 	@Override
-	public void end() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void end() {}
 }

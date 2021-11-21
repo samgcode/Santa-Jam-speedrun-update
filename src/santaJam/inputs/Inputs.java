@@ -4,9 +4,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Inputs implements KeyListener{
-	private static int leftKey=KeyEvent.VK_LEFT, rightKey=KeyEvent.VK_RIGHT, jumpKey=KeyEvent.VK_UP;
-	private static boolean leftPushed=false, rightPushed=false,jumpPushed=false;
-	private static InputButton left = new InputButton(), right = new InputButton(), jump = new InputButton();
+	private static int leftKey=KeyEvent.VK_LEFT, rightKey=KeyEvent.VK_RIGHT, jumpKey=KeyEvent.VK_C, attackKey=KeyEvent.VK_X;
+	private static boolean leftPushed=false, rightPushed=false,jumpPushed=false, attackPushed=false;
+	private static InputButton left = new InputButton(), right = new InputButton(), jump = new InputButton(),
+			attack  = new InputButton();
 
 	@Override
 	public void keyTyped(KeyEvent e) {}
@@ -19,6 +20,8 @@ public class Inputs implements KeyListener{
 			rightPushed=true;
 		}else if(e.getKeyCode()==jumpKey) {
 			jumpPushed=true;
+		}else if(e.getKeyCode()==attackKey) {
+			attackPushed=true;
 		}
 	}
 
@@ -30,6 +33,8 @@ public class Inputs implements KeyListener{
 			rightPushed=false;
 		}else if(e.getKeyCode()==jumpKey) {
 			jumpPushed=false;
+		}else if(e.getKeyCode()==attackKey) {
+			attackPushed=false;
 		}
 		
 	}
@@ -37,6 +42,7 @@ public class Inputs implements KeyListener{
 		left.update(leftPushed);
 		right.update(rightPushed);
 		jump.update(jumpPushed);
+		attack.update(attackPushed);
 	}
 	
 	public static InputButton left() {
@@ -47,6 +53,9 @@ public class Inputs implements KeyListener{
 	}
 	public static InputButton jump() {
 		return jump;
+	}
+	public static InputButton attack() {
+		return attack;
 	}
 	
 	

@@ -1,5 +1,7 @@
 package santaJam.entities.player;
 
+import santaJam.inputs.Inputs;
+
 public class Falling extends PlayerState{
 
 	@Override
@@ -12,8 +14,11 @@ public class Falling extends PlayerState{
 	public PlayerState update(Player player) {
 		normalMoveLeftRight(player);
 		normalGravity(player);
+		
 		if(player.isGrounded()) {
-			return standing;
+			return new Standing();
+		}if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
+			return new Attacking(this);
 		}
 		return null;
 	}

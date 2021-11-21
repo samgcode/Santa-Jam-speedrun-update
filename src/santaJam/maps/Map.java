@@ -1,6 +1,5 @@
 package santaJam.maps;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.io.FileReader;
@@ -13,13 +12,17 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import santaJam.states.Camera;
+import santaJam.states.StateManager;
 
 public class Map {
-	public static final int TILESIZE=12;
-	private int [][] tiles;
-	private int wallTile=1;
-	private int width,height;
-	private ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
+	public static final int TILESIZE=12, WALLTILE=1, ENEMYTILE=2,TRANSITIONTIME=10;
+	private int transitionTimer=0;
+	
+	
+	private ArrayList<Rectangle> roomBounds = new ArrayList<Rectangle>();
+	private ArrayList<Room> rooms = new ArrayList<Room>();
+	Room currentRoom, prevRoom;
+	
 	
 	public Map(String path) {
 		JSONObject file;
@@ -28,62 +31,59 @@ public class Map {
 		} catch (IOException | ParseException e) {
 			System.out.print("there was a problem loading JSON file at "+path );
 			e.printStackTrace();
-			tiles=new int[][] {{}};
 			return;
 			
 		}
-		JSONArray layers=(JSONArray)file.get("layers");//the array of layers
-		
-		//getting map data
-		JSONObject mapLayer=(JSONObject) layers.get(0);
-		JSONArray mapData=(JSONArray)mapLayer.get("data");
-		width=(int)((long)file.get("width"));
-		height=(int)((long)file.get("height"));
-		tiles = new int[width][height];
-		for(int y=0;y<height;y++) {
-			for(int x=0;x<width;x++) {
-				tiles[x][y] =(int)((long) mapData.get((y *width) + x ));
-				if(tiles[x][y]==wallTile) {
-					walls.add(new Rectangle(x*TILESIZE,y*TILESIZE,TILESIZE,TILESIZE));
-				}
-			}
+		JSONArray map=(JSONArray)file.get("maps");//the array with all the rooms
+		for(Object roomData:map) {
+			JSONObject roomObject = (JSONObject)roomData;
+			int x = (int)(long)(roomObject.get("x"));
+			int y = (int)(long)(roomObject.get("y"));
+			int width = (int)(long)(roomObject.get("width"));
+			int height = (int)(long)(roomObject.get("height"));
+			String fileName = (String) roomObject.get("fileName");
+			roomBounds.add(new Rectangle(x,y,width,height));
+			rooms.add(new Room(x,y,"res/"+fileName));
+			System.out.println(fileName+"has data: "+x+", "+y+", - "+width+", "+height);
+			
 		}
+		currentRoom=rooms.get(0);
 		
+	}
+	public void update() {
+		Rectangle playerBounds = StateManager.getGameState().getPlayer().getBounds();
 		
+		Room oldRoom = currentRoom;
+		currentRoom=getRoom(playerBounds.x+playerBounds.width/2, playerBounds.y+playerBounds.height/2);
+		transitionTimer--;
+		if(oldRoom!=currentRoom) {
+			transitionTimer=TRANSITIONTIME;
+			prevRoom=oldRoom;
+			currentRoom.loadRoom();
+		}
 	}
 	
 	public void render(Graphics2D g, Camera camera) {
-		for(int y=0;y<height;y++) {
-			for(int x=0;x<width;x++) {
-				if(checkWall(x, y)) {
-					g.setColor(new Color(43,173,50));
-					
-				}else if((Math.round(x/5)%2==0&&Math.round(y/5)%2==1)||(Math.round(x/5)%2==1&&Math.round(y/5)%2==0)) {
-					g.setColor(new Color(57,11,50));
-				}else {
-					g.setColor(new Color(78,16,69));
-				}
-				g.fillRect(x*TILESIZE-camera.getxOffset(),y*TILESIZE-camera.getyOffset(), TILESIZE,TILESIZE);
-					
-			}
-		}
 		
-	}
-	
-	
-	public boolean checkWall(int x, int y){
-		
-		try {
-			if(tiles[x][y]!=wallTile) {
-				return false;
-			}
-		} catch (IndexOutOfBoundsException e) {	
+		if(transitionTimer>0) {
+			
+			prevRoom.render(g, camera);
 			
 		}
-		return true;
+		currentRoom.render(g, camera);
+		//System.out.println("rendering room:"+currentRoom.name+"because player is at"+playerBounds.x+", "+playerBounds.y);
+		
 	}
-	public ArrayList<Rectangle> getWalls() {
-		return walls;
+	public Room getRoom(int x, int y) {
+		for(int i=0;i<rooms.size();i++) {
+			if(roomBounds.get(i).contains(x,y)) {
+				return rooms.get(i);
+			}
+		}
+		System.out.println("location: "+x+", "+y+" is not in any room");
+		return null;
 	}
-
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
 }

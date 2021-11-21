@@ -2,6 +2,7 @@ package santaJam.states;
 
 import java.awt.Graphics2D;
 
+import santaJam.entities.Enemy;
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
 import santaJam.maps.Map;
@@ -19,15 +20,16 @@ public class GameState implements State {
 	public void start(State prevState) {
 		player = new Player();
 		Entity.getManager().addEntity(player);
-		map = new Map("res/test.json");
+		map = new Map("res/WorldTest.world");
 		camera = new Camera();
 	}
 	
 	@Override
 	public void update() {
 		Entity.getManager().update();
+		map.update();
 		camera.moveToEntity(player);
-		camera.update();
+		camera.update(map.getCurrentRoom());
 		
 	}
 
@@ -36,6 +38,11 @@ public class GameState implements State {
 		map.render(g, camera);
 		Entity.getManager().render(g, camera);
 	}
+	public void gameOver() {
+		player = new Player();
+		Entity.getManager().reset();
+		Entity.getManager().addEntity(player);
+	}
 
 	@Override
 	public void end() {}
@@ -43,6 +50,9 @@ public class GameState implements State {
 	
 	public Map getMap() {
 		return map;
+	}
+	public Player getPlayer() {
+		return player;
 	}
 
 	

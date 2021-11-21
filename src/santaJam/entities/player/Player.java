@@ -8,15 +8,21 @@ import santaJam.states.Camera;
 
 public class Player extends Entity {
 
-	private PlayerState currentState = PlayerState.standing;
+	private PlayerState currentState = new Standing();
 	
 	
 	public Player() {
-		super(100,100,11,17);
+		super(150,300,15,20);
+		damage=0;
+		health=5;
+		maxInvincibility=30;
+		team=0;
 	}
 
 	@Override
 	public void update() {
+		//System.out.println(x+", "+y);
+		//System.out.println(currentState.toString());
 		
 		PlayerState nextState = currentState.update(this);
 		if(nextState!=null) {
@@ -24,28 +30,45 @@ public class Player extends Entity {
 			nextState.start(currentState);
 			currentState=nextState;
 		}
-		
-		//System.out.println(currentState.toString());
-		
 		updateBounds();
-		
 	}
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		if(currentState instanceof Standing) {
+		/*if(currentState instanceof Standing) {
 			g.setColor(Color.black);
 		}else if(currentState instanceof Jumping) {
 			g.setColor(Color.red);
 		}else if(currentState instanceof Falling) {
 			g.setColor(Color.orange);
+		}else if(currentState instanceof Attacking) {
+			g.setColor(Color.cyan);
+		}*/
+		g.setColor(Color.black);
+		if(!(invincibility>0&&invincibility%10>5)) {
+			g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
+			if(faceLeft) {
+				g.setColor(Color.white);
+				g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset()+5, 5, 5);
+			}else {
+				g.setColor(Color.white);
+				g.fillRect(bounds.x+bounds.width-5-camera.getxOffset(), bounds.y-camera.getyOffset()+5, 5, 5);
+			}
 		}
 		
-		g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
 		
-		//g.fillRect(bounds.x-camera.getxOffset(),bounds.y+bounds.height-camera.getyOffset(),bounds.width,1);
+		g.setColor(Color.RED);
+		for(int i=0;i<health;i++) {
+			g.fillRect(bounds.x-camera.getxOffset()-5+i*5, bounds.y-camera.getyOffset()-5, 3, 3);
+		}
+		
 	}
 	
+	@Override
+	public void knockBack(boolean faceLeft, double x, double y) {
+		// TODO Auto-generated method stub
+		super.knockBack(!this.faceLeft, x, y);
+	}
 	protected void addVelX(double amount) {
 		velX+=amount;
 	}
@@ -58,8 +81,7 @@ public class Player extends Entity {
 	protected void setVelY(double amount) {
 		velY = amount;
 	}
-	
-	
-	
-
+	protected void setDirection(boolean facingLeft) {
+		faceLeft=facingLeft;
+	}
 }

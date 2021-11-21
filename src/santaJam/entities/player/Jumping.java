@@ -3,7 +3,7 @@ package santaJam.entities.player;
 import santaJam.inputs.Inputs;
 
 public class Jumping extends PlayerState{
-	private final double JUMPSTRENGTH=10, STOPSTRENGTH=0.75;
+	public static final double JUMPSTRENGTH=9, STOPSTRENGTH=0.75;
 	boolean firstFrame;
 
 	@Override
@@ -18,18 +18,19 @@ public class Jumping extends PlayerState{
 		normalMoveLeftRight(player);
 		normalGravity(player);
 		if(firstFrame) {
-			player.addVelY(-JUMPSTRENGTH);
+			player.setVelY(-JUMPSTRENGTH);
 		}
 		firstFrame=false;
 		
+		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
+			return new Attacking(new Falling());
+		}
 		if(player.getVelY()<0) {
 			if(!Inputs.jump().isHeld()) {
 				player.addVelY(STOPSTRENGTH);
-			//	normalGravity(player);
-			}
-			
+			}	
 		}else {
-			return falling;
+			return new Falling();
 		}
 		
 		
@@ -43,9 +44,5 @@ public class Jumping extends PlayerState{
 	}
 
 	@Override
-	public void end() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void end() {}
 }

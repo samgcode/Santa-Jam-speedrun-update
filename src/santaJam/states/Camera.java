@@ -2,6 +2,7 @@ package santaJam.states;
 
 import santaJam.Game;
 import santaJam.entities.Entity;
+import santaJam.maps.Room;
 
 //@author Matthew
 public class Camera {
@@ -9,31 +10,46 @@ public class Camera {
 	 * this is the camera which works by giving everything an offset, which then 
 	 * causes everything to be drawn in a different place making it look like the camera is moving
 	 */
-	private int xOffset, yOffset, entityX, entityY,mouseX,mouseY,locX,locY, screenWidth, screenHeight;
+	private int xOffset, yOffset, entityX, entityY,locX,locY, screenWidth, screenHeight;
 	private float entityWeight=1, locWeight=1;
-	private float speed=0.25f;
-	
+	private float speed=0.4f;
 	//constructors
 	public Camera() {
 		//screen height and width are required to center things on the screen
 		xOffset = 0;
 		yOffset = 0;
 		this.screenWidth = Game.WIDTH/Game.SCALE;
-		this.screenHeight = Game.HEIGHT/Game.SCALE;
+		this.screenHeight = Game.HEIGHT/Game.SCALE;	
 	}
 	//lets you start the camera with in a specific location
-	public Camera(int screenWidth, int screenHeight, int xOffset, int yOffset) {
+	/*public Camera(int screenWidth, int screenHeight, int xOffset, int yOffset) {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
-	}
+	}*/
 	
-	public void update() {
+	public void update(Room currentRoom) {
 		int targetX= Math.round((entityX*entityWeight+locX*locWeight)/(entityWeight*locWeight));
 		int targetY= Math.round((entityY*entityWeight+locY*locWeight)/(entityWeight*locWeight));
-		xOffset+= speed*(targetX-xOffset);
-		yOffset+= speed*(targetY-yOffset);
+		if(currentRoom!=null) {
+			while(targetX<currentRoom.getX()+1) {
+				targetX++;		
+			}
+			while(targetX+screenWidth>currentRoom.getX()+currentRoom.getWidth()-1) {
+				targetX--;			
+			}
+			while(targetY<currentRoom.getY()+1) {
+				targetY++;		
+			}
+			while(targetY+screenHeight>currentRoom.getY()+currentRoom.getHeight()-1) {
+				targetY--;
+			}
+		}
+		xOffset+= Math.round(speed*(targetX-xOffset));
+		yOffset+= Math.round(speed*(targetY-yOffset));
+		
+		
 		
 	}
 
@@ -47,10 +63,6 @@ public class Camera {
 		//positioning the camera so that the inputed entity is in the middle
 		entityX = e.getBounds().x - screenWidth / 2 + e.getBounds().width / 2;
 		entityY = e.getBounds().y - screenHeight / 2 + e.getBounds().height / 2;
-	}
-	public void moveToMouse(int x,int y) {
-		mouseX=x- screenWidth / 2;
-		mouseY=y- screenHeight / 2;
 	}
 	public void moveToPoint(int x, int y) {
 		locX=x- screenWidth / 2;
