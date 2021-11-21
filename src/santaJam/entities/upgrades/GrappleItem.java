@@ -2,25 +2,22 @@ package santaJam.entities.upgrades;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
 import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
-public class DoubleJump extends Upgrade{
+public class GrappleItem extends Upgrade{
 	
 	private int timer=0;
 	
-	public DoubleJump(int x, int y) {
-		bounds = new Rectangle(x,y,10,10);
-		this.x=x;
-		this.y=y;
+	public GrappleItem(int x, int y) {
+		super(x,y);
 	}
 	
 
 	@Override
 	protected void onCollect() {
-		StateManager.getGameState().getPlayer().unlockDoubleJump();
+		StateManager.getGameState().getPlayer().unlockGrapple();
 	}
 	@Override
 	public void update() {
@@ -32,7 +29,7 @@ public class DoubleJump extends Upgrade{
 	@Override
 	public void render(Graphics2D g, Camera camera) {
 		if(timer%60>30) {
-			g.setColor(Color.orange);
+			g.setColor(Color.pink);
 		}else{
 			g.setColor(Color.white);
 		}

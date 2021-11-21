@@ -15,9 +15,6 @@ public class Attacking extends PlayerState{
 	
 	private Hitbox hitbox;
 	
-	public Attacking(PlayerState prevState) {
-		
-	}
 	
 	@Override
 	public void start(PlayerState prevState) {

@@ -37,8 +37,22 @@ public abstract class PlayerState {
 		}else {
 			player.setVelX(0);
 		}
-		player.setVelX(Math.min(player.getVelX(), TOPWALKSPEED));
-		player.setVelX(Math.max(player.getVelX(), -TOPWALKSPEED));
+		if(player.getVelX()>0&&player.getVelX()>TOPWALKSPEED) {
+			player.addVelX(-WALKACCELERATION);
+			if(player.getVelX()<TOPWALKSPEED) {
+				player.setVelX(TOPWALKSPEED);
+			}
+		}else if(player.getVelX()<0&&player.getVelX()<-TOPWALKSPEED) {
+			player.addVelX(+WALKACCELERATION);
+			if(player.getVelX()>-TOPWALKSPEED) {
+				player.setVelX(-TOPWALKSPEED);
+			}
+		}
+	}
+	
+	protected void refreshAbilities() {
+		Grapple.refreshGrapple();
+		DoubleJump.refreshDoubleJump();
 	}
 	
 	

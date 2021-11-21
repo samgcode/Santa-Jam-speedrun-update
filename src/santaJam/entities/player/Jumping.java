@@ -6,12 +6,11 @@ public class Jumping extends PlayerState{
 	public static final double JUMPSTRENGTH=9, STOPSTRENGTH=0.75;
 	boolean firstFrame;
 
-	@Override
-	public void start(PlayerState prevState) {
-		
+	public Jumping() {
 		firstFrame=true;
-		
 	}
+	@Override
+	public void start(PlayerState prevState) {}
 
 	@Override
 	public PlayerState update(Player player) {
@@ -23,21 +22,19 @@ public class Jumping extends PlayerState{
 		firstFrame=false;
 		
 		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
-			return new Attacking(new Falling());
+			return new Attacking();
+		}if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
+			player.setVelY(0);
+			return new Grapple(this);
+			
 		}
-		if(player.getVelY()<0) {
+		if(player.getVelY()<=0) {
 			if(!Inputs.jump().isHeld()) {
 				player.addVelY(STOPSTRENGTH);
 			}	
 		}else {
 			return new Falling();
-		}
-		
-		
-		
-		
-		
-		
+		}		
 		return null;
 		
 		

@@ -1,10 +1,8 @@
 package santaJam.entities.player;
 
-import santaJam.inputs.Inputs;
-
-public class DoubleJump extends PlayerState{
+public class DoubleJump extends Jumping{
 	public static final double JUMPSTRENGTH=9, STOPSTRENGTH=0.75;
-	private boolean firstFrame;
+	private static boolean canDoubleJump=true;
 	private PlayerState prevState;
 
 	
@@ -13,39 +11,28 @@ public class DoubleJump extends PlayerState{
 	}
 	@Override
 	public void start(PlayerState prevState) {
-		firstFrame=true;
+		super.start(prevState);
 	}
 
 	@Override
 	public PlayerState update(Player player) {
-		normalMoveLeftRight(player);
-		normalGravity(player);
-		if(firstFrame) {
-			player.setVelY(-JUMPSTRENGTH);
-		}
-		firstFrame=false;
-		
-		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
-			return new Attacking(prevState);
-		}
-		if(player.getVelY()<0) {
-			if(!Inputs.jump().isHeld()) {
-				player.addVelY(STOPSTRENGTH);
-			}	
-		}else {
-			return prevState;
+		System.out.println(canDoubleJump);
+		if(canDoubleJump&&player.hasDoubleJump()) {
+			PlayerState returnSate=super.update(player);
+			if(returnSate!=null) {
+				canDoubleJump=false;
+			}
+			return returnSate;
 		}
 		
-		
-		
-		
-		
-		
-		return null;
-		
+		return prevState;
 		
 	}
 
 	@Override
 	public void end() {}
+	
+	public static void refreshDoubleJump() {
+		canDoubleJump=true;
+	}
 }
