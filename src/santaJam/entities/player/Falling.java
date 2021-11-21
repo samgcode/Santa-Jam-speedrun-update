@@ -3,6 +3,7 @@ package santaJam.entities.player;
 import santaJam.inputs.Inputs;
 
 public class Falling extends PlayerState{
+	boolean hasDoubleJump=true;
 
 	@Override
 	public void start(PlayerState prevState) {
@@ -17,6 +18,10 @@ public class Falling extends PlayerState{
 		
 		if(player.isGrounded()) {
 			return new Standing();
+		}if(Inputs.jump().isPressed()&&player.hasDoubleJump()&&hasDoubleJump) {
+			hasDoubleJump=false;
+			return new 	DoubleJump(this);
+			
 		}if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
 			return new Attacking(this);
 		}

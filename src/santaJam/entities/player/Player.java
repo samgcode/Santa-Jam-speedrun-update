@@ -7,12 +7,13 @@ import santaJam.entities.Entity;
 import santaJam.states.Camera;
 
 public class Player extends Entity {
+	private boolean doubleJump=false;
 
 	private PlayerState currentState = new Standing();
 	
 	
 	public Player() {
-		super(150,300,15,20);
+		super(130,-200,15,20);
 		damage=0;
 		health=5;
 		maxInvincibility=30;
@@ -83,5 +84,11 @@ public class Player extends Entity {
 	}
 	protected void setDirection(boolean facingLeft) {
 		faceLeft=facingLeft;
+	}
+	public boolean hasDoubleJump() {
+		return doubleJump;
+	}
+	public void unlockDoubleJump() {
+		doubleJump=true;
 	}
 }

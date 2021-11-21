@@ -15,7 +15,7 @@ import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class Map {
-	public static final int TILESIZE=12, WALLTILE=1, ENEMYTILE=2,TRANSITIONTIME=10;
+	public static final int TILESIZE=12, WALLTILE=1, ENEMYTILE=2, DOUBLEJUMP=3,TRANSITIONTIME=10;
 	private int transitionTimer=0;
 	
 	

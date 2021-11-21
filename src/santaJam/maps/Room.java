@@ -14,6 +14,7 @@ import org.json.simple.parser.ParseException;
 
 import santaJam.entities.Enemy;
 import santaJam.entities.Entity;
+import santaJam.entities.upgrades.DoubleJump;
 import santaJam.states.Camera;
 
 public class Room {
@@ -81,6 +82,9 @@ public class Room {
 			for(int x=0;x<width;x++) {
 				if(tiles[x][y]==Map.ENEMYTILE) {
 					Entity.getManager().addEntity(new Enemy(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.DOUBLEJUMP) {
+					Entity.getManager().addEntity(new DoubleJump(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+					System.out.println("spawning double jump");
 				}
 			}
 		}
