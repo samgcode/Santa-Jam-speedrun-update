@@ -2,10 +2,10 @@ package santaJam.states;
 
 import java.awt.Graphics2D;
 
-import santaJam.entities.Enemy;
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
 import santaJam.maps.Map;
+import santaJam.window.Save;
 
 public class GameState implements State {
 	int x=0, y=0,xVel=0,yVel=0;
@@ -13,14 +13,18 @@ public class GameState implements State {
 	Map map;
 	Camera camera;
 	Player player;
+	private Save save;
 	
 
+	public GameState(Save saveFile) {
+		this.save=saveFile;
+	}
 	
 	@Override
 	public void start(State prevState) {
-		player = new Player();
+		player = new Player(save.getStartX(),save.getStartY(),save.getStartHealth());
 		Entity.getManager().addEntity(player);
-		map = new Map("res/WorldTest.world");
+		map = new Map("res/maps/WorldTest.world");
 		camera = new Camera();
 	}
 	
@@ -39,7 +43,7 @@ public class GameState implements State {
 		Entity.getManager().render(g, camera);
 	}
 	public void gameOver() {
-		player = new Player();
+		player = new Player(save.getStartX(),save.getStartY(),save.getStartHealth());
 		Entity.getManager().reset();
 		Entity.getManager().addEntity(player);
 	}
@@ -53,6 +57,9 @@ public class GameState implements State {
 	}
 	public Player getPlayer() {
 		return player;
+	}
+	public Save getSave() {
+		return save;
 	}
 
 	

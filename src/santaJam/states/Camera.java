@@ -18,8 +18,8 @@ public class Camera {
 		//screen height and width are required to center things on the screen
 		xOffset = 0;
 		yOffset = 0;
-		this.screenWidth = Game.WIDTH/Game.SCALE;
-		this.screenHeight = Game.HEIGHT/Game.SCALE;	
+		this.screenWidth = Game.WIDTH;
+		this.screenHeight = Game.HEIGHT;	
 	}
 	//lets you start the camera with in a specific location
 	/*public Camera(int screenWidth, int screenHeight, int xOffset, int yOffset) {

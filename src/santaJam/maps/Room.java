@@ -14,6 +14,7 @@ import org.json.simple.parser.ParseException;
 
 import santaJam.entities.Enemy;
 import santaJam.entities.Entity;
+import santaJam.entities.SaveStatue;
 import santaJam.entities.upgrades.DoubleJumpItem;
 import santaJam.entities.upgrades.GrappleItem;
 import santaJam.states.Camera;
@@ -87,7 +88,10 @@ public class Room {
 					Entity.getManager().addEntity(new DoubleJumpItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.GRAPPLE) {
 					Entity.getManager().addEntity(new GrappleItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.SAVEPOINT) {
+					Entity.getManager().addEntity(new SaveStatue(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}
+				
 			}
 		}
 	}

@@ -2,8 +2,8 @@ package santaJam.entities.upgrades;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
+import santaJam.entities.player.Player;
 import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
@@ -17,8 +17,8 @@ public class DoubleJumpItem extends Upgrade{
 	
 
 	@Override
-	protected void onCollect() {
-		StateManager.getGameState().getPlayer().unlockDoubleJump();
+	protected void onCollect(Player player) {
+		StateManager.getGameState().getSave().unlockDoubleJump(player);
 	}
 	@Override
 	public void update() {

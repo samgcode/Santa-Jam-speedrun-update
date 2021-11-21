@@ -15,7 +15,7 @@ import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class Map {
-	public static final int TILESIZE=12, WALLTILE=1, ENEMYTILE=2, DOUBLEJUMP=3, GRAPPLE=4,TRANSITIONTIME=10;
+	public static final int TILESIZE=12, WALLTILE=1, ENEMYTILE=2, DOUBLEJUMP=3, GRAPPLE=4,SAVEPOINT=5, TRANSITIONTIME=10;
 	private int transitionTimer=0;
 	
 	
@@ -43,7 +43,7 @@ public class Map {
 			int height = (int)(long)(roomObject.get("height"));
 			String fileName = (String) roomObject.get("fileName");
 			roomBounds.add(new Rectangle(x,y,width,height));
-			rooms.add(new Room(x,y,"res/"+fileName));
+			rooms.add(new Room(x,y,"res/maps/"+fileName));
 			System.out.println(fileName+"has data: "+x+", "+y+", - "+width+", "+height);
 			
 		}

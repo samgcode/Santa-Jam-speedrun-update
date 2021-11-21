@@ -26,7 +26,7 @@ public class Falling extends PlayerState{
 		}
 		//grappling if the buffer an grapple
 		if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
-			return new Grapple(this);
+			return new Grapple(this, player);
 		}
 		//trying to double jump if they push jump
 		if(Inputs.jump().isPressed()) {

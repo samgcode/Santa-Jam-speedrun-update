@@ -16,10 +16,13 @@ public class Grapple extends PlayerState{
 	PlayerState prevState;
 
 	
-	public Grapple(PlayerState prevState) {
+	public Grapple(PlayerState prevState, Player player) {
 		this.prevState=prevState;
 		grappleX=0;
 		duration=0;
+		facingLeft=player.isFaceLeft();
+		grappleX=player.getBounds().x+player.getBounds().width/2;
+		
 	}
 	@Override
 	public void start(PlayerState prevState) {
@@ -30,13 +33,17 @@ public class Grapple extends PlayerState{
 
 	@Override
 	public PlayerState update(Player player) {
-		System.out.println("eee");
-		if(!canGrapple||!player.hasGrapple()) {
+		if(!canGrapple||!StateManager.getGameState().getSave().hasGrapple()) {
+			normalGravity(player);
+			normalMoveLeftRight(player);
 			return prevState;
 		}
 		if(firstFrame) {
-			init(player);
+			//stopping the player and checking direction if it is the first frame
+			player.setVelX(0);
+			player.setVelY(0);
 		}
+		
 		
 		duration++;
 		
@@ -57,14 +64,6 @@ public class Grapple extends PlayerState{
 		
 		firstFrame=false;
 		return null;
-	}
-	private void init(Player player) {
-		//stopping the player and checking direction if it is the first frame
-		player.setVelX(0);
-		player.setVelY(0);
-		facingLeft=player.isFaceLeft();
-		grappleX=player.getBounds().x+player.getBounds().width/2;
-		
 	}
 	private PlayerState grappleShoot(Player player) {
 		//moving the grapple depending on their direction
@@ -105,7 +104,7 @@ public class Grapple extends PlayerState{
 		}
 		//letting you cancel the pull into a double jump, or stop the pull if you don't have it unlocked
 		if(Inputs.jump().isPressed()) {
-			return new DoubleJump(prevState);
+			return new Jumping();
 		}
 		
 		if(duration>SHOTDURATION+PULLDURATION) {

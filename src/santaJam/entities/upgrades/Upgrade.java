@@ -12,14 +12,14 @@ public abstract class Upgrade extends Entity{
 		this.y=y;
 	}
 	
-	protected abstract void onCollect();
+	protected abstract void onCollect(Player player);
 	
 	
 	@Override
 	public void update() {
 		for(Entity i:entityCollide()) {
 			if(i instanceof Player) {
-				onCollect();
+				onCollect((Player) i);
 				killed=true;
 			}
 		}

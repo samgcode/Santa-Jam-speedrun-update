@@ -1,0 +1,73 @@
+package santaJam.states;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+
+import santaJam.Game;
+import santaJam.states.menus.Menu;
+import santaJam.states.menus.MenuObject;
+import santaJam.states.menus.MenuSelection;
+import santaJam.window.Save;
+
+public class MainMenu implements State{
+
+	Menu menu;
+	@Override
+	public void start(State prevState) {
+		String startText;
+		if(new Save().isStarted()) {
+			startText="CONTINUE";
+		}else {
+			startText="START";
+		}
+		
+		menu = new Menu(new Rectangle(), new MenuObject[] {
+			new MenuSelection(new Rectangle(50,50,50,10), startText) {
+				@Override
+				public void select() {
+					StateManager.setCurrentState(new GameState(new Save()));
+				}
+			},
+			new Menu(new Rectangle(50,60,50,10),"RESET SAVE", new MenuObject[] {
+					new MenuSelection(new Rectangle(50,50,50,10), "YES RESET EVERYTHING") {
+						@Override
+						public void select() {
+							new Save().resetSave();
+							StateManager.setCurrentState(new MainMenu());
+						}
+					},new MenuSelection(new Rectangle(50,60,50,10), "NEVERMIND") {
+						@Override
+						public void select() {
+							menu.closeSubMenu();
+						}
+					},	
+			})
+						
+		}) ;
+	 
+		menu.select();
+	} 
+
+	@Override
+	public void update() {
+		menu.update();
+		
+	}
+
+	@Override
+	public void render(Graphics2D g) {
+		g.setColor(new Color(78,16,69));
+		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		menu.render(g);
+		g.setColor(new Color(50,10,45));
+		g.drawRect(1, 1, Game.WIDTH-3, Game.HEIGHT-3);
+	}
+
+	@Override
+	public void end() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

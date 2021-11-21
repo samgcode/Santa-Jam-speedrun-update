@@ -1,5 +1,7 @@
 package santaJam.entities.player;
 
+import santaJam.states.StateManager;
+
 public class DoubleJump extends Jumping{
 	public static final double JUMPSTRENGTH=9, STOPSTRENGTH=0.75;
 	private static boolean canDoubleJump=true;
@@ -17,7 +19,7 @@ public class DoubleJump extends Jumping{
 	@Override
 	public PlayerState update(Player player) {
 		System.out.println(canDoubleJump);
-		if(canDoubleJump&&player.hasDoubleJump()) {
+		if(canDoubleJump&&StateManager.getGameState().getSave().hasDoubleJump()) {
 			PlayerState returnSate=super.update(player);
 			if(returnSate!=null) {
 				canDoubleJump=false;

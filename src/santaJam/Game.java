@@ -1,18 +1,18 @@
 package santaJam;
 
 import santaJam.inputs.Inputs;
-import santaJam.states.GameState;
+import santaJam.states.MainMenu;
 import santaJam.states.StateManager;
 import santaJam.window.Window;
 
 public class Game {
-	public static final int WIDTH=990, HEIGHT=660,SCALE=3;
-	private Window window;
+	public static final int WIDTH=400, HEIGHT=225;
+	private static Window window;
 	private boolean running=true;
 	
 	public Game() {
 		window = new Window(WIDTH,HEIGHT);
-		StateManager.setCurrentState(new GameState());
+		StateManager.setCurrentState(new MainMenu());
 	}
 	
 	public void run() {
@@ -49,6 +49,9 @@ public class Game {
 			
 			
 		}
+	}
+	public static Window getWindow() {
+		return window;
 	}
 
 }

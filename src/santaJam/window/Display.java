@@ -1,5 +1,6 @@
 package santaJam.window;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -20,32 +21,39 @@ public class Display extends JPanel {
 	 * everything is drawn onto a display which is then added onto the window,
 	 * because you aren't supposed to draw directly onto it
 	 */
-	private int width, height, scale=Game.SCALE;
-	public Display(int width, int height ) {
+	private int width, height, scale;
+	public Display(int width, int height, int scale ) {
 		// setting the proper size so that the window will pack properly
 		// the display is scaled up to look 8-bit so the
 		// resolution is actually 1/3 of the screen width
-		//scale=3;
-		this.width = width / scale;
-		this.height = height / scale;
+		this.scale=scale;
+		this.width = width ;
+		this.height = height;
 		
-		this.setPreferredSize(new Dimension(width, height));
+		this.setPreferredSize(new Dimension(width*scale, height*scale));
 		
 		// setting the preferred size to the inputed one so that the pack method will work
 	
 	}
 
 	@Override
+	public void repaint() {
+		
+		super.repaint();	
+	}
+	@Override
 	public void paintComponent(Graphics g) {// where everything is actually drawn
 		// all rendering code goes here
 		//the image the everything is drawn onto
-		g.clearRect(0, 0, width*scale, height*scale);
+		g.setColor(Color.BLACK);
+		g.fillRect(0,0,Game.getWindow().getWindowWidth(),Game.getWindow().getWindowHeight());
 		BufferedImage image=new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d=(Graphics2D)image.getGraphics();
 	
 		StateManager.render(g2d);
 		//putting the image onto the display and scaling it
-		g.drawImage(image,0,0,width*scale, height*scale, null);
+		g.drawImage(image,Game.getWindow().getxOffset(),Game.getWindow().getyOffset(),width*Game.getWindow().getScale(), height*Game.getWindow().getScale(), null);
+		g.setColor(Color.white);
 		
 	}
 	

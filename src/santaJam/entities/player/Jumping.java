@@ -25,7 +25,7 @@ public class Jumping extends PlayerState{
 			return new Attacking();
 		}if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
 			player.setVelY(0);
-			return new Grapple(this);
+			return new Grapple(this,player);
 			
 		}
 		if(player.getVelY()<=0) {

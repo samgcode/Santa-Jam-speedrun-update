@@ -5,17 +5,17 @@ import java.awt.Graphics2D;
 
 import santaJam.entities.Entity;
 import santaJam.states.Camera;
+import santaJam.states.StateManager;
 
 public class Player extends Entity {
-	private boolean doubleJump=false, grapple=false;
-
+	private int maxHealth=5;
 	private PlayerState currentState = new Standing();
 	
 	
-	public Player() {
-		super(-50,-90,15,20);
+	public Player(int x, int y, int health) {
+		super(x,y,15,20);
+		this.health=health;
 		damage=0;
-		health=5;
 		maxInvincibility=30;
 		team=0;
 	}
@@ -40,9 +40,10 @@ public class Player extends Entity {
 			g.setColor(Color.black);
 		}else if(currentState instanceof Jumping||currentState instanceof Falling) {
 			g.setColor(Color.orange);
-		}else if(currentState instanceof Grapple&&hasGrapple()) {
+		}else if(currentState instanceof Grapple&&StateManager.getGameState().getSave().hasGrapple()) {
 			g.setColor(Color.red);
-			g.fillRect(((Grapple) currentState).getCheckX()-camera.getxOffset(),bounds.y+5-camera.getyOffset(),2,2);
+			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),bounds.y+5-camera.getyOffset(),
+					bounds.x-camera.getxOffset(),bounds.y+5-camera.getyOffset());
 		}else if(currentState instanceof Attacking) {
 			g.setColor(Color.cyan);
 		}
@@ -86,16 +87,7 @@ public class Player extends Entity {
 	protected void setDirection(boolean facingLeft) {
 		faceLeft=facingLeft;
 	}
-	public boolean hasDoubleJump() {
-		return doubleJump;
-	}
-	public void unlockDoubleJump() {
-		doubleJump=true;
-	}
-	public boolean hasGrapple() {
-		return grapple;
-	}
-	public void unlockGrapple() {
-		grapple=true;
+	public int getMaxHealth() {
+		return maxHealth;
 	}
 }
