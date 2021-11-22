@@ -18,7 +18,6 @@ public class DoubleJump extends Jumping{
 
 	@Override
 	public PlayerState update(Player player) {
-		System.out.println(canDoubleJump);
 		if(canDoubleJump&&StateManager.getGameState().getSave().hasDoubleJump()) {
 			PlayerState returnSate=super.update(player);
 			if(returnSate!=null) {

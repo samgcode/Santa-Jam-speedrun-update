@@ -1,6 +1,7 @@
 package santaJam;
 
 import santaJam.inputs.Inputs;
+import santaJam.saves.Settings;
 import santaJam.states.MainMenu;
 import santaJam.states.StateManager;
 import santaJam.window.Window;
@@ -9,10 +10,13 @@ public class Game {
 	public static final int WIDTH=400, HEIGHT=225;
 	private static Window window;
 	private boolean running=true;
+	private Settings settings;
 	
 	public Game() {
 		window = new Window(WIDTH,HEIGHT);
+		settings = new Settings();
 		StateManager.setCurrentState(new MainMenu());
+		Inputs.setKeyBinds(settings.getKeyBinds());
 	}
 	
 	public void run() {
@@ -49,9 +53,18 @@ public class Game {
 			
 			
 		}
+		window.getFrame().dispose();
+	}
+	public void quitGame() {
+		running=false;
 	}
 	public static Window getWindow() {
 		return window;
 	}
+	public Settings getSettings() {
+		return settings;
+	}
+	
+	
 
 }

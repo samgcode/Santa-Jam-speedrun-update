@@ -9,6 +9,7 @@ public class StateManager {
 	
 	public static void update() {
 		if(currentState!=null) {
+	//		System.out.println(currentState);
 			currentState.update();
 		}
 		

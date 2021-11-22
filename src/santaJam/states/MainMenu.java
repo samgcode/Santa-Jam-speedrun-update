@@ -5,10 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import santaJam.Game;
+import santaJam.SantaJam;
+import santaJam.saves.Save;
 import santaJam.states.menus.Menu;
 import santaJam.states.menus.MenuObject;
 import santaJam.states.menus.MenuSelection;
-import santaJam.window.Save;
 
 public class MainMenu implements State{
 
@@ -42,7 +43,19 @@ public class MainMenu implements State{
 							menu.closeSubMenu();
 						}
 					},	
-			})
+			}),
+			new MenuSelection(new Rectangle(50,70,50,10), "REBIND CONTROLS") {
+				@Override
+				public void select() {
+					StateManager.setCurrentState(new RebindControls());
+				}
+			},
+			new MenuSelection(new Rectangle(50,80,50,10), "QUIT") {
+				@Override
+				public void select() {
+					SantaJam.getGame().quitGame();
+				}
+			},
 						
 		}) ;
 	 

@@ -44,7 +44,7 @@ public class Map {
 			String fileName = (String) roomObject.get("fileName");
 			roomBounds.add(new Rectangle(x,y,width,height));
 			rooms.add(new Room(x,y,"res/maps/"+fileName));
-			System.out.println(fileName+"has data: "+x+", "+y+", - "+width+", "+height);
+			//System.out.println(fileName+"has data: "+x+", "+y+", - "+width+", "+height);
 			
 		}
 		currentRoom=rooms.get(0);

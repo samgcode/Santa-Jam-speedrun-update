@@ -1,4 +1,4 @@
-package santaJam.window;
+package santaJam.saves;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -79,7 +79,7 @@ public class Save {
 		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
 	}
 	public void resetSave() {
-		Properties blankSave = loadProperties("res/saves/blankSave.properties");
+		Properties blankSave = loadProperties("res/saves/defaultSave.properties");
 		writeproperties(blankSave);
 	}
 	
@@ -101,6 +101,8 @@ public class Save {
 	public int getStartY() {
 		return startY;
 	}
+	
+
 		
 	
 }
