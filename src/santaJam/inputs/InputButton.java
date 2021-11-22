@@ -1,7 +1,7 @@
 package santaJam.inputs;
 
 public class InputButton {
-	boolean held, pressed;
+	boolean held=false, pressed=false;
 	int holdLength=0;
 	
 	
@@ -18,6 +18,7 @@ public class InputButton {
 		}
 		else {//the button is not being held down so pushed is set to false
 			held=false;
+			pressed=false;
 			holdLength=0;
 		}
 	}

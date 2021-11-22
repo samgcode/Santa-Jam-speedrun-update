@@ -15,6 +15,7 @@ public class Standing extends PlayerState{
 	
 	@Override
 	public PlayerState update(Player player) {
+		super.update(player);
 		normalMoveLeftRight(player);//moving the player
 		normalGravity(player);//doing gravity
 		
@@ -24,7 +25,7 @@ public class Standing extends PlayerState{
 		}
 		//if they pressed/buffered an attack, they should attack
 		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
-			return new Attacking();
+			return new Sliding();
 			
 		}
 		//if they pressed/buffered an grapple, they should grapple

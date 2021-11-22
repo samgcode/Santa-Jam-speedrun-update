@@ -12,6 +12,7 @@ public class Falling extends PlayerState{
 
 	@Override
 	public PlayerState update(Player player) {
+		super.update(player);
 		//letting the player move, and be gravitied;
 		normalMoveLeftRight(player);
 		normalGravity(player);
@@ -22,7 +23,7 @@ public class Falling extends PlayerState{
 		}
 		//attacking if the buffer an attack
 		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
-			return new Attacking();
+			return new Sliding();
 		}
 		//grappling if the buffer an grapple
 		if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {

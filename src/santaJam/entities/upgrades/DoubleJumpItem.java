@@ -29,7 +29,7 @@ public class DoubleJumpItem extends Upgrade{
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		if(timer%60>30) {
+		if(timer%40>20) {
 			g.setColor(Color.orange);
 		}else{
 			g.setColor(Color.white);

@@ -14,6 +14,7 @@ public class Player extends Entity {
 	
 	public Player(int x, int y, int health) {
 		super(x,y,15,20);
+		System.out.println("reloading player");
 		this.health=health;
 		damage=0;
 		maxInvincibility=30;
@@ -44,10 +45,10 @@ public class Player extends Entity {
 			g.setColor(Color.red);
 			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),bounds.y+5-camera.getyOffset(),
 					bounds.x-camera.getxOffset(),bounds.y+5-camera.getyOffset());
-		}else if(currentState instanceof Attacking) {
+		}else if(currentState instanceof Sliding) {
 			g.setColor(Color.cyan);
 		}
-		g.setColor(Color.black);
+		//g.setColor(Color.black);
 		if(!(invincibility>0&&invincibility%10>5)) {
 			g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
 			if(faceLeft) {
@@ -71,6 +72,10 @@ public class Player extends Entity {
 	public void knockBack(boolean faceLeft, double x, double y) {
 		// TODO Auto-generated method stub
 		super.knockBack(!this.faceLeft, x, y);
+	}
+	public void changeBounds(int width, int height) {
+		//bounds.width=width;
+		//bounds.height=height;
 	}
 	protected void addVelX(double amount) {
 		velX+=amount;

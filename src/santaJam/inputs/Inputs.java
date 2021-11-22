@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import santaJam.SantaJam;
-import santaJam.states.StateManager;
 
 public class Inputs implements KeyListener{
 	private static int[] keyCodes = new int[] {KeyEvent.VK_UP,KeyEvent.VK_DOWN,KeyEvent.VK_LEFT,KeyEvent.VK_RIGHT,
@@ -32,7 +31,7 @@ public class Inputs implements KeyListener{
 		}else if(e.getKeyCode()==keyCodes[rightIndex]) {
 			rightPushed=true;
 		}else if(e.getKeyCode()==keyCodes[upIndex]) {
-			upPushed=true;
+			upPushed=true;		
 		}else if(e.getKeyCode()==keyCodes[downIndex]) {
 			downPushed=true;
 		}else if(e.getKeyCode()==keyCodes[jumpIndex]) {
@@ -97,7 +96,7 @@ public class Inputs implements KeyListener{
 	public static InputButton right() {
 		return right;
 	}
-	public static InputButton Up() {
+	public static InputButton up() {
 		return up;
 	}
 	public static InputButton Down() {

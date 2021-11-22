@@ -2,11 +2,11 @@ package santaJam.entities.player;
 
 import santaJam.inputs.Inputs;
 
-public class Jumping extends PlayerState{
+public class SlideJump extends PlayerState{
 	public static final double JUMPSTRENGTH=9, STOPSTRENGTH=0.75;
 	boolean firstFrame;
 
-	public Jumping() {
+	public SlideJump() {
 		firstFrame=true;
 	}
 	@Override
@@ -15,27 +15,25 @@ public class Jumping extends PlayerState{
 	@Override
 	public PlayerState update(Player player) {
 		super.update(player);
-		normalMoveLeftRight(player);
-		normalGravity(player);
+		slideGravity(player);
+		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {
+			return new Falling();
+			
+		}
 		if(firstFrame) {
 			player.setVelY(-JUMPSTRENGTH);
 		}
 		firstFrame=false;
+	
 		
-		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
-			return new Sliding();
-		}if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
-			player.setVelY(0);
-			return new Grapple(this,player);
-			
-		}
 		if(player.getVelY()<=0) {
 			if(!Inputs.jump().isHeld()) {
 				player.addVelY(STOPSTRENGTH);
 			}	
 		}else {
-			return new Falling();
-		}		
+			return new SlideFalling();
+		}
+		
 		return null;
 		
 		

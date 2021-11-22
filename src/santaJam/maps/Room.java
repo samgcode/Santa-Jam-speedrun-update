@@ -12,7 +12,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import santaJam.entities.Enemy;
 import santaJam.entities.Entity;
 import santaJam.entities.SaveStatue;
 import santaJam.entities.upgrades.DoubleJumpItem;
@@ -84,7 +83,7 @@ public class Room {
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
 				if(tiles[x][y]==Map.ENEMYTILE) {
-					Entity.getManager().addEntity(new Enemy(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+					//Entity.getManager().addEntity(new Enemy(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.DOUBLEJUMP&&!StateManager.getGameState().getSave().hasDoubleJump()) {
 					Entity.getManager().addEntity(new DoubleJumpItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.GRAPPLE&&!StateManager.getGameState().getSave().hasGrapple()) {

@@ -14,6 +14,7 @@ import santaJam.states.menus.MenuSelection;
 public class MainMenu implements State{
 
 	Menu menu;
+	State stateToSwitch = null;
 	@Override
 	public void start(State prevState) {
 		String startText;
@@ -27,7 +28,7 @@ public class MainMenu implements State{
 			new MenuSelection(new Rectangle(50,50,50,10), startText) {
 				@Override
 				public void select() {
-					StateManager.setCurrentState(new GameState(new Save()));
+					stateToSwitch = new GameState(new Save());
 				}
 			},
 			new Menu(new Rectangle(50,60,50,10),"RESET SAVE", new MenuObject[] {
@@ -35,7 +36,7 @@ public class MainMenu implements State{
 						@Override
 						public void select() {
 							new Save().resetSave();
-							StateManager.setCurrentState(new MainMenu());
+							stateToSwitch = new MainMenu();
 						}
 					},new MenuSelection(new Rectangle(50,60,50,10), "NEVERMIND") {
 						@Override
@@ -47,7 +48,7 @@ public class MainMenu implements State{
 			new MenuSelection(new Rectangle(50,70,50,10), "REBIND CONTROLS") {
 				@Override
 				public void select() {
-					StateManager.setCurrentState(new RebindControls());
+					stateToSwitch = new RebindControls();
 				}
 			},
 			new MenuSelection(new Rectangle(50,80,50,10), "QUIT") {
@@ -65,6 +66,9 @@ public class MainMenu implements State{
 	@Override
 	public void update() {
 		menu.update();
+		if(stateToSwitch!=null) {
+			StateManager.setCurrentState(stateToSwitch);
+		}
 		
 	}
 

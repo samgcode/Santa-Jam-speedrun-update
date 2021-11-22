@@ -28,6 +28,8 @@ public class Grapple extends PlayerState{
 	public void start(PlayerState prevState) {
 		firstFrame=true;
 		shooting=true;
+		width=17;
+		height=17;
 	}
 	
 
@@ -90,6 +92,7 @@ public class Grapple extends PlayerState{
 	}
 	
 	private PlayerState grapplePull(Player player) {
+		super.update(player);
 		refreshAbilities();//refreshing abilities if the land the grapple
 		if(facingLeft) {
 			//moving left
@@ -105,6 +108,9 @@ public class Grapple extends PlayerState{
 		//letting you cancel the pull into a double jump, or stop the pull if you don't have it unlocked
 		if(Inputs.jump().isPressed()) {
 			return new Jumping();
+		}
+		if(Inputs.attack().isPressed()&&player.getVelX()>TOPWALKSPEED) {
+			return new Sliding();
 		}
 		
 		if(duration>SHOTDURATION+PULLDURATION) {

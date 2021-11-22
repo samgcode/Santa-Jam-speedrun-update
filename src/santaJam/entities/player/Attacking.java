@@ -24,6 +24,7 @@ public class Attacking extends PlayerState{
 
 	@Override
 	public PlayerState update(Player player) {
+		System.out.println("there are not supposed to be attacks");
 		normalGravity(player);
 		normalMoveLeftRight(player);
 		

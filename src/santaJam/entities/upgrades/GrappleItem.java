@@ -29,8 +29,8 @@ public class GrappleItem extends Upgrade{
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		if(timer%60>30) {
-			g.setColor(Color.pink);
+		if(timer%40>20) {
+			g.setColor(Color.GREEN);
 		}else{
 			g.setColor(Color.white);
 		}

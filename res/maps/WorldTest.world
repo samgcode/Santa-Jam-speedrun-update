@@ -23,10 +23,10 @@
         },
         {
             "fileName": "tall.json",
-            "height": 1200,
-            "width": 600,
+            "height": 600,
+            "width": 840,
             "x": 816,
-            "y": 912
+            "y": 888
         },
         {
             "fileName": "long.json",
@@ -37,9 +37,9 @@
         },
         {
             "fileName": "untitled.json",
-            "height": 1800,
-            "width": 1800,
-            "x": 1416,
+            "height": 960,
+            "width": 1680,
+            "x": 1656,
             "y": 744
         },
         {

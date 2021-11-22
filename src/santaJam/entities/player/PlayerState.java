@@ -6,27 +6,47 @@ public abstract class PlayerState {
 	private static PlayerState currentState = new Standing();
 	
 	
-	private final static double FRICTION=0.5, TOPWALKSPEED=3.5, WALKACCELERATION=1;
+	protected final static double FRICTION=0.5, TOPWALKSPEED=3.5, WALKACCELERATION=1;
+	
+	protected int width=15, height=20;
 	
 	public abstract void start(PlayerState prevState);
-	public abstract PlayerState update(Player player);
+	public PlayerState update(Player player) {
+		player.changeBounds(width, height);
+		return null;
+	}
 	public abstract void end();
 	
 	protected void normalMoveLeftRight(Player player) {
-		if(Inputs.left().isHeld()) {
+		doFriction(player);
+		if(Inputs.left().isHeld()&&player.getVelX()>-TOPWALKSPEED) {
 			player.addVelX(-WALKACCELERATION);
 			player.setDirection(true);
-		}if(Inputs.right().isHeld()) {
+			if(player.getVelX()<-TOPWALKSPEED) {
+				player.setVelX(-TOPWALKSPEED);
+			}
+			
+		}if(Inputs.right().isHeld()&&player.getVelX()<TOPWALKSPEED) {
 			player.addVelX(WALKACCELERATION);
 			player.setDirection(false);
+			if(player.getVelX()>TOPWALKSPEED) {
+				player.setVelX(TOPWALKSPEED);
+			}
 		}
-		doFriction(player);
+		
+		
 		
 	}
 	protected void normalGravity(Player player) {
 		player.addVelY(Player.GRAVITY);
 		if(player.getVelY()>Player.MAXGRAVITY) {
 			player.setVelY(Player.MAXGRAVITY);
+		}
+	}
+	protected void slideGravity(Player player) {
+		player.addVelY(Player.GRAVITY/1.5);
+		if(player.getVelY()>Player.MAXGRAVITY/1.5) {
+			player.setVelY(Player.MAXGRAVITY/1.5);
 		}
 	}
 	protected void doFriction(Player player) {
@@ -36,17 +56,6 @@ public abstract class PlayerState {
 			player.addVelX(FRICTION);
 		}else {
 			player.setVelX(0);
-		}
-		if(player.getVelX()>0&&player.getVelX()>TOPWALKSPEED) {
-			player.addVelX(-WALKACCELERATION);
-			if(player.getVelX()<TOPWALKSPEED) {
-				player.setVelX(TOPWALKSPEED);
-			}
-		}else if(player.getVelX()<0&&player.getVelX()<-TOPWALKSPEED) {
-			player.addVelX(+WALKACCELERATION);
-			if(player.getVelX()>-TOPWALKSPEED) {
-				player.setVelX(-TOPWALKSPEED);
-			}
 		}
 	}
 	
