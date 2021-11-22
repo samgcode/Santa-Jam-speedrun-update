@@ -48,6 +48,13 @@
             "width": 360,
             "x": -156,
             "y": -360
+        },
+        {
+            "fileName": "slidin.json",
+            "height": 480,
+            "width": 900,
+            "x": 3000,
+            "y": 144
         }
     ],
     "onlyShowAdjacentMaps": false,

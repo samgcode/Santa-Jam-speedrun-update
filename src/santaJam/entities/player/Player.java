@@ -23,7 +23,7 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-		//System.out.println(x+", "+y);
+		//System.out.println(velX+", "+velY);
 		//System.out.println(currentState.toString());
 		
 		PlayerState nextState = currentState.update(this);
@@ -37,15 +37,16 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
+		g.setColor(Color.black);
 		if(currentState instanceof Standing) {
 			g.setColor(Color.black);
-		}else if(currentState instanceof Jumping||currentState instanceof Falling) {
-			g.setColor(Color.orange);
+	//	}else if(currentState instanceof Jumping||currentState instanceof Falling) {
+	//		g.setColor(Color.orange);
 		}else if(currentState instanceof Grapple&&StateManager.getGameState().getSave().hasGrapple()) {
 			g.setColor(Color.red);
 			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),bounds.y+5-camera.getyOffset(),
 					bounds.x-camera.getxOffset(),bounds.y+5-camera.getyOffset());
-		}else if(currentState instanceof Sliding) {
+		}else if(currentState instanceof Sliding||currentState instanceof SlideJump||currentState instanceof SlideFalling||currentState instanceof SlideDoubleJump) {
 			g.setColor(Color.cyan);
 		}
 		//g.setColor(Color.black);
@@ -68,11 +69,7 @@ public class Player extends Entity {
 		
 	}
 	
-	@Override
-	public void knockBack(boolean faceLeft, double x, double y) {
-		// TODO Auto-generated method stub
-		super.knockBack(!this.faceLeft, x, y);
-	}
+
 	public void changeBounds(int width, int height) {
 		//bounds.width=width;
 		//bounds.height=height;
@@ -83,10 +80,10 @@ public class Player extends Entity {
 	protected void addVelY(double amount) {
 		velY+=amount;
 	}
-	protected void setVelX(double amount) {
+	public void setVelX(double amount) {
 		velX=amount;
 	}
-	protected void setVelY(double amount) {
+	public void setVelY(double amount) {
 		velY = amount;
 	}
 	protected void setDirection(boolean facingLeft) {

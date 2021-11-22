@@ -9,12 +9,14 @@ public class Sliding extends PlayerState{
 	public void start(PlayerState prevState) {
 		width=20;
 		height=15;
+		refreshAbilities();
 	}
 
 	@Override
 	public PlayerState update(Player player) {
 		super.update(player);
 		slideGravity(player);
+		
 		
 		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {
 			

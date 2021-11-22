@@ -18,10 +18,10 @@ public class DoubleJump extends Jumping{
 
 	@Override
 	public PlayerState update(Player player) {
-		if(canDoubleJump&&StateManager.getGameState().getSave().hasDoubleJump()) {
+		if(canDoubleJump()&&StateManager.getGameState().getSave().hasDoubleJump()) {
 			PlayerState returnSate=super.update(player);
 			if(returnSate!=null) {
-				canDoubleJump=false;
+				usedDoubleJump();
 			}
 			return returnSate;
 		}
@@ -35,5 +35,11 @@ public class DoubleJump extends Jumping{
 	
 	public static void refreshDoubleJump() {
 		canDoubleJump=true;
+	}
+	public static boolean canDoubleJump() {
+		return canDoubleJump;
+	}
+	public static void usedDoubleJump() {
+		canDoubleJump=false;
 	}
 }

@@ -47,7 +47,7 @@ public class Attacking extends PlayerState{
 		if(hitbox.isHit()&&hit==false) {
 			System.out.println("hit");
 			hit=true;
-			player.knockBack(!player.isFaceLeft(),3,0);
+			//player.knockBack(!player.isFaceLeft(),3,0);
 		}
 		
 		return null;

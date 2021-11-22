@@ -7,7 +7,7 @@ import santaJam.inputs.Inputs;
 import santaJam.states.StateManager;
 
 public class Grapple extends PlayerState{
-	public static final double GRAPPLESTRENGTH=1.5, MAXSPEED=10, SHOTDURATION=15, PULLDURATION=15;
+	public static final double GRAPPLESTRENGTH=2, MAXSPEED=10, SHOTDURATION=15, PULLDURATION=20;
 	private static boolean canGrapple=true;
 	
 	private boolean firstFrame, facingLeft, shooting;
@@ -26,6 +26,7 @@ public class Grapple extends PlayerState{
 	}
 	@Override
 	public void start(PlayerState prevState) {
+		System.out.println("GRAPPLING HOOK!!!");
 		firstFrame=true;
 		shooting=true;
 		width=17;
@@ -95,11 +96,18 @@ public class Grapple extends PlayerState{
 		super.update(player);
 		refreshAbilities();//refreshing abilities if the land the grapple
 		if(facingLeft) {
+			if(player.getVelX()>0) {
+				return new Falling();
+			}
 			//moving left
 			if(player.getVelX()>-MAXSPEED) {
 				player.addVelX(-GRAPPLESTRENGTH);
 			}
+			
 		}else {
+			if(player.getVelX()<0) {
+				return new Falling();
+			}
 			//moving right
 			if(player.getVelX()<MAXSPEED) {
 				player.addVelX(GRAPPLESTRENGTH);

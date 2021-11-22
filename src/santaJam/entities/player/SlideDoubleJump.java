@@ -4,7 +4,6 @@ import santaJam.states.StateManager;
 
 public class SlideDoubleJump extends SlideJump{
 	public static final double JUMPSTRENGTH=9, STOPSTRENGTH=0.75;
-	private static boolean canDoubleJump=true;
 	private PlayerState prevState;
 
 	
@@ -19,10 +18,10 @@ public class SlideDoubleJump extends SlideJump{
 	@Override
 	public PlayerState update(Player player) {
 		
-		if(canDoubleJump&&StateManager.getGameState().getSave().hasDoubleJump()) {
+		if(DoubleJump.canDoubleJump()&&StateManager.getGameState().getSave().hasDoubleJump()) {
 			PlayerState returnSate=super.update(player);
 			if(returnSate!=null) {
-				canDoubleJump=false;
+				DoubleJump.usedDoubleJump();
 			}
 			return returnSate;
 		}
@@ -33,8 +32,4 @@ public class SlideDoubleJump extends SlideJump{
 
 	@Override
 	public void end() {}
-	
-	public static void refreshDoubleJump() {
-		canDoubleJump=true;
-	}
 }

@@ -15,16 +15,20 @@ public class Jumping extends PlayerState{
 	@Override
 	public PlayerState update(Player player) {
 		super.update(player);
+		if(Math.abs(player.getVelX())>TOPWALKSPEED) {
+			return new SlideJump();
+			
+		}
 		normalMoveLeftRight(player);
 		normalGravity(player);
+		
+		
 		if(firstFrame) {
 			player.setVelY(-JUMPSTRENGTH);
 		}
 		firstFrame=false;
 		
-		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
-			return new Sliding();
-		}if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
 			player.setVelY(0);
 			return new Grapple(this,player);
 			

@@ -13,18 +13,23 @@ public class Falling extends PlayerState{
 	@Override
 	public PlayerState update(Player player) {
 		super.update(player);
+		if(Math.abs(player.getVelX())>TOPWALKSPEED) {
+			return new SlideFalling();
+			
+		}
 		//letting the player move, and be gravitied;
 		normalMoveLeftRight(player);
 		normalGravity(player);
+		
 		
 		//going back to standing if the hit the ground
 		if(player.isGrounded()) {
 			return new Standing();
 		}
 		//attacking if the buffer an attack
-		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
+		/*if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
 			return new Sliding();
-		}
+		}*/
 		//grappling if the buffer an grapple
 		if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
 			return new Grapple(this, player);

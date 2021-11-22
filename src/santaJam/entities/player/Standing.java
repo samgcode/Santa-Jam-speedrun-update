@@ -16,17 +16,17 @@ public class Standing extends PlayerState{
 	@Override
 	public PlayerState update(Player player) {
 		super.update(player);
+		if(Math.abs(player.getVelX())>TOPWALKSPEED) {
+			return new Sliding();
+			
+		}
 		normalMoveLeftRight(player);//moving the player
 		normalGravity(player);//doing gravity
+		
 		
 		//if they pressed/buffered a jump, then they should jump
 		if(Inputs.jump().getHoldLength()<15&&Inputs.jump().getHoldLength()>0) {
 			return new Jumping();
-		}
-		//if they pressed/buffered an attack, they should attack
-		if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
-			return new Sliding();
-			
 		}
 		//if they pressed/buffered an grapple, they should grapple
 		if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {

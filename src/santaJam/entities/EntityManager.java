@@ -10,19 +10,21 @@ import santaJam.states.StateManager;
 public class EntityManager {
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	
-	public void update() {		
+	public void update() {	
+		StateManager.getGameState().getPlayer().update();
 		for(int i = 0; i <entities.size() ; i++) {
-			entities.get(i).update();
+			if(!(entities.get(i) instanceof Player)){
+				entities.get(i).update();
+			}
 		}
-		for(Entity i:entities) {
-			i.damage();	
-		}
+		
 		for (int i = entities.size()-1; i >=0 ; i--) {
 			if(entities.get(i).isKilled()||!StateManager.getGameState().getMap().getCurrentRoom().inBounds(entities.get(i).getBounds())){ //killing the player
 				
-				if(entities.get(i) instanceof Player) {
+				if(entities.get(i) instanceof Player && entities.get(i).isKilled() ) {
 					StateManager.getGameState().gameOver();
-				}else {
+					System.out.println("ee");
+				}else if(!(entities.get(i) instanceof Player)){
 					entities.remove(i); //If an other entity besides the player gets hit remove that entity
 				}
 				

@@ -46,33 +46,6 @@ public abstract class Entity {
 		return entities;// returning everything that is touching this entity
 	}
 	
-	public void damage() {
-		//everything calls this so they can be hurt whenever something that is against them touches them
-		double damage=0;
-		if(invincibility>0) {
-			invincibility--;
-		}
-		for (Entity e : entityCollide()) {//checking what is colliding with itself
-			//checking which side the thing that touched it is on 
-			//(making sure enemies only attack the player, player cant attack the core, etc.)
-			if (e.getTeam() != team&&invincibility==0) {
-				damage+= e.getDamage();//dealing however much damage that entity does	
-				if(damage>0) {
-					knockBack(e.faceLeft,5,-3);
-					invincibility=maxInvincibility;
-				}
-				
-			}
-		}
-		damage(damage);
-	}
-	public void damage(double d) {
-		health-=d;
-		if (health <= 0) {//if it has no more health left that it should be dead
-			killed = true;
-		}
-	}
-	
 	
 	protected void updateBounds(){
 		ArrayList<Rectangle> walls = StateManager.getGameState().getMap().getRoom((int)x+bounds.width/2,(int)y+bounds.height/2).getWalls();
@@ -128,13 +101,10 @@ public abstract class Entity {
 		bounds.x=(int)Math.round(x);
 		bounds.y=(int)Math.round(y);	
 	}
-	public void knockBack(boolean faceLeft,double x, double y) {
+	public void knockBack(double x, double y) {
 		velY+=y;
-		if(faceLeft) {
-			velX-=x;
-		}else {
-			velX+=x;
-		}
+		velX+=x;
+		
 	}
 	protected void doNormalGravity() {
 		velY+=GRAVITY;

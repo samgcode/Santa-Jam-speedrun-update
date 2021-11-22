@@ -24,7 +24,5 @@ public abstract class Upgrade extends Entity{
 			}
 		}
 	}
-	@Override
-	public void damage() {}
-
+	
 }

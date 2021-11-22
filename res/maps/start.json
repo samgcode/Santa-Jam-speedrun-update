@@ -31,7 +31,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/..\/..\/..\/tiled stuff\/spawns.tsx"
+         "source":"tileInfo.tsx"
         }],
  "tilewidth":12,
  "type":"map",

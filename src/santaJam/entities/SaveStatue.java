@@ -31,9 +31,7 @@ public class SaveStatue extends Entity{
 			}
 		}
 	}
-	@Override
-	public void damage() {}
-
+	
 	@Override
 	public void render(Graphics2D g, Camera camera) {
 		g.setColor(Color.CYAN);

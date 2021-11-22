@@ -33,13 +33,6 @@ public class Hitbox extends Entity{
 		g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
 		
 	}
-	@Override
-	public void damage(double d) {
-		if(d>0) {
-			hit=true;
-		}
-		
-	}
 	
 	public void move(int x, int y) {
 		this.x=x;
