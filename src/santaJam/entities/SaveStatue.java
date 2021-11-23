@@ -16,6 +16,7 @@ public class SaveStatue extends Entity{
 		this.x=x;
 		this.y=y;
 		team=1;
+		grappleable=true;
 	}
 	@Override
 	public void update() {

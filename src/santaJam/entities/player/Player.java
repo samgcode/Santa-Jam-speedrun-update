@@ -112,6 +112,8 @@ public class Player extends Entity {
 					bounds.x-camera.getxOffset(),bounds.y+5-camera.getyOffset());
 		}else if(currentState instanceof UpBoost) {
 			g.setColor(Color.ORANGE);
+		}else if(currentState instanceof Standing) {
+			g.setColor(Color.BLUE);
 		}else if(currentState instanceof Sliding||currentState instanceof SlideJump||currentState instanceof SlideFalling||
 				currentState instanceof SlideDoubleJump) {
 			g.setColor(Color.cyan);

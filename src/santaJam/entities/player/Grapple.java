@@ -9,7 +9,7 @@ import santaJam.maps.Room;
 import santaJam.states.StateManager;
 
 public class Grapple extends PlayerState{
-	public static final double GRAPPLESTRENGTH=2, MAXSPEED=10, SHOTDURATION=15, PULLDURATION=20;
+	public static final double GRAPPLESTRENGTH=2, MAXSPEED=10,CHECKSPERFRAME=2,SHOTSPEED=20, SHOTDURATION=15, PULLDURATION=20;
 	private static boolean canGrapple=true;
 	
 	private boolean firstFrame, facingLeft, shooting;
@@ -70,53 +70,63 @@ public class Grapple extends PlayerState{
 		return null;
 	}
 	private PlayerState grappleShoot(Player player) {
-		//moving the grapple depending on their direction
-		if(facingLeft) {
-			grappleX-=MAXSPEED*2;
-		}else {
-			grappleX+=MAXSPEED*2;
+		PlayerState returnState= null;
+		int checks=0;
+		while(returnState==null&&checks<CHECKSPERFRAME){
+			returnState = moveGrapple(player, SHOTSPEED/CHECKSPERFRAME);
+			checks++;
 		}
-		
-		//chekcing for walls
-		Rectangle checkBox = new Rectangle(grappleX,player.getBounds().y+5,2,2);
-		ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
-		for(Room i:StateManager.getGameState().getMap().getLoadedRooms()) {
-			if(i!=null) {
-				for(Rectangle r:i.getWalls()) {
-					walls.add(r);
-				}
-			}
-			
-		}		
-		for(Rectangle r:walls) {
-			if(r.intersects(checkBox)) {
-				shooting=false;
-			}
-		}
-		for(Entity i:Entity.getManager().getEntities()) {
-			if(i.getBounds().intersects(checkBox)) {
-				if(i.isGrappleable()) {
-					shooting=false;
-				}else {
-					canGrapple=false;
-					return prevState;
-				}
-			}
-		}
-		
+
 		//going back to the previous state if it has been too long
 		if(duration>SHOTDURATION) {
 			canGrapple=false;
 			return prevState;
 		}
 		return null;
+		
+	}
+	private PlayerState moveGrapple(Player player, double amount){
+		//moving the grapple depending on their direction
+				if(facingLeft) {
+					grappleX-=amount;
+				}else {
+					grappleX+=amount;
+				}
+				
+				//chekcing for walls
+				Rectangle checkBox = new Rectangle(grappleX,player.getBounds().y+5,2,2);
+				ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
+				for(Room i:StateManager.getGameState().getMap().getLoadedRooms()) {
+					if(i!=null) {
+						for(Rectangle r:i.getWalls()) {
+							walls.add(r);
+						}
+					}
+					
+				}		
+				for(Rectangle r:walls) {
+					if(r.intersects(checkBox)) {
+						shooting=false;
+					}
+				}
+				for(Entity i:Entity.getManager().getEntities()) {
+					if(i.getBounds().intersects(checkBox)&&!(i instanceof Player)) {
+						if(i.isGrappleable()) {
+							shooting=false;
+						}else {
+							canGrapple=false;
+							return prevState;
+						}
+					}
+				}
+				return null;
 	}
 	
 	private PlayerState grapplePull(Player player) {
 		super.update(player);
 		refreshAbilities();//refreshing abilities if the land the grapple
 		if(facingLeft) {
-			if(player.getVelX()>0) {
+			if(player.getVelX()>0||player.getBounds().x<grappleX) {
 				return new Falling();
 			}
 			//moving left
@@ -125,7 +135,7 @@ public class Grapple extends PlayerState{
 			}
 			
 		}else {
-			if(player.getVelX()<0) {
+			if(player.getVelX()<0||player.getBounds().x>grappleX) {
 				return new Falling();
 			}
 			//moving right
@@ -136,9 +146,6 @@ public class Grapple extends PlayerState{
 		//letting you cancel the pull into a double jump, or stop the pull if you don't have it unlocked
 		if(Inputs.jump().isPressed()) {
 			return new Jumping();
-		}
-		if(Inputs.attack().isPressed()&&player.getVelX()>TOPWALKSPEED) {
-			return new Sliding();
 		}
 		
 		if(duration>SHOTDURATION+PULLDURATION) {

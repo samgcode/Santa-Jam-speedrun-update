@@ -30,7 +30,6 @@ public class Standing extends PlayerState{
 		}
 		//if they pressed/buffered an grapple, they should grapple
 		if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
-			System.out.println("eee");
 			return new Grapple(this,player);
 			
 			

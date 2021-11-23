@@ -14,6 +14,7 @@ import org.json.simple.parser.ParseException;
 
 import santaJam.entities.BouncePad;
 import santaJam.entities.Entity;
+import santaJam.entities.GrapplePoint;
 import santaJam.entities.SaveStatue;
 import santaJam.entities.upgrades.DoubleJumpItem;
 import santaJam.entities.upgrades.GrappleItem;
@@ -98,11 +99,14 @@ public class Room {
 					Entity.getManager().addEntity(new BreakableWall(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.SMOOTHWALL) {
 					Entity.getManager().addEntity(new SmoothWall(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.GRAPPLEPOINT) {
+					Entity.getManager().addEntity(new GrapplePoint(this.x+x*Map.TILESIZE+Map.TILESIZE/2,this.y+y*Map.TILESIZE+Map.TILESIZE/2));
 				}
 				
 			}
 		}
 	}
+	
 	
 	
 	private boolean checkWall(int x, int y){

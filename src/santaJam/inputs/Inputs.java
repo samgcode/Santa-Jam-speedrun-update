@@ -7,13 +7,13 @@ import santaJam.SantaJam;
 
 public class Inputs implements KeyListener{
 	private static int[] keyCodes = new int[] {KeyEvent.VK_UP,KeyEvent.VK_DOWN,KeyEvent.VK_LEFT,KeyEvent.VK_RIGHT,
-			KeyEvent.VK_C,KeyEvent.VK_X,KeyEvent.VK_Z, KeyEvent.VK_ESCAPE};
+			KeyEvent.VK_C,KeyEvent.VK_Z, KeyEvent.VK_ESCAPE};
 	
-	private static int upIndex=0,downIndex=1,leftIndex=2, rightIndex=3,jumpIndex=4, attackIndex=5,grappleIndex = 6, pauseIndex=7;
+	private static int upIndex=0,downIndex=1,leftIndex=2, rightIndex=3,jumpIndex=4, grappleIndex = 6, pauseIndex=7;
 	private static boolean leftPushed=false, rightPushed=false,upPushed=false,downPushed=false, jumpPushed=false,
-			attackPushed=false, grapplePushed=false, pausePushed=false;
+		 grapplePushed=false, pausePushed=false;
 	private static InputButton left = new InputButton(), right = new InputButton(),up = new InputButton(),down = new InputButton(), 
-			jump = new InputButton(),attack  = new InputButton(), grapple = new InputButton(), pause = new InputButton();
+			jump = new InputButton(), grapple = new InputButton(), pause = new InputButton();
 	
 	private static boolean keyPressed=false;
 	private static int lastKeyCode=-1;
@@ -36,8 +36,6 @@ public class Inputs implements KeyListener{
 			downPushed=true;
 		}else if(e.getKeyCode()==keyCodes[jumpIndex]) {
 			jumpPushed=true;
-		}else if(e.getKeyCode()==keyCodes[attackIndex]) {
-			attackPushed=true;
 		}else if(e.getKeyCode()==keyCodes[grappleIndex]) {
 			grapplePushed=true;
 		}else if(e.getKeyCode()==keyCodes[pauseIndex]) {
@@ -58,8 +56,6 @@ public class Inputs implements KeyListener{
 			downPushed=false;
 		}else if(e.getKeyCode()==keyCodes[jumpIndex]) {
 			jumpPushed=false;
-		}else if(e.getKeyCode()==keyCodes[attackIndex]) {
-			attackPushed=false;
 		}else if(e.getKeyCode()==keyCodes[grappleIndex]) {
 			grapplePushed=false;
 		}else if(e.getKeyCode()==keyCodes[pauseIndex]) {
@@ -74,7 +70,6 @@ public class Inputs implements KeyListener{
 		up.update(upPushed);
 		down.update(downPushed);
 		jump.update(jumpPushed);
-		attack.update(attackPushed);
 		grapple.update(grapplePushed);
 		pause.update(pausePushed);
 	}
@@ -104,9 +99,6 @@ public class Inputs implements KeyListener{
 	}
 	public static InputButton jump() {
 		return jump;
-	}
-	public static InputButton attack() {
-		return attack;
 	}
 	public static InputButton grapple() {
 		return grapple;

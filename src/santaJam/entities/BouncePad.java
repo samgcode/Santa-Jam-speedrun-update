@@ -16,13 +16,13 @@ public class BouncePad extends Entity{
 		if(facingLeft) {
 			x+=Map.TILESIZE-2;
 		}else {
-			
-		
+	
 		}
 		bounds = new Rectangle(x,y+2,2,9);
 		this.faceLeft=facingLeft;
 		this.x=x;
 		this.y=y;
+		grappleable=true;
 	}
 	@Override
 	public void update() {
