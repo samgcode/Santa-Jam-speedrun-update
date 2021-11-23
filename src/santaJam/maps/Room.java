@@ -17,6 +17,8 @@ import santaJam.entities.Entity;
 import santaJam.entities.SaveStatue;
 import santaJam.entities.upgrades.DoubleJumpItem;
 import santaJam.entities.upgrades.GrappleItem;
+import santaJam.entities.wallEntities.BreakableWall;
+import santaJam.entities.wallEntities.SmoothWall;
 import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
@@ -53,7 +55,7 @@ public class Room {
 				tiles[tileX][tileY] =(int)((long) mapData.get((tileY *width) + tileX ));
 				if(tiles[tileX][tileY]==Map.WALLTILE) {
 					walls.add(new Rectangle(x+tileX*Map.TILESIZE,y+tileY*Map.TILESIZE,Map.TILESIZE,Map.TILESIZE));
-				}
+				}				
 			}
 		}
 		
@@ -76,8 +78,7 @@ public class Room {
 				g.fillRect(this.x+x*Map.TILESIZE-camera.getxOffset(),this.y+y*Map.TILESIZE-camera.getyOffset(), Map.TILESIZE,Map.TILESIZE);
 					
 			}
-		}
-		
+		}		
 	}
 	
 	public void loadRoom() {
@@ -93,6 +94,10 @@ public class Room {
 					Entity.getManager().addEntity(new GrappleItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.SAVEPOINT) {
 					Entity.getManager().addEntity(new SaveStatue(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.SMASHWALL) {
+					Entity.getManager().addEntity(new BreakableWall(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.SMOOTHWALL) {
+					Entity.getManager().addEntity(new SmoothWall(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}
 				
 			}
@@ -115,12 +120,11 @@ public class Room {
 	public ArrayList<Rectangle> getWalls() {
 		return walls;
 	}
-	public boolean inBounds(Rectangle bounds) {
-		if(new Rectangle(this.x,this.y,getWidth(),getHeight()).intersects(bounds)) {
-			return true;
-		}
-		return false;
+	
+	public Rectangle getBounds() {
+		return new Rectangle(this.x,this.y,getWidth(),getHeight());
 	}
+	
 	public int getWidth() {
 		return width*Map.TILESIZE;
 	}

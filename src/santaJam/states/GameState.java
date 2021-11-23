@@ -35,7 +35,7 @@ public class GameState implements State {
 		Entity.getManager().update();
 		map.update();
 		camera.moveToEntity(player);
-		camera.update(map.getCurrentRoom());
+		camera.update(map.getPlayerRoom());
 		if(Inputs.pause().isPressed()) {
 			StateManager.setCurrentState(new PauseState(this));
 		}

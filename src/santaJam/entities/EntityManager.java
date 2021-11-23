@@ -19,7 +19,7 @@ public class EntityManager {
 		}
 		
 		for (int i = entities.size()-1; i >=0 ; i--) {
-			if(entities.get(i).isKilled()||!StateManager.getGameState().getMap().getCurrentRoom().inBounds(entities.get(i).getBounds())){ //killing the player
+			if(entities.get(i).isKilled()||!StateManager.getGameState().getMap().getPlayerRoom().getBounds().contains(entities.get(i).getBounds())){ //killing the player
 				
 				if(entities.get(i) instanceof Player && entities.get(i).isKilled() ) {
 					StateManager.getGameState().gameOver();

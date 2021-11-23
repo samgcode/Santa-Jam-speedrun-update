@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import santaJam.maps.Room;
 import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
@@ -18,6 +19,7 @@ public abstract class Entity {
 	protected int health=10, maxInvincibility=10, invincibility=0,damage=0, team=0;//what "team" the entity is on (player, enemy, something else) 
 	protected boolean grounded=false, killed=false;
 	protected boolean faceLeft=false;
+	protected boolean grappleable=false;
 	
 	
 	public Entity() {
@@ -48,13 +50,21 @@ public abstract class Entity {
 	
 	
 	protected void updateBounds(){
-		ArrayList<Rectangle> walls = StateManager.getGameState().getMap().getRoom((int)x+bounds.width/2,(int)y+bounds.height/2).getWalls();
+		ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
+		for(Room i:StateManager.getGameState().getMap().getRooms((int)x+bounds.width/2,(int)y+bounds.height/2)) {
+			if(i!=null) {
+				for(Rectangle r:i.getWalls()) {
+					walls.add(r);
+				}
+			}
+		}
+				
+				
 		//if we on;y check wall near the entity it will be faster, but thats kinda complicted for now
 		//ArrayList<Rectangle> relaventWalls = StateManager.getGameState().getMap().getWalls();
  		Rectangle newBounds=bounds.getBounds();
 		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,3);
 		newBounds.x+=Math.round(velX);
-		grounded=false;
 		
 		//horizontal collisions
 		for(Rectangle i:walls) {		
@@ -153,5 +163,8 @@ public abstract class Entity {
 	}
 	public boolean isFaceLeft() {
 		return faceLeft;
+	}
+	public boolean isGrappleable() {
+		return grappleable;
 	}
 }

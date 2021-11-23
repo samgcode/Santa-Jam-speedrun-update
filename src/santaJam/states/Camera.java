@@ -1,5 +1,7 @@
 package santaJam.states;
 
+import java.awt.Rectangle;
+
 import santaJam.Game;
 import santaJam.entities.Entity;
 import santaJam.maps.Room;
@@ -13,6 +15,7 @@ public class Camera {
 	private int xOffset, yOffset, entityX, entityY,locX,locY, screenWidth, screenHeight;
 	private float entityWeight=1, locWeight=1;
 	private float speed=0.4f;
+	private Rectangle bounds;
 	//constructors
 	public Camera() {
 		//screen height and width are required to center things on the screen
@@ -20,6 +23,7 @@ public class Camera {
 		yOffset = 0;
 		this.screenWidth = Game.WIDTH;
 		this.screenHeight = Game.HEIGHT;	
+		bounds = new Rectangle(screenWidth, screenHeight);
 	}
 	//lets you start the camera with in a specific location
 	/*public Camera(int screenWidth, int screenHeight, int xOffset, int yOffset) {
@@ -48,6 +52,8 @@ public class Camera {
 		}
 		xOffset+= Math.round(speed*(targetX-xOffset));
 		yOffset+= Math.round(speed*(targetY-yOffset));
+		bounds.x=xOffset;
+		bounds.y=yOffset;
 		
 		
 		
@@ -83,6 +89,9 @@ public class Camera {
 	}
 	public int getScreenHeight() {
 		return screenHeight;
+	}
+	public Rectangle getBounds() {
+		return bounds;
 	}
 	public void setEntityWeight(int entityWeight) {
 		this.entityWeight = entityWeight;

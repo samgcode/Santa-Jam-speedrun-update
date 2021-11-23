@@ -25,6 +25,10 @@ public class Sliding extends PlayerState{
 		if(Inputs.jump().getHoldLength()<15&&Inputs.jump().getHoldLength()>0) {
 			return new SlideJump();
 		}
+		if(Inputs.up().isPressed()) {
+			return new UpBoost(player);
+			
+		}
 		
 		if(!player.isGrounded()) {
 			coyoteTime--;

@@ -29,9 +29,10 @@ public class SlideFalling extends PlayerState{
 		
 		//trying to double jump if they push jump
 		if(Inputs.jump().isPressed()) {
-			System.out.println("slideJump?");
 			return new 	SlideDoubleJump(this);
-			
+		}
+		if(Inputs.up().isPressed()) {
+			return new UpBoost(player);
 		}
 		return null;
 	}

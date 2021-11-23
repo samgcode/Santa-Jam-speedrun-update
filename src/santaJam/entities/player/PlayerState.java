@@ -37,6 +37,7 @@ public abstract class PlayerState {
 		
 		
 	}
+	
 	protected void normalGravity(Player player) {
 		player.addVelY(Player.GRAVITY);
 		if(player.getVelY()>Player.MAXGRAVITY) {

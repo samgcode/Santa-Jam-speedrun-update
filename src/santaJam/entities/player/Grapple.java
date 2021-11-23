@@ -3,7 +3,9 @@ package santaJam.entities.player;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import santaJam.entities.Entity;
 import santaJam.inputs.Inputs;
+import santaJam.maps.Room;
 import santaJam.states.StateManager;
 
 public class Grapple extends PlayerState{
@@ -26,7 +28,6 @@ public class Grapple extends PlayerState{
 	}
 	@Override
 	public void start(PlayerState prevState) {
-		System.out.println("GRAPPLING HOOK!!!");
 		firstFrame=true;
 		shooting=true;
 		width=17;
@@ -78,12 +79,31 @@ public class Grapple extends PlayerState{
 		
 		//chekcing for walls
 		Rectangle checkBox = new Rectangle(grappleX,player.getBounds().y+5,2,2);
-		ArrayList<Rectangle> walls = StateManager.getGameState().getMap().getCurrentRoom().getWalls();
+		ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
+		for(Room i:StateManager.getGameState().getMap().getLoadedRooms()) {
+			if(i!=null) {
+				for(Rectangle r:i.getWalls()) {
+					walls.add(r);
+				}
+			}
+			
+		}		
 		for(Rectangle r:walls) {
 			if(r.intersects(checkBox)) {
 				shooting=false;
 			}
 		}
+		for(Entity i:Entity.getManager().getEntities()) {
+			if(i.getBounds().intersects(checkBox)) {
+				if(i.isGrappleable()) {
+					shooting=false;
+				}else {
+					canGrapple=false;
+					return prevState;
+				}
+			}
+		}
+		
 		//going back to the previous state if it has been too long
 		if(duration>SHOTDURATION) {
 			canGrapple=false;

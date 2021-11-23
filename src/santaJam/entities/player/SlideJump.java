@@ -24,7 +24,11 @@ public class SlideJump extends PlayerState{
 			player.setVelY(-JUMPSTRENGTH);
 		}
 		firstFrame=false;
-	
+		
+		
+		if(Inputs.up().isPressed()) {
+			return new UpBoost(player);
+		}
 		
 		if(player.getVelY()<=0) {
 			if(!Inputs.jump().isHeld()) {
