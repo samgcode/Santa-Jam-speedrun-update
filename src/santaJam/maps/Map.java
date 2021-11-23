@@ -110,6 +110,9 @@ public class Map {
 		}
 		return returnRooms;
 	}
+	public ArrayList<Room> getAllRooms() {
+		return rooms;
+	}
 	public Room[] getLoadedRooms() {
 		return currentRooms;
 	}

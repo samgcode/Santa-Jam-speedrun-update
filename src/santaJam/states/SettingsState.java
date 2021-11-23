@@ -73,6 +73,7 @@ public class SettingsState implements State{
 		g.setFont(Assets.font);
 		g.drawString("SETTINGS", 150, 10);
 		menu.render(g);
+		g.drawString("ABIL.", 365, 100);
 	}
 
 	@Override

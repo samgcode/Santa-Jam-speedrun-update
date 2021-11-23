@@ -94,7 +94,7 @@ public class Inputs implements KeyListener{
 	public static InputButton up() {
 		return up;
 	}
-	public static InputButton Down() {
+	public static InputButton down() {
 		return down;
 	}
 	public static InputButton jump() {

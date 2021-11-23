@@ -34,7 +34,7 @@ public class Menu extends MenuSelection{
 		}
 		
 		
-		if(Inputs.Down().isPressed()) {
+		if(Inputs.down().isPressed()) {
 			
 			hovered++;
 			if(hovered>menuObjects.length-1) {

@@ -1,0 +1,62 @@
+{
+    "maps": [
+        {
+            "fileName": "start.json",
+            "height": 360,
+            "width": 360,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "tall.json",
+            "height": 600,
+            "width": 840,
+            "x": 972,
+            "y": 1248
+        },
+        {
+            "fileName": "room down.json",
+            "height": 600,
+            "width": 600,
+            "x": 372,
+            "y": 1200
+        },
+        {
+            "fileName": "room2.json",
+            "height": 600,
+            "width": 600,
+            "x": 1356,
+            "y": 480
+        },
+        {
+            "fileName": "test.json",
+            "height": 840,
+            "width": 1200,
+            "x": 156,
+            "y": 360
+        },
+        {
+            "fileName": "long.json",
+            "height": 600,
+            "width": 1200,
+            "x": 1956,
+            "y": 504
+        },
+        {
+            "fileName": "untitled.json",
+            "height": 960,
+            "width": 1680,
+            "x": 1812,
+            "y": 1104
+        },
+        {
+            "fileName": "slidin.json",
+            "height": 480,
+            "width": 900,
+            "x": 3156,
+            "y": 504
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

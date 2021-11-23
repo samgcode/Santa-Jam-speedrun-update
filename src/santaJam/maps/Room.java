@@ -68,7 +68,7 @@ public class Room {
 		
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
-				if(checkWall(x, y)) {
+				if(isWall(x, y)) {
 					g.setColor(new Color(43,173,50));
 					
 				}else if((Math.round(x/5)%2==0&&Math.round(y/5)%2==1)||(Math.round(x/5)%2==1&&Math.round(y/5)%2==0)) {
@@ -109,15 +109,25 @@ public class Room {
 	
 	
 	
-	private boolean checkWall(int x, int y){
+	public boolean isWall(int x, int y){
 		try {
-			if(tiles[x][y]!=Map.WALLTILE) {
-				return false;
+			if(tiles[x][y]==Map.WALLTILE||tiles[x][y]==Map.SMOOTHWALL) {
+				return true;
 			}
 		} catch (IndexOutOfBoundsException e) {	
 			
 		}
-		return true;
+		return false;
+	}
+	public boolean isIceBlock(int x, int y){
+		try {
+			if(tiles[x][y]==Map.SMASHWALL) {
+				return true;
+			}
+		} catch (IndexOutOfBoundsException e) {	
+			
+		}
+		return false;
 	}
 	
 	

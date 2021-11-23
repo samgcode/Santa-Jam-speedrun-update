@@ -52,7 +52,8 @@ public class Display extends JPanel {
 	
 		StateManager.render(g2d);
 		//putting the image onto the display and scaling it
-		g.drawImage(image,Game.getWindow().getxOffset(),Game.getWindow().getyOffset(),width*Game.getWindow().getScale(), height*Game.getWindow().getScale(), null);
+		g.drawImage(image,Game.getWindow().getxOffset(),Game.getWindow().getyOffset(),width*Game.getWindow().getScale(), 
+				height*Game.getWindow().getScale(), null);
 		g.setColor(Color.white);
 		
 	}
