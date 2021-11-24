@@ -34,7 +34,7 @@ public class SettingsState implements State{
 				new MenuSelection(new Rectangle(50,50,50,20), "REBIND CONTROLS") {
 					@Override
 					public void select() {
-						stateToSwitch = new RebindControls();
+						stateToSwitch = new RebindControls(new SettingsState(mainState));
 					}
 				},
 				new MenuSelection(new Rectangle(50,50,50,30), "RESET SETTINGS") {

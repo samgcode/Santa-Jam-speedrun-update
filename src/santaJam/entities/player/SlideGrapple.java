@@ -3,7 +3,6 @@ package santaJam.entities.player;
 import santaJam.states.StateManager;
 
 public class SlideGrapple extends Grapple{
-	
 
 	public SlideGrapple(PlayerState prevState, Player player) {
 		super(prevState, player);
@@ -18,6 +17,11 @@ public class SlideGrapple extends Grapple{
 		super.start(prevState);
 	}
 	public PlayerState update(Player player) {
+		if(!StateManager.getGameState().getSave().hasSlide()) {
+			normalGravity(player);
+			normalMoveLeftRight(player);
+			return prevState;
+		}
 		player.changeBounds(width, height);
 		if(!shooting) {
 			slideGravity(player);

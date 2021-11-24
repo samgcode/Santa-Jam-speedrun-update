@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import santaJam.entities.player.Player;
+import santaJam.inputs.Inputs;
 import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
@@ -13,6 +14,7 @@ public class GrappleItem extends Upgrade{
 	
 	public GrappleItem(int x, int y) {
 		super(x,y);
+		description = "grapple onto things by pressing "+Inputs.grapple().getKey();
 	}
 	
 

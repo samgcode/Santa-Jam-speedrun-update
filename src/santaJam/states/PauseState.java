@@ -5,6 +5,10 @@ import java.awt.Graphics2D;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.entities.upgrades.DoubleJumpItem;
+import santaJam.entities.upgrades.GrappleItem;
+import santaJam.entities.upgrades.SlideItem;
+import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.inputs.Inputs;
 
 public class PauseState implements State{
@@ -36,13 +40,20 @@ public class PauseState implements State{
 		g.setFont(Assets.font);
 		g.drawString("PAUSED", 150, 10);
 		
+		if(StateManager.getGameState().getSave().hasSlide()) {
+			g.drawString("SLIDE:", 50, 50);
+			g.drawString("| "+new SlideItem(0, 0).getDescription().toUpperCase(), 150, 50);
+		}
 		if(StateManager.getGameState().getSave().hasDoubleJump()) {
-			g.drawString("DOUBLE JUMP AQUIRED", 100, 50);
+			g.drawString("DOUBLE JUMP:", 50, 60);
+			g.drawString("| "+new DoubleJumpItem(0, 0).getDescription().toUpperCase(), 150, 60);
 		}
 		if(StateManager.getGameState().getSave().hasGrapple()) {
-			g.drawString("GRAPPLE AQUIRED", 100, 70);
+			g.drawString("GRAPPLE:", 50, 70);
+			g.drawString("| "+new GrappleItem(0, 0).getDescription().toUpperCase(), 150, 70);
 		}if(StateManager.getGameState().getSave().hasUpBoost()) {
-			g.drawString("UPBOOST THING AQUIRED", 100, 90);
+			g.drawString("UPBOOST:", 50, 80);
+			g.drawString("| "+new UpBoostItem(0, 0).getDescription().toUpperCase(), 150, 80);
 		}
 		g.drawString("SETTINGS", 5, 100);
 		g.drawString("MAP", 370, 100);

@@ -7,19 +7,19 @@ import santaJam.entities.player.Player;
 import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
-public class DoubleJumpItem extends Upgrade{
+public class SlideItem extends Upgrade{
 	
 	private int timer=0;
 	
-	public DoubleJumpItem(int x, int y) {
+	public SlideItem(int x, int y) {
 		super(x, y);
-		description = "jump, but again";
+		description = "slide on your belly once you get enough speed";
 	}
 	
 
 	@Override
 	protected void onCollect(Player player) {
-		StateManager.getGameState().getSave().unlockDoubleJump(player);
+		StateManager.getGameState().getSave().unlockSlide(player);
 	}
 	@Override
 	public void update() {
@@ -31,7 +31,7 @@ public class DoubleJumpItem extends Upgrade{
 	@Override
 	public void render(Graphics2D g, Camera camera) {
 		if(timer%40>20) {
-			g.setColor(Color.orange);
+			g.setColor(Color.blue);
 		}else{
 			g.setColor(Color.white);
 		}

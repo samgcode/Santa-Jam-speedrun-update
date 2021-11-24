@@ -48,7 +48,7 @@ public class MainMenu implements State{
 			new MenuSelection(new Rectangle(50,70,50,10), "REBIND CONTROLS") {
 				@Override
 				public void select() {
-					stateToSwitch = new RebindControls();
+					stateToSwitch = new RebindControls(new MainMenu());
 				}
 			},
 			new MenuSelection(new Rectangle(50,80,50,10), "QUIT") {

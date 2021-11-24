@@ -6,6 +6,8 @@ import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
 
 public abstract class Upgrade extends Entity{
+	protected String description="";
+	
 	public Upgrade(int x, int y) {
 		bounds = new Rectangle(x,y,10,10);
 		this.x=x;
@@ -23,6 +25,9 @@ public abstract class Upgrade extends Entity{
 				killed=true;
 			}
 		}
+	}
+	public String getDescription() {
+		return description;
 	}
 	
 }

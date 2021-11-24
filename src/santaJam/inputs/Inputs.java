@@ -6,18 +6,17 @@ import java.awt.event.KeyListener;
 import santaJam.SantaJam;
 
 public class Inputs implements KeyListener{
-	private static int[] keyCodes = new int[] {KeyEvent.VK_UP,KeyEvent.VK_DOWN,KeyEvent.VK_LEFT,KeyEvent.VK_RIGHT,
-			KeyEvent.VK_C,KeyEvent.VK_Z, KeyEvent.VK_ESCAPE};
+	private static int[] keyCodes = new int[] {0,0,0,0,0,0,0};
 	
-	private static int upIndex=0,downIndex=1,leftIndex=2, rightIndex=3,jumpIndex=4, grappleIndex = 6, pauseIndex=7;
+	private static int upIndex=0,downIndex=1,leftIndex=2, rightIndex=3,jumpIndex=4, grappleIndex = 5, pauseIndex=6;
 	private static boolean leftPushed=false, rightPushed=false,upPushed=false,downPushed=false, jumpPushed=false,
 		 grapplePushed=false, pausePushed=false;
-	private static InputButton left = new InputButton(), right = new InputButton(),up = new InputButton(),down = new InputButton(), 
-			jump = new InputButton(), grapple = new InputButton(), pause = new InputButton();
+	private static InputButton left = new InputButton(0), right = new InputButton(0),up = new InputButton(0),down = new InputButton(0), 
+			jump = new InputButton(0), grapple = new InputButton(0), pause = new InputButton(0);
 	
 	private static boolean keyPressed=false;
 	private static int lastKeyCode=-1;
-	private static InputButton anyKey = new InputButton();
+	private static InputButton anyKey = new InputButton(0);
 
 	@Override
 	public void keyTyped(KeyEvent e) {}
@@ -75,6 +74,13 @@ public class Inputs implements KeyListener{
 	}
 	public static void setKeyBinds(int[] newKeyCodes) {
 		keyCodes=newKeyCodes;
+		left = new InputButton(keyCodes[leftIndex]);
+		right = new InputButton(keyCodes[rightIndex]);
+		up = new InputButton(keyCodes[upIndex]);
+		down = new InputButton(keyCodes[downIndex]);
+		jump = new InputButton(keyCodes[jumpIndex]);
+		grapple = new InputButton(keyCodes[grappleIndex]);
+		
 		if(SantaJam.getGame()!=null) {
 			SantaJam.getGame().getSettings().setKeyBinds(newKeyCodes);
 		}

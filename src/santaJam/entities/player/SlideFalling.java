@@ -1,16 +1,24 @@
 package santaJam.entities.player;
 
 import santaJam.inputs.Inputs;
+import santaJam.states.StateManager;
 
 public class SlideFalling extends PlayerState{
+	PlayerState prevState;
 	@Override
 	public void start(PlayerState prevState) {
 		width=20;
 		height=15;
+		this.prevState = prevState;
 	}
 
 	@Override
 	public PlayerState update(Player player) {
+		if(!StateManager.getGameState().getSave().hasSlide()) {
+			normalGravity(player);
+			normalMoveLeftRight(player);
+			return prevState;
+		}
 		super.update(player);
 		//letting the player be gravitied;
 		slideGravity(player);

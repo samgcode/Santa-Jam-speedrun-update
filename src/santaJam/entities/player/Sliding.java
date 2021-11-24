@@ -1,19 +1,28 @@
 package santaJam.entities.player;
 
 import santaJam.inputs.Inputs;
+import santaJam.states.StateManager;
 
 public class Sliding extends PlayerState{
 	int coyoteTime=0;
+	PlayerState prevState;
 	
 	@Override
 	public void start(PlayerState prevState) {
 		width=20;
 		height=10;
 		refreshAbilities();
+		this.prevState=prevState;
 	}
 
 	@Override
 	public PlayerState update(Player player) {
+		
+		if(!StateManager.getGameState().getSave().hasSlide()) {
+			normalGravity(player);
+			normalMoveLeftRight(player);
+			return prevState;
+		}
 		super.update(player);
 		slideGravity(player);
 		

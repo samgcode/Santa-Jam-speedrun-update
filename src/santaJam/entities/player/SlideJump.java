@@ -1,6 +1,7 @@
 package santaJam.entities.player;
 
 import santaJam.inputs.Inputs;
+import santaJam.states.StateManager;
 
 public class SlideJump extends PlayerState{
 	public static final double JUMPSTRENGTH=7, STOPSTRENGTH=0.75;
@@ -17,6 +18,12 @@ public class SlideJump extends PlayerState{
 	public PlayerState update(Player player) {
 		super.update(player);
 		slideGravity(player);
+		
+		if(!StateManager.getGameState().getSave().hasSlide()) {
+			normalGravity(player);
+			normalMoveLeftRight(player);
+			return new Falling();
+		}
 		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {
 			return new Falling();
 			

@@ -14,7 +14,7 @@ public class Save {
 	private String filePath="res/saves/save.properties";
 	
 	private boolean started;
-	private boolean doubleJump, grapple, upBoost;
+	private boolean doubleJump, grapple, upBoost, slide;
 	private int startX, startY, startHealth;
 	private int[] openedRooms;
 	
@@ -30,6 +30,7 @@ public class Save {
 		
 		//setting all the variables from the properties file
 		started=Boolean.valueOf(propertiesFile.getProperty("started"));
+		slide=Boolean.valueOf(propertiesFile.getProperty("slide"));
 		doubleJump=Boolean.valueOf(propertiesFile.getProperty("doubleJump"));
 		grapple=Boolean.valueOf(propertiesFile.getProperty("grapple"));
 		upBoost=Boolean.valueOf(propertiesFile.getProperty("upBoost"));
@@ -91,6 +92,10 @@ public class Save {
 		propertiesFile.setProperty("doubleJump",""+true);
 		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
 	}
+	public void unlockSlide(Player player) {
+		propertiesFile.setProperty("slide",""+true);
+		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
+	}
 	
 	public void unlockGrapple(Player player) {
 		propertiesFile.setProperty("grapple",""+true);
@@ -107,6 +112,9 @@ public class Save {
 	
 	public boolean isStarted() {
 		return started;
+	}
+	public boolean hasSlide() {
+		return slide;
 	}
 	public boolean hasDoubleJump() {
 		return doubleJump;

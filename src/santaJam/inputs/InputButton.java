@@ -1,9 +1,14 @@
 package santaJam.inputs;
 
+import java.awt.event.KeyEvent;
+
 public class InputButton {
 	boolean held=false, pressed=false;
-	int holdLength=0;
+	int holdLength=0, keyCode;
 	
+	public InputButton(int keyCode) {
+		this.keyCode = keyCode;
+	}
 	
 	
 	public void update(boolean isHeld){
@@ -31,6 +36,9 @@ public class InputButton {
 	}
 	public int getHoldLength() {
 		return holdLength;
+	}
+	public String getKey() {
+		return KeyEvent.getKeyText(keyCode);
 	}
 	
 	

@@ -20,6 +20,7 @@ import santaJam.entities.SaveStatue;
 import santaJam.entities.SpikeSubstitute;
 import santaJam.entities.upgrades.DoubleJumpItem;
 import santaJam.entities.upgrades.GrappleItem;
+import santaJam.entities.upgrades.SlideItem;
 import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.entities.wallEntities.BreakableWall;
 import santaJam.entities.wallEntities.SmoothWall;
@@ -102,6 +103,8 @@ public class Room {
 					Entity.getManager().addEntity(new SpikeSubstitute(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'u'));
 				}else if(tiles[x][y]==Map.ICICLE) {
 					Entity.getManager().addEntity(new Icicle(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.SLIDE&&!StateManager.getGameState().getSave().hasSlide()) {
+					Entity.getManager().addEntity(new SlideItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.DOUBLEJUMP&&!StateManager.getGameState().getSave().hasDoubleJump()) {
 					Entity.getManager().addEntity(new DoubleJumpItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.GRAPPLE&&!StateManager.getGameState().getSave().hasGrapple()) {

@@ -9,34 +9,37 @@ import santaJam.Game;
 import santaJam.inputs.Inputs;
 
 public class RebindControls implements State{
-	State prevState;
+	State returnState;
 
 	
-	private String[] actionNames = new String[] {"up", "down", "left", "right","jump/confirm", "attack","grapple"};
+	private String[] actionNames = new String[] {"up", "down", "left", "right","jump/confirm","grapple"};
 	private int[] keyCodes = new int[actionNames.length+1];
 	private int currentAction=0;
 	
-	
+	public RebindControls(State returnState) {
+		this.returnState = returnState;
+	}
 	
 	@Override
 	public void start(State prevState) {
-		this.prevState = prevState;
+		
 	}
 
 	@Override
+	
 	public void update() {
+		
 		if(Inputs.pause().isPressed()) {
-			StateManager.setCurrentState(prevState);
+			StateManager.setCurrentState(returnState);
 		}
-		if(Inputs.AnyKey().isPressed()) {
-			System.out.println("binding button");
+		if(Inputs.AnyKey().isPressed()&&currentAction<actionNames.length) {
 			keyCodes[currentAction]=Inputs.getLastKeyCode();
 			currentAction++;
 		}
 		if(currentAction==keyCodes.length-1) {
 			keyCodes[currentAction]=KeyEvent.VK_ESCAPE;
 			Inputs.setKeyBinds(keyCodes);
-			StateManager.setCurrentState(prevState);
+			StateManager.setCurrentState(returnState);
 		}
 	}
 
