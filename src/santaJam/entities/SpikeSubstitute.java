@@ -8,11 +8,10 @@ import santaJam.entities.player.Player;
 import santaJam.maps.Map;
 import santaJam.states.Camera;
 
-public class BouncePad extends Entity{
-	private final double BOUNCESTRENGTH=9;
+public class SpikeSubstitute extends Entity{
 	char direction;
 	
-	public BouncePad(int x, int y, char direction) {
+	public SpikeSubstitute(int x, int y, char direction) {
 		
 		if(direction == 'l') {
 			x+=Map.TILESIZE-2;
@@ -31,23 +30,15 @@ public class BouncePad extends Entity{
 	}
 	@Override
 	public void update() {
-		
 		for(Entity i:entityCollide()) {
 			if(i instanceof Player) {
-				if(direction=='l') {
-					((Player)i).setVelX(-BOUNCESTRENGTH);
-				}else if(direction=='r') {
-					((Player)i).setVelX(BOUNCESTRENGTH);
-				}else if(direction=='u') {
-					((Player)i).setVelY(-BOUNCESTRENGTH*1.5);
-				}
-				
+				i.kill();
 			}
 		}
 	}
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		g.setColor(Color.blue);
+		g.setColor(Color.red);
 		g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(),bounds.width,bounds.height);
 	}
 	

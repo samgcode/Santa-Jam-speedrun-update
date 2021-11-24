@@ -4,6 +4,8 @@ import santaJam.inputs.Inputs;
 
 public class Falling extends PlayerState{
 
+	private boolean firstFrame=true;
+	
 	@Override
 	public void start(PlayerState prevState) {
 		// TODO Auto-generated method stub
@@ -16,6 +18,10 @@ public class Falling extends PlayerState{
 		if(Math.abs(player.getVelX())>TOPWALKSPEED) {
 			return new SlideFalling();
 			
+		}
+		if(firstFrame) {
+			player.changeBounds(width, height);
+			firstFrame=false;
 		}
 		//letting the player move, and be gravitied;
 		normalMoveLeftRight(player);
@@ -31,11 +37,11 @@ public class Falling extends PlayerState{
 			return new Sliding();
 		}*/
 		//grappling if the buffer an grapple
-		if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
 			return new Grapple(this, player);
 		}
 		//trying to double jump if they push jump
-		if(Inputs.jump().isPressed()) {
+		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0) {
 			return new 	DoubleJump(this);
 			
 		}

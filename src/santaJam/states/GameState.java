@@ -1,6 +1,7 @@
 package santaJam.states;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
@@ -15,6 +16,7 @@ public class GameState implements State {
 	private Camera camera;
 	private Player player;
 	private Save save;
+	private ArrayList<Integer> openedRooms = new ArrayList<>();
 
 	public GameState(Save saveFile) {
 		this.save=saveFile;
@@ -23,6 +25,9 @@ public class GameState implements State {
 		Entity.getManager().addEntity(player);
 		map = new Map("res/maps/newWorld.world");
 		camera = new Camera();
+		for(int i:save.getOpenedRooms()) {
+			openedRooms.add(i);
+		}
 	}
 	
 	@Override
@@ -51,6 +56,11 @@ public class GameState implements State {
 		player = new Player(save.getStartX(),save.getStartY(),save.getStartHealth());
 		Entity.getManager().reset();
 		Entity.getManager().addEntity(player);
+		map.getPlayerRoom().loadRoom();
+	}
+	public void saveData(int x, int y) {
+		save.saveOpenedRooms(openedRooms);
+		save.savePlayerData(x,y,player.getHealth());
 	}
 
 	@Override
@@ -60,11 +70,24 @@ public class GameState implements State {
 	public Map getMap() {
 		return map;
 	}
+
 	public Player getPlayer() {
 		return player;
 	}
 	public Save getSave() {
 		return save;
+	}
+	public ArrayList<Integer> getOpenedRooms() {
+		System.out.println(openedRooms);
+		return openedRooms;
+	}
+	public void addOpenedRoom(int room) {
+		for(int i:openedRooms) {
+			if (i==room) {
+				return;
+			}
+		}
+		openedRooms.add(room);
 	}
 
 	

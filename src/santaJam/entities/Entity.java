@@ -9,7 +9,7 @@ import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public abstract class Entity {
-	public static final double GRAVITY=0.5, MAXGRAVITY=6.3;
+	public static final double GRAVITY=0.4, MAXGRAVITY=6;
 	
 	protected static EntityManager manager = new EntityManager();
 	
@@ -157,6 +157,9 @@ public abstract class Entity {
 	}
 	public boolean isGrounded() {
 		return grounded;
+	}
+	public void kill() {
+		killed = true;
 	}
 	public boolean isKilled() {
 		return killed;

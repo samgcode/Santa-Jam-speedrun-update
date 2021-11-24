@@ -3,11 +3,10 @@ package santaJam.entities.player;
 import santaJam.inputs.Inputs;
 
 public class SlideFalling extends PlayerState{
-
 	@Override
 	public void start(PlayerState prevState) {
-		// TODO Auto-generated method stub
-		
+		width=20;
+		height=15;
 	}
 
 	@Override
@@ -15,6 +14,7 @@ public class SlideFalling extends PlayerState{
 		super.update(player);
 		//letting the player be gravitied;
 		slideGravity(player);
+	
 		
 		//doing a normal fall if they are to slow
 		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {
@@ -28,11 +28,14 @@ public class SlideFalling extends PlayerState{
 		}
 		
 		//trying to double jump if they push jump
-		if(Inputs.jump().isPressed()) {
+		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0) {
 			return new 	SlideDoubleJump(this);
 		}
-		if(Inputs.up().isPressed()) {
-			return new UpBoost(player);
+		if(Inputs.up().getHoldLength()<BUFFERLENGTH&&Inputs.up().getHoldLength()>0) {
+			return new UpBoost(this, player);
+		}
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
+			return new SlideGrapple(this,player);
 		}
 		return null;
 	}

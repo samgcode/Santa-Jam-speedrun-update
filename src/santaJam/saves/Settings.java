@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
-import santaJam.SantaJam;
 import santaJam.inputs.Inputs;
 
 public class Settings {

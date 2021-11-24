@@ -9,13 +9,13 @@ import santaJam.maps.Room;
 import santaJam.states.StateManager;
 
 public class Grapple extends PlayerState{
-	public static final double GRAPPLESTRENGTH=2, MAXSPEED=10,CHECKSPERFRAME=2,SHOTSPEED=20, SHOTDURATION=15, PULLDURATION=20;
-	private static boolean canGrapple=true;
+	protected double GRAPPLESTRENGTH=2, MAXSPEED=8,CHECKSPERFRAME=4,SHOTSPEED=20, SHOTDURATION=15, PULLDURATION=20;
+	protected static boolean canGrapple=true;
 	
-	private boolean firstFrame, facingLeft, shooting;
-	private int grappleX, duration;
+	protected boolean firstFrame=true, facingLeft, shooting=true;
+	protected int grappleX, duration;
 	
-	PlayerState prevState;
+	protected PlayerState prevState;
 
 	
 	public Grapple(PlayerState prevState, Player player) {
@@ -28,8 +28,6 @@ public class Grapple extends PlayerState{
 	}
 	@Override
 	public void start(PlayerState prevState) {
-		firstFrame=true;
-		shooting=true;
 		width=17;
 		height=17;
 	}
@@ -46,6 +44,7 @@ public class Grapple extends PlayerState{
 			//stopping the player and checking direction if it is the first frame
 			player.setVelX(0);
 			player.setVelY(0);
+			player.changeBounds(width, height);
 		}
 		
 		
@@ -69,7 +68,7 @@ public class Grapple extends PlayerState{
 		firstFrame=false;
 		return null;
 	}
-	private PlayerState grappleShoot(Player player) {
+	protected PlayerState grappleShoot(Player player) {
 		PlayerState returnState= null;
 		int checks=0;
 		while(returnState==null&&checks<CHECKSPERFRAME){
@@ -122,9 +121,12 @@ public class Grapple extends PlayerState{
 				return null;
 	}
 	
-	private PlayerState grapplePull(Player player) {
+	protected PlayerState grapplePull(Player player) {
 		super.update(player);
 		refreshAbilities();//refreshing abilities if the land the grapple
+		if(player.getVelY()!=0) {
+			return new Falling();
+		}
 		if(facingLeft) {
 			if(player.getVelX()>0||player.getBounds().x<grappleX) {
 				return new Falling();
@@ -144,7 +146,7 @@ public class Grapple extends PlayerState{
 			}
 		}
 		//letting you cancel the pull into a double jump, or stop the pull if you don't have it unlocked
-		if(Inputs.jump().isPressed()) {
+		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0) {
 			return new Jumping();
 		}
 		

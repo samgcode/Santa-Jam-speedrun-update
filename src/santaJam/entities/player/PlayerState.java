@@ -6,7 +6,7 @@ public abstract class PlayerState {
 	private static PlayerState currentState = new Standing();
 	
 	
-	protected final static double FRICTION=0.5, TOPWALKSPEED=3.5, WALKACCELERATION=1;
+	protected final static double FRICTION=0.5, TOPWALKSPEED=3.5, WALKACCELERATION=1, BUFFERLENGTH=10;
 	
 	protected int width=15, height=20;
 	
@@ -48,6 +48,11 @@ public abstract class PlayerState {
 		player.addVelY(Player.GRAVITY/1.5);
 		if(player.getVelY()>Player.MAXGRAVITY/1.5) {
 			player.setVelY(Player.MAXGRAVITY/1.5);
+		}
+		if(player.getVelX()>0) {
+			player.setDirection(false);
+		}else if(player.getVelX()<0) {
+			player.setDirection(true);
 		}
 	}
 	protected void doFriction(Player player) {

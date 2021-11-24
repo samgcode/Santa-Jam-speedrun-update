@@ -8,7 +8,7 @@ public class Sliding extends PlayerState{
 	@Override
 	public void start(PlayerState prevState) {
 		width=20;
-		height=15;
+		height=10;
 		refreshAbilities();
 	}
 
@@ -18,16 +18,17 @@ public class Sliding extends PlayerState{
 		slideGravity(player);
 		
 		
-		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {
-			
+		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {	
 			return new Falling();
 		}
-		if(Inputs.jump().getHoldLength()<15&&Inputs.jump().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
+			return new SlideGrapple(this,player);
+		}
+		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0) {
 			return new SlideJump();
 		}
-		if(Inputs.up().isPressed()) {
-			return new UpBoost(player);
-			
+		if(Inputs.up().getHoldLength()<BUFFERLENGTH&&Inputs.up().getHoldLength()>0) {
+			return new UpBoost(this,player);	
 		}
 		
 		if(!player.isGrounded()) {

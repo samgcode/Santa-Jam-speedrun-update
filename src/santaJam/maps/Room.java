@@ -15,9 +15,12 @@ import org.json.simple.parser.ParseException;
 import santaJam.entities.BouncePad;
 import santaJam.entities.Entity;
 import santaJam.entities.GrapplePoint;
+import santaJam.entities.Icicle;
 import santaJam.entities.SaveStatue;
+import santaJam.entities.SpikeSubstitute;
 import santaJam.entities.upgrades.DoubleJumpItem;
 import santaJam.entities.upgrades.GrappleItem;
+import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.entities.wallEntities.BreakableWall;
 import santaJam.entities.wallEntities.SmoothWall;
 import santaJam.states.Camera;
@@ -86,13 +89,25 @@ public class Room {
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
 				if(tiles[x][y]==Map.LEFTBOUNCE) {
-					Entity.getManager().addEntity(new BouncePad(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,true));
+					Entity.getManager().addEntity(new BouncePad(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'l'));
 				}else if(tiles[x][y]==Map.RIGHTBOUNCE) {
-					Entity.getManager().addEntity(new BouncePad(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,false));
+					Entity.getManager().addEntity(new BouncePad(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'r'));
+				}else if(tiles[x][y]==Map.UPBOUNCE) {
+					Entity.getManager().addEntity(new BouncePad(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'u'));
+				}else if(tiles[x][y]==Map.LEFTSPIKE) {
+					Entity.getManager().addEntity(new SpikeSubstitute(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'l'));
+				}else if(tiles[x][y]==Map.RIGHTSPIKE) {
+					Entity.getManager().addEntity(new SpikeSubstitute(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'r'));
+				}else if(tiles[x][y]==Map.UPSPIKE) {
+					Entity.getManager().addEntity(new SpikeSubstitute(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'u'));
+				}else if(tiles[x][y]==Map.ICICLE) {
+					Entity.getManager().addEntity(new Icicle(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.DOUBLEJUMP&&!StateManager.getGameState().getSave().hasDoubleJump()) {
 					Entity.getManager().addEntity(new DoubleJumpItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.GRAPPLE&&!StateManager.getGameState().getSave().hasGrapple()) {
 					Entity.getManager().addEntity(new GrappleItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.UPBOOST&&!StateManager.getGameState().getSave().hasUpBoost()) {
+					Entity.getManager().addEntity(new UpBoostItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.SAVEPOINT) {
 					Entity.getManager().addEntity(new SaveStatue(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.SMASHWALL) {

@@ -3,9 +3,12 @@ package santaJam.states;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.entities.Entity;
+import santaJam.entities.player.Player;
 import santaJam.inputs.Inputs;
 import santaJam.maps.Map;
 import santaJam.maps.Room;
@@ -16,10 +19,12 @@ public class MapState implements State{
 	BufferedImage mapImg;
 	double scale=MINSCALE;
 	int mapX=0, mapY=0;
+	ArrayList<Integer> openedRooms = new ArrayList<Integer>();
 	public MapState(GameState gameState) {
 		this.gameState = gameState;
+		openedRooms = gameState.getOpenedRooms();
 		mapImg= buildMap(gameState.getMap());
-		//centreMap();
+		
 		
 		
 	}
@@ -31,8 +36,10 @@ public class MapState implements State{
 	
 	private BufferedImage buildMap(Map map) {
 		BufferedImage mapImg;
+	
 		int minX=0, minY=0, maxX=0, maxY=0;
-		for(Room r:map.getAllRooms()) {
+		for(int i:openedRooms) {
+			Room r = map.getAllRooms().get(i);
 			if(r.getX()<minX) {
 				minX=r.getX();
 			}
@@ -47,20 +54,26 @@ public class MapState implements State{
 			}
 		}
 		mapImg = new BufferedImage((maxX-minX)/Map.TILESIZE, (maxY-minY)/Map.TILESIZE, BufferedImage.TYPE_4BYTE_ABGR);		
-		for(Room r:map.getAllRooms()) {
+		for(int i:openedRooms) {
+			Room r = map.getAllRooms().get(i);
 			
 			for(int y=0;y<r.getHeight()/Map.TILESIZE;y++) {
 				for(int x=0;x<r.getWidth()/Map.TILESIZE;x++) {
-					 if(r.isIceBlock(x,y)) {
+					if(r.isIceBlock(x,y)) {
 						mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.blue.getRGB());
-						//mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE);
 					}else if(!r.isWall(x,y)) {
-						mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.WHITE.getRGB());
-						//mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE);
+						if(x==0||y==0||x==r.getWidth()/Map.TILESIZE-1||y==r.getHeight()/Map.TILESIZE-1) {
+							mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.GRAY.getRGB());
+						}else {
+							mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.WHITE.getRGB());
+						}
+						
 					}
 				}
 			}
 		}
+		
+		
 		
 		return mapImg;
 	}
@@ -116,7 +129,19 @@ public class MapState implements State{
 		g.drawImage(mapImg,Game.WIDTH/2-(int)(mapImg.getWidth()*scale)/2+mapX,Game.HEIGHT/2-(int)(mapImg.getHeight()*scale)/2+mapY,
 				(int)(mapImg.getWidth()*scale),(int)(mapImg.getHeight()*scale), null);
 		
-		g.setColor(new Color(78,16,69));
+		for(Entity i :Entity.getManager().getEntities()) {
+			if(i instanceof Player) {
+				g.setColor(Color.red);
+				int mapDrawX=Game.WIDTH/2-(int)(mapImg.getWidth()*scale)/2+mapX;
+				int mapDrawY=Game.HEIGHT/2-(int)(mapImg.getHeight()*scale)/2+mapY;
+				
+				g.drawRect((int)(mapDrawX+(i.getBounds().x+i.getBounds().width/2)/Map.TILESIZE*scale-3),
+						(int)(mapDrawY+(i.getBounds().y+i.getBounds().height/2)/Map.TILESIZE*scale-3),6,6);
+			}
+		}
+		
+		
+		g.setColor(new Color(57,11,50));
 		g.fillRect(125,0,Game.WIDTH-250,15);
 		g.setColor(Color.white);
 		g.setFont(Assets.font);
@@ -124,8 +149,18 @@ public class MapState implements State{
 		
 		if(scale<=MINSCALE) {
 			g.drawString("ABIL.", 5, 100);
-			g.drawString("KEY", 365, 50);
+			g.drawString("LEGEND:", 350, 50);
 			
+			g.drawString("YOU", 360, 60);
+			g.setColor(Color.red);
+			g.drawRect(350,54,6,6);
+		//	g.drawString("", 360, 70);
+			//g.setColor(Color.black);
+			//g.fillRect(350,64,6,6);
+			g.setColor(Color.white);
+			g.drawString("ICEWALL", 360, 70);
+			g.setColor(Color.blue);
+			g.fillRect(350,64,6,6);
 		}
 		
 		

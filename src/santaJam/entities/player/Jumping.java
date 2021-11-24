@@ -3,11 +3,10 @@ package santaJam.entities.player;
 import santaJam.inputs.Inputs;
 
 public class Jumping extends PlayerState{
-	public static final double JUMPSTRENGTH=9, STOPSTRENGTH=0.75;
-	boolean firstFrame;
+	public static final double JUMPSTRENGTH=7, STOPSTRENGTH=0.75;
+	boolean firstFrame=true;
 
 	public Jumping() {
-		firstFrame=true;
 	}
 	@Override
 	public void start(PlayerState prevState) {}
@@ -25,10 +24,10 @@ public class Jumping extends PlayerState{
 		
 		if(firstFrame) {
 			player.setVelY(-JUMPSTRENGTH);
+			firstFrame=false;
 		}
-		firstFrame=false;
 		
-		if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
 			player.setVelY(0);
 			return new Grapple(this,player);
 			

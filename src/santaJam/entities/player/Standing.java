@@ -5,6 +5,7 @@ import santaJam.inputs.Inputs;
 public class Standing extends PlayerState{
 	
 	private int coyoteTime=5;
+	private boolean firstFrame=true;
 	
 	@Override
 	public void start(PlayerState prevState) {
@@ -20,19 +21,23 @@ public class Standing extends PlayerState{
 			return new Sliding();
 			
 		}
+		if(firstFrame) {
+			player.changeBounds(width, height);
+			firstFrame=false;
+		}
+		
 		normalMoveLeftRight(player);//moving the player
 		normalGravity(player);//doing gravity
 		
 		
+		
 		//if they pressed/buffered a jump, then they should jump
-		if(Inputs.jump().getHoldLength()<15&&Inputs.jump().getHoldLength()>0) {
+		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0) {
 			return new Jumping();
 		}
 		//if they pressed/buffered an grapple, they should grapple
-		if(Inputs.grapple().getHoldLength()<5&&Inputs.grapple().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
 			return new Grapple(this,player);
-			
-			
 		}
 		
 		//transitioning to the falling state if the are not on the ground, and it is after coyote time

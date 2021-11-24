@@ -41,6 +41,8 @@ public class PauseState implements State{
 		}
 		if(StateManager.getGameState().getSave().hasGrapple()) {
 			g.drawString("GRAPPLE AQUIRED", 100, 70);
+		}if(StateManager.getGameState().getSave().hasUpBoost()) {
+			g.drawString("UPBOOST THING AQUIRED", 100, 90);
 		}
 		g.drawString("SETTINGS", 5, 100);
 		g.drawString("MAP", 370, 100);

@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import santaJam.entities.Entity;
 import santaJam.entities.wallEntities.BreakableWall;
 import santaJam.entities.wallEntities.WallEntity;
+import santaJam.maps.Room;
 import santaJam.states.Camera;
+import santaJam.states.GameState;
 import santaJam.states.StateManager;
 
 public class Player extends Entity {
@@ -27,7 +29,8 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-		
+	//	System.out.println(bounds.x+", "+bounds.y);
+	//	System.out.println(currentState);
 		PlayerState nextState = currentState.update(this);
 		if(nextState!=null) {
 			currentState.end();
@@ -139,16 +142,42 @@ public class Player extends Entity {
 	}
 	
 
-	public void changeBounds(int width, int height) {
-		//bounds.width=width;
-		//bounds.height=height;
+	public boolean changeBounds(int width, int height) {
+		int xChange=bounds.width-width, yChange=bounds.height-height;
+		Rectangle newBounds = new Rectangle(bounds.x+xChange/2,bounds.y+yChange,width,height);
+		for(Room r:StateManager.getGameState().getMap().getLoadedRooms()) {
+			if(r!=null) {
+				for(Rectangle i:r.getWalls()) {
+					if(newBounds.intersects(i)) {
+						return false;
+						
+					}
+				}
+			}
+		}
+		for(Entity i:manager.getEntities()) {
+			if(i instanceof WallEntity&& i.getBounds().intersects(newBounds)) {
+				return false;
+			}
+		}
+		
+		bounds = newBounds;
+		x=bounds.x;
+		y=bounds.y;
+		return true;
+		
 	}
 	public boolean isSliding() {
 		if(currentState instanceof Sliding||currentState instanceof SlideFalling||currentState instanceof SlideJump||
-				currentState instanceof SlideDoubleJump) {
+				currentState instanceof SlideDoubleJump||currentState instanceof UpBoost) {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public void kill() {
+		StateManager.getGameState().gameOver();
 	}
 	public PlayerState getCurrentState() {
 		return currentState;

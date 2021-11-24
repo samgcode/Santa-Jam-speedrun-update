@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import santaJam.entities.player.Player;
@@ -13,8 +14,9 @@ public class Save {
 	private String filePath="res/saves/save.properties";
 	
 	private boolean started;
-	private boolean doubleJump, grapple;
+	private boolean doubleJump, grapple, upBoost;
 	private int startX, startY, startHealth;
+	private int[] openedRooms;
 	
 	public Save() {
 		loadFile(filePath);
@@ -30,9 +32,16 @@ public class Save {
 		started=Boolean.valueOf(propertiesFile.getProperty("started"));
 		doubleJump=Boolean.valueOf(propertiesFile.getProperty("doubleJump"));
 		grapple=Boolean.valueOf(propertiesFile.getProperty("grapple"));
+		upBoost=Boolean.valueOf(propertiesFile.getProperty("upBoost"));
 		startX=Integer.parseInt(propertiesFile.getProperty("startX"));
 		startY=Integer.parseInt(propertiesFile.getProperty("startY"));
 		startHealth=Integer.parseInt(propertiesFile.getProperty("health"));
+		
+		String[] openedRoomsText = propertiesFile.getProperty("openedRooms").split(",");
+		openedRooms = new int[openedRoomsText.length];
+		for(int i=0;i<openedRoomsText.length;i++) {
+			openedRooms[i]=Integer.parseInt(openedRoomsText[i]);
+		}
 		
 	}
 	
@@ -60,7 +69,15 @@ public class Save {
 		//updates everything to all the new settings
 		loadFile(filePath);
 	}
-	
+	public void saveOpenedRooms(ArrayList<Integer> openedRooms) {
+		String val="";
+		for(int i:openedRooms) {
+			val+=i+",";
+		}
+		propertiesFile.setProperty("openedRooms",val);
+		writeproperties(propertiesFile);
+		
+	} 
 	public void savePlayerData(int x, int y, int health) {
 		System.out.println("saving");
 		propertiesFile.setProperty("started",""+true);
@@ -74,8 +91,13 @@ public class Save {
 		propertiesFile.setProperty("doubleJump",""+true);
 		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
 	}
+	
 	public void unlockGrapple(Player player) {
 		propertiesFile.setProperty("grapple",""+true);
+		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
+	}
+	public void unlockUpBoost(Player player) {
+		propertiesFile.setProperty("upBoost",""+true);
 		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
 	}
 	public void resetSave() {
@@ -92,6 +114,9 @@ public class Save {
 	public boolean hasGrapple() {
 		return grapple;
 	}
+	public boolean hasUpBoost() {
+		return upBoost;
+	}
 	public int getStartHealth() {
 		return startHealth;
 	}
@@ -100,6 +125,9 @@ public class Save {
 	}
 	public int getStartY() {
 		return startY;
+	}
+	public int[] getOpenedRooms() {
+		return openedRooms;
 	}
 	
 

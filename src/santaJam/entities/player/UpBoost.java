@@ -1,13 +1,18 @@
 package santaJam.entities.player;
 
-public class UpBoost extends PlayerState{
+import santaJam.states.StateManager;
 
+public class UpBoost extends PlayerState{
+	PlayerState prevState;
+	
 	private boolean firstFrame=true;
-	private int chargeTime=30, endLag=5;
+	private int chargeTime=30;
 	private double boostVel;
 	
-	public UpBoost(Player player) {
+	
+	public UpBoost(PlayerState prevState, Player player) {
 		boostVel=Math.abs(player.getVelX());
+		this.prevState = prevState;
 	}
 	@Override
 	public void start(PlayerState prevState) {
@@ -15,6 +20,11 @@ public class UpBoost extends PlayerState{
 	}
 	@Override
 	public PlayerState update(Player player) {
+		if(!StateManager.getGameState().getSave().hasUpBoost()||!player.changeBounds(width, height)) {
+			slideGravity(player);
+			return prevState;
+		}
+		
 		
 		chargeTime--;
 		if(firstFrame) {
@@ -28,9 +38,14 @@ public class UpBoost extends PlayerState{
 			player.setVelY(-boostVel*1.5);
 			System.out.println("boost");
 			
-		}else if(chargeTime<-endLag) {
-			System.out.println("returning");
-			return new Falling();
+		}
+		if(chargeTime<0) {
+			normalGravity(player);
+			normalMoveLeftRight(player);
+			if(player.getVelY()>=0) {
+				System.out.println("returning");
+				return new Falling();
+			}
 			
 		}
 

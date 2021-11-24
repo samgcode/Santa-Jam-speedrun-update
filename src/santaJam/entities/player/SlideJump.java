@@ -3,14 +3,15 @@ package santaJam.entities.player;
 import santaJam.inputs.Inputs;
 
 public class SlideJump extends PlayerState{
-	public static final double JUMPSTRENGTH=9, STOPSTRENGTH=0.75;
-	boolean firstFrame;
+	public static final double JUMPSTRENGTH=7, STOPSTRENGTH=0.75;
+	boolean firstFrame=true;
 
-	public SlideJump() {
-		firstFrame=true;
-	}
+	
 	@Override
-	public void start(PlayerState prevState) {}
+	public void start(PlayerState prevState) {
+		width=20;
+		height=15;
+	}
 
 	@Override
 	public PlayerState update(Player player) {
@@ -22,12 +23,15 @@ public class SlideJump extends PlayerState{
 		}
 		if(firstFrame) {
 			player.setVelY(-JUMPSTRENGTH);
+			firstFrame=false;
 		}
-		firstFrame=false;
 		
 		
-		if(Inputs.up().isPressed()) {
-			return new UpBoost(player);
+		if(Inputs.up().getHoldLength()<BUFFERLENGTH&&Inputs.up().getHoldLength()>0) {
+			return new UpBoost(this,player);
+		}
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
+			return new SlideGrapple(this,player);
 		}
 		
 		if(player.getVelY()<=0) {

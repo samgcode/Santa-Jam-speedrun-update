@@ -15,8 +15,8 @@ import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class Map {
-	public static final int TILESIZE=12, WALLTILE=1, DOUBLEJUMP=3, GRAPPLE=4,SAVEPOINT=5,RIGHTBOUNCE=6,LEFTBOUNCE=7,UPBOUNCE=8,
-			SMASHWALL=9,SMOOTHWALL=10,GRAPPLEPOINT=11, TRANSITIONTIME=10;
+	public static final int TILESIZE=12, WALLTILE=2,SMOOTHWALL=3,SMASHWALL=4,SAVEPOINT=5,SLIDE=6,GRAPPLE=7, DOUBLEJUMP=8,UPBOOST=9, 
+			GRAPPLEPOINT=10,UPSPIKE=11,DOWNSPIKE=12,RIGHTSPIKE=13,LEFTSPIKE=14,ICICLE=15,RIGHTBOUNCE=16,LEFTBOUNCE=17,UPBOUNCE=18;
 	
 	private ArrayList<Rectangle> loadBounds = new ArrayList<Rectangle>();
 	private ArrayList<Room> rooms = new ArrayList<Room>();
@@ -49,6 +49,7 @@ public class Map {
 		}
 	//	currentRooms[1]=rooms.get(0);
 		playerRoom=rooms.get(0);
+		System.out.println(playerRoom.name);
 		
 	}
 	public void update() {
@@ -71,6 +72,12 @@ public class Map {
 		
 		if(oldRoom!=playerRoom) {
 			playerRoom.loadRoom();
+			for(int i=0;i<rooms.size();i++) {
+				if(rooms.get(i)==playerRoom) {
+					StateManager.getGameState().addOpenedRoom(i);
+				}
+			}
+			
 		}
 		
 	}
