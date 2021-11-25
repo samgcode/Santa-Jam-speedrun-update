@@ -19,6 +19,7 @@ public class Falling extends PlayerState{
 			return new SlideFalling();
 			
 		}
+		player.setAnim(player.walking);
 		if(firstFrame) {
 			player.changeBounds(width, height);
 			firstFrame=false;

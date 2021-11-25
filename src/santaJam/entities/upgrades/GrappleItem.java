@@ -14,6 +14,7 @@ public class GrappleItem extends Upgrade{
 	
 	public GrappleItem(int x, int y) {
 		super(x,y);
+		name = "grappling hook";
 		description = "grapple onto things by pressing "+Inputs.grapple().getKey();
 	}
 	
@@ -21,11 +22,13 @@ public class GrappleItem extends Upgrade{
 	@Override
 	protected void onCollect(Player player) {
 		StateManager.getGameState().getSave().unlockGrapple(player);
+		
 	}
 	@Override
 	public void update() {
 		super.update();
 		timer++;
+		
 		
 	}
 

@@ -9,8 +9,8 @@ public class SlideGrapple extends Grapple{
 		SHOTSPEED=50;
 		SHOTDURATION=7;
 		CHECKSPERFRAME=10;
-		width=20;
-		height=15;
+		width=slideWidth;
+		height=slideHeight;
 		
 	}
 	public void start(PlayerState prevState) {

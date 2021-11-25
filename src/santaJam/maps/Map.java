@@ -15,7 +15,7 @@ import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class Map {
-	public static final int TILESIZE=12, WALLTILE=2,SMOOTHWALL=3,SMASHWALL=4,SAVEPOINT=5,SLIDE=6,GRAPPLE=7, DOUBLEJUMP=8,UPBOOST=9, 
+	public static final int TILESIZE=8, WALLTILE=2,SMOOTHWALL=3,SMASHWALL=4,SAVEPOINT=5,SLIDE=6,GRAPPLE=7, DOUBLEJUMP=8,UPBOOST=9, 
 			GRAPPLEPOINT=10,UPSPIKE=11,DOWNSPIKE=12,RIGHTSPIKE=13,LEFTSPIKE=14,ICICLE=15,RIGHTBOUNCE=16,LEFTBOUNCE=17,UPBOUNCE=18;
 	
 	private ArrayList<Rectangle> loadBounds = new ArrayList<Rectangle>();

@@ -13,6 +13,7 @@ public class SlideItem extends Upgrade{
 	
 	public SlideItem(int x, int y) {
 		super(x, y);
+		name = "slide";
 		description = "slide on your belly once you get enough speed";
 	}
 	

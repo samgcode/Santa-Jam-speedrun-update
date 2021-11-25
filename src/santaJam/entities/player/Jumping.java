@@ -3,7 +3,7 @@ package santaJam.entities.player;
 import santaJam.inputs.Inputs;
 
 public class Jumping extends PlayerState{
-	public static final double JUMPSTRENGTH=7, STOPSTRENGTH=0.75;
+	public static final double JUMPSTRENGTH=5, STOPSTRENGTH=0.75;
 	boolean firstFrame=true;
 
 	public Jumping() {
@@ -18,6 +18,7 @@ public class Jumping extends PlayerState{
 			return new SlideJump();
 			
 		}
+		player.setAnim(player.jumping);
 		normalMoveLeftRight(player);
 		normalGravity(player);
 		

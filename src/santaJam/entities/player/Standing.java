@@ -29,6 +29,11 @@ public class Standing extends PlayerState{
 		normalMoveLeftRight(player);//moving the player
 		normalGravity(player);//doing gravity
 		
+		if(Math.abs(player.getVelX())>0) {
+			player.setAnim(player.walking);
+		}else {
+			player.setAnim(player.idle);
+		}
 		
 		
 		//if they pressed/buffered a jump, then they should jump

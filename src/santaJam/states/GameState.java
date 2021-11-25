@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
+import santaJam.graphics.UI.UIElement;
 import santaJam.inputs.Inputs;
 import santaJam.maps.Map;
 import santaJam.saves.Save;
@@ -17,6 +18,7 @@ public class GameState implements State {
 	private Player player;
 	private Save save;
 	private ArrayList<Integer> openedRooms = new ArrayList<>();
+	private boolean stalled=false;
 
 	public GameState(Save saveFile) {
 		this.save=saveFile;
@@ -37,12 +39,23 @@ public class GameState implements State {
 	
 	@Override
 	public void update() {
-		Entity.getManager().update();
+		stalled=false;
+		for (UIElement i:UIElement.getUIManager().getElements()) {
+			if(i.visible&&i.pauseGame) {
+				stalled=true;
+			}
+		}
+		if(!stalled) {
+			Entity.getManager().update();
+		}
 		map.update();
 		camera.moveToEntity(player);
 		camera.update(map.getPlayerRoom());
+		UIElement.getUIManager().update();
+		
 		if(Inputs.pause().isPressed()) {
 			StateManager.setCurrentState(new PauseState(this));
+			UIElement.getUIManager().clear();
 		}
 		
 	}
@@ -51,12 +64,14 @@ public class GameState implements State {
 	public void render(Graphics2D g) {
 		map.render(g, camera);
 		Entity.getManager().render(g, camera);
+		UIElement.getUIManager().render(g);
 	}
 	public void gameOver() {
 		player = new Player(save.getStartX(),save.getStartY(),save.getStartHealth());
 		Entity.getManager().reset();
 		Entity.getManager().addEntity(player);
 		map.getPlayerRoom().loadRoom();
+		UIElement.getUIManager().clear();
 	}
 	public void saveData(int x, int y) {
 		save.saveOpenedRooms(openedRooms);
@@ -81,6 +96,7 @@ public class GameState implements State {
 		System.out.println(openedRooms);
 		return openedRooms;
 	}
+	
 	public void addOpenedRoom(int room) {
 		for(int i:openedRooms) {
 			if (i==room) {
@@ -89,7 +105,7 @@ public class GameState implements State {
 		}
 		openedRooms.add(room);
 	}
-
+	
 	
 
 }

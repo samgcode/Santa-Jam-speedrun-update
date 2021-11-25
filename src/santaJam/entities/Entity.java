@@ -9,7 +9,7 @@ import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public abstract class Entity {
-	public static final double GRAVITY=0.4, MAXGRAVITY=6;
+	public static final double GRAVITY=0.3, MAXGRAVITY=5;
 	
 	protected static EntityManager manager = new EntityManager();
 	
@@ -65,7 +65,7 @@ public abstract class Entity {
  		Rectangle newBounds=bounds.getBounds();
 		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,3);
 		newBounds.x+=Math.round(velX);
-		
+		boolean xCollide=false, yCollide=false;
 		//horizontal collisions
 		for(Rectangle i:walls) {		
 			if(groundedBounds.intersects(i)) {
@@ -77,11 +77,13 @@ public abstract class Entity {
 					while(i.intersects(newBounds)&&newBounds.x>bounds.x) {
 						velX--;
 						newBounds.x--;
+						xCollide=true;
 					}
 				}else if(velX<0) {
 					while(i.intersects(newBounds)&&newBounds.x<bounds.x) {
 						velX++;
 						newBounds.x++;
+						xCollide=true;
 					}
 				}
 			}								
@@ -97,11 +99,13 @@ public abstract class Entity {
 					while(i.intersects(newBounds)&&newBounds.y>bounds.y) {
 						velY--;
 						newBounds.y--;
+						yCollide=true;
 					}
 				}else if(velY<0) {
 					while(i.intersects(newBounds)&&newBounds.y<bounds.y) {
 						velY++;
 						newBounds.y++;
+						yCollide=true;
 					}
 				}
 			}								
@@ -110,6 +114,12 @@ public abstract class Entity {
 		y+=Math.round(velY);
 		bounds.x=(int)Math.round(x);
 		bounds.y=(int)Math.round(y);	
+		if(xCollide){
+			velX=0;
+		}
+		if(yCollide) {
+			velY=0;
+		}
 	}
 	public void knockBack(double x, double y) {
 		velY+=y;

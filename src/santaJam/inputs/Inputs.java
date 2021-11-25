@@ -7,7 +7,7 @@ import santaJam.SantaJam;
 
 public class Inputs implements KeyListener{
 	private static int[] keyCodes = new int[] {0,0,0,0,0,0,0};
-	
+
 	private static int upIndex=0,downIndex=1,leftIndex=2, rightIndex=3,jumpIndex=4, grappleIndex = 5, pauseIndex=6;
 	private static boolean leftPushed=false, rightPushed=false,upPushed=false,downPushed=false, jumpPushed=false,
 		 grapplePushed=false, pausePushed=false;

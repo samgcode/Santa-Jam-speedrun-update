@@ -34,8 +34,13 @@ public class EntityManager {
 	}
 	public void render(Graphics2D g, Camera camera) {
 		for(Entity i:entities) {
-			i.render(g, camera);
+			if(!( i instanceof Player)) {
+				i.render(g, camera);
+			}
+			
 		}
+		StateManager.getGameState().getPlayer().render(g, camera);
+		
 	}
 	public void reset() {
 		entities = new ArrayList<Entity>();

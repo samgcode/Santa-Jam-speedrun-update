@@ -10,20 +10,22 @@ public class SlideJump extends PlayerState{
 	
 	@Override
 	public void start(PlayerState prevState) {
-		width=20;
-		height=15;
+		width=slideWidth;
+		height=slideHeight;
 	}
 
 	@Override
-	public PlayerState update(Player player) {
-		super.update(player);
-		slideGravity(player);
-		
+	public PlayerState update(Player player) {		
 		if(!StateManager.getGameState().getSave().hasSlide()) {
 			normalGravity(player);
 			normalMoveLeftRight(player);
 			return new Falling();
 		}
+		
+		
+		super.update(player);
+		slideGravity(player);
+		player.setAnim(player.jumping);
 		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {
 			return new Falling();
 			

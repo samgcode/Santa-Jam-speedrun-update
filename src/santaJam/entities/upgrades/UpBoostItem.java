@@ -14,6 +14,7 @@ public class UpBoostItem extends Upgrade{
 	
 	public UpBoostItem(int x, int y) {
 		super(x,y);
+		name = "up boost thing";
 		description = "press "+Inputs.up().getKey()+" to convert forward moment into vertival momentum";
 	}
 	

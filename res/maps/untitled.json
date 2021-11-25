@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "chunksize":
+        {
+         "height":8,
+         "width":8
+        }
+    },
  "height":80,
  "infinite":false,
  "layers":[
@@ -19,13 +27,13 @@
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
- "tileheight":12,
+ "tileheight":8,
  "tilesets":[
         {
          "firstgid":1,
-         "source":"tileInfo.tsx"
+         "source":"info tiles.tsx"
         }],
- "tilewidth":12,
+ "tilewidth":8,
  "type":"map",
  "version":"1.6",
  "width":140

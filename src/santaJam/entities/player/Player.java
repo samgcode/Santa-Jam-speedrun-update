@@ -3,23 +3,32 @@ package santaJam.entities.player;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import santaJam.Assets;
 import santaJam.entities.Entity;
 import santaJam.entities.wallEntities.BreakableWall;
 import santaJam.entities.wallEntities.WallEntity;
+import santaJam.graphics.Animation;
 import santaJam.maps.Room;
 import santaJam.states.Camera;
-import santaJam.states.GameState;
 import santaJam.states.StateManager;
 
 public class Player extends Entity {
 	private int maxHealth=5;
 	private PlayerState currentState = new Standing();
+	protected final Animation idle = new Animation(new BufferedImage[] { Assets.walking[0]},3,0);
+	protected final Animation walking = new Animation(Assets.walking,3,0);
+	protected final Animation jumping = new Animation(Assets.jumping,3,0);
+	
+	private Animation currentAnim = walking;
+	
+	
 	
 	
 	public Player(int x, int y, int health) {
-		super(x,y,15,20);
+		super(x,y,8,13);
 		System.out.println("reloading player");
 		this.health=health;
 		damage=0;
@@ -29,14 +38,18 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-	//	System.out.println(bounds.x+", "+bounds.y);
+	
 	//	System.out.println(currentState);
+		currentAnim.update();
 		PlayerState nextState = currentState.update(this);
+		
+
 		if(nextState!=null) {
 			currentState.end();
 			nextState.start(currentState);
 			currentState=nextState;
 		}
+	
 		hitWallEntities();
 		updateBounds();
 	}
@@ -108,37 +121,23 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		g.setColor(Color.black);
+		
 		if(currentState instanceof Grapple&&StateManager.getGameState().getSave().hasGrapple()) {
 			g.setColor(Color.red);
 			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),bounds.y+5-camera.getyOffset(),
 					bounds.x-camera.getxOffset(),bounds.y+5-camera.getyOffset());
-		}else if(currentState instanceof UpBoost) {
-			g.setColor(Color.ORANGE);
-		}else if(currentState instanceof Standing) {
-			g.setColor(Color.BLUE);
-		}else if(currentState instanceof Sliding||currentState instanceof SlideJump||currentState instanceof SlideFalling||
-				currentState instanceof SlideDoubleJump) {
-			g.setColor(Color.cyan);
-		}
-		//g.setColor(Color.black);
-		if(!(invincibility>0&&invincibility%10>5)) {
-			g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
-			if(faceLeft) {
-				g.setColor(Color.white);
-				g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset()+5, 5, 5);
-			}else {
-				g.setColor(Color.white);
-				g.fillRect(bounds.x+bounds.width-5-camera.getxOffset(), bounds.y-camera.getyOffset()+5, 5, 5);
-			}
 		}
 		
+		g.setColor(Color.red);
+		g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
 		
-		g.setColor(Color.RED);
-		for(int i=0;i<health;i++) {
-			g.fillRect(bounds.x-camera.getxOffset()-5+i*5, bounds.y-camera.getyOffset()-5, 3, 3);
+		BufferedImage currentFrame = currentAnim.getCurrentFrame();
+		if(faceLeft) {
+			g.drawImage(currentFrame,bounds.x-camera.getxOffset()-currentAnim.getxOffset(), bounds.y-camera.getyOffset()-currentAnim.getyOffset(), null);
+		}else {
+			g.drawImage(currentFrame,bounds.x-camera.getxOffset()+bounds.width+currentAnim.getxOffset(), bounds.y-camera.getyOffset()+currentAnim.getyOffset(),
+					-currentFrame.getWidth(),currentFrame.getHeight(), null);
 		}
-		
 	}
 	
 
@@ -166,6 +165,13 @@ public class Player extends Entity {
 		y=bounds.y;
 		return true;
 		
+	}
+	public void setAnim(Animation animation) {
+		if(animation!=currentAnim) {
+			animation.setCurrentFrame(0);
+		}
+		
+		this.currentAnim = animation;
 	}
 	public boolean isSliding() {
 		if(currentState instanceof Sliding||currentState instanceof SlideFalling||currentState instanceof SlideJump||
@@ -201,4 +207,5 @@ public class Player extends Entity {
 	public int getMaxHealth() {
 		return maxHealth;
 	}
+	
 }

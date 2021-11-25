@@ -7,7 +7,7 @@ import santaJam.states.StateManager;
 import santaJam.window.Window;
 
 public class Game {
-	public static final int WIDTH=400, HEIGHT=225;
+	public static final int WIDTH=320, HEIGHT=180;
 	private static Window window;
 	private boolean running=true;
 	private Settings settings;

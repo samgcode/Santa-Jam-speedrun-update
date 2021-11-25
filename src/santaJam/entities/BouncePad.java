@@ -9,7 +9,7 @@ import santaJam.maps.Map;
 import santaJam.states.Camera;
 
 public class BouncePad extends Entity{
-	private final double BOUNCESTRENGTH=9;
+	private final double BOUNCESTRENGTH=6;
 	char direction;
 	
 	public BouncePad(int x, int y, char direction) {
@@ -20,9 +20,9 @@ public class BouncePad extends Entity{
 			y+=Map.TILESIZE-2;
 		}
 		if(direction=='u') {
-			bounds = new Rectangle(x+2,y,9,2);
+			bounds = new Rectangle(x+1,y,6,2);
 		}else {
-			bounds = new Rectangle(x,y+2,2,9);
+			bounds = new Rectangle(x,y+1,2,6);
 		}
 		this.direction = direction;
 		this.x=x;

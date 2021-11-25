@@ -6,9 +6,9 @@ public abstract class PlayerState {
 	private static PlayerState currentState = new Standing();
 	
 	
-	protected final static double FRICTION=0.5, TOPWALKSPEED=3.5, WALKACCELERATION=1, BUFFERLENGTH=10;
+	protected final static double FRICTION=0.5, TOPWALKSPEED=2.75, WALKACCELERATION=0.75, BUFFERLENGTH=10;
 	
-	protected int width=15, height=20;
+	protected int width=5, height=13, slideWidth=13,slideHeight=5;
 	
 	public abstract void start(PlayerState prevState);
 	public PlayerState update(Player player) {

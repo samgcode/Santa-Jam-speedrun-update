@@ -9,8 +9,8 @@ public class Sliding extends PlayerState{
 	
 	@Override
 	public void start(PlayerState prevState) {
-		width=20;
-		height=10;
+		width=slideWidth;
+		height=slideHeight;
 		refreshAbilities();
 		this.prevState=prevState;
 	}

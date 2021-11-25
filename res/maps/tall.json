@@ -3,8 +3,8 @@
     {
      "chunksize":
         {
-         "height":12,
-         "width":12
+         "height":8,
+         "width":8
         }
     },
  "height":50,
@@ -27,13 +27,13 @@
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
- "tileheight":12,
+ "tileheight":8,
  "tilesets":[
         {
          "firstgid":1,
-         "source":"tileInfo.tsx"
+         "source":"info tiles.tsx"
         }],
- "tilewidth":12,
+ "tilewidth":8,
  "type":"map",
  "version":"1.6",
  "width":70

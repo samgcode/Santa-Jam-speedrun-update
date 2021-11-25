@@ -9,7 +9,7 @@ import santaJam.maps.Room;
 import santaJam.states.StateManager;
 
 public class Grapple extends PlayerState{
-	protected double GRAPPLESTRENGTH=2, MAXSPEED=8,CHECKSPERFRAME=4,SHOTSPEED=20, SHOTDURATION=15, PULLDURATION=20;
+	protected double GRAPPLESTRENGTH=1.5, MAXSPEED=5,CHECKSPERFRAME=4,SHOTSPEED=20, SHOTDURATION=15, PULLDURATION=20;
 	protected static boolean canGrapple=true;
 	
 	protected boolean firstFrame=true, facingLeft, shooting=true;
@@ -28,8 +28,6 @@ public class Grapple extends PlayerState{
 	}
 	@Override
 	public void start(PlayerState prevState) {
-		width=17;
-		height=17;
 	}
 	
 
@@ -129,15 +127,18 @@ public class Grapple extends PlayerState{
 		}
 		if(facingLeft) {
 			if(player.getVelX()>0||player.getBounds().x<grappleX) {
+				
 				return new Falling();
+				
 			}
 			//moving left
 			if(player.getVelX()>-MAXSPEED) {
 				player.addVelX(-GRAPPLESTRENGTH);
+				
 			}
 			
 		}else {
-			if(player.getVelX()<0||player.getBounds().x>grappleX) {
+			if(player.getVelX()<-0||player.getBounds().x>grappleX) {
 				return new Falling();
 			}
 			//moving right
@@ -145,13 +146,15 @@ public class Grapple extends PlayerState{
 				player.addVelX(GRAPPLESTRENGTH);
 			}
 		}
-		//letting you cancel the pull into a double jump, or stop the pull if you don't have it unlocked
+		//letting you cancel the pull into a jump
 		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0) {
 			return new Jumping();
 		}
 		
 		if(duration>SHOTDURATION+PULLDURATION) {
+			
 			return new Falling();
+			
 		}
 		return null;
 	}

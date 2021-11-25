@@ -7,8 +7,8 @@ public class SlideFalling extends PlayerState{
 	PlayerState prevState;
 	@Override
 	public void start(PlayerState prevState) {
-		width=20;
-		height=15;
+		width=slideWidth;
+		height=slideHeight;
 		this.prevState = prevState;
 	}
 

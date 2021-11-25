@@ -13,6 +13,7 @@ public class DoubleJumpItem extends Upgrade{
 	
 	public DoubleJumpItem(int x, int y) {
 		super(x, y);
+		name = "double jump";
 		description = "jump, but again";
 	}
 	
