@@ -1,5 +1,12 @@
 package santaJam.entities.player;
 
+import java.awt.Color;
+import java.awt.Rectangle;
+
+import santaJam.graphics.particles.movers.Straight;
+import santaJam.graphics.particles.shapes.OvalParticle;
+import santaJam.graphics.particles.shapes.colourers.Timed;
+import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
 
 public class Jumping extends PlayerState{
@@ -24,12 +31,14 @@ public class Jumping extends PlayerState{
 		
 		
 		if(firstFrame) {
+			Rectangle pBounds = player.getBounds();
+			new RectangleSpawn(5, pBounds.x-3, pBounds.y+pBounds.height-3, pBounds.width+10,5,new Straight(0, 0, -90,60,0.5),
+					new OvalParticle(3, new Timed(Color.white,10,5)) , true);
 			player.setVelY(-JUMPSTRENGTH);
 			firstFrame=false;
 		}
 		
 		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
-			player.setVelY(0);
 			return new Grapple(this,player);
 			
 		}

@@ -65,7 +65,14 @@ public class MapState implements State{
 						if(x==0||y==0||x==r.getWidth()/Map.TILESIZE-1||y==r.getHeight()/Map.TILESIZE-1) {
 							mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.GRAY.getRGB());
 						}else {
-							mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.WHITE.getRGB());
+							if(r.getArea()==1) {
+								mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(80,230,100).getRGB());
+							}else if(r.getArea()==2) {
+								mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(230,100,100).getRGB());
+							}else if(r.getArea()==3) {
+								mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(100,190,230).getRGB());
+							}
+							
 						}
 						
 					}
@@ -145,7 +152,7 @@ public class MapState implements State{
 		g.fillRect(125,0,Game.WIDTH-250,15);
 		g.setColor(Color.white);
 		g.setFont(Assets.font);
-		g.drawString("MAP", 180, 10);
+		g.drawString("MAP", Game.WIDTH/2-8, 10);
 		
 		if(scale<=MINSCALE) {
 			g.drawString("ABIL.", 5, 100);

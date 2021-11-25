@@ -1,5 +1,6 @@
 package santaJam.maps;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.io.FileReader;
@@ -11,6 +12,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import santaJam.graphics.particles.movers.Straight;
+import santaJam.graphics.particles.shapes.OvalParticle;
+import santaJam.graphics.particles.shapes.colourers.Timed;
+import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
@@ -60,7 +65,7 @@ public class Map {
 		currentRooms=getRooms(playerBounds.x+playerBounds.width/2, playerBounds.y+playerBounds.height/2);
 		
 		
-		for(Room r: currentRooms) {
+		for(Room r: currentRooms) {			
 			if(r!=null&&r.getBounds().contains(pBounds.x+pBounds.width/2, pBounds.y+pBounds.height/2)) {
 				playerRoom = r;
 				roomsFound=true;
@@ -72,6 +77,7 @@ public class Map {
 		
 		if(oldRoom!=playerRoom) {
 			playerRoom.loadRoom();
+			oldRoom.unload();
 			for(int i=0;i<rooms.size();i++) {
 				if(rooms.get(i)==playerRoom) {
 					StateManager.getGameState().addOpenedRoom(i);
@@ -79,6 +85,7 @@ public class Map {
 			}
 			
 		}
+		playerRoom.update();
 		
 	}
 	

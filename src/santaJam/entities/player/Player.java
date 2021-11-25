@@ -128,8 +128,8 @@ public class Player extends Entity {
 					bounds.x-camera.getxOffset(),bounds.y+5-camera.getyOffset());
 		}
 		
-		g.setColor(Color.red);
-		g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
+		//g.setColor(Color.red);
+		//g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
 		
 		BufferedImage currentFrame = currentAnim.getCurrentFrame();
 		if(faceLeft) {

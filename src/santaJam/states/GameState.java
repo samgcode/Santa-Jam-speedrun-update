@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
 import santaJam.graphics.UI.UIElement;
+import santaJam.graphics.particles.Particle;
 import santaJam.inputs.Inputs;
 import santaJam.maps.Map;
 import santaJam.saves.Save;
@@ -52,6 +53,7 @@ public class GameState implements State {
 		camera.moveToEntity(player);
 		camera.update(map.getPlayerRoom());
 		UIElement.getUIManager().update();
+		Particle.getParticleManager().update();
 		
 		if(Inputs.pause().isPressed()) {
 			StateManager.setCurrentState(new PauseState(this));
@@ -62,8 +64,10 @@ public class GameState implements State {
 
 	@Override
 	public void render(Graphics2D g) {
+		Particle.getParticleManager().renderBack(g, camera);
 		map.render(g, camera);
 		Entity.getManager().render(g, camera);
+		Particle.getParticleManager().renderFront(g, camera);
 		UIElement.getUIManager().render(g);
 	}
 	public void gameOver() {

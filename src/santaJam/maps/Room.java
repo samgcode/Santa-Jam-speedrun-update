@@ -24,14 +24,26 @@ import santaJam.entities.upgrades.SlideItem;
 import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.entities.wallEntities.BreakableWall;
 import santaJam.entities.wallEntities.SmoothWall;
+import santaJam.graphics.particles.movers.Straight;
+import santaJam.graphics.particles.shapes.OvalParticle;
+import santaJam.graphics.particles.shapes.colourers.FadeOut;
+import santaJam.graphics.particles.shapes.colourers.Timed;
+import santaJam.graphics.particles.spawners.EvenRectSpawn;
 import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class Room {
+	private EvenRectSpawn particles;
+	
+	private int area;
 	private int x,y,width, height;
 	private int[][] tiles;
 	private ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
 	String name;
+	
+	
+	
+	
 	
 	public Room(int x, int y, String path) {
 		this.name=path;
@@ -64,9 +76,28 @@ public class Room {
 			}
 		}
 		
+		JSONArray properties=(JSONArray)file.get("properties");
+		JSONObject areaObject=(JSONObject)properties.get(0);
+		System.out.println(areaObject.get("value"));
+		area=(int)((long)areaObject.get("value"));
+		
+		if(area==1) {
+			particles = new EvenRectSpawn(0.0015,x-50,y-50, width*Map.TILESIZE+100,
+					height*Map.TILESIZE+100,new Straight(0,0,90, 15, 0.5),new OvalParticle(3,new FadeOut(1)),true);
+		}else if(area==3) {
+			particles = new EvenRectSpawn(0.01,x-150,y-Map.TILESIZE-50, width*Map.TILESIZE,
+					height*Map.TILESIZE+50,new Straight(0,0,15, 10, 5),new OvalParticle(2,new FadeOut(1)),true);
+		}
+		
+		
 		
 	}
-	
+	public void update() {
+		if(particles!=null) {
+			particles.update();
+		}
+		
+	}
 	
 	public void render(Graphics2D g, Camera camera) {
 		
@@ -87,6 +118,10 @@ public class Room {
 	}
 	
 	public void loadRoom() {
+		if(particles!=null) {
+			particles.start();
+		}
+		
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
 				if(tiles[x][y]==Map.LEFTBOUNCE) {
@@ -123,6 +158,12 @@ public class Room {
 				
 			}
 		}
+	}
+	public void unload() {
+		if(particles!=null) {
+			//particles.stop();
+		}
+		
 	}
 	
 	
@@ -171,6 +212,9 @@ public class Room {
 	}
 	public String getName() {
 		return name;
+	}
+	public int getArea() {
+		return area;
 	}
 	
 	
