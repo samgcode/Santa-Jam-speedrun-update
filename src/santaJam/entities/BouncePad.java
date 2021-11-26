@@ -9,7 +9,7 @@ import santaJam.maps.Map;
 import santaJam.states.Camera;
 
 public class BouncePad extends Entity{
-	private final double BOUNCESTRENGTH=6;
+	private final double BOUNCESTRENGTH=5;
 	char direction;
 	
 	public BouncePad(int x, int y, char direction) {

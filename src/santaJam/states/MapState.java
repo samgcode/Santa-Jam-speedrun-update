@@ -62,17 +62,22 @@ public class MapState implements State{
 					if(r.isIceBlock(x,y)) {
 						mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.blue.getRGB());
 					}else if(!r.isWall(x,y)) {
-						if(x==0||y==0||x==r.getWidth()/Map.TILESIZE-1||y==r.getHeight()/Map.TILESIZE-1) {
-							mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.GRAY.getRGB());
-						}else {
-							if(r.getArea()==1) {
-								mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(80,230,100).getRGB());
-							}else if(r.getArea()==2) {
-								mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(230,100,100).getRGB());
-							}else if(r.getArea()==3) {
-								mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(100,190,230).getRGB());
+						try {
+							if(x==0||y==0||x==r.getWidth()/Map.TILESIZE-1||y==r.getHeight()/Map.TILESIZE-1) {
+								mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.GRAY.getRGB());
+							}else {
+								if(r.getArea()==1) {
+									mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(80,230,100).getRGB());
+								}else if(r.getArea()==2) {
+									mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(230,100,100).getRGB());
+								}else if(r.getArea()==3) {
+									mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(100,190,230).getRGB());
+								}
+								
 							}
-							
+						}catch(IndexOutOfBoundsException e) {
+							System.out.println((x+r.getX()/Map.TILESIZE)+", "+(y+r.getY()/Map.TILESIZE)+"out of bounds");
+							e.printStackTrace();
 						}
 						
 					}

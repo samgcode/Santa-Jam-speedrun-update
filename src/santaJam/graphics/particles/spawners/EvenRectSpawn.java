@@ -17,7 +17,6 @@ public class EvenRectSpawn extends Spawner{
 		this.height=height;
 		this.isOnTop=isOnTop;
 		this.amount=amount*(width*height)/1000;
-		System.out.println(amount+" - "+width+","+height+" = "+this.amount);
 	}
 	
 	

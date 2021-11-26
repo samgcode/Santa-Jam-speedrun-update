@@ -17,6 +17,7 @@ public class Save {
 	private boolean doubleJump, grapple, upBoost, slide;
 	private int startX, startY, startHealth;
 	private int[] openedRooms;
+	private String[] collectibles;
 	
 	public Save() {
 		loadFile(filePath);
@@ -43,6 +44,8 @@ public class Save {
 		for(int i=0;i<openedRoomsText.length;i++) {
 			openedRooms[i]=Integer.parseInt(openedRoomsText[i]);
 		}
+		collectibles = propertiesFile.getProperty("collectibles").split(",");
+		
 		
 	}
 	
@@ -79,6 +82,15 @@ public class Save {
 		writeproperties(propertiesFile);
 		
 	} 
+	public void addCollectible(String roomName) {
+		String val="";
+		for(String i:collectibles) {
+			val+=i+",";
+		}
+		val+=roomName;
+		propertiesFile.setProperty("collectibles",val);
+		writeproperties(propertiesFile);
+	}
 	public void savePlayerData(int x, int y, int health) {
 		System.out.println("saving");
 		propertiesFile.setProperty("started",""+true);
@@ -136,6 +148,9 @@ public class Save {
 	}
 	public int[] getOpenedRooms() {
 		return openedRooms;
+	}
+	public String[] getCollectibles() {
+		return collectibles;
 	}
 	
 

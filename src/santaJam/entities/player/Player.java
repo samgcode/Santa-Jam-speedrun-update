@@ -39,6 +39,7 @@ public class Player extends Entity {
 	@Override
 	public void update() {
 	
+		//System.out.println(velX);
 	//	System.out.println(currentState);
 		currentAnim.update();
 		PlayerState nextState = currentState.update(this);

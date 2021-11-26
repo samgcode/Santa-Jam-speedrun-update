@@ -39,6 +39,7 @@ public class PauseState implements State{
 		g.setColor(Color.white);
 		g.setFont(Assets.font);
 		g.drawString("PAUSED", 150, 10);
+
 		
 		if(StateManager.getGameState().getSave().hasSlide()) {
 			g.drawString("SLIDE:", 50, 50);

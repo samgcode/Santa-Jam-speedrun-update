@@ -1,5 +1,40 @@
 {
     "maps": [
+        {
+            "fileName": "start.json",
+            "height": 312,
+            "width": 480,
+            "x": 0,
+            "y": 48
+        },
+        {
+            "fileName": "r1.json",
+            "height": 312,
+            "width": 640,
+            "x": 176,
+            "y": 368
+        },
+        {
+            "fileName": "r4.json",
+            "height": 320,
+            "width": 320,
+            "x": 936,
+            "y": 688
+        },
+        {
+            "fileName": "r3.json",
+            "height": 312,
+            "width": 320,
+            "x": 1136,
+            "y": 0
+        },
+        {
+            "fileName": "r2.json",
+            "height": 640,
+            "width": 328,
+            "x": 816,
+            "y": 48
+        }
     ],
     "onlyShowAdjacentMaps": false,
     "type": "world"

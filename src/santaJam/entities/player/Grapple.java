@@ -9,7 +9,7 @@ import santaJam.maps.Room;
 import santaJam.states.StateManager;
 
 public class Grapple extends PlayerState{
-	protected double GRAPPLESTRENGTH=1.5, MAXSPEED=5,CHECKSPERFRAME=4,SHOTSPEED=20, SHOTDURATION=15, PULLDURATION=20;
+	protected double GRAPPLESTRENGTH=1.5, MAXSPEED=4.6,CHECKSPERFRAME=4,SHOTSPEED=20, SHOTDURATION=15, PULLDURATION=30;
 	protected static boolean canGrapple=true;
 	
 	protected boolean firstFrame=true, facingLeft, shooting=true;
@@ -44,7 +44,6 @@ public class Grapple extends PlayerState{
 			player.setVelY(0);
 			player.changeBounds(width, height);
 		}
-		
 		
 		duration++;
 		
@@ -100,9 +99,24 @@ public class Grapple extends PlayerState{
 						}
 					}
 					
-				}		
+				}	
+				ArrayList<Rectangle> smoothWalls = new ArrayList<Rectangle>();
+				for(Room i:StateManager.getGameState().getMap().getLoadedRooms()) {
+					if(i!=null) {
+						for(Rectangle r:i.getSmoothWalls()) {
+							smoothWalls.add(r);
+						}
+					}
+					
+				}	
 				for(Rectangle r:walls) {
 					if(r.intersects(checkBox)) {
+						for(Rectangle i:smoothWalls) {
+							if(i==r) {
+								canGrapple=false;
+								return prevState;
+							}
+						}
 						shooting=false;
 					}
 				}
@@ -134,7 +148,8 @@ public class Grapple extends PlayerState{
 			//moving left
 			if(player.getVelX()>-MAXSPEED) {
 				player.addVelX(-GRAPPLESTRENGTH);
-				
+			}else {
+				player.setVelX(-MAXSPEED);
 			}
 			
 		}else {
@@ -144,6 +159,8 @@ public class Grapple extends PlayerState{
 			//moving right
 			if(player.getVelX()<MAXSPEED) {
 				player.addVelX(GRAPPLESTRENGTH);
+			}else {
+				player.setVelX(MAXSPEED);
 			}
 		}
 		//letting you cancel the pull into a jump

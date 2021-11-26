@@ -5,14 +5,13 @@ import java.awt.Rectangle;
 
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.OvalParticle;
-import santaJam.graphics.particles.shapes.colourers.FadeOut;
 import santaJam.graphics.particles.shapes.colourers.Timed;
 import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
 import santaJam.states.StateManager;
 
 public class SlideJump extends PlayerState{
-	public static final double JUMPSTRENGTH=7, STOPSTRENGTH=0.75;
+	public static final double JUMPSTRENGTH=5, STOPSTRENGTH=0.75;
 	boolean firstFrame=true;
 
 	

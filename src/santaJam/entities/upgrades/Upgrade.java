@@ -19,6 +19,7 @@ public abstract class Upgrade extends Entity{
 		bounds = new Rectangle(x,y,10,10);
 		this.x=x;
 		this.y=y;
+		grappleable=true;
 	}
 	
 	protected abstract void onCollect(Player player);
@@ -50,7 +51,6 @@ public abstract class Upgrade extends Entity{
 				text.centre();
 				UIElement.getUIManager().addElement(rect);
 				UIElement.getUIManager().addElement(text);
-				
 				killed=true;
 			}
 		}
@@ -58,5 +58,4 @@ public abstract class Upgrade extends Entity{
 	public String getDescription() {
 		return description;
 	}
-	
 }

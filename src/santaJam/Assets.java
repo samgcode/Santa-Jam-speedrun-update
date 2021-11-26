@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 public class Assets {
 	public static Font font = loadFont("res/monofont.ttf");
 	
+	public static BufferedImage[] tiles = splitSpriteSheet(loadImage("celesteTiles.png"), 8, 8, 7, 9);
+
 	public static BufferedImage[] walking = splitSpriteSheet(loadImage("walking.png"), 9, 13, 8, 1);
 	public static BufferedImage[] jumping = splitSpriteSheet(loadImage("jumping.png"), 11, 12, 6, 1);
 	

@@ -26,7 +26,7 @@ public class GameState implements State {
 		Entity.getManager().reset();
 		player = new Player(save.getStartX(),save.getStartY(),save.getStartHealth());
 		Entity.getManager().addEntity(player);
-		map = new Map("res/maps/newWorld.world");
+		map = new Map("res/maps/world.world");
 		camera = new Camera();
 		for(int i:save.getOpenedRooms()) {
 			openedRooms.add(i);
