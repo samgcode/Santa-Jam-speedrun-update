@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import santaJam.Assets;
+import santaJam.SantaJam;
 import santaJam.entities.BouncePad;
 import santaJam.entities.Entity;
 import santaJam.entities.GrapplePoint;
@@ -34,11 +35,14 @@ import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class Room {
+	private static final String TILESETNAME="tileset.tsx", INFONAME="info tiles.tsx";
 	private EvenRectSpawn particles;
 	
 	private int area;
 	private int x,y,width, height;
 	private int[][] tiles;
+	private int tileSetStart=999, infoStart=999;
+	
 	
 	private ArrayList<Rectangle> smoothWalls = new ArrayList<Rectangle>();
 	private ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
@@ -62,6 +66,20 @@ public class Room {
 			return;
 			
 		}
+		
+		JSONArray tilesets=(JSONArray)file.get("tilesets");//the array of layers
+		for(Object i:tilesets) {
+			JSONObject tileset = (JSONObject)i;
+			if(tileset.get("source").equals(TILESETNAME)) {
+				tileSetStart =(int)((long)tileset.get("firstgid"));
+				
+			}else if(tileset.get("source").equals(INFONAME)) {
+				infoStart =(int)((long)tileset.get("firstgid"));
+			}
+		}
+		
+		
+		
 		JSONArray layers=(JSONArray)file.get("layers");//the array of layers
 		
 		//getting map data
@@ -73,9 +91,9 @@ public class Room {
 		for(int tileY=0;tileY<height;tileY++) {
 			for(int tileX=0;tileX<width;tileX++) {
 				tiles[tileX][tileY] =(int)((long) mapData.get((tileY *width) + tileX ));
-				if(Map.wallTile(tiles[tileX][tileY])) {
+				if(wallTile(tiles[tileX][tileY])) {
 					walls.add(new Rectangle(x+tileX*Map.TILESIZE,y+tileY*Map.TILESIZE,Map.TILESIZE,Map.TILESIZE));
-				}if(Map.smoothTile(tiles[tileX][tileY])) {
+				}if(smoothTile(tiles[tileX][tileY])) {
 					Rectangle rect = new Rectangle(x+tileX*Map.TILESIZE,y+tileY*Map.TILESIZE,Map.TILESIZE,Map.TILESIZE);
 					walls.add(rect);
 					smoothWalls.add(rect);
@@ -84,8 +102,15 @@ public class Room {
 		}
 		
 		JSONArray properties=(JSONArray)file.get("properties");
-		JSONObject areaObject=(JSONObject)properties.get(0);
-		area=(int)((long)areaObject.get("value"));
+		
+		JSONObject areaObject;
+		try {
+			areaObject = (JSONObject)properties.get(0);
+			area=(int)((long)areaObject.get("value"));
+		} catch (NullPointerException e) {
+			System.out.println("room:"+name+", is missing some properties (maybe the area)");
+			e.printStackTrace();
+		}
 		
 		if(area==1) {
 			particles = new EvenRectSpawn(0.0015,x-50,y-50, width*Map.TILESIZE+100,
@@ -115,7 +140,7 @@ public class Room {
 		
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
-				int tile=tiles[x][y]-Map.TileSetStart;
+				int tile=tiles[x][y]-tileSetStart;
 				if(tile>=0&&tile<Assets.tiles.length) {
 					g.drawImage(Assets.tiles[tile],this.x+x*Map.TILESIZE-camera.getxOffset(),this.y+y*Map.TILESIZE-camera.getyOffset(),null);
 					
@@ -129,13 +154,14 @@ public class Room {
 			}
 		}	
 		
-		//for(Rectangle r:walls) {
-			//g.drawRect(r.x-camera.getxOffset(), r.y-camera.getyOffset(), r.width, r.height);
-		//}
+		for(Rectangle r:walls) {
+			g.drawRect(r.x-camera.getxOffset(), r.y-camera.getyOffset(), r.width, r.height);
+		}
 	}
 	
 	public void loadRoom() {
 		System.out.println("loading "+name);
+		SantaJam.getGame().getMusic().switchSong(area-1);
 		if(particles!=null) {
 			particles.start();
 		}
@@ -148,47 +174,47 @@ public class Room {
 		//this is probably the wrong way to do this but idk
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
-				if(tiles[x][y]==Map.LEFTBOUNCE) {
+				if(tiles[x][y]==Map.LEFTBOUNCE+infoStart) {
 					Entity.getManager().addEntity(new BouncePad(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'l'));
-				}else if(tiles[x][y]==Map.RIGHTBOUNCE) {
+				}else if(tiles[x][y]==Map.RIGHTBOUNCE+infoStart) {
 					Entity.getManager().addEntity(new BouncePad(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'r'));
-				}else if(tiles[x][y]==Map.UPBOUNCE) {
+				}else if(tiles[x][y]==Map.UPBOUNCE+infoStart) {
 					Entity.getManager().addEntity(new BouncePad(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'u'));
 				}
-				else if(tiles[x][y]==Map.LEFTSPIKE) {
+				else if(tiles[x][y]==Map.LEFTSPIKE+infoStart) {
 					Entity.getManager().addEntity(new SpikeSubstitute(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'l'));
-				}else if(tiles[x][y]==Map.RIGHTSPIKE) {
+				}else if(tiles[x][y]==Map.RIGHTSPIKE+infoStart) {
 					Entity.getManager().addEntity(new SpikeSubstitute(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'r'));
-				}else if(tiles[x][y]==Map.UPSPIKE) {
+				}else if(tiles[x][y]==Map.UPSPIKE+infoStart) {
 					Entity.getManager().addEntity(new SpikeSubstitute(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'u'));
-				}else if(tiles[x][y]==Map.DOWNSPIKE) {
+				}else if(tiles[x][y]==Map.DOWNSPIKE+infoStart) {
 					Entity.getManager().addEntity(new SpikeSubstitute(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,'d'));
-				}else if(tiles[x][y]==Map.ICICLE) {
+				}else if(tiles[x][y]==Map.ICICLE+infoStart) {
 					Entity.getManager().addEntity(new Icicle(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}
-				else if(tiles[x][y]==Map.SLIDE&&!StateManager.getGameState().getSave().hasSlide()) {
+				else if(tiles[x][y]==Map.SLIDE+infoStart&&!StateManager.getGameState().getSave().hasSlide()) {
 					Entity.getManager().addEntity(new SlideItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
-				}else if(tiles[x][y]==Map.DOUBLEJUMP&&!StateManager.getGameState().getSave().hasDoubleJump()) {
+				}else if(tiles[x][y]==Map.DOUBLEJUMP+infoStart&&!StateManager.getGameState().getSave().hasDoubleJump()) {
 					Entity.getManager().addEntity(new DoubleJumpItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
-				}else if(tiles[x][y]==Map.GRAPPLE&&!StateManager.getGameState().getSave().hasGrapple()) {
+				}else if(tiles[x][y]==Map.GRAPPLE+infoStart&&!StateManager.getGameState().getSave().hasGrapple()) {
 					Entity.getManager().addEntity(new GrappleItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
-				}else if(tiles[x][y]==Map.UPBOOST&&!StateManager.getGameState().getSave().hasUpBoost()) {
+				}else if(tiles[x][y]==Map.UPBOOST+infoStart&&!StateManager.getGameState().getSave().hasUpBoost()) {
 					Entity.getManager().addEntity(new UpBoostItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}
-				else if(tiles[x][y]==Map.SAVEPOINT) {
+				else if(tiles[x][y]==Map.SAVEPOINT+infoStart) {
 					Entity.getManager().addEntity(new SaveStatue(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
-				}else if(tiles[x][y]==Map.GRAPPLEPOINT) {
+				}else if(tiles[x][y]==Map.GRAPPLEPOINT+infoStart) {
 					Entity.getManager().addEntity(new GrapplePoint(this.x+x*Map.TILESIZE+Map.TILESIZE/2,this.y+y*Map.TILESIZE+Map.TILESIZE/2));
-				}else if(tiles[x][y]==Map.SMASHWALL) {
+				}else if(tiles[x][y]==Map.SMASHWALL+infoStart) {
 					Entity.getManager().addEntity(new BreakableWall(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}
 				
 				if(!collected) {
-					if(tiles[x][y]==Map.MILK) {
+					if(tiles[x][y]==Map.MILK+infoStart) {
 						Entity.getManager().addEntity(new Collectible(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,Collectible.MILK));
-					}else if(tiles[x][y]==Map.MARSHMELLOW) {
+					}else if(tiles[x][y]==Map.MARSHMELLOW+infoStart) {
 						Entity.getManager().addEntity(new Collectible(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,Collectible.MARSHMELLOW));
-					}else if(tiles[x][y]==Map.CHOCOLATE) {
+					}else if(tiles[x][y]==Map.CHOCOLATE+infoStart) {
 						Entity.getManager().addEntity(new Collectible(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,Collectible.CHOCOLATE));			
 					}
 				}
@@ -197,12 +223,27 @@ public class Room {
 	}
 	public void unload() {		
 	}
-	
+	protected boolean wallTile(int tile) {
+		for(int i:Map.wallTiles) {
+			if( i==tile-tileSetStart) {
+				return true;
+			}
+		}
+		return false;
+	}
+	protected boolean smoothTile(int tile) {
+		for(int i:Map.smoothTiles) {
+			if(i==tile-tileSetStart) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 	public boolean isWall(int x, int y){
 		try {
-			if(Map.wallTile(tiles[x][y])||Map.smoothTile(tiles[x][y])) {
+			if(wallTile(tiles[x][y])||smoothTile(tiles[x][y])) {
 				return true;
 			}
 		} catch (IndexOutOfBoundsException e) {	
@@ -249,6 +290,9 @@ public class Room {
 	}
 	public int getArea() {
 		return area;
+	}
+	public int getTileSetStart() {
+		return tileSetStart;
 	}
 	
 	

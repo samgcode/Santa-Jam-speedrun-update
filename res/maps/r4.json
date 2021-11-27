@@ -33,7 +33,7 @@
         }, 
         {
          "firstgid":41,
-         "source":"Celeste tiles.tsx"
+         "source":"tileset.tsx"
         }],
  "tilewidth":8,
  "type":"map",

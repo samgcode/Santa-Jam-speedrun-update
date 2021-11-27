@@ -1,5 +1,6 @@
 package santaJam;
 
+import santaJam.audio.MusicManager;
 import santaJam.inputs.Inputs;
 import santaJam.saves.Settings;
 import santaJam.states.MainMenu;
@@ -11,17 +12,19 @@ public class Game {
 	private static Window window;
 	private boolean running=true;
 	private Settings settings;
+	private MusicManager music = new MusicManager();
 	
 	public Game() {
 		window = new Window(WIDTH,HEIGHT);
 		settings = new Settings();
+		music.start();
 		StateManager.setCurrentState(new MainMenu());
 		Inputs.setKeyBinds(settings.getKeyBinds());
 	}
 	
 	public void run() {
 		final int FPS = 60, DELAY = 1000000000 / FPS;
-		
+
 		while(running) {
 			double startTime= System.nanoTime();//getting the time at the start of the frame
 			
@@ -63,6 +66,9 @@ public class Game {
 	}
 	public Settings getSettings() {
 		return settings;
+	}
+	public MusicManager getMusic() {
+		return music;
 	}
 	
 	

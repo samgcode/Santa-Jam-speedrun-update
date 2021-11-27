@@ -34,6 +34,13 @@
             "width": 328,
             "x": 816,
             "y": 48
+        },
+        {
+            "fileName": "testRoom.json",
+            "height": 248,
+            "width": 640,
+            "x": 176,
+            "y": 640
         }
     ],
     "onlyShowAdjacentMaps": false,

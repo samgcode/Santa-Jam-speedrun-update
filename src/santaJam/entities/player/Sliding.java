@@ -47,7 +47,7 @@ public class Sliding extends PlayerState{
 			}
 		}else {
 			//resetting coyote time if they are touching the ground
-			coyoteTime=5;
+			coyoteTime=3;
 		}
 		
 		return null;

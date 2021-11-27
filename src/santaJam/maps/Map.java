@@ -15,9 +15,8 @@ import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class Map {
-	public static final int TileSetStart=41;
-	public static final int TILESIZE=8, MILK=1,MARSHMELLOW=2,CHOCOLATE=3,SMASHWALL=4,SAVEPOINT=5,SLIDE=6,GRAPPLE=7, DOUBLEJUMP=8,UPBOOST=9, 
-			GRAPPLEPOINT=10,UPSPIKE=11,DOWNSPIKE=12,RIGHTSPIKE=13,LEFTSPIKE=14,ICICLE=15,RIGHTBOUNCE=16,LEFTBOUNCE=17,UPBOUNCE=18;
+	public static final int TILESIZE=8, MILK=0,MARSHMELLOW=1,CHOCOLATE=2,SMASHWALL=3,SAVEPOINT=4,SLIDE=5,GRAPPLE=6, DOUBLEJUMP=7,UPBOOST=8, 
+			GRAPPLEPOINT=9,UPSPIKE=10,DOWNSPIKE=11,RIGHTSPIKE=12,LEFTSPIKE=13,ICICLE=14,RIGHTBOUNCE=15,LEFTBOUNCE=16,UPBOUNCE=17;
 	protected static final int[] wallTiles = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,29};
 	
 	protected static final int[] smoothTiles = {35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59};
@@ -132,21 +131,5 @@ public class Map {
 	public Room getPlayerRoom() {
 		return playerRoom;
 	}
-	protected static boolean wallTile(int tile) {
-		for(int i:wallTiles) {
-			if( i==tile-TileSetStart) {
-				System.out.println(tile+"is a wall");
-				return true;
-			}
-		}
-		return false;
-	}
-	protected static boolean smoothTile(int tile) {
-		for(int i:smoothTiles) {
-			if(i==tile-TileSetStart) {
-				return true;
-			}
-		}
-		return false;
-	}
+	
 }
