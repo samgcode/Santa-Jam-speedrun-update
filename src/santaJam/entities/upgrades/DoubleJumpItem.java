@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import santaJam.entities.player.Player;
-import santaJam.states.Camera;
+import santaJam.graphics.Camera;
 import santaJam.states.StateManager;
 
 public class DoubleJumpItem extends Upgrade{

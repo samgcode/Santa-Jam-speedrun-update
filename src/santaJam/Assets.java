@@ -11,11 +11,15 @@ import javax.imageio.ImageIO;
 public class Assets {
 	public static Font font = loadFont("res/monofont.ttf");
 	
-	public static BufferedImage[] tiles = splitSpriteSheet(loadImage("celesteTiles.png"), 8, 8, 7, 9);
+	public static BufferedImage[] tiles = splitSpriteSheet(loadImage("tileset.png"), 8, 8, 12, 37);
 
 	public static BufferedImage[] walking = splitSpriteSheet(loadImage("walking.png"), 9, 13, 8, 1);
-	public static BufferedImage[] jumping = splitSpriteSheet(loadImage("jumping.png"), 11, 12, 6, 1);
+	public static BufferedImage[] jumping = splitSpriteSheet(loadImage("jumping.png"), 11, 12, 3, 1);
+	public static BufferedImage[] sliding = new BufferedImage[] {loadImage("slide.png")};
+	public static BufferedImage[] slideFall = new BufferedImage[] {loadImage("slide fall.png")};
 	
+	public static BufferedImage[] grapplePull = splitSpriteSheet(loadImage("grapple pull.png"), 12, 12, 3, 1);
+	public static BufferedImage[] dance= splitSpriteSheet(loadImage("dance.png"), 11, 13, 4, 1);
 	
 	
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {

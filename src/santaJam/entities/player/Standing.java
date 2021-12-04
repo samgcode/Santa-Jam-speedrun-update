@@ -4,7 +4,7 @@ import santaJam.inputs.Inputs;
 
 public class Standing extends PlayerState{
 	
-	private int coyoteTime=5;
+	private int coyoteTime;
 	private boolean firstFrame=true;
 	
 	@Override
@@ -45,10 +45,13 @@ public class Standing extends PlayerState{
 			return new Grapple(this,player);
 		}
 		
+		if(player.getVelY()<0) {
+			return new Falling();
+		}
 		//transitioning to the falling state if the are not on the ground, and it is after coyote time
 		if(!player.isGrounded()) {
 			coyoteTime--;
-			if(coyoteTime==0) {
+			if(coyoteTime<=0) {
 				return new Falling();
 			}
 		}else {

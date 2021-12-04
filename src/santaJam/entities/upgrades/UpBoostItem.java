@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import santaJam.entities.player.Player;
+import santaJam.graphics.Camera;
 import santaJam.inputs.Inputs;
-import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class UpBoostItem extends Upgrade{

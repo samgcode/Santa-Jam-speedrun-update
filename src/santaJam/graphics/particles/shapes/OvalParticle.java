@@ -2,8 +2,8 @@ package santaJam.graphics.particles.shapes;
 
 import java.awt.Graphics;
 
+import santaJam.graphics.Camera;
 import santaJam.graphics.particles.shapes.colourers.ParticleColourer;
-import santaJam.states.Camera;
 
 /**using this particle shape will unsuprisingly make the particles ovals
  * @author The Computer Man */

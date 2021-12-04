@@ -1,11 +1,19 @@
 package santaJam.entities.player;
 
+import java.awt.Color;
+import java.awt.Rectangle;
+
+import santaJam.graphics.particles.movers.Straight;
+import santaJam.graphics.particles.shapes.RectangleShape;
+import santaJam.graphics.particles.shapes.colourers.Timed;
+import santaJam.graphics.particles.spawners.EvenRectSpawn;
 import santaJam.inputs.Inputs;
 import santaJam.states.StateManager;
 
 public class Sliding extends PlayerState{
 	int coyoteTime=0;
 	PlayerState prevState;
+	private EvenRectSpawn bigParticles, smallParticles;
 	
 	@Override
 	public void start(PlayerState prevState) {
@@ -13,6 +21,11 @@ public class Sliding extends PlayerState{
 		height=slideHeight;
 		refreshAbilities();
 		this.prevState=prevState;
+		
+		smallParticles= new EvenRectSpawn(0,0,0,0,0,new Straight(0, 0, -90,60,0.5),
+				new RectangleShape(1, new Timed(Color.white,6,3)) , true);
+		bigParticles= new EvenRectSpawn(0,0,0,0,0,new Straight(0, 0, -90,60,0.5),
+				new RectangleShape(2, new Timed(Color.white,6,3)) , true);
 	}
 
 	@Override
@@ -24,8 +37,14 @@ public class Sliding extends PlayerState{
 			return prevState;
 		}
 		super.update(player);
+		player.setAnim(player.sliding);
 		slideGravity(player);
 		
+		Rectangle pBounds = player.getBounds();
+		smallParticles.move(pBounds.x, pBounds.y+pBounds.height-3, pBounds.width, 3,40);
+		bigParticles.move(pBounds.x, pBounds.y+pBounds.height-3, pBounds.width, 3,20);
+		smallParticles.update();
+		bigParticles.update();
 		
 		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {	
 			return new Falling();

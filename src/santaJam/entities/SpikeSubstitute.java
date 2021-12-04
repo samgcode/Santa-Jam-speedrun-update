@@ -5,8 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import santaJam.entities.player.Player;
+import santaJam.graphics.Camera;
 import santaJam.maps.Map;
-import santaJam.states.Camera;
 
 public class SpikeSubstitute extends Entity{
 	char direction;

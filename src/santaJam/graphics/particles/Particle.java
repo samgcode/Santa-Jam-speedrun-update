@@ -2,9 +2,9 @@ package santaJam.graphics.particles;
 
 import java.awt.Graphics;
 
+import santaJam.graphics.Camera;
 import santaJam.graphics.particles.movers.ParticleMover;
 import santaJam.graphics.particles.shapes.ParticleShape;
-import santaJam.states.Camera;
 
 public class Particle {
 	

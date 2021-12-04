@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
+import santaJam.graphics.Camera;
 import santaJam.graphics.UI.UIElement;
 import santaJam.graphics.particles.Particle;
 import santaJam.inputs.Inputs;
@@ -26,7 +27,7 @@ public class GameState implements State {
 		Entity.getManager().reset();
 		player = new Player(save.getStartX(),save.getStartY(),save.getStartHealth());
 		Entity.getManager().addEntity(player);
-		map = new Map("res/maps/world.world");
+		map = new Map("res/maps/main.world");
 		camera = new Camera();
 		for(int i:save.getOpenedRooms()) {
 			openedRooms.add(i);

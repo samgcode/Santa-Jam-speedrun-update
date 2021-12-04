@@ -11,18 +11,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import santaJam.states.Camera;
+import santaJam.graphics.Camera;
 import santaJam.states.StateManager;
 
 public class Map {
 	public static final int TILESIZE=8, MILK=0,MARSHMELLOW=1,CHOCOLATE=2,SMASHWALL=3,SAVEPOINT=4,SLIDE=5,GRAPPLE=6, DOUBLEJUMP=7,UPBOOST=8, 
 			GRAPPLEPOINT=9,UPSPIKE=10,DOWNSPIKE=11,RIGHTSPIKE=12,LEFTSPIKE=13,ICICLE=14,RIGHTBOUNCE=15,LEFTBOUNCE=16,UPBOUNCE=17;
-	protected static final int[] wallTiles = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,29};
-	
-	protected static final int[] smoothTiles = {35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59};
+	protected static final int wallStart=0, wallEnd=383, smoothStart=384, smoothEnd=419;
 	private ArrayList<Rectangle> loadBounds = new ArrayList<Rectangle>();
 	private ArrayList<Room> rooms = new ArrayList<Room>();
-	private Room[] currentRooms = new Room[2];
+	private Room[] currentRooms = new Room[3];
 	private Room playerRoom;
 	
 	
@@ -51,7 +49,7 @@ public class Map {
 		}
 	//	currentRooms[1]=rooms.get(0);
 		playerRoom=rooms.get(1);
-		System.out.println(playerRoom.name);
+		
 		
 	}
 	public void update() {
@@ -91,7 +89,6 @@ public class Map {
 		for(Room r:rooms) {
 			if(r.getBounds().intersects(camera.getBounds())) {
 				r.render(g, camera);
-				//System.out.println("rendering room:"+currentRoom.name+"because player is at"+playerBounds.x+", "+playerBounds.y);
 			}
 		}		
 	}
@@ -106,17 +103,27 @@ public class Map {
 		}
 		return false;
 	}
+	public boolean inMap(Rectangle rect) {
+		for(Room r:rooms) {
+			if(r!=null&&r.getBounds().intersects(rect)) {
+				return true;
+			}
+			
+		}
+		return false;
+	}
+	
 	public Room[] getRooms(int x, int y) {
-		boolean multipleRooms=false;
-		Room[] returnRooms= new Room[2];
+	
+		Room[] returnRooms= new Room[4];
+		int index=0;
 		for(int i=0;i<rooms.size();i++) {
 			if(loadBounds.get(i).contains(x,y)) {
-				if(multipleRooms) {
-					returnRooms[1]=rooms.get(i);
+				returnRooms[index]=rooms.get(i);
+				index++;
+				if(index==4) {
+					System.out.println("room array filled");
 					return returnRooms;
-				}else {
-					returnRooms[0]=rooms.get(i);
-					multipleRooms=true;
 				}
 			}
 		}

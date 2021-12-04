@@ -4,14 +4,17 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import santaJam.states.Camera;
+import santaJam.graphics.Camera;
 
 public class GrapplePoint extends Entity{
 	
 	public GrapplePoint(int x, int y) {
-		bounds = new Rectangle(x-7,y-7,14,14);
-		this.x=x-7;
-		this.y=y-7;
+		x-=4;
+		y-=4;
+		this.x=x;
+		this.y=y;
+		bounds = new Rectangle(x,y,8,8);
+		
 	
 		grappleable=true;
 	}

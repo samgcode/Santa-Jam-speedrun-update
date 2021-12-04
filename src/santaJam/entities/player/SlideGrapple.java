@@ -23,7 +23,7 @@ public class SlideGrapple extends Grapple{
 			return prevState;
 		}
 		player.changeBounds(width, height);
-		if(!shooting) {
+		if(shooting) {
 			slideGravity(player);
 		}
 		

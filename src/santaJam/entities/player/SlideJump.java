@@ -31,8 +31,8 @@ public class SlideJump extends PlayerState{
 		
 		
 		super.update(player);
+		player.setAnim(player.sliding);
 		slideGravity(player);
-		player.setAnim(player.jumping);
 		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {
 			return new Falling();
 			

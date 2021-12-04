@@ -14,11 +14,11 @@ import santaJam.maps.Map;
 import santaJam.maps.Room;
 
 public class MapState implements State{
-	private final double MINSCALE=0.75;
+	private final double MINSCALE=0.5;
 	GameState gameState;
 	BufferedImage mapImg;
 	double scale=MINSCALE;
-	int mapX=0, mapY=0;
+	int mapX=0, mapY=0,xOffset,yOffset;
 	ArrayList<Integer> openedRooms = new ArrayList<Integer>();
 	public MapState(GameState gameState) {
 		this.gameState = gameState;
@@ -53,28 +53,31 @@ public class MapState implements State{
 				maxY=r.getY()+r.getHeight();
 			}
 		}
-		mapImg = new BufferedImage((maxX-minX)/Map.TILESIZE, (maxY-minY)/Map.TILESIZE, BufferedImage.TYPE_4BYTE_ABGR);		
+		mapImg = new BufferedImage((maxX-minX)/Map.TILESIZE, (maxY-minY)/Map.TILESIZE, BufferedImage.TYPE_4BYTE_ABGR);	
+		xOffset=minX/Map.TILESIZE;
+		yOffset=minY/Map.TILESIZE;
+		
 		for(int i:openedRooms) {
 			Room r = map.getAllRooms().get(i);
 			
 			for(int y=0;y<r.getHeight()/Map.TILESIZE;y++) {
 				for(int x=0;x<r.getWidth()/Map.TILESIZE;x++) {
+					int mapX=x-minX/Map.TILESIZE+r.getX()/Map.TILESIZE;
+					int mapY=y-minY/Map.TILESIZE+r.getY()/Map.TILESIZE;
 					if(r.isIceBlock(x,y)) {
-						mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.blue.getRGB());
+						mapImg.setRGB(mapX,mapY, Color.blue.getRGB());
 					}else if(!r.isWall(x,y)) {
 						try {
-							if(x==0||y==0||x==r.getWidth()/Map.TILESIZE-1||y==r.getHeight()/Map.TILESIZE-1) {
-								mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, Color.GRAY.getRGB());
-							}else {
+							
 								if(r.getArea()==1) {
-									mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(80,230,100).getRGB());
+									mapImg.setRGB(mapX,mapY, new Color(80,230,100).getRGB());
 								}else if(r.getArea()==2) {
-									mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(230,100,100).getRGB());
+									mapImg.setRGB(mapX,mapY, new Color(230,100,100).getRGB());
 								}else if(r.getArea()==3) {
-									mapImg.setRGB(x+r.getX()/Map.TILESIZE,y+r.getY()/Map.TILESIZE, new Color(100,190,230).getRGB());
+									mapImg.setRGB(mapX,mapY, new Color(100,190,230).getRGB());
 								}
 								
-							}
+							
 						}catch(IndexOutOfBoundsException e) {
 							System.out.println((x+r.getX()/Map.TILESIZE)+", "+(y+r.getY()/Map.TILESIZE)+"out of bounds");
 							e.printStackTrace();
@@ -147,8 +150,8 @@ public class MapState implements State{
 				int mapDrawX=Game.WIDTH/2-(int)(mapImg.getWidth()*scale)/2+mapX;
 				int mapDrawY=Game.HEIGHT/2-(int)(mapImg.getHeight()*scale)/2+mapY;
 				
-				g.drawRect((int)(mapDrawX+(i.getBounds().x+i.getBounds().width/2)/Map.TILESIZE*scale-3),
-						(int)(mapDrawY+(i.getBounds().y+i.getBounds().height/2)/Map.TILESIZE*scale-3),6,6);
+				g.drawRect((int)(mapDrawX+(i.getBounds().x+i.getBounds().width/2-xOffset*Map.TILESIZE)/Map.TILESIZE*scale-3),
+						(int)(mapDrawY+(i.getBounds().y+i.getBounds().height/2-yOffset*Map.TILESIZE)/Map.TILESIZE*scale-3),6,6);
 			}
 		}
 		

@@ -11,6 +11,7 @@ import santaJam.graphics.UI.RectElement;
 import santaJam.graphics.UI.TextElement;
 import santaJam.graphics.UI.UIElement;
 import santaJam.inputs.Inputs;
+import santaJam.states.StateManager;
 
 public abstract class Upgrade extends Entity{
 	protected String description="", name="";
@@ -30,6 +31,8 @@ public abstract class Upgrade extends Entity{
 		for(Entity i:entityCollide()) {
 			if(i instanceof Player) {
 				onCollect((Player) i);
+				StateManager.getGameState().saveData(i.getBounds().x,i.getBounds().y);
+				((Player) i).setAnim(Player.dance);
 				TextElement text = new TextElement(true, Game.WIDTH/2-65,Game.HEIGHT/2-50,6,7,120,
 						"--"+name.toUpperCase()+"-- \n \n "+description+" \n \n "+Inputs.jump().getKey()+" TO CONTINUE", Assets.font) {
 					@Override

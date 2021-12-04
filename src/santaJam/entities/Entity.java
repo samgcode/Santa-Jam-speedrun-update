@@ -4,8 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import santaJam.graphics.Camera;
 import santaJam.maps.Room;
-import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public abstract class Entity {

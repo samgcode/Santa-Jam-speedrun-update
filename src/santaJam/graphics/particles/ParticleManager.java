@@ -3,7 +3,7 @@ package santaJam.graphics.particles;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import santaJam.states.Camera;
+import santaJam.graphics.Camera;
 
 public class ParticleManager {
 	private ArrayList<Particle> frontParticles=new ArrayList<Particle>();

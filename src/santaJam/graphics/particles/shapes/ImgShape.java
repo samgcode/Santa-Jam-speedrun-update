@@ -4,9 +4,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
+import santaJam.graphics.Camera;
 import santaJam.graphics.particles.shapes.colourers.ParticleColourer;
 import santaJam.graphics.particles.shapes.colourers.Timed;
-import santaJam.states.Camera;
 
 /**using this particle shape will unsuprisingly make the particles ovals
  * @author The Computer Man */

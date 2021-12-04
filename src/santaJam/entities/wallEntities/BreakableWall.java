@@ -3,7 +3,7 @@ package santaJam.entities.wallEntities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import santaJam.states.Camera;
+import santaJam.graphics.Camera;
 
 public class BreakableWall extends WallEntity{
 

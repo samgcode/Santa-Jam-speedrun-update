@@ -11,16 +11,21 @@ import santaJam.entities.Entity;
 import santaJam.entities.wallEntities.BreakableWall;
 import santaJam.entities.wallEntities.WallEntity;
 import santaJam.graphics.Animation;
+import santaJam.graphics.Camera;
 import santaJam.maps.Room;
-import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class Player extends Entity {
 	private int maxHealth=5;
 	private PlayerState currentState = new Standing();
-	protected final Animation idle = new Animation(new BufferedImage[] { Assets.walking[0]},3,0);
-	protected final Animation walking = new Animation(Assets.walking,3,0);
-	protected final Animation jumping = new Animation(Assets.jumping,3,0);
+	public static final Animation idle = new Animation(new BufferedImage[] { Assets.walking[0]},3,0);
+	public static final Animation walking = new Animation(Assets.walking,3,0);
+	public static final Animation jumping = new Animation(Assets.jumping,3,0);
+	public static final Animation sliding = new Animation(Assets.sliding,1,0);
+	public static final Animation slideFall = new Animation(Assets.slideFall,1,0);
+	public static final Animation grapplePull = new Animation(Assets.grapplePull,0,0);
+	public static final Animation dance = new Animation(Assets.dance,3,1);
+
 	
 	private Animation currentAnim = walking;
 	
@@ -34,6 +39,7 @@ public class Player extends Entity {
 		damage=0;
 		maxInvincibility=30;
 		team=0;
+		jumping.setLooping(false);
 	}
 
 	@Override
@@ -41,15 +47,10 @@ public class Player extends Entity {
 	
 		//System.out.println(velX);
 	//	System.out.println(currentState);
-		currentAnim.update();
-		PlayerState nextState = currentState.update(this);
 		
-
-		if(nextState!=null) {
-			currentState.end();
-			nextState.start(currentState);
-			currentState=nextState;
-		}
+		PlayerState nextState = currentState.update(this);
+		setState(nextState);
+		
 	
 		hitWallEntities();
 		updateBounds();
@@ -67,6 +68,19 @@ public class Player extends Entity {
 		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,3);
 		newBounds.x+=Math.round(velX);
 		grounded=false;
+		
+		if(velX>0) {
+			
+			while(!StateManager.getGameState().getMap().inMap(newBounds)&&newBounds.x>bounds.x) {
+				velX--;
+				newBounds.x--;
+			}
+		}else if(velX<0) {
+			while(!StateManager.getGameState().getMap().inMap(newBounds)&&newBounds.x<bounds.x) {
+				velX++;
+				newBounds.x++;
+			}
+		}
 		
 		//horizontal collisions
 		for(WallEntity i:walls) {		
@@ -94,11 +108,23 @@ public class Player extends Entity {
 			}								
 		}
 		newBounds.y+=Math.round(velY);
+
+		if(velY>0) {
+			
+			while(!StateManager.getGameState().getMap().inMap(newBounds)&&newBounds.y>bounds.y) {
+				velY--;
+				newBounds.y--;
+			}
+		}else if(velY<0) {
+			while(!StateManager.getGameState().getMap().inMap(newBounds)&&newBounds.y<bounds.y) {
+				velY++;
+				newBounds.y++;
+			}
+		}
 		for(WallEntity i:walls) {		
 			if(groundedBounds.intersects(i.getBounds())) {
 				grounded=true;
 			}
-			
 			if(i.getBounds().intersects(newBounds)) {
 				if(isSliding()&& i instanceof BreakableWall) {
 					((BreakableWall) i).smash();
@@ -122,11 +148,11 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		
+		currentAnim.update();
 		if(currentState instanceof Grapple&&StateManager.getGameState().getSave().hasGrapple()) {
 			g.setColor(Color.red);
-			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),bounds.y+5-camera.getyOffset(),
-					bounds.x-camera.getxOffset(),bounds.y+5-camera.getyOffset());
+			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),bounds.y+7-camera.getyOffset(),
+					bounds.x-camera.getxOffset(),bounds.y+7-camera.getyOffset());
 		}
 		
 		//g.setColor(Color.red);
@@ -188,6 +214,13 @@ public class Player extends Entity {
 	}
 	public PlayerState getCurrentState() {
 		return currentState;
+	}
+	public void setState(PlayerState nextState){
+		if(nextState!=null) {
+			currentState.end();
+			nextState.start(currentState);
+			currentState=nextState;
+		}
 	}
 	
 	protected void addVelX(double amount) {

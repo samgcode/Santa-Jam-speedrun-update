@@ -2,7 +2,7 @@ package santaJam.entities;
 
 import java.awt.Graphics2D;
 
-import santaJam.states.Camera;
+import santaJam.graphics.Camera;
 
 public class Hitbox extends Entity{
 

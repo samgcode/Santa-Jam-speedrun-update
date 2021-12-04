@@ -22,6 +22,7 @@ public class SlideFalling extends PlayerState{
 		super.update(player);
 		//letting the player be gravitied;
 		slideGravity(player);
+		player.setAnim(Player.slideFall);
 	
 		
 		//doing a normal fall if they are to slow

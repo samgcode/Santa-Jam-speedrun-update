@@ -26,12 +26,12 @@ import santaJam.entities.upgrades.GrappleItem;
 import santaJam.entities.upgrades.SlideItem;
 import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.entities.wallEntities.BreakableWall;
+import santaJam.graphics.Camera;
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.OvalParticle;
 import santaJam.graphics.particles.shapes.colourers.FadeOut;
 import santaJam.graphics.particles.shapes.colourers.RandFadeOut;
 import santaJam.graphics.particles.spawners.EvenRectSpawn;
-import santaJam.states.Camera;
 import santaJam.states.StateManager;
 
 public class Room {
@@ -117,7 +117,7 @@ public class Room {
 					height*Map.TILESIZE+100,new Straight(0,0,90, 30, 0.5),new OvalParticle(3,new FadeOut(1)),true);
 		}else if(area==2) {
 			Color[] colors = new Color[] {
-					new Color(0,225,227),new Color(0,90,100),new Color(225,200,0),Color.white,
+					new Color(0,32,108),new Color(0,189,241),new Color(233,187,33),Color.white,
 			};
 			particles = new EvenRectSpawn(0.0005,x-50,y-50, width*Map.TILESIZE+100,
 					height*Map.TILESIZE+100,new Straight(0,0, 0.25),new OvalParticle(1,new RandFadeOut(colors,1.5)),true);
@@ -143,7 +143,6 @@ public class Room {
 				int tile=tiles[x][y]-tileSetStart;
 				if(tile>=0&&tile<Assets.tiles.length) {
 					g.drawImage(Assets.tiles[tile],this.x+x*Map.TILESIZE-camera.getxOffset(),this.y+y*Map.TILESIZE-camera.getyOffset(),null);
-					
 				}else if((Math.round(x/5)%2==0&&Math.round(y/5)%2==1)||(Math.round(x/5)%2==1&&Math.round(y/5)%2==0)) {
 					g.setColor(new Color(57,11,50));
 				}else {
@@ -154,9 +153,9 @@ public class Room {
 			}
 		}	
 		
-		for(Rectangle r:walls) {
+		/*for(Rectangle r:walls) {
 			g.drawRect(r.x-camera.getxOffset(), r.y-camera.getyOffset(), r.width, r.height);
-		}
+		}*/
 	}
 	
 	public void loadRoom() {
@@ -224,18 +223,15 @@ public class Room {
 	public void unload() {		
 	}
 	protected boolean wallTile(int tile) {
-		for(int i:Map.wallTiles) {
-			if( i==tile-tileSetStart) {
-				return true;
-			}
+		
+		if(tile-tileSetStart>=Map.wallStart&&tile-tileSetStart<=Map.wallEnd) {
+			return true;
 		}
 		return false;
 	}
 	protected boolean smoothTile(int tile) {
-		for(int i:Map.smoothTiles) {
-			if(i==tile-tileSetStart) {
-				return true;
-			}
+		if(tile-tileSetStart>=Map.smoothStart&&tile-tileSetStart<=Map.smoothEnd) {
+			return true;
 		}
 		return false;
 	}
@@ -253,7 +249,7 @@ public class Room {
 	}
 	public boolean isIceBlock(int x, int y){
 		try {
-			if(tiles[x][y]==Map.SMASHWALL) {
+			if(tiles[x][y]==Map.SMASHWALL+infoStart) {
 				return true;
 			}
 		} catch (IndexOutOfBoundsException e) {	
