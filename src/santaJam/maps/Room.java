@@ -29,6 +29,7 @@ import santaJam.entities.wallEntities.BreakableWall;
 import santaJam.graphics.Camera;
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.OvalParticle;
+import santaJam.graphics.particles.shapes.RectangleShape;
 import santaJam.graphics.particles.shapes.colourers.FadeOut;
 import santaJam.graphics.particles.shapes.colourers.RandFadeOut;
 import santaJam.graphics.particles.spawners.EvenRectSpawn;
@@ -123,7 +124,7 @@ public class Room {
 					height*Map.TILESIZE+100,new Straight(0,0, 0.25),new OvalParticle(1,new RandFadeOut(colors,1.5)),true);
 		}else if(area==3) {
 			particles = new EvenRectSpawn(0.01,x-150,y-Map.TILESIZE-50, width*Map.TILESIZE,
-					height*Map.TILESIZE+50,new Straight(0,0,15, 5, 5),new OvalParticle(2,new FadeOut(1)),true);
+					height*Map.TILESIZE+50,new Straight(0,0,15, 5, 5),new RectangleShape(2,1,new FadeOut(1)),true);
 		}
 		
 		
@@ -137,20 +138,25 @@ public class Room {
 	}
 	
 	public void render(Graphics2D g, Camera camera) {
+		if(area==1) {
+			StateManager.setBgColour(new Color(72,206,240));
+		}
+		if(area==2) {
+			StateManager.setBgColour(new Color(17,11,36));
+		}
+		if(area==3) {
+			StateManager.setBgColour(new Color(72,206,240));
+		}
 		
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
 				int tile=tiles[x][y]-tileSetStart;
 				if(tile>=0&&tile<Assets.tiles.length) {
 					g.drawImage(Assets.tiles[tile],this.x+x*Map.TILESIZE-camera.getxOffset(),this.y+y*Map.TILESIZE-camera.getyOffset(),null);
-				}else if((Math.round(x/5)%2==0&&Math.round(y/5)%2==1)||(Math.round(x/5)%2==1&&Math.round(y/5)%2==0)) {
-					g.setColor(new Color(57,11,50));
-				}else {
-					g.setColor(new Color(78,16,69));
-				}
 				//g.fillRect(this.x+x*Map.TILESIZE-camera.getxOffset(),this.y+y*Map.TILESIZE-camera.getyOffset(), Map.TILESIZE,Map.TILESIZE);
-					
+				}
 			}
+			
 		}	
 		
 		/*for(Rectangle r:walls) {

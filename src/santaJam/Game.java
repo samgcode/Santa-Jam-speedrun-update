@@ -5,6 +5,7 @@ import santaJam.inputs.Inputs;
 import santaJam.saves.Settings;
 import santaJam.states.MainMenu;
 import santaJam.states.StateManager;
+import santaJam.states.TitleScreen;
 import santaJam.window.Window;
 
 public class Game {
@@ -18,7 +19,7 @@ public class Game {
 		window = new Window(WIDTH,HEIGHT);
 		settings = new Settings();
 		music.start();
-		StateManager.setCurrentState(new MainMenu());
+		StateManager.setCurrentState(new TitleScreen());
 		Inputs.setKeyBinds(settings.getKeyBinds());
 	}
 	

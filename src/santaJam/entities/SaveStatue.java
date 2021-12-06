@@ -39,7 +39,7 @@ public class SaveStatue extends Entity{
 	
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		g.setColor(Color.CYAN);
+		g.setColor(Color.white);
 		g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(),bounds.width,bounds.height-2);
 		if(saveTimer>maxSaveTime-60) {
 			g.setFont(Assets.font);

@@ -1,5 +1,6 @@
 package santaJam.states;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -110,7 +111,5 @@ public class GameState implements State {
 		}
 		openedRooms.add(room);
 	}
-	
-	
 
 }

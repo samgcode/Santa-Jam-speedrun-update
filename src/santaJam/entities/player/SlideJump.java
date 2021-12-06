@@ -31,7 +31,7 @@ public class SlideJump extends PlayerState{
 		
 		
 		super.update(player);
-		player.setAnim(player.sliding);
+		player.setAnim(Player.sliding);
 		slideGravity(player);
 		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {
 			return new Falling();
@@ -41,7 +41,7 @@ public class SlideJump extends PlayerState{
 			player.setVelY(-JUMPSTRENGTH);
 			Rectangle pBounds = player.getBounds();
 			new RectangleSpawn(5, pBounds.x-3, pBounds.y+pBounds.height-3, pBounds.width+10,5,new Straight(0, 0, -90,60,0.5),
-					new OvalParticle(3, new Timed(Color.white,10,5)) , true);
+					new OvalParticle(2, new Timed(Color.white,10,5)) , true);
 			firstFrame=false;
 		}
 		

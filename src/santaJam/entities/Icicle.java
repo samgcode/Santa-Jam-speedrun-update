@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import santaJam.Assets;
 import santaJam.Game;
 import santaJam.entities.player.Player;
 import santaJam.graphics.Camera;
@@ -15,10 +16,10 @@ public class Icicle extends Entity{
 	int fallDelay=10;
 	
 	public Icicle(int x, int y) {
-		this.x=x;
+		this.x=x+1;
 		this.y=y;
-		bounds = new Rectangle((int)this.x,(int)this.y,8,16);
-		fallBounds = new Rectangle(bounds.x+1,bounds.y,6,Game.HEIGHT);
+		bounds = new Rectangle((int)this.x,(int)this.y,6,16);
+		fallBounds = new Rectangle(bounds.x+1,bounds.y,4,Game.HEIGHT);
 		cameraBounds = new Rectangle(bounds.x,bounds.y+bounds.height/2,bounds.width,bounds.height/2);
 		grappleable=true;
 	}
@@ -50,14 +51,9 @@ public class Icicle extends Entity{
 	}
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		g.setColor(Color.red);
-		if(falling) {
-			g.setColor(Color.yellow);
-		}
-		
-		
-		
-		g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(),bounds.width,bounds.height);
+		g.drawImage(Assets.icicle,bounds.x-1-camera.getxOffset(),bounds.y-camera.getyOffset(),null);
+		//g.setColor(Color.white);
+		//g.drawRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
 	}
 	
 	

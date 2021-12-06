@@ -15,6 +15,7 @@ public class Collectible extends Upgrade{
 	public Collectible(int x, int y, int type) {
 		super(x, y);
 		this.type=type;
+		grappleable=false;
 		if(type==MILK) {
 			name = "MILK";
 			description = "the base of all good hot chocolate";

@@ -18,7 +18,7 @@ public class BreakableWall extends WallEntity{
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		g.setColor(new Color(50,175,200));
+		g.setColor(new Color(0,105,199));
 		g.fillRect(bounds.x-camera.getxOffset(),bounds.y-camera.getyOffset(),bounds.width,bounds.height);
 	}
 	

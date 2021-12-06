@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -45,11 +46,11 @@ public class Display extends JPanel {
 	public void paintComponent(Graphics g) {// where everything is actually drawn
 		// all rendering code goes here
 		//the image the everything is drawn onto
-		g.setColor(Color.BLACK);
+		g.setColor(StateManager.getBgColour());
 		g.fillRect(0,0,Game.getWindow().getWindowWidth(),Game.getWindow().getWindowHeight());
 		BufferedImage image=new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d=(Graphics2D)image.getGraphics();
-	
+		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,RenderingHints.VALUE_STROKE_PURE);
 		StateManager.render(g2d);
 		//putting the image onto the display and scaling it
 		g.drawImage(image,Game.getWindow().getxOffset(),Game.getWindow().getyOffset(),width*Game.getWindow().getScale(), 

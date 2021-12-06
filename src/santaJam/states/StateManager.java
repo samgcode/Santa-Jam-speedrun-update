@@ -1,10 +1,12 @@
 package santaJam.states;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class StateManager {
 	private static State currentState;
 	private static GameState gameState;
+	private static Color bgColour=Color.black;
 	
 	
 	public static void update() {
@@ -37,5 +39,12 @@ public class StateManager {
 	public static GameState getGameState() {
 		return gameState;
 	}
+	public static void setBgColour(Color bgColour) {
+		StateManager.bgColour = bgColour;
+	}
+	public static Color getBgColour() {
+		return bgColour;
+	}
+	
 
 }

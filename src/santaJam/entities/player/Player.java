@@ -150,7 +150,7 @@ public class Player extends Entity {
 	public void render(Graphics2D g, Camera camera) {
 		currentAnim.update();
 		if(currentState instanceof Grapple&&StateManager.getGameState().getSave().hasGrapple()) {
-			g.setColor(Color.red);
+			g.setColor(new Color(66,39,37));
 			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),bounds.y+7-camera.getyOffset(),
 					bounds.x-camera.getxOffset(),bounds.y+7-camera.getyOffset());
 		}

@@ -26,7 +26,7 @@ public class GrapplePoint extends Entity{
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		g.setColor(new Color(166,33,144));
+		g.setColor(new Color(14,117,50));
 		g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(),bounds.width,bounds.height);
 	}
 	
