@@ -56,8 +56,8 @@ public class PauseState implements State{
 			g.drawString("UPBOOST:", 50, 80);
 			g.drawString("| "+new UpBoostItem(0, 0).getDescription().toUpperCase(), 150, 80);
 		}
-		g.drawString("SETTINGS", 5, 100);
-		g.drawString("MAP", 370, 100);
+		g.drawImage(Assets.settings, 5, Game.HEIGHT/2-Assets.settings.getHeight()/2, null);
+		g.drawImage(Assets.mapIcon, Game.WIDTH-5-Assets.mapIcon.getWidth(), Game.HEIGHT/2-Assets.mapIcon.getHeight()/2, null);
 	}
 
 	@Override

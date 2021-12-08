@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
+import santaJam.SantaJam;
 import santaJam.inputs.Inputs;
 
 public class Settings {
@@ -14,6 +15,7 @@ public class Settings {
 	
 	
 	private int[] keyBinds;
+	private int music, sounds;
 	
 	public Settings() {
 		loadFile(filePath);
@@ -31,6 +33,10 @@ public class Settings {
 		for(int i=0;i<keysText.length;i++) {
 			keyBinds[i]=Integer.parseInt(keysText[i]);
 		}
+		
+		music=Integer.parseInt(propertiesFile.getProperty("music"));
+		sounds=Integer.parseInt(propertiesFile.getProperty("sounds"));
+
 	}
 	
 	private Properties loadProperties(String path) {
@@ -62,6 +68,7 @@ public class Settings {
 		Properties blankSave = loadProperties("res/saves/defaultSettings.properties");
 		writeproperties(blankSave);
 		Inputs.setKeyBinds(keyBinds);
+		SantaJam.getGame().getMusic().applyVolume();
 	}
 	
 	public int[] getKeyBinds() {
@@ -76,5 +83,20 @@ public class Settings {
 		writeproperties(propertiesFile);
 		
 	} 
+	public int getMusic() {
+		return music;
+	}
+	public void setMusic(int music) {
+		propertiesFile.setProperty("music",music+"");
+		writeproperties(propertiesFile);
+		SantaJam.getGame().getMusic().applyVolume();
+	}
+	public int getSounds() {
+		return sounds;
+	}
+	public void setSounds(int sounds) {
+		propertiesFile.setProperty("sounds",sounds+"");
+		writeproperties(propertiesFile);
+	}
 	
 }

@@ -14,7 +14,7 @@ public class Grapple extends PlayerState {
 	protected static boolean canGrapple = true;
 
 	protected boolean firstFrame = true, facingLeft, shooting = true;
-	protected int grappleX, duration;
+	protected int grappleX, grappleY, duration;
 
 	protected PlayerState prevState;
 
@@ -46,10 +46,11 @@ public class Grapple extends PlayerState {
 		}
 
 		duration++;
-
+		grappleY=player.getBounds().y + 7;
 		// doing things for the grapple shoot
 		if (shooting) {
 			PlayerState returnVal = grappleShoot(player);
+			player.setAnim(Player.grappleThrow);
 			if (returnVal != null) {
 				return returnVal;
 			}
@@ -57,6 +58,7 @@ public class Grapple extends PlayerState {
 			// bringing the player towards the wall if they hit something
 		} else {
 			PlayerState returnVal = grapplePull(player);
+			player.setAnim(Player.grapplePull);
 			if (returnVal != null) {
 				return returnVal;
 			}
@@ -92,7 +94,7 @@ public class Grapple extends PlayerState {
 		}
 
 		// chekcing for walls
-		Rectangle checkBox = new Rectangle(grappleX, player.getBounds().y + 7, 2, 2);
+		Rectangle checkBox = new Rectangle(grappleX, grappleY, 2, 2);
 		ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
 		for (Room i : StateManager.getGameState().getMap().getLoadedRooms()) {
 			if (i != null) {
@@ -137,7 +139,6 @@ public class Grapple extends PlayerState {
 
 	protected PlayerState grapplePull(Player player) {
 		super.update(player);
-		player.setAnim(Player.grapplePull);
 		refreshAbilities();// refreshing abilities if the land the grapple
 		if (player.getVelY() != 0) {
 			return new Falling();
@@ -149,10 +150,10 @@ public class Grapple extends PlayerState {
 
 			}
 			// moving left
-			if (player.getVelX() > -MAXSPEED) {
-				player.addVelX(-GRAPPLESTRENGTH);
-			} else {
+			if (player.getVelX()-GRAPPLESTRENGTH <= -MAXSPEED) {
 				player.setVelX(-MAXSPEED);
+			} else {
+				player.addVelX(-GRAPPLESTRENGTH);
 			}
 
 		} else {
@@ -160,10 +161,11 @@ public class Grapple extends PlayerState {
 				return new Falling();
 			}
 			// moving right
-			if (player.getVelX() < MAXSPEED) {
-				player.addVelX(GRAPPLESTRENGTH);
-			} else {
+			if (player.getVelX()+GRAPPLESTRENGTH>=MAXSPEED) {
 				player.setVelX(MAXSPEED);
+				
+			} else {
+				player.addVelX(GRAPPLESTRENGTH);
 			}
 		}
 		// letting you cancel the pull into a jump
@@ -185,6 +187,9 @@ public class Grapple extends PlayerState {
 
 	public int getCheckX() {
 		return grappleX;
+	}
+	public int getCheckY() {
+		return grappleY;
 	}
 
 	public static void refreshGrapple() {

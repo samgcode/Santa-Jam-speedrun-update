@@ -23,8 +23,12 @@ public class Player extends Entity {
 	public static final Animation jumping = new Animation(Assets.jumping,3,0);
 	public static final Animation sliding = new Animation(Assets.sliding,1,0);
 	public static final Animation slideFall = new Animation(Assets.slideFall,1,0);
-	public static final Animation grapplePull = new Animation(Assets.grapplePull,0,0);
+	public static final Animation grappleThrow = new Animation(Assets.grappleThrow,2,5,2);
+	public static final Animation grapplePull = new Animation(Assets.grapplePull,2,0);
 	public static final Animation dance = new Animation(Assets.dance,3,1);
+	public static final Animation boostStart = new Animation(Assets.boostStart,1,5,2);
+	public static final Animation boost = new Animation(Assets.boost,0,4,1);
+
 
 	
 	private Animation currentAnim = walking;
@@ -40,13 +44,14 @@ public class Player extends Entity {
 		maxInvincibility=30;
 		team=0;
 		jumping.setLooping(false);
+		grappleThrow.setLooping(false);
 	}
 
 	@Override
 	public void update() {
 	
-		//System.out.println(velX);
-	//	System.out.println(currentState);
+		//System.out.println(bounds.x);
+		//System.out.println(currentState);
 		
 		PlayerState nextState = currentState.update(this);
 		setState(nextState);
@@ -151,20 +156,21 @@ public class Player extends Entity {
 		currentAnim.update();
 		if(currentState instanceof Grapple&&StateManager.getGameState().getSave().hasGrapple()) {
 			g.setColor(new Color(66,39,37));
-			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),bounds.y+7-camera.getyOffset(),
-					bounds.x-camera.getxOffset(),bounds.y+7-camera.getyOffset());
+			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),((Grapple) currentState).getCheckY()-camera.getyOffset(),
+					bounds.x-camera.getxOffset(),((Grapple) currentState).getCheckY()-camera.getyOffset());
 		}
 		
 		//g.setColor(Color.red);
-		//g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
+		
 		
 		BufferedImage currentFrame = currentAnim.getCurrentFrame();
 		if(faceLeft) {
 			g.drawImage(currentFrame,bounds.x-camera.getxOffset()-currentAnim.getxOffset(), bounds.y-camera.getyOffset()-currentAnim.getyOffset(), null);
 		}else {
-			g.drawImage(currentFrame,bounds.x-camera.getxOffset()+bounds.width+currentAnim.getxOffset(), bounds.y-camera.getyOffset()+currentAnim.getyOffset(),
+			g.drawImage(currentFrame,bounds.x-camera.getxOffset()+bounds.width+currentAnim.getxOffset(), bounds.y-camera.getyOffset()-currentAnim.getyOffset(),
 					-currentFrame.getWidth(),currentFrame.getHeight(), null);
 		}
+		//g.drawRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width-1, bounds.height-1);
 	}
 	
 
@@ -196,6 +202,7 @@ public class Player extends Entity {
 	public void setAnim(Animation animation) {
 		if(animation!=currentAnim) {
 			animation.setCurrentFrame(0);
+			animation.setPaused(false);
 		}
 		
 		this.currentAnim = animation;

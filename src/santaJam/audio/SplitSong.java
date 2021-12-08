@@ -7,11 +7,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 
+import santaJam.SantaJam;
+
 public class SplitSong extends Sound {
 	private String startPath, loopPath;
 	private Clip startClip, loopClip;
 	private boolean starting = true, fadeOut = false;
-	private double volume = 1;
+	
 
 	public SplitSong(String startPath, String loopPath) {
 		this.startPath = startPath;
@@ -60,13 +62,14 @@ public class SplitSong extends Sound {
 
 	private void switchClips() {
 		starting = false;
+		loopClip.loop(Clip.LOOP_CONTINUOUSLY);
 		loopClip.start();
 		startClip.stop();
 		startClip.close();
 	}
 
 	public void play() {
-		volume = 1;
+		volume = SantaJam.getGame().getSettings().getMusic()/100f;
 		playing = true;
 		fadeOut=false;
 		if (startClip.isOpen() || loopClip.isOpen()) {
@@ -82,6 +85,7 @@ public class SplitSong extends Sound {
 			e.printStackTrace();
 		}
 		startClip.start();
+		
 
 	}
 

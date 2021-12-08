@@ -10,6 +10,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public abstract class Sound {
 	AudioInputStream audioStream;
 	protected boolean playing = false;
+	protected double volume;
 	
 	public abstract void update();
 	public abstract void play();
@@ -36,6 +37,9 @@ public abstract class Sound {
 	}
 	public boolean isPlaying() {
 		return playing;
+	}
+	public void setVolume(double volume) {
+		this.volume = volume;
 	}
 	
 }

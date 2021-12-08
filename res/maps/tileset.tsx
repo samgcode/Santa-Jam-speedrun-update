@@ -161,5 +161,25 @@
    <wangtile tileid="414" wangid="0,4,0,4,0,0,0,0"/>
    <wangtile tileid="415" wangid="0,0,0,0,0,4,0,4"/>
   </wangset>
+  <wangset name="1 tile platforms" type="edge" tile="-1">
+   <wangcolor name="peak 1" color="#ff0000" tile="-1" probability="1"/>
+   <wangcolor name="peak 2" color="#00ff00" tile="-1" probability="1"/>
+   <wangtile tileid="226" wangid="0,0,0,0,1,0,0,0"/>
+   <wangtile tileid="227" wangid="1,0,0,0,1,0,0,0"/>
+   <wangtile tileid="228" wangid="0,0,1,0,0,0,0,0"/>
+   <wangtile tileid="229" wangid="0,0,1,0,0,0,1,0"/>
+   <wangtile tileid="230" wangid="0,0,1,0,0,0,1,0"/>
+   <wangtile tileid="231" wangid="0,0,0,0,0,0,1,0"/>
+   <wangtile tileid="238" wangid="1,0,0,0,1,0,0,0"/>
+   <wangtile tileid="239" wangid="1,0,0,0,0,0,0,0"/>
+   <wangtile tileid="274" wangid="0,0,0,0,2,0,0,0"/>
+   <wangtile tileid="275" wangid="2,0,0,0,2,0,0,0"/>
+   <wangtile tileid="276" wangid="0,0,2,0,0,0,0,0"/>
+   <wangtile tileid="277" wangid="0,0,2,0,0,0,2,0"/>
+   <wangtile tileid="278" wangid="0,0,2,0,0,0,2,0"/>
+   <wangtile tileid="279" wangid="0,0,0,0,0,0,2,0"/>
+   <wangtile tileid="286" wangid="2,0,0,0,2,0,0,0"/>
+   <wangtile tileid="287" wangid="2,0,0,0,0,0,0,0"/>
+  </wangset>
  </wangsets>
 </tileset>

@@ -9,7 +9,7 @@ import santaJam.Assets;
 
 
 public class MenuSelection extends MenuObject{
-	private String name;
+	protected String name;
 	private boolean isHovered=false;
 	private Color colour, hoverColour;
 	private Font font = Assets.font;

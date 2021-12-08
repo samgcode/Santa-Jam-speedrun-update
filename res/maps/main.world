@@ -15,13 +15,6 @@
             "y": -296
         },
         {
-            "fileName": "peak-forest-2.json",
-            "height": 640,
-            "width": 320,
-            "x": 0,
-            "y": -640
-        },
-        {
             "fileName": "1-2.json",
             "height": 240,
             "width": 360,
@@ -34,13 +27,6 @@
             "width": 1080,
             "x": 512,
             "y": 144
-        },
-        {
-            "fileName": "cave-forest-2.json",
-            "height": 200,
-            "width": 240,
-            "x": 1160,
-            "y": -368
         },
         {
             "fileName": "1-4.json",
@@ -190,13 +176,6 @@
             "y": -1040
         },
         {
-            "fileName": "peak-forest-1.json",
-            "height": 520,
-            "width": 320,
-            "x": 1120,
-            "y": -888
-        },
-        {
             "fileName": "2-7.json",
             "height": 240,
             "width": 400,
@@ -226,17 +205,10 @@
         },
         {
             "fileName": "3-2.json",
-            "height": 480,
-            "width": 320,
-            "x": 808,
-            "y": -2040
-        },
-        {
-            "fileName": "3-3.json",
-            "height": 560,
-            "width": 320,
-            "x": 1128,
-            "y": -2488
+            "height": 400,
+            "width": 360,
+            "x": 768,
+            "y": -1960
         },
         {
             "fileName": "3-4.json",
@@ -258,6 +230,104 @@
             "width": 480,
             "x": 1648,
             "y": -2336
+        },
+        {
+            "fileName": "peak-forest end.json",
+            "height": 640,
+            "width": 320,
+            "x": -88,
+            "y": -640
+        },
+        {
+            "fileName": "3-7.json",
+            "height": 560,
+            "width": 320,
+            "x": 1272,
+            "y": -3048
+        },
+        {
+            "fileName": "3-8.json",
+            "height": 240,
+            "width": 480,
+            "x": 1424,
+            "y": -3288
+        },
+        {
+            "fileName": "3-9(peak).json",
+            "height": 184,
+            "width": 320,
+            "x": 1736,
+            "y": -3472
+        },
+        {
+            "fileName": "3-10.json",
+            "height": 320,
+            "width": 320,
+            "x": 2056,
+            "y": -3480
+        },
+        {
+            "fileName": "home.json",
+            "height": 184,
+            "width": 320,
+            "x": 2376,
+            "y": -3344
+        },
+        {
+            "fileName": "3-11.json",
+            "height": 824,
+            "width": 320,
+            "x": 1936,
+            "y": -3160
+        },
+        {
+            "fileName": "peak-cave 1.json",
+            "height": 680,
+            "width": 320,
+            "x": 2128,
+            "y": -2248
+        },
+        {
+            "fileName": "peak-cave 2.json",
+            "height": 600,
+            "width": 320,
+            "x": 1808,
+            "y": -1712
+        },
+        {
+            "fileName": "cave-forest-1.json",
+            "height": 520,
+            "width": 320,
+            "x": 1120,
+            "y": -888
+        },
+        {
+            "fileName": "peak-forest-2.json",
+            "height": 640,
+            "width": 320,
+            "x": 16,
+            "y": -1280
+        },
+        {
+            "fileName": "peak-forest-1.json",
+            "height": 184,
+            "width": 400,
+            "x": 152,
+            "y": -1464
+        },
+        {
+            "fileName": "cave-forest-2.json",
+            "height": 200,
+            "width": 240,
+            "x": 1160,
+            "y": -368
+        },
+        {
+            "fileName": "3-3.json",
+            "height": 680,
+            "width": 320,
+            "x": 1128,
+            "y": -2488
         }
     ],
     "onlyShowAdjacentMaps": false,

@@ -30,17 +30,40 @@ public class SettingsState implements State{
 					public void select() {
 						stateToSwitch =  new MainMenu();
 					}
-				},	
-				new MenuSelection(new Rectangle(50,50,50,20), "REBIND CONTROLS") {
+				},
+				new MenuSelection(new Rectangle(50,50,50,20), "MUSIC VOLUME:"+SantaJam.getGame().getSettings().getMusic()) {
+					@Override
+					public void select() {
+						int volume = SantaJam.getGame().getSettings().getMusic()-10;
+						if(volume<0) {
+							volume=100;
+						}
+						SantaJam.getGame().getSettings().setMusic(volume);
+						name = "MUSIC VOLUME:"+SantaJam.getGame().getSettings().getMusic();
+					}
+				},
+				new MenuSelection(new Rectangle(50,50,50,30), "EFFECTS VOLUME:"+SantaJam.getGame().getSettings().getSounds()) {
+					@Override
+					public void select() {
+						int volume = SantaJam.getGame().getSettings().getSounds()-10;
+						if(volume<0) {
+							volume=100;
+						}
+						SantaJam.getGame().getSettings().setSounds(volume);
+						name = "EFFECTS VOLUME:"+SantaJam.getGame().getSettings().getSounds();
+					}
+				},
+				new MenuSelection(new Rectangle(50,50,50,40), "REBIND CONTROLS") {
 					@Override
 					public void select() {
 						stateToSwitch = new RebindControls(new SettingsState(mainState));
 					}
 				},
-				new MenuSelection(new Rectangle(50,50,50,30), "RESET SETTINGS") {
+				new MenuSelection(new Rectangle(50,50,50,50), "RESET SETTINGS") {
 					@Override
 					public void select() {
 						SantaJam.getGame().getSettings().resetSettings();
+						StateManager.setCurrentState(new PauseState(mainState));
 					}
 				},
 							

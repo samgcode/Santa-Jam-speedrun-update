@@ -17,8 +17,9 @@ public class SpikeSubstitute extends Entity{
 			x+=Map.TILESIZE-2;
 		}else if(direction == 'u') {
 			y+=Map.TILESIZE-2;
+			System.out.println("up");
 		}
-		if(direction=='u') {
+		if(direction=='u'||direction=='d') {
 			bounds = new Rectangle(x+1,y,6,2);
 		}else {
 			bounds = new Rectangle(x,y+1,2,6);

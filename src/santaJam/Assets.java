@@ -17,10 +17,16 @@ public class Assets {
 	public static BufferedImage[] jumping = splitSpriteSheet(loadImage("jumping.png"), 11, 12, 3, 1);
 	public static BufferedImage[] sliding = new BufferedImage[] {loadImage("slide.png")};
 	public static BufferedImage[] slideFall = new BufferedImage[] {loadImage("slide fall.png")};
-	
+	public static BufferedImage[] grappleThrow = splitSpriteSheet(loadImage("grapple throw.png"), 13,15, 6, 1);
 	public static BufferedImage[] grapplePull = splitSpriteSheet(loadImage("grapple pull.png"), 12, 12, 3, 1);
 	public static BufferedImage[] dance= splitSpriteSheet(loadImage("dance.png"), 11, 13, 4, 1);
+	public static BufferedImage[] boostStart= splitSpriteSheet(loadImage("boost start.png"), 14,15, 17, 1);
+	public static BufferedImage[] boost = splitSpriteSheet(loadImage("boost.png"), 12,14, 17, 1);
+	
 	public static BufferedImage icicle= loadImage("icicle.png");
+	
+	public static BufferedImage settings= loadImage("ui/setting icon.png");
+	public static BufferedImage mapIcon= loadImage("ui/map icon.png");
 	
 	
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {

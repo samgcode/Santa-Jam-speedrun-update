@@ -1,24 +1,23 @@
 package santaJam.audio;
 
-
-
+import santaJam.SantaJam;
 
 public class MusicManager extends Thread{
 	boolean run=true;
 	private int currentSong=-1;
 	private int nextSong=-1;
 	
-	public static final int FOREST=0, ICECAVE=1,PEAK=2,MENU=3;
+	public static final int FOREST=1, ICECAVE=2,PEAK=3,HOME=4,MENU=0;
 	private static final Sound forest = new Song("res/sound/forest.wav",true);
 	private static final Sound iceCave = new SplitSong("res/sound/iceCaveStart.wav","res/sound/iceCave.wav");
 	private static final Song peak = new Song("res/sound/peak.wav",true);
+	private static final Song home = new Song("res/sound/home.wav",true);
 	
 	@Override
 	public void run() {
 		final int FPS = 100, DELAY = 1000000000 / FPS;
 		while(run) {
 			double startTime= System.nanoTime();//getting the time at the start of the frame
-			
 			forest.update();
 			iceCave.update();
 			peak.update();
@@ -64,6 +63,8 @@ public class MusicManager extends Thread{
 			return iceCave;
 		}else if(index==PEAK) {
 			return peak;
+		}else if(index==HOME) {
+			return home ;
 		}
 		return null;
 	}
@@ -78,6 +79,9 @@ public class MusicManager extends Thread{
 	}
 	public synchronized void close() {
 		run=false;
+	}
+	public synchronized void applyVolume() {
+		getSong(currentSong).setVolume(SantaJam.getGame().getSettings().getMusic()/100f);
 	}
 	
 	

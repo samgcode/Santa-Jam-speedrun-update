@@ -7,11 +7,12 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 
+import santaJam.SantaJam;
+
 public class Song extends Sound{
 	private String path;
 	private Clip clip;
 	private boolean fadeOut=false,loops;
-	private double volume;
 
 	public Song(String path, boolean loops) { 
 		this.path=path;
@@ -47,7 +48,7 @@ public class Song extends Sound{
 		System.out.println("playing:"+path);
 		fadeOut=false;
 		playing=true;
-		volume=1;
+		volume = SantaJam.getGame().getSettings().getMusic()/100f;
 		if(clip.isOpen()) {
 			stop();
 		}

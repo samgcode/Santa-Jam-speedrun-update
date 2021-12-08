@@ -37,7 +37,7 @@ public class Sliding extends PlayerState{
 			return prevState;
 		}
 		super.update(player);
-		player.setAnim(player.sliding);
+		player.setAnim(Player.sliding);
 		slideGravity(player);
 		
 		Rectangle pBounds = player.getBounds();

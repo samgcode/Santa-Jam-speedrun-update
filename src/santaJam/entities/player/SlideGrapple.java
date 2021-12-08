@@ -23,6 +23,7 @@ public class SlideGrapple extends Grapple{
 			return prevState;
 		}
 		player.changeBounds(width, height);
+		grappleY=player.getBounds().y+3;
 		if(shooting) {
 			slideGravity(player);
 		}
@@ -36,7 +37,11 @@ public class SlideGrapple extends Grapple{
 		//doing things for the grapple shoot
 		if(shooting) {			
 			PlayerState returnVal =  grappleShoot(player);
+			player.setAnim(Player.sliding);
 			if(returnVal!=null) {
+				if(returnVal instanceof Falling) {
+					return new SlideFalling();
+				}
 				return returnVal;
 			}
 			
@@ -44,7 +49,11 @@ public class SlideGrapple extends Grapple{
 		}else {
 			player.setVelY(0);
 			PlayerState returnVal =  grapplePull(player);
+			player.setAnim(Player.sliding);
 			if(returnVal!=null) {
+				if(returnVal instanceof Falling) {
+					return new SlideFalling();
+				}
 				return returnVal;
 			}
 		}

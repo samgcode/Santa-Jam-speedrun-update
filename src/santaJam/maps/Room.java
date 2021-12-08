@@ -59,9 +59,9 @@ public class Room {
 		this.y=y;
 		JSONObject file;
 		try {
-			file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
+			file=(JSONObject)(new JSONParser().parse(new FileReader("res/maps/"+path)));
 		} catch (IOException | ParseException e) {
-			System.out.print("there was a problem loading JSON file at "+path );
+			System.out.print("there was a problem loading JSON file at "+"res/maps/"+path );
 			e.printStackTrace();
 			tiles=new int[][] {{}};
 			return;
@@ -146,6 +146,8 @@ public class Room {
 		}
 		if(area==3) {
 			StateManager.setBgColour(new Color(72,206,240));
+		}if(area==4) {
+			StateManager.setBgColour(new Color(42,22,24));
 		}
 		
 		for(int y=0;y<height;y++) {
@@ -166,7 +168,7 @@ public class Room {
 	
 	public void loadRoom() {
 		System.out.println("loading "+name);
-		SantaJam.getGame().getMusic().switchSong(area-1);
+		SantaJam.getGame().getMusic().switchSong(area);
 		if(particles!=null) {
 			particles.start();
 		}

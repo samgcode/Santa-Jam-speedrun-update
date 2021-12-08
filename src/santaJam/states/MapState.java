@@ -14,7 +14,7 @@ import santaJam.maps.Map;
 import santaJam.maps.Room;
 
 public class MapState implements State{
-	private final double MINSCALE=0.5;
+	private final double MINSCALE=0.3;
 	GameState gameState;
 	BufferedImage mapImg;
 	double scale=MINSCALE;

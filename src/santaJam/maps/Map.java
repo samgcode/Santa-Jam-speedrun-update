@@ -43,7 +43,7 @@ public class Map {
 			int height = (int)(long)(roomObject.get("height"));
 			String fileName = (String) roomObject.get("fileName");
 			loadBounds.add(new Rectangle(x-TILESIZE*3,y-TILESIZE*3,width+TILESIZE*6,height+TILESIZE*6));
-			rooms.add(new Room(x,y,"res/maps/"+fileName));
+			rooms.add(new Room(x,y,fileName));
 			//System.out.println(fileName+"has data: "+x+", "+y+", - "+width+", "+height);
 			
 		}
@@ -56,20 +56,14 @@ public class Map {
 		Rectangle playerBounds = StateManager.getGameState().getPlayer().getBounds();
 		Rectangle pBounds =StateManager.getGameState().getPlayer().getBounds();
 		Room oldRoom = playerRoom;
-		boolean roomsFound=false;
 		currentRooms=getRooms(playerBounds.x+playerBounds.width/2, playerBounds.y+playerBounds.height/2);
 		
 		
 		for(Room r: currentRooms) {			
 			if(r!=null&&r.getBounds().contains(pBounds.x+pBounds.width/2, pBounds.y+pBounds.height/2)) {
 				playerRoom = r;
-				roomsFound=true;
 			}
-		}
-		if(!roomsFound) {
-			System.out.println("player is not in a loaded room");
-		}
-		
+		}		
 		if(oldRoom!=playerRoom) {
 			playerRoom.loadRoom();
 			oldRoom.unload();
@@ -104,9 +98,16 @@ public class Map {
 		return false;
 	}
 	public boolean inMap(Rectangle rect) {
+		boolean intersectingRoom=false;
 		for(Room r:rooms) {
-			if(r!=null&&r.getBounds().intersects(rect)) {
+			
+			if(r!=null&&r.getBounds().contains(rect)) {
 				return true;
+			}else if(r!=null&&r.getBounds().intersects(rect)) {
+				if(intersectingRoom) {
+					return true;
+				}
+				intersectingRoom=true;
 			}
 			
 		}

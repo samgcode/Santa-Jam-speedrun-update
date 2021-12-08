@@ -3,7 +3,6 @@ package santaJam;
 import santaJam.audio.MusicManager;
 import santaJam.inputs.Inputs;
 import santaJam.saves.Settings;
-import santaJam.states.MainMenu;
 import santaJam.states.StateManager;
 import santaJam.states.TitleScreen;
 import santaJam.window.Window;
@@ -57,6 +56,7 @@ public class Game {
 			
 			
 		}
+		music.close();
 		window.getFrame().dispose();
 	}
 	public void quitGame() {
