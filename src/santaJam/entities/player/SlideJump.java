@@ -46,10 +46,12 @@ public class SlideJump extends PlayerState{
 		}
 		
 		
-		if(Inputs.up().getHoldLength()<BUFFERLENGTH&&Inputs.up().getHoldLength()>0) {
+		if(Inputs.up().getHoldLength()<BUFFERLENGTH&&Inputs.up().getHoldLength()>0&&!Inputs.up().isInputUsed()) {
+			Inputs.up().useInput();
 			return new UpBoost(this,player);
 		}
-		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0&&!Inputs.grapple().isInputUsed()) {
+			Inputs.grapple().useInput();
 			return new SlideGrapple(this,player);
 		}
 		

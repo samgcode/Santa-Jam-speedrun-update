@@ -38,7 +38,8 @@ public class Jumping extends PlayerState{
 			firstFrame=false;
 		}
 		
-		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0&&!Inputs.grapple().isInputUsed()) {
+			Inputs.grapple().useInput();
 			return new Grapple(this,player);
 			
 		}

@@ -49,13 +49,16 @@ public class Sliding extends PlayerState{
 		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {	
 			return new Falling();
 		}
-		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0&&!Inputs.grapple().isInputUsed()) {
+			Inputs.grapple().useInput();
 			return new SlideGrapple(this,player);
 		}
-		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0) {
+		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()) {
+			Inputs.jump().useInput();
 			return new SlideJump();
 		}
-		if(Inputs.up().getHoldLength()<BUFFERLENGTH&&Inputs.up().getHoldLength()>0) {
+		if(Inputs.up().getHoldLength()<BUFFERLENGTH&&Inputs.up().getHoldLength()>0&&!Inputs.up().isInputUsed()) {
+			Inputs.up().useInput();
 			return new UpBoost(this,player);	
 		}
 		

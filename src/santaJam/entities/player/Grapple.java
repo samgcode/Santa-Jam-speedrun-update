@@ -169,7 +169,8 @@ public class Grapple extends PlayerState {
 			}
 		}
 		// letting you cancel the pull into a jump
-		if (Inputs.jump().getHoldLength() < BUFFERLENGTH && Inputs.jump().getHoldLength() > 0) {
+		if (Inputs.jump().getHoldLength() < BUFFERLENGTH && Inputs.jump().getHoldLength() > 0&&!Inputs.jump().isInputUsed()) {
+			Inputs.jump().useInput();
 			return new Jumping();
 		}
 

@@ -30,18 +30,20 @@ public class Standing extends PlayerState{
 		normalGravity(player);//doing gravity
 		
 		if(Math.abs(player.getVelX())>0) {
-			player.setAnim(player.walking);
+			player.setAnim(Player.walking);
 		}else {
-			player.setAnim(player.idle);
+			player.setAnim(Player.idle);
 		}
 		
 		
 		//if they pressed/buffered a jump, then they should jump
-		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0) {
+		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()) {
+			Inputs.jump().useInput();
 			return new Jumping();
 		}
 		//if they pressed/buffered an grapple, they should grapple
-		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0&&!Inputs.grapple().isInputUsed()) {
+			Inputs.grapple().useInput();
 			return new Grapple(this,player);
 		}
 		

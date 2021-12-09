@@ -16,10 +16,10 @@
         },
         {
             "fileName": "1-2.json",
-            "height": 240,
+            "height": 232,
             "width": 360,
             "x": 800,
-            "y": -304
+            "y": -296
         },
         {
             "fileName": "1-3.json",
@@ -335,6 +335,27 @@
             "width": 320,
             "x": 1416,
             "y": -3472
+        },
+        {
+            "fileName": "peak-forest a.json",
+            "height": 192,
+            "width": 880,
+            "x": 232,
+            "y": -488
+        },
+        {
+            "fileName": "wall.json",
+            "height": 64,
+            "width": 48,
+            "x": 1112,
+            "y": -368
+        },
+        {
+            "fileName": "2-a.json",
+            "height": 184,
+            "width": 320,
+            "x": 400,
+            "y": -672
         }
     ],
     "onlyShowAdjacentMaps": false,

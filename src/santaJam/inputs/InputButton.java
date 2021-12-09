@@ -3,7 +3,7 @@ package santaJam.inputs;
 import java.awt.event.KeyEvent;
 
 public class InputButton {
-	boolean held=false, pressed=false;
+	boolean held=false, pressed=false, inputUsed=false;
 	int holdLength=0, keyCode;
 	
 	public InputButton(int keyCode) {
@@ -17,6 +17,7 @@ public class InputButton {
 			if(!held) {//checking if the button has been held on the previous frames so pressed is only true for one frame
 				held=true;
 				pressed=true;
+				inputUsed=false;
 			}else {
 				pressed=false;
 			}
@@ -39,6 +40,13 @@ public class InputButton {
 	}
 	public String getKey() {
 		return KeyEvent.getKeyText(keyCode);
+	}
+	
+	public void useInput() {
+		inputUsed=true;
+	}
+	public boolean isInputUsed() {
+		return inputUsed;
 	}
 	
 	

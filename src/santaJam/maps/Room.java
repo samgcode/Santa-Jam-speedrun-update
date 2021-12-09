@@ -284,6 +284,20 @@ public class Room {
 		}
 		return false;
 	}
+	public int getCollectedItem() {
+		for(String i:StateManager.getGameState().getSave().getCollectibles()) {
+			if(i.equals(name)) {
+				for(int y=0;y<height;y++) {
+					for(int x=0;x<width;x++) {
+						if(tiles[x][y]==Map.MILK+infoStart||tiles[x][y]==Map.MARSHMELLOW+infoStart||tiles[x][y]==Map.CHOCOLATE+infoStart) {
+							return tiles[x][y]-infoStart;
+						}
+					}
+				}
+			}
+		}
+		return -1;
+	}
 	
 	public ArrayList<Rectangle> getWalls() {
 		return walls;

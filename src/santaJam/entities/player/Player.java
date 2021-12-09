@@ -51,7 +51,7 @@ public class Player extends Entity {
 	public void update() {
 	
 		//System.out.println(bounds.x);
-		//System.out.println(currentState);
+		//-System.out.println(currentState);
 		
 		PlayerState nextState = currentState.update(this);
 		setState(nextState);

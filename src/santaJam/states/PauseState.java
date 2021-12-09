@@ -5,11 +5,14 @@ import java.awt.Graphics2D;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.entities.upgrades.Binoculars;
 import santaJam.entities.upgrades.DoubleJumpItem;
 import santaJam.entities.upgrades.GrappleItem;
 import santaJam.entities.upgrades.SlideItem;
 import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.inputs.Inputs;
+import santaJam.maps.Map;
+import santaJam.maps.Room;
 
 public class PauseState implements State{
 
@@ -42,20 +45,40 @@ public class PauseState implements State{
 
 		
 		if(StateManager.getGameState().getSave().hasSlide()) {
-			g.drawString("SLIDE:", 50, 50);
-			g.drawString("| "+new SlideItem(0, 0).getDescription().toUpperCase(), 150, 50);
+			g.drawString("SLIDE:", 50, 40);
+			g.drawString("| "+new SlideItem(0, 0).getDescription().toUpperCase(), 150, 40);
+		}
+		
+		if(StateManager.getGameState().getSave().hasGrapple()) {
+			g.drawString("GRAPPLE:", 50, 50);
+			g.drawString("| "+new GrappleItem(0, 0).getDescription().toUpperCase(), 150, 50);
 		}
 		if(StateManager.getGameState().getSave().hasDoubleJump()) {
 			g.drawString("DOUBLE JUMP:", 50, 60);
-			g.drawString("| "+new DoubleJumpItem(0, 0).getDescription().toUpperCase(), 150, 60);
+			g.drawString("| "+new DoubleJumpItem(0, 0).getDescription().toUpperCase(), 150,60);
 		}
-		if(StateManager.getGameState().getSave().hasGrapple()) {
-			g.drawString("GRAPPLE:", 50, 70);
-			g.drawString("| "+new GrappleItem(0, 0).getDescription().toUpperCase(), 150, 70);
-		}if(StateManager.getGameState().getSave().hasUpBoost()) {
-			g.drawString("UPBOOST:", 50, 80);
-			g.drawString("| "+new UpBoostItem(0, 0).getDescription().toUpperCase(), 150, 80);
+		if(StateManager.getGameState().getSave().hasUpBoost()) {
+			g.drawString("UPBOOST:", 50, 70);
+			g.drawString("| "+new UpBoostItem(0, 0).getDescription().toUpperCase(), 150, 70);
 		}
+		if(StateManager.getGameState().getSave().hasBinoculars()) {
+			g.drawString("BINOCULARS:", 50, 80);
+			g.drawString("| "+new Binoculars(0, 0).getDescription().toUpperCase(), 150, 80);
+		}
+		
+		int milk = 0, chocolate=0, marshmellow=0;
+		for(Room r:gameState.getMap().getAllRooms()) {
+			if(r.getCollectedItem()==Map.MILK) {
+				milk++;
+			}else if(r.getCollectedItem()==Map.CHOCOLATE) {
+				chocolate++;
+			}else if(r.getCollectedItem()==Map.MARSHMELLOW) {
+				marshmellow++;
+			}
+		}
+		g.drawString("MILK:"+milk+"   CHOCOLATE:"+chocolate+"   MARSHMELLOW:"+marshmellow, 50, 150);
+
+		
 		g.drawImage(Assets.settings, 5, Game.HEIGHT/2-Assets.settings.getHeight()/2, null);
 		g.drawImage(Assets.mapIcon, Game.WIDTH-5-Assets.mapIcon.getWidth(), Game.HEIGHT/2-Assets.mapIcon.getHeight()/2, null);
 	}
