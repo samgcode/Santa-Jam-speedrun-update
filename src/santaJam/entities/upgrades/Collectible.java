@@ -34,6 +34,9 @@ public class Collectible extends Upgrade{
 	protected void onCollect(Player player) {
 		String room = StateManager.getGameState().getMap().getPlayerRoom().getName();
 		StateManager.getGameState().getSave().addCollectible(room);
+		super.onCollect(player);
+		
+
 	}
 	@Override
 	public void update() {

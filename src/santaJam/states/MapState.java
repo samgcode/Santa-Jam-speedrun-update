@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.SantaJam;
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
 import santaJam.inputs.Inputs;
@@ -60,6 +61,7 @@ public class MapState implements State{
 		for(int i:openedRooms) {
 			Room r = map.getAllRooms().get(i);
 			
+			//drawing the room to the map
 			for(int y=0;y<r.getHeight()/Map.TILESIZE;y++) {
 				for(int x=0;x<r.getWidth()/Map.TILESIZE;x++) {
 					int mapX=x-minX/Map.TILESIZE+r.getX()/Map.TILESIZE;
@@ -75,6 +77,8 @@ public class MapState implements State{
 									mapImg.setRGB(mapX,mapY, new Color(230,100,100).getRGB());
 								}else if(r.getArea()==3) {
 									mapImg.setRGB(mapX,mapY, new Color(100,190,230).getRGB());
+								}else if(r.getArea()==4) {
+									mapImg.setRGB(mapX,mapY, new Color(42,22,24).getRGB());
 								}
 								
 							
@@ -85,7 +89,7 @@ public class MapState implements State{
 						
 					}
 				}
-			}
+			}			
 		}
 		
 		
@@ -138,18 +142,28 @@ public class MapState implements State{
 
 	@Override
 	public void render(Graphics2D g) {
+		int mapDrawX=Game.WIDTH/2-(int)(mapImg.getWidth()*scale)/2+mapX;
+		int mapDrawY=Game.HEIGHT/2-(int)(mapImg.getHeight()*scale)/2+mapY;
 		g.setColor(new Color(78,16,69));
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		
-		g.drawImage(mapImg,Game.WIDTH/2-(int)(mapImg.getWidth()*scale)/2+mapX,Game.HEIGHT/2-(int)(mapImg.getHeight()*scale)/2+mapY,
-				(int)(mapImg.getWidth()*scale),(int)(mapImg.getHeight()*scale), null);
+		g.drawImage(mapImg,mapDrawX,mapDrawY,(int)(mapImg.getWidth()*scale),(int)(mapImg.getHeight()*scale), null);
+		
+		//drawing collectible icons
+		for(Room r:gameState.getMap().getAllRooms()) {
+			if(gameState.getSave().hasBinoculars() && r.hasCollectible()) {
+				g.setColor(Color.white);
+				
+				
+				g.drawRect((int)(mapDrawX+(r.getBounds().x+r.getBounds().width/2-xOffset*Map.TILESIZE)/Map.TILESIZE*scale-3),
+						(int)(mapDrawY+(r.getBounds().y+r.getBounds().height/2-yOffset*Map.TILESIZE)/Map.TILESIZE*scale-3),3,3);
+			}
+		}
 		
 		for(Entity i :Entity.getManager().getEntities()) {
 			if(i instanceof Player) {
 				g.setColor(Color.red);
-				int mapDrawX=Game.WIDTH/2-(int)(mapImg.getWidth()*scale)/2+mapX;
-				int mapDrawY=Game.HEIGHT/2-(int)(mapImg.getHeight()*scale)/2+mapY;
-				
+					
 				g.drawRect((int)(mapDrawX+(i.getBounds().x+i.getBounds().width/2-xOffset*Map.TILESIZE)/Map.TILESIZE*scale-3),
 						(int)(mapDrawY+(i.getBounds().y+i.getBounds().height/2-yOffset*Map.TILESIZE)/Map.TILESIZE*scale-3),6,6);
 			}

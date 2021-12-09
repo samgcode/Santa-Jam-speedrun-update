@@ -14,7 +14,7 @@ public class Save {
 	private String filePath="res/saves/save.properties";
 	
 	private boolean started;
-	private boolean doubleJump, grapple, upBoost, slide;
+	private boolean doubleJump, grapple, upBoost, slide,binoculars;
 	private int startX, startY, startHealth;
 	private int[] openedRooms;
 	private String[] collectibles;
@@ -35,6 +35,7 @@ public class Save {
 		doubleJump=Boolean.valueOf(propertiesFile.getProperty("doubleJump"));
 		grapple=Boolean.valueOf(propertiesFile.getProperty("grapple"));
 		upBoost=Boolean.valueOf(propertiesFile.getProperty("upBoost"));
+		binoculars=Boolean.valueOf(propertiesFile.getProperty("binoculars"));
 		startX=Integer.parseInt(propertiesFile.getProperty("startX"));
 		startY=Integer.parseInt(propertiesFile.getProperty("startY"));
 		startHealth=Integer.parseInt(propertiesFile.getProperty("health"));
@@ -117,6 +118,10 @@ public class Save {
 		propertiesFile.setProperty("upBoost",""+true);
 		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
 	}
+	public void unlockBinoculars(Player player) {
+		propertiesFile.setProperty("binoculars",""+true);
+		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
+	}
 	public void resetSave() {
 		Properties blankSave = loadProperties("res/saves/blankSave.properties");
 		writeproperties(blankSave);
@@ -136,6 +141,9 @@ public class Save {
 	}
 	public boolean hasUpBoost() {
 		return upBoost;
+	}
+	public boolean hasBinoculars() {
+		return binoculars;
 	}
 	public int getStartHealth() {
 		return startHealth;

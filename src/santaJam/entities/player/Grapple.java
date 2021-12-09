@@ -20,10 +20,10 @@ public class Grapple extends PlayerState {
 
 	public Grapple(PlayerState prevState, Player player) {
 		this.prevState = prevState;
-		grappleX = 0;
 		duration = 0;
 		facingLeft = player.isFaceLeft();
 		grappleX = player.getBounds().x + player.getBounds().width / 2;
+		grappleY=player.getBounds().y + 5;
 
 	}
 
@@ -46,7 +46,7 @@ public class Grapple extends PlayerState {
 		}
 
 		duration++;
-		grappleY=player.getBounds().y + 7;
+		grappleY=player.getBounds().y + 5;
 		// doing things for the grapple shoot
 		if (shooting) {
 			PlayerState returnVal = grappleShoot(player);
@@ -94,7 +94,7 @@ public class Grapple extends PlayerState {
 		}
 
 		// chekcing for walls
-		Rectangle checkBox = new Rectangle(grappleX, grappleY, 2, 2);
+		Rectangle checkBox = new Rectangle(grappleX-1, grappleY, 2, 5);
 		ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
 		for (Room i : StateManager.getGameState().getMap().getLoadedRooms()) {
 			if (i != null) {

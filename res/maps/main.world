@@ -248,16 +248,16 @@
         {
             "fileName": "3-8.json",
             "height": 240,
-            "width": 480,
-            "x": 1424,
+            "width": 520,
+            "x": 1384,
             "y": -3288
         },
         {
             "fileName": "3-9(peak).json",
-            "height": 184,
+            "height": 240,
             "width": 320,
             "x": 1736,
-            "y": -3472
+            "y": -3528
         },
         {
             "fileName": "3-10.json",
@@ -328,6 +328,13 @@
             "width": 320,
             "x": 1128,
             "y": -2488
+        },
+        {
+            "fileName": "3-a.json",
+            "height": 184,
+            "width": 320,
+            "x": 1416,
+            "y": -3472
         }
     ],
     "onlyShowAdjacentMaps": false,

@@ -1,35 +1,42 @@
 package santaJam.entities.upgrades;
 
 import java.awt.Color;
-import java.awt.Rectangle;
+import java.awt.Graphics2D;
 
 import santaJam.Assets;
 import santaJam.Game;
-import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
+import santaJam.graphics.Camera;
 import santaJam.graphics.UI.RectElement;
 import santaJam.graphics.UI.TextElement;
 import santaJam.graphics.UI.UIElement;
 import santaJam.inputs.Inputs;
+import santaJam.states.MapState;
 import santaJam.states.StateManager;
 
-public abstract class Upgrade extends Entity{
-	protected String description="", name="";
+public class Binoculars extends Upgrade{
 	
-	public Upgrade(int x, int y) {
-		bounds = new Rectangle(x,y,10,10);
-		this.x=x;
-		this.y=y;
-		grappleable=true;
+	private int timer=0;
+	
+	public Binoculars(int x, int y) {
+		super(x,y);
+		name = "Binoculars";
+		description = "collectibles shown on map";
 	}
 	
+
+	@Override
 	protected void onCollect(Player player) {
+		StateManager.getGameState().getSave().unlockBinoculars(player);
 		StateManager.getGameState().saveData(player.getBounds().x,player.getBounds().y);
-		(player).setAnim(Player.dance);
+		player.setAnim(Player.dance);
+		
+		
 		TextElement text = new TextElement(true, Game.WIDTH/2-65,Game.HEIGHT/2-50,6,7,120,
 				"--"+name.toUpperCase()+"-- \n \n "+description+" \n \n "+Inputs.jump().getKey()+" TO CONTINUE", Assets.font) {
 			@Override
 			protected void onSelect() {
+				StateManager.setCurrentState(new MapState(StateManager.getGameState()));
 				visible=false;
 				remove=true;
 			}
@@ -48,18 +55,22 @@ public abstract class Upgrade extends Entity{
 		UIElement.getUIManager().addElement(rect);
 		UIElement.getUIManager().addElement(text);
 	}
-	
-	
 	@Override
 	public void update() {
-		for(Entity i:entityCollide()) {
-			if(i instanceof Player) {
-				onCollect((Player) i);
-				killed=true;
-			}
+		super.update();
+		timer++;
+		
+	}
+
+	@Override
+	public void render(Graphics2D g, Camera camera) {
+		if(timer%40>20) {
+			g.setColor(Color.MAGENTA);
+		}else{
+			g.setColor(Color.white);
 		}
+		g.fillOval(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
 	}
-	public String getDescription() {
-		return description;
-	}
+	
+
 }

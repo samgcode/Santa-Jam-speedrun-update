@@ -22,7 +22,7 @@ public class GrappleItem extends Upgrade{
 	@Override
 	protected void onCollect(Player player) {
 		StateManager.getGameState().getSave().unlockGrapple(player);
-		
+		super.onCollect(player);		
 	}
 	@Override
 	public void update() {

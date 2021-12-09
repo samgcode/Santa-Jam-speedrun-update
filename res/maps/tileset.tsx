@@ -10,6 +10,8 @@
    <wangcolor name="forest2" color="#00e9ff" tile="-1" probability="1"/>
    <wangcolor name="cave2" color="#0000ff" tile="-1" probability="1"/>
    <wangcolor name="peak2" color="#ffff00" tile="-1" probability="1"/>
+   <wangcolor name="forest 3" color="#a000ff" tile="-1" probability="1"/>
+   <wangcolor name="house" color="#00ffa1" tile="-1" probability="1"/>
    <wangtile tileid="0" wangid="0,0,0,1,0,0,0,0"/>
    <wangtile tileid="1" wangid="0,0,0,1,0,1,0,0"/>
    <wangtile tileid="2" wangid="0,0,0,0,0,1,0,0"/>
@@ -135,6 +137,31 @@
    <wangtile tileid="266" wangid="0,0,0,0,0,0,0,7"/>
    <wangtile tileid="270" wangid="0,7,0,7,0,0,0,0"/>
    <wangtile tileid="271" wangid="0,0,0,0,0,7,0,7"/>
+   <wangtile tileid="336" wangid="0,0,0,9,0,0,0,0"/>
+   <wangtile tileid="337" wangid="0,0,0,9,0,9,0,0"/>
+   <wangtile tileid="338" wangid="0,0,0,0,0,9,0,0"/>
+   <wangtile tileid="339" wangid="0,0,0,9,0,9,0,0"/>
+   <wangtile tileid="340" wangid="0,0,0,9,0,9,0,0"/>
+   <wangtile tileid="341" wangid="0,0,0,9,0,9,0,0"/>
+   <wangtile tileid="342" wangid="0,9,0,9,0,0,0,0"/>
+   <wangtile tileid="343" wangid="0,0,0,0,0,9,0,9"/>
+   <wangtile tileid="344" wangid="0,9,0,9,0,9,0,0"/>
+   <wangtile tileid="345" wangid="0,0,0,9,0,9,0,9"/>
+   <wangtile tileid="348" wangid="0,9,0,9,0,0,0,0"/>
+   <wangtile tileid="349" wangid="0,9,0,9,0,9,0,9"/>
+   <wangtile tileid="350" wangid="0,0,0,0,0,9,0,9"/>
+   <wangtile tileid="351" wangid="0,9,0,0,0,0,0,9"/>
+   <wangtile tileid="352" wangid="0,9,0,0,0,0,0,9"/>
+   <wangtile tileid="353" wangid="0,9,0,0,0,0,0,9"/>
+   <wangtile tileid="354" wangid="0,9,0,9,0,0,0,0"/>
+   <wangtile tileid="355" wangid="0,0,0,0,0,9,0,9"/>
+   <wangtile tileid="356" wangid="0,9,0,9,0,0,0,9"/>
+   <wangtile tileid="357" wangid="0,9,0,0,0,9,0,9"/>
+   <wangtile tileid="360" wangid="0,9,0,0,0,0,0,0"/>
+   <wangtile tileid="361" wangid="0,9,0,0,0,0,0,9"/>
+   <wangtile tileid="362" wangid="0,0,0,0,0,0,0,9"/>
+   <wangtile tileid="366" wangid="0,9,0,9,0,0,0,0"/>
+   <wangtile tileid="367" wangid="0,0,0,0,0,9,0,9"/>
    <wangtile tileid="384" wangid="0,0,0,4,0,0,0,0"/>
    <wangtile tileid="385" wangid="0,0,0,4,0,4,0,0"/>
    <wangtile tileid="386" wangid="0,0,0,0,0,4,0,0"/>

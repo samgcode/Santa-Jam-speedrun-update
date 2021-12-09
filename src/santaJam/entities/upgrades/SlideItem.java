@@ -21,7 +21,8 @@ public class SlideItem extends Upgrade{
 	@Override
 	protected void onCollect(Player player) {
 		StateManager.getGameState().getSave().unlockSlide(player);
-		StateManager.getGameState().saveData(player.getBounds().x,player.getBounds().y-10);
+		super.onCollect(player);
+
 	}
 	@Override
 	public void update() {

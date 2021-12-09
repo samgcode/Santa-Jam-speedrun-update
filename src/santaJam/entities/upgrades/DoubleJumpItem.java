@@ -21,6 +21,8 @@ public class DoubleJumpItem extends Upgrade{
 	@Override
 	protected void onCollect(Player player) {
 		StateManager.getGameState().getSave().unlockDoubleJump(player);
+		super.onCollect(player);
+
 	}
 	@Override
 	public void update() {

@@ -20,6 +20,7 @@ import santaJam.entities.GrapplePoint;
 import santaJam.entities.Icicle;
 import santaJam.entities.SaveStatue;
 import santaJam.entities.SpikeSubstitute;
+import santaJam.entities.upgrades.Binoculars;
 import santaJam.entities.upgrades.Collectible;
 import santaJam.entities.upgrades.DoubleJumpItem;
 import santaJam.entities.upgrades.GrappleItem;
@@ -207,7 +208,10 @@ public class Room {
 					Entity.getManager().addEntity(new GrappleItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.UPBOOST+infoStart&&!StateManager.getGameState().getSave().hasUpBoost()) {
 					Entity.getManager().addEntity(new UpBoostItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.BINOCULARS+infoStart&&!StateManager.getGameState().getSave().hasBinoculars()) {
+					Entity.getManager().addEntity(new Binoculars(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}
+				
 				else if(tiles[x][y]==Map.SAVEPOINT+infoStart) {
 					Entity.getManager().addEntity(new SaveStatue(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.GRAPPLEPOINT+infoStart) {
@@ -265,6 +269,21 @@ public class Room {
 		}
 		return false;
 	}
+	public boolean hasCollectible() {
+		for(String i:StateManager.getGameState().getSave().getCollectibles()) {
+			if(i.equals(name)) {
+				return false;
+			}
+		}
+		for(int y=0;y<height;y++) {
+			for(int x=0;x<width;x++) {
+				if(tiles[x][y]==Map.MILK+infoStart||tiles[x][y]==Map.MARSHMELLOW+infoStart||tiles[x][y]==Map.CHOCOLATE+infoStart) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public ArrayList<Rectangle> getWalls() {
 		return walls;
@@ -298,6 +317,7 @@ public class Room {
 	public int getTileSetStart() {
 		return tileSetStart;
 	}
+	
 	
 	
 	

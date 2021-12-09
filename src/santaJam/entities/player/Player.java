@@ -156,8 +156,16 @@ public class Player extends Entity {
 		currentAnim.update();
 		if(currentState instanceof Grapple&&StateManager.getGameState().getSave().hasGrapple()) {
 			g.setColor(new Color(66,39,37));
-			g.drawLine(((Grapple) currentState).getCheckX()-camera.getxOffset(),((Grapple) currentState).getCheckY()-camera.getyOffset(),
-					bounds.x-camera.getxOffset(),((Grapple) currentState).getCheckY()-camera.getyOffset());
+			int grappleX=((Grapple) currentState).getCheckX()-camera.getxOffset();
+			int grappleY=((Grapple) currentState).getCheckY()-camera.getyOffset();
+			
+			g.drawLine(grappleX,grappleY+Assets.grappleHook.getHeight()/2,bounds.x-camera.getxOffset(),grappleY+Assets.grappleHook.getHeight()/2);
+			//g.fillRect(grappleX-1, grappleY, 2, 5);
+			if(faceLeft) {
+				g.drawImage(Assets.grappleHook,grappleX,grappleY, null);
+			}else {
+				g.drawImage(Assets.grappleHook,grappleX,grappleY,-Assets.grappleHook.getWidth(),Assets.grappleHook.getHeight(), null);
+			}
 		}
 		
 		//g.setColor(Color.red);
@@ -167,8 +175,8 @@ public class Player extends Entity {
 		if(faceLeft) {
 			g.drawImage(currentFrame,bounds.x-camera.getxOffset()-currentAnim.getxOffset(), bounds.y-camera.getyOffset()-currentAnim.getyOffset(), null);
 		}else {
-			g.drawImage(currentFrame,bounds.x-camera.getxOffset()+bounds.width+currentAnim.getxOffset(), bounds.y-camera.getyOffset()-currentAnim.getyOffset(),
-					-currentFrame.getWidth(),currentFrame.getHeight(), null);
+			g.drawImage(currentFrame,bounds.x-camera.getxOffset()+bounds.width+currentAnim.getxOffset()+1, 
+					bounds.y-camera.getyOffset()-currentAnim.getyOffset(),-currentFrame.getWidth(),currentFrame.getHeight(), null);
 		}
 		//g.drawRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width-1, bounds.height-1);
 	}
