@@ -99,4 +99,7 @@ public class Menu extends MenuSelection{
 			selected=false;
 		}
 	}
+	public MenuObject getHovered() {
+		return menuObjects[hovered];
+	}
 }

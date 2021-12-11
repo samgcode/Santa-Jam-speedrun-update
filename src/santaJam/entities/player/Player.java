@@ -21,6 +21,8 @@ public class Player extends Entity {
 	public static final Animation idle = new Animation(new BufferedImage[] { Assets.walking[0]},3,0);
 	public static final Animation walking = new Animation(Assets.walking,3,0);
 	public static final Animation jumping = new Animation(Assets.jumping,3,0);
+	public static final Animation doubleJump = new Animation(Assets.doubleJump,3,5);
+	public static final Animation falling = new Animation(Assets.falling,1,0);
 	public static final Animation sliding = new Animation(Assets.sliding,1,0);
 	public static final Animation slideFall = new Animation(Assets.slideFall,1,0);
 	public static final Animation grappleThrow = new Animation(Assets.grappleThrow,2,5,2);
@@ -45,6 +47,7 @@ public class Player extends Entity {
 		team=0;
 		jumping.setLooping(false);
 		grappleThrow.setLooping(false);
+		doubleJump.setLooping(false);
 	}
 
 	@Override

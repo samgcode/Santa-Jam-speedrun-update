@@ -99,7 +99,6 @@ public class GameState implements State {
 		return save;
 	}
 	public ArrayList<Integer> getOpenedRooms() {
-		System.out.println(openedRooms);
 		return openedRooms;
 	}
 	

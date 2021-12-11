@@ -10,6 +10,7 @@ public class DoubleJump extends Jumping{
 	
 	public DoubleJump(PlayerState prevState) {
 		this.prevState=prevState;
+		anim=Player.doubleJump;
 	}
 	@Override
 	public void start(PlayerState prevState) {

@@ -3,6 +3,7 @@ package santaJam.entities.player;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import santaJam.graphics.Animation;
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.OvalParticle;
 import santaJam.graphics.particles.shapes.colourers.Timed;
@@ -12,6 +13,7 @@ import santaJam.inputs.Inputs;
 public class Jumping extends PlayerState{
 	public static final double JUMPSTRENGTH=5, STOPSTRENGTH=0.75;
 	boolean firstFrame=true;
+	protected Animation anim = Player.jumping;
 
 	public Jumping() {
 	}
@@ -25,7 +27,7 @@ public class Jumping extends PlayerState{
 			return new SlideJump();
 			
 		}
-		player.setAnim(Player.jumping);
+		player.setAnim(anim);
 		normalMoveLeftRight(player);
 		normalGravity(player);
 		

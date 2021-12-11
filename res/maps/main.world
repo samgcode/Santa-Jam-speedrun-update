@@ -192,7 +192,7 @@
         {
             "fileName": "peak-cave end.json",
             "height": 184,
-            "width": 400,
+            "width": 440,
             "x": 1784,
             "y": -1112
         },
@@ -282,17 +282,17 @@
         },
         {
             "fileName": "peak-cave 1.json",
-            "height": 680,
+            "height": 560,
             "width": 320,
             "x": 2128,
             "y": -2248
         },
         {
             "fileName": "peak-cave 2.json",
-            "height": 600,
+            "height": 560,
             "width": 320,
-            "x": 1808,
-            "y": -1712
+            "x": 1904,
+            "y": -1672
         },
         {
             "fileName": "cave-forest-1.json",
@@ -356,6 +356,20 @@
             "width": 320,
             "x": 400,
             "y": -672
+        },
+        {
+            "fileName": "3-b.json",
+            "height": 280,
+            "width": 320,
+            "x": 808,
+            "y": -2240
+        },
+        {
+            "fileName": "2-b.json",
+            "height": 240,
+            "width": 320,
+            "x": 2224,
+            "y": -1168
         }
     ],
     "onlyShowAdjacentMaps": false,

@@ -1,14 +1,17 @@
 package santaJam.entities.wallEntities;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.concurrent.ThreadLocalRandom;
 
+import santaJam.Assets;
 import santaJam.graphics.Camera;
 
 public class BreakableWall extends WallEntity{
+	private int image=0;
 
 	public BreakableWall(int x, int y) {
 		super(x,y);
+		image=ThreadLocalRandom.current().nextInt(Assets.iceWall.length);
 	}	
 	@Override
 	public void update() {
@@ -18,8 +21,7 @@ public class BreakableWall extends WallEntity{
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		g.setColor(new Color(0,105,199));
-		g.fillRect(bounds.x-camera.getxOffset(),bounds.y-camera.getyOffset(),bounds.width,bounds.height);
+		g.drawImage(Assets.iceWall[image],bounds.x-camera.getxOffset(),bounds.y-camera.getyOffset(),null);
 	}
 	
 	public void smash() {

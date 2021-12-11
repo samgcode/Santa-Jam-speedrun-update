@@ -19,7 +19,7 @@ public class Falling extends PlayerState{
 			return new SlideFalling();
 			
 		}
-		player.setAnim(player.walking);
+		
 		if(firstFrame) {
 			player.changeBounds(width, height);
 			firstFrame=false;
@@ -33,6 +33,7 @@ public class Falling extends PlayerState{
 		if(player.isGrounded()) {
 			return new Standing();
 		}
+		player.setAnim(Player.falling);
 		//attacking if the buffer an attack
 		/*if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
 			return new Sliding();

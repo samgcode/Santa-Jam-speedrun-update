@@ -224,7 +224,7 @@ public class Room {
 					if(tiles[x][y]==Map.MILK+infoStart) {
 						Entity.getManager().addEntity(new Collectible(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,Collectible.MILK));
 					}else if(tiles[x][y]==Map.MARSHMELLOW+infoStart) {
-						Entity.getManager().addEntity(new Collectible(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,Collectible.MARSHMELLOW));
+						Entity.getManager().addEntity(new Collectible(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,Collectible.MARSHMALLOW));
 					}else if(tiles[x][y]==Map.CHOCOLATE+infoStart) {
 						Entity.getManager().addEntity(new Collectible(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE,Collectible.CHOCOLATE));			
 					}

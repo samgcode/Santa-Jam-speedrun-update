@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.2" name="tileset" tilewidth="8" tileheight="8" tilecount="444" columns="12">
- <image source="../textures/tileset.png" width="96" height="303"/>
+<tileset version="1.5" tiledversion="1.7.2" name="tileset" tilewidth="8" tileheight="8" tilecount="468" columns="12">
+ <image source="../textures/tileset.png" width="96" height="313"/>
+ <tile id="10" probability="0"/>
+ <tile id="11" probability="0"/>
+ <tile id="22" probability="0"/>
+ <tile id="23" probability="0"/>
+ <tile id="58" probability="0"/>
+ <tile id="59" probability="0"/>
+ <tile id="70" probability="0"/>
+ <tile id="71" probability="0"/>
+ <tile id="106" probability="0"/>
+ <tile id="107" probability="0"/>
+ <tile id="118" probability="0"/>
+ <tile id="119" probability="0"/>
+ <tile id="154" probability="0"/>
+ <tile id="155" probability="0"/>
+ <tile id="166" probability="0"/>
+ <tile id="167" probability="0"/>
+ <tile id="202" probability="0"/>
+ <tile id="203" probability="0"/>
+ <tile id="214" probability="0"/>
+ <tile id="215" probability="0"/>
+ <tile id="250" probability="0"/>
+ <tile id="251" probability="0"/>
+ <tile id="262" probability="0"/>
+ <tile id="263" probability="0"/>
+ <tile id="346" probability="0"/>
+ <tile id="347" probability="0"/>
+ <tile id="358" probability="0"/>
+ <tile id="359" probability="0"/>
  <wangsets>
   <wangset name="all" type="corner" tile="-1">
    <wangcolor name="forest" color="#00aa00" tile="-1" probability="1"/>
@@ -22,6 +50,8 @@
    <wangtile tileid="7" wangid="0,0,0,0,0,1,0,1"/>
    <wangtile tileid="8" wangid="0,1,0,1,0,1,0,0"/>
    <wangtile tileid="9" wangid="0,0,0,1,0,1,0,1"/>
+   <wangtile tileid="10" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="11" wangid="0,1,0,1,0,1,0,1"/>
    <wangtile tileid="12" wangid="0,1,0,1,0,0,0,0"/>
    <wangtile tileid="13" wangid="0,1,0,1,0,1,0,1"/>
    <wangtile tileid="14" wangid="0,0,0,0,0,1,0,1"/>
@@ -32,11 +62,42 @@
    <wangtile tileid="19" wangid="0,0,0,0,0,1,0,1"/>
    <wangtile tileid="20" wangid="0,1,0,1,0,0,0,1"/>
    <wangtile tileid="21" wangid="0,1,0,0,0,1,0,1"/>
+   <wangtile tileid="22" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="23" wangid="0,1,0,1,0,1,0,1"/>
    <wangtile tileid="24" wangid="0,1,0,0,0,0,0,0"/>
    <wangtile tileid="25" wangid="0,1,0,0,0,0,0,1"/>
    <wangtile tileid="26" wangid="0,0,0,0,0,0,0,1"/>
    <wangtile tileid="30" wangid="0,1,0,1,0,0,0,0"/>
    <wangtile tileid="31" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="48" wangid="0,0,0,5,0,0,0,0"/>
+   <wangtile tileid="49" wangid="0,0,0,5,0,5,0,0"/>
+   <wangtile tileid="50" wangid="0,0,0,0,0,5,0,0"/>
+   <wangtile tileid="51" wangid="0,0,0,5,0,5,0,0"/>
+   <wangtile tileid="52" wangid="0,0,0,5,0,5,0,0"/>
+   <wangtile tileid="53" wangid="0,0,0,5,0,5,0,0"/>
+   <wangtile tileid="54" wangid="0,5,0,5,0,0,0,0"/>
+   <wangtile tileid="55" wangid="0,0,0,0,0,5,0,5"/>
+   <wangtile tileid="56" wangid="0,5,0,5,0,5,0,0"/>
+   <wangtile tileid="57" wangid="0,0,0,5,0,5,0,5"/>
+   <wangtile tileid="58" wangid="0,5,0,5,0,5,0,5"/>
+   <wangtile tileid="59" wangid="0,5,0,5,0,5,0,5"/>
+   <wangtile tileid="60" wangid="0,5,0,5,0,0,0,0"/>
+   <wangtile tileid="61" wangid="0,5,0,5,0,5,0,5"/>
+   <wangtile tileid="62" wangid="0,0,0,0,0,5,0,5"/>
+   <wangtile tileid="63" wangid="0,5,0,0,0,0,0,5"/>
+   <wangtile tileid="64" wangid="0,5,0,0,0,0,0,5"/>
+   <wangtile tileid="65" wangid="0,5,0,0,0,0,0,5"/>
+   <wangtile tileid="66" wangid="0,5,0,5,0,0,0,0"/>
+   <wangtile tileid="67" wangid="0,0,0,0,0,5,0,5"/>
+   <wangtile tileid="68" wangid="0,5,0,5,0,0,0,5"/>
+   <wangtile tileid="69" wangid="0,5,0,0,0,5,0,5"/>
+   <wangtile tileid="70" wangid="0,5,0,5,0,5,0,5"/>
+   <wangtile tileid="71" wangid="0,5,0,5,0,5,0,5"/>
+   <wangtile tileid="72" wangid="0,5,0,0,0,0,0,0"/>
+   <wangtile tileid="73" wangid="0,5,0,0,0,0,0,5"/>
+   <wangtile tileid="74" wangid="0,0,0,0,0,0,0,5"/>
+   <wangtile tileid="78" wangid="0,5,0,5,0,0,0,0"/>
+   <wangtile tileid="79" wangid="0,0,0,0,0,5,0,5"/>
    <wangtile tileid="96" wangid="0,0,0,2,0,0,0,0"/>
    <wangtile tileid="97" wangid="0,0,0,2,0,2,0,0"/>
    <wangtile tileid="98" wangid="0,0,0,0,0,2,0,0"/>
@@ -47,6 +108,8 @@
    <wangtile tileid="103" wangid="0,0,0,0,0,2,0,2"/>
    <wangtile tileid="104" wangid="0,2,0,2,0,2,0,0"/>
    <wangtile tileid="105" wangid="0,0,0,2,0,2,0,2"/>
+   <wangtile tileid="106" wangid="0,2,0,2,0,2,0,2"/>
+   <wangtile tileid="107" wangid="0,2,0,2,0,2,0,2"/>
    <wangtile tileid="108" wangid="0,2,0,2,0,0,0,0"/>
    <wangtile tileid="109" wangid="0,2,0,2,0,2,0,2"/>
    <wangtile tileid="110" wangid="0,0,0,0,0,2,0,2"/>
@@ -57,6 +120,8 @@
    <wangtile tileid="115" wangid="0,0,0,0,0,2,0,2"/>
    <wangtile tileid="116" wangid="0,2,0,2,0,0,0,2"/>
    <wangtile tileid="117" wangid="0,2,0,0,0,2,0,2"/>
+   <wangtile tileid="118" wangid="0,2,0,2,0,2,0,2"/>
+   <wangtile tileid="119" wangid="0,2,0,2,0,2,0,2"/>
    <wangtile tileid="120" wangid="0,2,0,0,0,0,0,0"/>
    <wangtile tileid="121" wangid="0,2,0,0,0,0,0,2"/>
    <wangtile tileid="122" wangid="0,0,0,0,0,0,0,2"/>
@@ -72,6 +137,8 @@
    <wangtile tileid="151" wangid="0,0,0,0,0,6,0,6"/>
    <wangtile tileid="152" wangid="0,6,0,6,0,6,0,0"/>
    <wangtile tileid="153" wangid="0,0,0,6,0,6,0,6"/>
+   <wangtile tileid="154" wangid="0,6,0,6,0,6,0,6"/>
+   <wangtile tileid="155" wangid="0,6,0,6,0,6,0,6"/>
    <wangtile tileid="156" wangid="0,6,0,6,0,0,0,0"/>
    <wangtile tileid="157" wangid="0,6,0,6,0,6,0,6"/>
    <wangtile tileid="158" wangid="0,0,0,0,0,6,0,6"/>
@@ -82,6 +149,8 @@
    <wangtile tileid="163" wangid="0,0,0,0,0,6,0,6"/>
    <wangtile tileid="164" wangid="0,6,0,6,0,0,0,6"/>
    <wangtile tileid="165" wangid="0,6,0,0,0,6,0,6"/>
+   <wangtile tileid="166" wangid="0,6,0,6,0,6,0,6"/>
+   <wangtile tileid="167" wangid="0,6,0,6,0,6,0,6"/>
    <wangtile tileid="168" wangid="0,6,0,0,0,0,0,0"/>
    <wangtile tileid="169" wangid="0,6,0,0,0,0,0,6"/>
    <wangtile tileid="170" wangid="0,0,0,0,0,0,0,6"/>
@@ -97,6 +166,8 @@
    <wangtile tileid="199" wangid="0,0,0,0,0,3,0,3"/>
    <wangtile tileid="200" wangid="0,3,0,3,0,3,0,0"/>
    <wangtile tileid="201" wangid="0,0,0,3,0,3,0,3"/>
+   <wangtile tileid="202" wangid="0,3,0,3,0,3,0,3"/>
+   <wangtile tileid="203" wangid="0,3,0,3,0,3,0,3"/>
    <wangtile tileid="204" wangid="0,3,0,3,0,0,0,0"/>
    <wangtile tileid="205" wangid="0,3,0,3,0,3,0,3"/>
    <wangtile tileid="206" wangid="0,0,0,0,0,3,0,3"/>
@@ -107,6 +178,8 @@
    <wangtile tileid="211" wangid="0,0,0,0,0,3,0,3"/>
    <wangtile tileid="212" wangid="0,3,0,3,0,0,0,3"/>
    <wangtile tileid="213" wangid="0,3,0,0,0,3,0,3"/>
+   <wangtile tileid="214" wangid="0,3,0,3,0,3,0,3"/>
+   <wangtile tileid="215" wangid="0,3,0,3,0,3,0,3"/>
    <wangtile tileid="216" wangid="0,3,0,0,0,0,0,0"/>
    <wangtile tileid="217" wangid="0,3,0,0,0,0,0,3"/>
    <wangtile tileid="218" wangid="0,0,0,0,0,0,0,3"/>
@@ -122,6 +195,8 @@
    <wangtile tileid="247" wangid="0,0,0,0,0,7,0,7"/>
    <wangtile tileid="248" wangid="0,7,0,7,0,7,0,0"/>
    <wangtile tileid="249" wangid="0,0,0,7,0,7,0,7"/>
+   <wangtile tileid="250" wangid="0,7,0,7,0,7,0,7"/>
+   <wangtile tileid="251" wangid="0,7,0,7,0,7,0,7"/>
    <wangtile tileid="252" wangid="0,7,0,7,0,0,0,0"/>
    <wangtile tileid="253" wangid="0,7,0,7,0,7,0,7"/>
    <wangtile tileid="254" wangid="0,0,0,0,0,7,0,7"/>
@@ -132,6 +207,8 @@
    <wangtile tileid="259" wangid="0,0,0,0,0,7,0,7"/>
    <wangtile tileid="260" wangid="0,7,0,7,0,0,0,7"/>
    <wangtile tileid="261" wangid="0,7,0,0,0,7,0,7"/>
+   <wangtile tileid="262" wangid="0,7,0,7,0,7,0,7"/>
+   <wangtile tileid="263" wangid="0,7,0,7,0,7,0,7"/>
    <wangtile tileid="264" wangid="0,7,0,0,0,0,0,0"/>
    <wangtile tileid="265" wangid="0,7,0,0,0,0,0,7"/>
    <wangtile tileid="266" wangid="0,0,0,0,0,0,0,7"/>

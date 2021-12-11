@@ -15,16 +15,27 @@ public class Assets {
 
 	public static BufferedImage[] walking = splitSpriteSheet(loadImage("walking.png"), 9, 13, 8, 1);
 	public static BufferedImage[] jumping = splitSpriteSheet(loadImage("jumping.png"), 11, 12, 3, 1);
+	public static BufferedImage[] doubleJump = splitSpriteSheet(loadImage("double jump.png"), 12, 15, 2, 1);
+	public static BufferedImage[] falling = new BufferedImage[] {loadImage("falling.png")};
+	
 	public static BufferedImage[] sliding = new BufferedImage[] {loadImage("slide.png")};
 	public static BufferedImage[] slideFall = new BufferedImage[] {loadImage("slide fall.png")};
+	
 	public static BufferedImage[] grappleThrow = splitSpriteSheet(loadImage("grapple throw.png"), 13,15, 6, 1);
 	public static BufferedImage[] grapplePull = splitSpriteSheet(loadImage("grapple pull.png"), 12, 12, 3, 1);
 	public static BufferedImage grappleHook= loadImage("grapple hook.png");
+	
 	public static BufferedImage[] dance= splitSpriteSheet(loadImage("dance.png"), 11, 13, 4, 1);
 	public static BufferedImage[] boostStart= splitSpriteSheet(loadImage("boost start.png"), 14,15, 17, 1);
 	public static BufferedImage[] boost = splitSpriteSheet(loadImage("boost.png"), 12,14, 17, 1);
 	
+	
+	public static BufferedImage[] marshmallow = splitSpriteSheet(loadImage("marshmallow.png"), 8,10, 8, 1);
+	public static BufferedImage[] milk = new BufferedImage[] {loadImage("milk.png")};
+	public static BufferedImage[] chocolate = new BufferedImage[] {loadImage("chocolate.png")};
+
 	public static BufferedImage icicle= loadImage("icicle.png");
+	public static BufferedImage[] iceWall = splitSpriteSheet(loadImage("ice wall.png"), 8,8, 3, 2);
 	
 	public static BufferedImage settings= loadImage("ui/setting icon.png");
 	public static BufferedImage mapIcon= loadImage("ui/map icon.png");
