@@ -56,10 +56,47 @@ public class MapState implements State{
 				maxY=r.getY()+r.getHeight();
 			}
 		}
-		mapImg = new BufferedImage((maxX-minX)/Map.TILESIZE, (maxY-minY)/Map.TILESIZE, BufferedImage.TYPE_4BYTE_ABGR);	
+		mapImg = new BufferedImage((maxX-minX)/Map.TILESIZE+10, (maxY-minY)/Map.TILESIZE+10, BufferedImage.TYPE_4BYTE_ABGR);	
 		xOffset=minX/Map.TILESIZE;
 		yOffset=minY/Map.TILESIZE;
 		
+		drawRooms(mapImg, map, minX, minY, maxX, maxY);
+		for(RoomExit e:roomExits(map)) {
+			
+			int x=(e.x-minX)/Map.TILESIZE;
+			int y=e.y/Map.TILESIZE-minY/Map.TILESIZE;
+			if(e.direction==LEFT) {
+				for(int j=0;j<=5;j++) {
+					mapImg.setRGB(x-j+5,y+5, Color.white.getRGB());
+					//fadeOut(x+j,y,(6-j)*30, mapImg);
+				}
+			}
+			if(e.direction==RIGHT) {
+				for(int j=0;j<=5;j++) {
+					mapImg.setRGB(x+j+5,y+5, Color.white.getRGB());
+					//fadeOut(x-j,y,(6-j)*30, mapImg);
+				}
+				
+			}
+			if(e.direction==UP) {
+				for(int j=0;j<=5;j++) {
+					mapImg.setRGB(x+5,y-j+5, Color.white.getRGB());
+					//fadeOut(x,y+j,(6-j)*30, mapImg);
+				}
+				
+			}
+			if(e.direction==DOWN) {
+				for(int j=0;j<=5;j++) {
+					mapImg.setRGB(x+5,y+j+5, Color.white.getRGB());
+					//fadeOut(x,y-j,(6-j)*30, mapImg);
+				}
+				
+			}		
+			
+		}
+		return mapImg;
+	}
+	private void drawRooms(BufferedImage img, Map map, int minX, int minY, int maxX, int maxY) {
 		for(int i:openedRooms) {
 			Room r = map.getAllRooms().get(i);
 			
@@ -69,61 +106,25 @@ public class MapState implements State{
 					int mapX=x-minX/Map.TILESIZE+r.getX()/Map.TILESIZE;
 					int mapY=y-minY/Map.TILESIZE+r.getY()/Map.TILESIZE;
 					if(r.isIceBlock(x,y)) {
-						mapImg.setRGB(mapX,mapY, Color.blue.getRGB());
-					}else if(!r.isWall(x,y)) {
+						img.setRGB(mapX+5,mapY+5, Color.blue.getRGB());
+					}//else if(!r.isWall(x,y)) {
 						if(r.getArea()==1) {
-							mapImg.setRGB(mapX,mapY, new Color(80,230,100).getRGB());
+							img.setRGB(mapX+5,mapY+5, new Color(80,230,100).getRGB());
 						}else if(r.getArea()==2) {
-							mapImg.setRGB(mapX,mapY, new Color(230,100,100).getRGB());
+							img.setRGB(mapX+5,mapY+5, new Color(230,100,100).getRGB());
 						}else if(r.getArea()==3) {
-							mapImg.setRGB(mapX,mapY, new Color(100,190,230).getRGB());
+							img.setRGB(mapX+5,mapY+5, new Color(100,190,230).getRGB());
 						}else if(r.getArea()==4) {
-							mapImg.setRGB(mapX,mapY, new Color(42,22,24).getRGB());
+							img.setRGB(mapX+5,mapY+5, new Color(42,22,24).getRGB());
 						}
-					}
+					//}
 				}
 			}
-			boolean[] exits = roomExits(r, map);
-			int roomX=-minX/Map.TILESIZE+r.getX()/Map.TILESIZE;
-			int roomY=-minY/Map.TILESIZE+r.getY()/Map.TILESIZE;
-			if(exits[UP]) {
-				for(int x=0;x<r.getWidth()/Map.TILESIZE;x++) {
-					for(int j=0;j<=5;j++) {
-						fadeOut(roomX+x,roomY+j,(6-j)*30, mapImg);
-					}
-					
-				}
-			}
-			if(exits[DOWN]) {
-				for(int x=0;x<r.getWidth()/Map.TILESIZE;x++) {
-					for(int j=0;j<=5;j++) {
-						fadeOut(roomX+x,roomY+r.getHeight()/Map.TILESIZE-j-1, (6-j)*30, mapImg);
-					}
-					
-				}
-			}
-			if(exits[LEFT]) {
-				for(int y=0;y<r.getHeight()/Map.TILESIZE;y++) {
-					for(int j=0;j<=5;j++) {
-						fadeOut(roomX+j,roomY+y,(6-j)*30, mapImg);
-					}
-				}
-			}
-			if(exits[RIGHT]) {
-				for(int y=0;y<r.getHeight()/Map.TILESIZE;y++) {
-					for(int j=0;j<=5;j++) {
-						fadeOut(roomX+r.getWidth()/Map.TILESIZE-j-1,roomY+y, (6-j)*30, mapImg);
-					}
-					
-				}
-			}
-			
 		}
-		return mapImg;
+		
 	}
 	private void fadeOut(int x, int y, int amount, BufferedImage img) {
 		Color c = new Color(img.getRGB(x, y), true);
-		
 		int alpha = c.getAlpha()-amount;
 		if(!(c.getRed()==0&&c.getGreen()==0&&c.getBlue()==0)) {
 			img.setRGB(x,y,new Color(c.getRed(),c.getGreen(),c.getBlue(),Math.max(alpha, 5)).getRGB());
@@ -131,8 +132,8 @@ public class MapState implements State{
 		
 		
 	}
-	private boolean[] roomExits(Room room, Map map) {
-		boolean[] exits = new boolean[4];
+	private ArrayList<RoomExit> roomExits(Map map) {
+		ArrayList<RoomExit> exits = new ArrayList<>();
 		
 		ArrayList<Room> unopenedRooms  = new ArrayList<>();
 		for(int i=0;i<map.getAllRooms().size();i++) {
@@ -146,74 +147,53 @@ public class MapState implements State{
 			unopenedRooms.add(map.getAllRooms().get(i));
 			}
 		}
-		Rectangle leftBounds = new Rectangle(room.getBounds().x-1,room.getBounds().y+3,1,room.getBounds().height-6);
-		Rectangle rightBounds = new Rectangle(room.getBounds().x+room.getBounds().width+1,room.getBounds().y+3,1,room.getBounds().height-6);
-		Rectangle upBounds = new Rectangle(room.getBounds().x-3,room.getBounds().y-1,room.getBounds().width-6,1);
-		Rectangle downBounds = new Rectangle(room.getBounds().x-3,room.getBounds().y+room.getBounds().height,room.getBounds().width-6,1);
 		
-		boolean leftWall=true, upWall=true, downWall=true, rightWall=true;
-		
-		
-
-		for(Room r :unopenedRooms) {
-			if( r.getBounds().intersects(leftBounds)) {
-				for(int y=0;y<r.getHeight()/Map.TILESIZE;y++) {
-					if(!r.isWall(r.getWidth(),y)) {
-						exits[LEFT]=true;
+		for(int i:openedRooms) {
+			Room checkRoom = map.getAllRooms().get(i);
+			for(int x=0;x<checkRoom.getWidth()/Map.TILESIZE;x++) {
+				if(!checkRoom.isWall(x, 0)){
+					for(Room r:map.getAllRooms()) {
+						if(r.getBounds().contains(checkRoom.getX()+x*Map.TILESIZE,checkRoom.getY()-1)) {
+							int xOffset = checkRoom.getX()-r.getX();
+							if(!r.isWall(xOffset/Map.TILESIZE+x,r.getHeight()/Map.TILESIZE-1)) {
+								exits.add(new RoomExit(checkRoom.getX()+x*Map.TILESIZE, checkRoom.getY(),UP));
+							}
+						}
+					}
+				}
+				if(!checkRoom.isWall(x, checkRoom.getHeight()/Map.TILESIZE)){
+					for(Room r:map.getAllRooms()) {
+						if(r.getBounds().contains(checkRoom.getX()+x*Map.TILESIZE,checkRoom.getY()+checkRoom.getHeight()+1)) {
+							int xOffset = checkRoom.getX()-r.getX();
+							if(!r.isWall(xOffset/Map.TILESIZE+x,0)) {
+								exits.add(new RoomExit(checkRoom.getX()+x*Map.TILESIZE, checkRoom.getY()+checkRoom.getHeight(),DOWN));
+							}
+						}
 					}
 				}
 			}
-			if( r.getBounds().intersects(rightBounds)) {
-				for(int y=0;y<r.getHeight();y++) {
-					if(!r.isWall(0,y)) {
-						exits[RIGHT]=true;
+			for(int y=0;y<checkRoom.getHeight()/Map.TILESIZE;y++) {
+				if(!checkRoom.isWall(0, y)){
+					for(Room r:map.getAllRooms()) {
+						if(r.getBounds().contains(checkRoom.getX()-1,checkRoom.getY()+y*Map.TILESIZE)) {
+							int yOffset = checkRoom.getY()-r.getY();
+							if(!r.isWall(r.getWidth()/Map.TILESIZE,yOffset/Map.TILESIZE+y)) {
+								exits.add(new RoomExit(checkRoom.getX(), checkRoom.getY()+y*Map.TILESIZE,LEFT));
+							}
+						}
+					}
+				}
+				if(!checkRoom.isWall(checkRoom.getWidth()/Map.TILESIZE, y)){
+					for(Room r:map.getAllRooms()) {
+						if(r.getBounds().contains(checkRoom.getX()+checkRoom.getWidth()+1,checkRoom.getY()+y*Map.TILESIZE)) {
+							int yOffset = checkRoom.getY()-r.getY();
+							if(!r.isWall(0,yOffset/Map.TILESIZE+y)) {
+								exits.add(new RoomExit(checkRoom.getX()+checkRoom.getWidth()-1, checkRoom.getY()+y*Map.TILESIZE,RIGHT));
+							}
+						}
 					}
 				}
 			}
-			if( r.getBounds().intersects(upBounds)) {
-				for(int y=0;y<r.getHeight();y++) {
-					if(!r.isWall(r.getHeight(),y)) {
-						exits[UP]=true;
-					}
-				}
-			}
-			if( r.getBounds().intersects(downBounds)) {
-				for(int y=0;y<r.getHeight();y++) {
-					if(!r.isWall(y,r.getHeight())) {
-						exits[DOWN]=true;
-					}
-				}
-			}
-		}
-		
-		for(int y=0;y<room.getHeight()/Map.TILESIZE;y++) {
-			if(!room.isWall(0,y)) {
-				leftWall=false;
-			}
-			if(!room.isWall(room.getWidth(),y)) {
-				rightWall=false;
-			}
-		}
-		for(int x=0;x<room.getHeight()/Map.TILESIZE;x++) {
-			if(!room.isWall(x,0)) {
-				upWall=false;
-			}
-			if(!room.isWall(x,room.getHeight())) {
-				downWall=false;
-			}
-		}
-		
-		if(leftWall) {
-			exits[LEFT]=false;
-		}
-		if(rightWall) {
-			exits[RIGHT]=false;
-		}
-		if(upWall) {
-			exits[UP]=false;
-		}
-		if(downWall) {
-			exits[DOWN]=false;
 		}
 		
 		return exits;
@@ -322,4 +302,16 @@ public class MapState implements State{
 		// TODO Auto-generated method stub
 		
 	}
+	
+}
+
+class RoomExit {
+	int x, y;
+	int direction;
+	public RoomExit(int x, int y, int direction) {
+		this.x=x;
+		this.y=y;
+		this.direction=direction;
+	}
+	
 }
