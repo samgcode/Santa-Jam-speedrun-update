@@ -51,8 +51,10 @@ public class Game {
 			while(delta<(DELAY)) {
 				endTime= System.nanoTime();
 				delta=endTime-startTime;
+				Thread.currentThread().setPriority(2);
 				
 			}
+			Thread.currentThread().setPriority(7);
 			
 			
 		}

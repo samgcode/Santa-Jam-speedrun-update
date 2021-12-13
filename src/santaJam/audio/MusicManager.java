@@ -42,12 +42,11 @@ public class MusicManager extends Thread{
 			}
 			
 			
-			double endTime= System.nanoTime();//the time at the end of the frame
-			double delta=endTime-startTime;//how long the fame took
-			while(delta<(DELAY)) {
-				endTime= System.nanoTime();
-				delta=endTime-startTime;
-				
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 		}
