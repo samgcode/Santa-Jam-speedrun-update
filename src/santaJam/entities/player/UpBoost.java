@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Rectangle;
 
 import santaJam.graphics.particles.movers.Straight;
-import santaJam.graphics.particles.shapes.OvalParticle;
 import santaJam.graphics.particles.shapes.RectangleShape;
 import santaJam.graphics.particles.shapes.colourers.Timed;
 import santaJam.graphics.particles.spawners.RectangleSpawn;
@@ -14,7 +13,7 @@ public class UpBoost extends PlayerState{
 	PlayerState prevState;
 	
 	private boolean firstFrame=true;
-	private int chargeTime=30;
+	private int chargeTime=35;
 	private double boostVel;
 	
 	

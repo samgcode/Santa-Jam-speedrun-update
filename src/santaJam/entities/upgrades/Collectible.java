@@ -10,8 +10,8 @@ import santaJam.states.StateManager;
 
 
 public class Collectible extends Upgrade{
-	public static final int MILK=0, MARSHMALLOW=1,CHOCOLATE=3;
-	private int type = 0;
+	public static final int MILK=0, MARSHMALLOW=1,CHOCOLATE=3, MAXANIMTIME=120;
+	private int type = 0, animTimer=0;
 	private Animation anim;
 
 	public Collectible(int x, int y, int type) {
@@ -31,6 +31,7 @@ public class Collectible extends Upgrade{
 			description = "puts the chocolate in hot chocolate";
 			anim=new Animation(Assets.chocolate);
 		}
+		anim.setLooping(false);
 		
 	}
 	
@@ -47,6 +48,11 @@ public class Collectible extends Upgrade{
 	public void update() {
 		super.update();
 		anim.update();
+		animTimer++;
+		if(animTimer>MAXANIMTIME) {
+			anim.setPaused(false);
+			animTimer=0;
+		}
 		
 		
 	}

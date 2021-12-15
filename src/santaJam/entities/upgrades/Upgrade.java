@@ -44,7 +44,7 @@ public abstract class Upgrade extends Entity{
 		};
 		
 		
-		text.centre();
+		text.centre(120);
 		UIElement.getUIManager().addElement(rect);
 		UIElement.getUIManager().addElement(text);
 	}

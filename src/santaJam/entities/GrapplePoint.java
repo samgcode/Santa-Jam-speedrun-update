@@ -1,9 +1,9 @@
 package santaJam.entities;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import santaJam.Assets;
 import santaJam.graphics.Camera;
 
 public class GrapplePoint extends Entity{
@@ -26,8 +26,8 @@ public class GrapplePoint extends Entity{
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		g.setColor(new Color(14,117,50));
-		g.fillRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(),bounds.width,bounds.height);
+		g.drawImage(Assets.grappplePoint,bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset() , null);
+		
 	}
 	
 }

@@ -14,6 +14,7 @@ import santaJam.entities.upgrades.GrappleItem;
 import santaJam.entities.upgrades.SlideItem;
 import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.graphics.UI.TextElement;
+import santaJam.graphics.particles.Particle;
 import santaJam.inputs.Inputs;
 import santaJam.maps.Map;
 import santaJam.maps.Room;
@@ -26,7 +27,7 @@ public class PauseState implements State{
 	Menu menu;
 	MenuSelection slide, grapple, doubleJump, boost, binoculars, milk, chocolate, marshmellow;
 	TextElement itemText;
-	int itemTextWidth=Game.WIDTH/2-50;
+	int itemTextWidth=108;
 	
 	public PauseState(GameState gameState) {
 		this.gameState = gameState;
@@ -41,15 +42,16 @@ public class PauseState implements State{
 				marshmellowNum++;
 			}
 		}
+		Color textColour = new Color(200,254,255),hoverColour =  new Color(14,117,50);
 		
-		slide =new MenuSelection(new Rectangle(50,40,50,10), "SLIDE");
-		grapple =new MenuSelection(new Rectangle(50,50,50,10), "GRAPPLE");
-		doubleJump =new MenuSelection(new Rectangle(50,60,50,10), "DOUBLE JUMP");
-		boost =new MenuSelection(new Rectangle(50,70,50,10), "BOOST THING");
-		binoculars =new MenuSelection(new Rectangle(50,80,50,10), "BINOCULARS");
-		milk =new MenuSelection(new Rectangle(50,150,50,10), "MILK:"+milkNum);
-		chocolate =new MenuSelection(new Rectangle(110,150,50,10), "CHOCOLATE:"+chocolateNum);
-		marshmellow =new MenuSelection(new Rectangle(190,150,50,10), "MARSHMALLOW:"+marshmellowNum);
+		slide =new MenuSelection(new Rectangle(60,50,50,10), "SLIDE",textColour,hoverColour);
+		grapple =new MenuSelection(new Rectangle(60,60,50,10), "GRAPPLE",textColour,hoverColour);
+		doubleJump =new MenuSelection(new Rectangle(60,70,50,10), "DOUBLE JUMP",textColour,hoverColour);
+		boost =new MenuSelection(new Rectangle(60,80,50,10), "BOOST THING",textColour,hoverColour);
+		binoculars =new MenuSelection(new Rectangle(60,90,50,10), "BINOCULARS",textColour,hoverColour);
+		milk =new MenuSelection(new Rectangle(60,150,50,10), "MILK:"+milkNum,textColour,hoverColour);
+		chocolate =new MenuSelection(new Rectangle(110,150,50,10), "CHOCOLATE:"+chocolateNum,textColour,hoverColour);
+		marshmellow =new MenuSelection(new Rectangle(190,150,50,10), "MARSHMALLOW:"+marshmellowNum,textColour,hoverColour);
 		
 		ArrayList<MenuSelection> abilities = new ArrayList<>();
 		if(StateManager.getGameState().getSave().hasSlide()) {
@@ -74,8 +76,8 @@ public class PauseState implements State{
 		
 		menu.select();
 		
-		itemText = new TextElement(false, Game.WIDTH/2,50,6,7,itemTextWidth,"NO ABILITIES OBTAINED", Assets.font);
-		itemText.centre();
+		itemText = new TextElement(false, Game.WIDTH/2+10,70,TextElement.BIGMONOWIDTH,TextElement.SMALLMONOHEIGHT,itemTextWidth,"", Assets.font);
+		itemText.centre(itemTextWidth);
 		
 	}
 	@Override
@@ -96,59 +98,46 @@ public class PauseState implements State{
 
 	@Override
 	public void render(Graphics2D g) {
-		g.setColor(new Color(57,11,50));
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		g.setColor(Color.white);
-		g.setFont(Assets.font);
-		g.drawString("PAUSED", 150, 10);
-
+		g.drawImage(Assets.pauseScreen,0,0, null);
+		g.setColor(new Color(200,254,255));
+		g.setFont(Assets.bigFont);
+		g.drawString("Inventory", 126, 24);
+		
+		
 		menu.render(g);
 		itemText.render(g);
 		
+		
 		if(menu.getHovered()==slide) {
-			itemText.update(new SlideItem(0, 0).getDescription(),itemTextWidth);
-			itemText.centre();
+			itemText.update(new SlideItem(0, 0).getDescription(),itemTextWidth);			
 		}
 		if(menu.getHovered()==grapple) {
 			itemText.update(new GrappleItem(0, 0).getDescription(),itemTextWidth);
-			itemText.centre();
-
 		}
 		if(menu.getHovered()==doubleJump) {
 			itemText.update(new DoubleJumpItem(0, 0).getDescription(),itemTextWidth);
-			itemText.centre();
-
 		}
 		if(menu.getHovered()==boost) {
 			itemText.update(new UpBoostItem(0, 0).getDescription(),itemTextWidth);
-			itemText.centre();
-
 		}
 		if(menu.getHovered()==binoculars) {
 			itemText.update(new Binoculars(0, 0).getDescription(),itemTextWidth);
-			itemText.centre();
-
 		}
 		if(menu.getHovered()==milk) {
 			itemText.update(new Collectible(0, 0,Collectible.MILK).getDescription(),itemTextWidth);
-			itemText.centre();
-
 		}
 		if(menu.getHovered()==chocolate) {
 			itemText.update(new Collectible(0, 0,Collectible.CHOCOLATE).getDescription(),itemTextWidth);
-			itemText.centre();
-
 		}
 		if(menu.getHovered()==marshmellow) {
 			itemText.update(new Collectible(0, 0,Collectible.MARSHMALLOW).getDescription(),itemTextWidth);
-			itemText.centre();
-
 		}
-		
-		g.drawImage(Assets.settings, 5, Game.HEIGHT/2-Assets.settings.getHeight()/2, null);
-		g.drawImage(Assets.mapIcon, Game.WIDTH-5-Assets.mapIcon.getWidth(), Game.HEIGHT/2-Assets.mapIcon.getHeight()/2, null);
+		itemText.centre(itemTextWidth);
+
+		//g.drawRect(itemText.getX(),itemText.getY(),itemTextWidth,itemText.getHeight());
 	}
 
+	
 	@Override
 	public void end() {}
 

@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import santaJam.Assets;
-import santaJam.Game;
 
 public class TextElement extends UIElement{
 	/*
@@ -64,7 +63,7 @@ public class TextElement extends UIElement{
 	/**
 	 * lets you change the text to say something different
 	 * @apiNote ui elements do not need to be updated every frame
-	 * @param text - the new text that shold be displayed. "\n" can be used to create line breaks
+	 * @param text - the new text that should be displayed. "\n" can be used to create line breaks
 	 */
 	public void update(String text) {
 		lines=text.split("\n");//adding line breaks if there is a new line in the text
@@ -106,7 +105,7 @@ public class TextElement extends UIElement{
 				currentWidth=0;
 			}else {
 				lines.set(lineIndex, lines.get(lineIndex)+i+" ");
-				currentWidth+=i.length()*charWidth;
+				currentWidth+=(i.length()+1)*charWidth;
 			}
 		}
 		lines.set(lineIndex, lines.get(lineIndex).substring(0,lines.get(lineIndex).length()-1));
@@ -132,8 +131,8 @@ public class TextElement extends UIElement{
 	 * adds spaces to each line so that all lines are centred horizontally
 	 * only works with monospace fonts
 	 */
-	public void centre() {
-		int widthChars = width/charWidth;
+	public void centre(int lineWidth) {
+		int widthChars = lineWidth/charWidth;
 		for(int i=0;i<lines.length;i++) {
 			int charsNeeded=(widthChars-lines[i].length())/2;
 			for(int j=0;j<charsNeeded;j++) {

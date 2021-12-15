@@ -52,6 +52,9 @@ public class Song extends Sound{
 		if(clip.isOpen()) {
 			stop();
 		}
+		FloatControl gainControl;
+		
+		
 		try {
 			loadAudioStream(path);
 			clip.open(audioStream);
@@ -62,6 +65,8 @@ public class Song extends Sound{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(Sound.volumeToDb(volume));
 		if(loops) {
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 		}

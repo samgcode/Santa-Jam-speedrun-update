@@ -1,5 +1,6 @@
 package santaJam.states.menus;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -14,12 +15,12 @@ public class Menu extends MenuSelection{
 	private int hovered=0;
 	private boolean inSubMenu=false;
 	
-	public Menu(Rectangle bounds,String name,  MenuObject[] menuObjects) {
-		super(bounds,name);
+	public Menu(Rectangle bounds,String name,Color colour, Color hoverColour,  MenuObject[] menuObjects) {
+		super(bounds,name,colour,hoverColour);
 		this.menuObjects=menuObjects;
 	}
 	public Menu(Rectangle bounds,  MenuObject[] menuObjects) {
-		this(bounds, "", menuObjects);
+		this(bounds, "",Color.black,Color.white, menuObjects);
 	}
 
 
@@ -100,6 +101,13 @@ public class Menu extends MenuSelection{
 		}
 	}
 	public MenuObject getHovered() {
+		
 		return menuObjects[hovered];
+	}
+	public int getHoveredIndex() {
+		return hovered;
+	}
+	public boolean isInSubMenu() {
+		return inSubMenu;
 	}
 }

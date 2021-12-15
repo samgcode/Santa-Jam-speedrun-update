@@ -37,5 +37,7 @@ public abstract class MenuObject {
 	public Rectangle getBounds() {
 		return bounds;
 	}
-
+	public boolean isSelected() {
+		return selected;
+	}
 }

@@ -63,6 +63,9 @@ public class SplitSong extends Sound {
 	private void switchClips() {
 		starting = false;
 		loopClip.loop(Clip.LOOP_CONTINUOUSLY);
+		FloatControl gainControl;
+		gainControl = (FloatControl) loopClip.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(Sound.volumeToDb(volume));
 		loopClip.start();
 		startClip.stop();
 		startClip.close();
@@ -84,6 +87,9 @@ public class SplitSong extends Sound {
 			System.out.println("Audio line for playing back is unavailable.");
 			e.printStackTrace();
 		}
+		FloatControl gainControl;
+		gainControl = (FloatControl) startClip.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(Sound.volumeToDb(volume));
 		startClip.start();
 		
 

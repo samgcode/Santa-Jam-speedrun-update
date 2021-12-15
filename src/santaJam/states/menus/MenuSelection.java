@@ -42,6 +42,9 @@ public class MenuSelection extends MenuObject{
 		super.hover();
 		isHovered=true;
 	}
+	public String getName() {
+		return name;
+	}
 
 
 	

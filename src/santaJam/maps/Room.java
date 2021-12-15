@@ -124,8 +124,8 @@ public class Room {
 			particles = new EvenRectSpawn(0.0005,x-50,y-50, width*Map.TILESIZE+100,
 					height*Map.TILESIZE+100,new Straight(0,0, 0.25),new OvalParticle(1,new RandFadeOut(colors,1.5)),true);
 		}else if(area==3) {
-			particles = new EvenRectSpawn(0.01,x-150,y-Map.TILESIZE-50, width*Map.TILESIZE,
-					height*Map.TILESIZE+50,new Straight(0,0,15, 5, 5),new RectangleShape(2,1,new FadeOut(1)),true);
+			particles = new EvenRectSpawn(0.01,x-150,y-Map.TILESIZE-50, width*Map.TILESIZE-50,
+					height*Map.TILESIZE+50,new Straight(0,0,15, 5, 5),new RectangleShape(2,1,new FadeOut(1.5)),true);
 		}
 		
 		
@@ -269,20 +269,20 @@ public class Room {
 		}
 		return false;
 	}
-	public boolean hasCollectible() {
+	public int getCollectibles() {
 		for(String i:StateManager.getGameState().getSave().getCollectibles()) {
 			if(i.equals(name)) {
-				return false;
+				return -1;
 			}
 		}
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
 				if(tiles[x][y]==Map.MILK+infoStart||tiles[x][y]==Map.MARSHMELLOW+infoStart||tiles[x][y]==Map.CHOCOLATE+infoStart) {
-					return true;
+					return tiles[x][y]-infoStart;
 				}
 			}
 		}
-		return false;
+		return -1;
 	}
 	public int getCollectedItem() {
 		for(String i:StateManager.getGameState().getSave().getCollectibles()) {

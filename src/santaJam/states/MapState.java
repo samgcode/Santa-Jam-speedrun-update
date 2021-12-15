@@ -15,7 +15,7 @@ import santaJam.maps.Room;
 
 public class MapState implements State{
 	private final int LEFT=0, RIGHT=1, UP=2, DOWN=3;
-	private final double MINSCALE=0.3;
+	private final double MINSCALE=0.25;
 	
 	GameState gameState;
 	BufferedImage mapImg;
@@ -80,18 +80,18 @@ public class MapState implements State{
 			int roomX= (int) Math.round((room.getX()-minX)/Map.TILESIZE*scale);
 			int roomY= (int) Math.round((room.getY()-minY)/Map.TILESIZE*scale);
 			if(room.getArea()==1){
-				g.setColor(new Color(16,80,61));
+				g.setColor(new Color(14,117,50));
 			}if(room.getArea()==2){
-				g.setColor(new Color(0,63,148));
+				g.setColor(new Color(0,89,241));
 			}if(room.getArea()==3){
-				g.setColor(new Color(113,134,150));
+				g.setColor(new Color(184,184,184));
 			}if(room.getArea()==4){
-				g.setColor(new Color(20,166,34));
+				g.setColor(new Color(170,141,96));
 			}
 			
 			g.fillRect(roomX,roomY,(int) Math.round(room.getWidth()/Map.TILESIZE*scale),
 					(int) Math.round(room.getHeight()/Map.TILESIZE*scale));
-			g.setColor(Color.black);
+			g.setColor(new Color(36,29,41));
 			g.drawRect(roomX,roomY,(int) Math.round(room.getWidth()/Map.TILESIZE*scale),
 					(int) Math.round(room.getHeight()/Map.TILESIZE*scale));
 		}
@@ -154,11 +154,21 @@ public class MapState implements State{
 	
 	private void drawCollectibles(BufferedImage img, Graphics2D g, Map map,int minX, int minY) {
 		for(Room r:gameState.getMap().getAllRooms()) {
-			if(r.hasCollectible()) {
-				g.setColor(Color.white);
-				int roomX= (int) Math.round((r.getX()-minX+r.getWidth()/2)/Map.TILESIZE*scale);
-				int roomY= (int) Math.round((r.getY()-minY+r.getHeight()/2)/Map.TILESIZE*scale);
-				g.drawRect(roomX-2,roomY-2,3,3);
+			int collectible = r.getCollectibles();
+			int roomX= (int) Math.round((r.getX()-minX+r.getWidth()/2)/Map.TILESIZE*scale);
+			int roomY= (int) Math.round((r.getY()-minY+r.getHeight()/2)/Map.TILESIZE*scale);
+
+			if(collectible==Map.MILK) {
+				g.drawImage(Assets.milkIcon, roomX-Assets.milkIcon.getWidth()/2, roomY-Assets.milkIcon.getHeight()/2, null);
+			}
+			if(collectible==Map.CHOCOLATE) {
+				g.drawImage(Assets.chocolateIcon, roomX-Assets.chocolateIcon.getWidth()/2, roomY-Assets.chocolateIcon.getHeight()/2, null);
+				
+			}
+			if(collectible==Map.MARSHMELLOW) {
+				g.drawImage(Assets.marchmallowIcon, roomX-Assets.marchmallowIcon.getWidth()/2, 
+						roomY-Assets.marchmallowIcon.getHeight()/2, null);
+				
 			}
 				
 		}
@@ -167,11 +177,11 @@ public class MapState implements State{
 	private void drawPlayer(BufferedImage img, Graphics2D g, Map map,int minX, int minY) {
 		for(Entity i :Entity.getManager().getEntities()) {
 			if(i instanceof Player) {
-				g.setColor(Color.red);
+				
 				int x = (int) Math.round((i.getBounds().x+i.getBounds().width/2-minX)/Map.TILESIZE*scale);	
 				int y = (int) Math.round((i.getBounds().y+i.getBounds().height/2-minY)/Map.TILESIZE*scale);	
-
-				g.drawRect(x-3,y-3,5,5);
+				g.drawImage(Assets.playerIcon, x-Assets.playerIcon.getWidth()/2, y-Assets.playerIcon.getHeight()/2, null);
+				
 			}
 		}
 		
@@ -224,37 +234,21 @@ public class MapState implements State{
 	public void render(Graphics2D g) {
 		int mapDrawX=Game.WIDTH/2+mapX;
 		int mapDrawY=Game.HEIGHT/2+mapY;
-		g.setColor(new Color(78,16,69));
+		g.setColor(new Color(10,84,62));
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		
-		g.drawImage(mapImg,mapDrawX-mapImg.getWidth()/2,mapDrawY-mapImg.getHeight()/2, null);
-		
-		//drawing collectible icons
-		
-		
-		
-		
-		
-		g.setColor(new Color(57,11,50));
-		g.fillRect(125,0,Game.WIDTH-250,15);
-		g.setColor(Color.white);
-		g.setFont(Assets.font);
-		g.drawString("MAP", Game.WIDTH/2-8, 10);
+		g.drawImage(mapImg,mapDrawX-mapImg.getWidth()/2,mapDrawY-mapImg.getHeight()/2+10, null);
+	
 		
 		if(scale<=MINSCALE) {
-			g.drawString("ABIL.", 5, 100);
-			g.drawString("LEGEND:", 350, 50);
+			g.drawImage(Assets.mapScreen,0,0,null);
 			
-			g.drawString("YOU", 360, 60);
-			g.setColor(Color.red);
-			g.drawRect(350,54,6,6);
-		//	g.drawString("", 360, 70);
-			//g.setColor(Color.black);
-			//g.fillRect(350,64,6,6);
-			g.setColor(Color.white);
-			g.drawString("ICEWALL", 360, 70);
-			g.setColor(Color.blue);
-			g.fillRect(350,64,6,6);
+			g.setColor(new Color(200,254,255));
+			g.setFont(Assets.bigFont);
+			g.drawString("Map", Game.WIDTH/2-11, 24);
+			
+		
+		
+		
 		}
 		
 		

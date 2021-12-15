@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import santaJam.Assets;
 import santaJam.Game;
 import santaJam.entities.player.Player;
+import santaJam.graphics.Animation;
 import santaJam.graphics.Camera;
 import santaJam.graphics.UI.RectElement;
 import santaJam.graphics.UI.TextElement;
@@ -17,11 +18,12 @@ import santaJam.states.StateManager;
 public class Binoculars extends Upgrade{
 	
 	private int timer=0;
+	private Animation anim = new Animation(Assets.binoculars);
 	
 	public Binoculars(int x, int y) {
 		super(x,y);
 		name = "Binoculars";
-		description = "collectibles shown on map";
+		description = "collectables shown on map";
 	}
 	
 
@@ -51,12 +53,13 @@ public class Binoculars extends Upgrade{
 		};
 		
 		
-		text.centre();
+		text.centre(120);
 		UIElement.getUIManager().addElement(rect);
 		UIElement.getUIManager().addElement(text);
 	}
 	@Override
 	public void update() {
+		anim.update();
 		super.update();
 		timer++;
 		
@@ -64,11 +67,7 @@ public class Binoculars extends Upgrade{
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		if(timer%40>20) {
-			g.setColor(Color.MAGENTA);
-		}else{
-			g.setColor(Color.white);
-		}
+		g.drawImage(anim.getCurrentFrame(),bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(),null);
 		g.fillOval(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
 	}
 	

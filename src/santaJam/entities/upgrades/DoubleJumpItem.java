@@ -1,20 +1,23 @@
 package santaJam.entities.upgrades;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
+import santaJam.Assets;
 import santaJam.entities.player.Player;
+import santaJam.graphics.Animation;
 import santaJam.graphics.Camera;
 import santaJam.states.StateManager;
 
 public class DoubleJumpItem extends Upgrade{
 	
-	private int timer=0;
+
+	private Animation anim = new Animation(Assets.doubleJumpIcon);
+
 	
 	public DoubleJumpItem(int x, int y) {
 		super(x, y);
 		name = "double jump";
-		description = "jump, but again";
+		description = "jump but again";
 	}
 	
 
@@ -27,18 +30,12 @@ public class DoubleJumpItem extends Upgrade{
 	@Override
 	public void update() {
 		super.update();
-		timer++;
-		
+		anim.update();
 	}
 
 	@Override
 	public void render(Graphics2D g, Camera camera) {
-		if(timer%40>20) {
-			g.setColor(Color.orange);
-		}else{
-			g.setColor(Color.white);
-		}
-		g.fillOval(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
+		g.drawImage(anim.getCurrentFrame(),bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(),null);
 	}
 	
 

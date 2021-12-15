@@ -110,5 +110,8 @@ public class GameState implements State {
 		}
 		openedRooms.add(room);
 	}
+	public Camera getCamera() {
+		return camera;
+	}
 
 }

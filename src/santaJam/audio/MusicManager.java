@@ -8,16 +8,16 @@ public class MusicManager extends Thread{
 	private int nextSong=-1;
 	
 	public static final int FOREST=1, ICECAVE=2,PEAK=3,HOME=4,MENU=0;
-	private static final Sound forest = new Song("res/sound/forest.wav",true);
+	private static final Sound forest = new SplitSong("res/sound/forest start.wav","res/sound/forest loop.wav");
 	private static final Sound iceCave = new SplitSong("res/sound/iceCaveStart.wav","res/sound/iceCave.wav");
 	private static final Song peak = new Song("res/sound/peak.wav",true);
 	private static final Song home = new Song("res/sound/home.wav",true);
 	
 	@Override
 	public void run() {
-		final int FPS = 100, DELAY = 1000000000 / FPS;
+	
 		while(run) {
-			double startTime= System.nanoTime();//getting the time at the start of the frame
+		
 			forest.update();
 			iceCave.update();
 			peak.update();

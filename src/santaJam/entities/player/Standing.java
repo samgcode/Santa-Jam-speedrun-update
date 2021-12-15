@@ -1,5 +1,12 @@
 package santaJam.entities.player;
 
+import java.awt.Color;
+import java.awt.Rectangle;
+
+import santaJam.graphics.particles.movers.Straight;
+import santaJam.graphics.particles.shapes.OvalParticle;
+import santaJam.graphics.particles.shapes.colourers.Timed;
+import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
 
 public class Standing extends PlayerState{
@@ -22,18 +29,27 @@ public class Standing extends PlayerState{
 			
 		}
 		if(firstFrame) {
+			Rectangle pBounds = player.getBounds();
+			new RectangleSpawn(2, pBounds.x-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, 180,30,0.5),
+					new OvalParticle(2, new Timed(Color.white,10)) , true);
+			new RectangleSpawn(2, pBounds.x+pBounds.width-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, 0,30,0.5),
+					new OvalParticle(2, new Timed(Color.white,10)) , true);
 			player.changeBounds(width, height);
+			player.setAnim(Player.landing);
 			firstFrame=false;
 		}
 		
 		normalMoveLeftRight(player);//moving the player
 		normalGravity(player);//doing gravity
 		
-		if(Math.abs(player.getVelX())>0) {
-			player.setAnim(Player.walking);
-		}else {
-			player.setAnim(Player.idle);
+		if(player.getCurrentAnim()!=Player.landing||player.getCurrentAnim().getFrameIndex()==player.getCurrentAnim().getlength()-1) {
+			if(Math.abs(player.getVelX())>0) {
+				player.setAnim(Player.walking);
+			}else {
+				player.setAnim(Player.idle);
+			}
 		}
+		
 		
 		
 		//if they pressed/buffered a jump, then they should jump
@@ -48,12 +64,14 @@ public class Standing extends PlayerState{
 		}
 		
 		if(player.getVelY()<0) {
+			System.out.println();
 			return new Falling();
 		}
 		//transitioning to the falling state if the are not on the ground, and it is after coyote time
 		if(!player.isGrounded()) {
 			coyoteTime--;
 			if(coyoteTime<=0) {
+				
 				return new Falling();
 			}
 		}else {

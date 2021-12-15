@@ -100,10 +100,10 @@
         },
         {
             "fileName": "1-12(grapple).json",
-            "height": 184,
+            "height": 240,
             "width": 320,
             "x": 2520,
-            "y": 248
+            "y": 200
         },
         {
             "fileName": "1-14.json",
@@ -338,16 +338,16 @@
         },
         {
             "fileName": "peak-forest a.json",
-            "height": 192,
-            "width": 880,
+            "height": 184,
+            "width": 856,
             "x": 232,
             "y": -488
         },
         {
             "fileName": "wall.json",
-            "height": 64,
+            "height": 72,
             "width": 48,
-            "x": 1112,
+            "x": 1400,
             "y": -368
         },
         {

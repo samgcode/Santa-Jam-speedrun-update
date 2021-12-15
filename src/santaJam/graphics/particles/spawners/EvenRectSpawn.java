@@ -43,7 +43,6 @@ public class EvenRectSpawn extends Spawner{
 	
 	public void start() {
 		running=true;
-		System.out.println("starting particles");
 	}
 	public void stop() {
 		running=false;

@@ -19,17 +19,18 @@ public class Player extends Entity {
 	private int maxHealth=5;
 	private PlayerState currentState = new Standing();
 	public static final Animation idle = new Animation(new BufferedImage[] { Assets.walking[0]},3,0);
+	public static final Animation landing = new Animation(Assets.landing,3,1,-1);
 	public static final Animation walking = new Animation(Assets.walking,3,0);
 	public static final Animation jumping = new Animation(Assets.jumping,3,0);
-	public static final Animation doubleJump = new Animation(Assets.doubleJump,3,5);
+	public static final Animation doubleJump = new Animation(Assets.doubleJump,2,0);
 	public static final Animation falling = new Animation(Assets.falling,1,0);
 	public static final Animation sliding = new Animation(Assets.sliding,1,0);
 	public static final Animation slideFall = new Animation(Assets.slideFall,1,0);
 	public static final Animation grappleThrow = new Animation(Assets.grappleThrow,2,5,2);
 	public static final Animation grapplePull = new Animation(Assets.grapplePull,2,0);
 	public static final Animation dance = new Animation(Assets.dance,3,1);
-	public static final Animation boostStart = new Animation(Assets.boostStart,1,5,2);
-	public static final Animation boost = new Animation(Assets.boost,0,4,1);
+	public static final Animation boostStart = new Animation(Assets.boostStart,5,5,2);
+	public static final Animation boost = new Animation(Assets.boost,5,4,1);
 
 
 	
@@ -45,6 +46,7 @@ public class Player extends Entity {
 		damage=0;
 		maxInvincibility=30;
 		team=0;
+		landing.setLooping(false);
 		jumping.setLooping(false);
 		grappleThrow.setLooping(false);
 		doubleJump.setLooping(false);
@@ -54,8 +56,17 @@ public class Player extends Entity {
 	public void update() {
 	
 		//System.out.println(bounds.x);
-		//-System.out.println(currentState);
+		//System.out.println(currentState);
 		
+		/*if(Inputs.up().isHeld()) {
+			bounds.y-=3;
+		}if(Inputs.down().isHeld()) {
+			bounds.y+=3;
+		}if(Inputs.left().isHeld()) {
+			bounds.x-=3;
+		}if(Inputs.right().isHeld()) {
+			bounds.x+=3;
+		}*/
 		PlayerState nextState = currentState.update(this);
 		setState(nextState);
 		
@@ -66,6 +77,7 @@ public class Player extends Entity {
 	
 	private void hitWallEntities() {		
 		ArrayList<WallEntity> walls = new ArrayList<WallEntity>();
+		boolean xCollide=false, yCollide=false;
 		
 		for(Entity i:manager.getEntities()) {
 			if(i instanceof WallEntity) {
@@ -100,6 +112,7 @@ public class Player extends Entity {
 				if(isSliding()&& i instanceof BreakableWall) {
 					((BreakableWall) i).smash();
 				}else {
+					xCollide=true;
 					if(velX>0) {
 						while(i.getBounds().intersects(newBounds)&&newBounds.x>bounds.x) {
 							velX--;
@@ -137,6 +150,7 @@ public class Player extends Entity {
 				if(isSliding()&& i instanceof BreakableWall) {
 					((BreakableWall) i).smash();
 				}else {
+					yCollide=true;
 					if(velY>0) {
 						while(i.getBounds().intersects(newBounds)&&newBounds.y>bounds.y) {
 							velY--;
@@ -150,6 +164,12 @@ public class Player extends Entity {
 					}
 				}
 			}								
+		}
+		if(xCollide){
+			velX=0;
+		}
+		if(yCollide) {
+			velY=0;
 		}
 
 	}
@@ -203,6 +223,9 @@ public class Player extends Entity {
 				return false;
 			}
 		}
+		if(!StateManager.getGameState().getMap().inMap(newBounds)) {
+			return false;
+		}
 		
 		bounds = newBounds;
 		x=bounds.x;
@@ -217,6 +240,9 @@ public class Player extends Entity {
 		}
 		
 		this.currentAnim = animation;
+	}
+	public Animation getCurrentAnim() {
+		return currentAnim;
 	}
 	public boolean isSliding() {
 		if(currentState instanceof Sliding||currentState instanceof SlideFalling||currentState instanceof SlideJump||

@@ -1,12 +1,14 @@
 package santaJam.states;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import santaJam.Assets;
 import santaJam.Game;
 import santaJam.SantaJam;
+import santaJam.graphics.UI.TextElement;
 import santaJam.inputs.Inputs;
 import santaJam.states.menus.Menu;
 import santaJam.states.menus.MenuObject;
@@ -24,14 +26,21 @@ public class SettingsState implements State{
 	}
 	@Override
 	public void start(State prevState) {
+		Color textColour = new Color(200,254,255),hoverColour = new Color(5,28,40) ;
+
 		menu = new Menu(new Rectangle(), new MenuObject[] {
-				new MenuSelection(new Rectangle(50,50,50,10), "QUIT-TO-MENU") {
+				new MenuSelection(new Rectangle(Game.WIDTH/2-40,50,50,20), "QUIT TO TITLE", textColour,hoverColour) {
 					@Override
 					public void select() {
-						stateToSwitch =  new MainMenu();
+						stateToSwitch =  new TitleScreen();
+					}
+					@Override
+					public void render(Graphics g) {
+						super.render(g);
+						bounds.x=Game.WIDTH/2-(name.length()*TextElement.BIGMONOWIDTH/2);
 					}
 				},
-				new MenuSelection(new Rectangle(50,50,50,20), "MUSIC VOLUME:"+SantaJam.getGame().getSettings().getMusic()) {
+				new MenuSelection(new Rectangle(Game.WIDTH/2-40,50,50,30), "MUSIC VOLUME:"+SantaJam.getGame().getSettings().getMusic(),textColour,hoverColour) {
 					@Override
 					public void select() {
 						int volume = SantaJam.getGame().getSettings().getMusic()-10;
@@ -41,8 +50,13 @@ public class SettingsState implements State{
 						SantaJam.getGame().getSettings().setMusic(volume);
 						name = "MUSIC VOLUME:"+SantaJam.getGame().getSettings().getMusic();
 					}
+					@Override
+					public void render(Graphics g) {
+						super.render(g);
+						bounds.x=Game.WIDTH/2-(name.length()*TextElement.BIGMONOWIDTH/2);
+					}
 				},
-				new MenuSelection(new Rectangle(50,50,50,30), "EFFECTS VOLUME:"+SantaJam.getGame().getSettings().getSounds()) {
+				new MenuSelection(new Rectangle(Game.WIDTH/2-40,50,50,40), "EFFECTS VOLUME:"+SantaJam.getGame().getSettings().getSounds(),textColour,hoverColour) {
 					@Override
 					public void select() {
 						int volume = SantaJam.getGame().getSettings().getSounds()-10;
@@ -52,18 +66,33 @@ public class SettingsState implements State{
 						SantaJam.getGame().getSettings().setSounds(volume);
 						name = "EFFECTS VOLUME:"+SantaJam.getGame().getSettings().getSounds();
 					}
+					@Override
+					public void render(Graphics g) {
+						super.render(g);
+						bounds.x=Game.WIDTH/2-(name.length()*TextElement.BIGMONOWIDTH/2);
+					}
 				},
-				new MenuSelection(new Rectangle(50,50,50,40), "REBIND CONTROLS") {
+				new MenuSelection(new Rectangle(Game.WIDTH/2-40,50,50,50), "REBIND CONTROLS",textColour,hoverColour) {
 					@Override
 					public void select() {
 						stateToSwitch = new RebindControls(new SettingsState(mainState));
 					}
+					@Override
+					public void render(Graphics g) {
+						super.render(g);
+						bounds.x=Game.WIDTH/2-(name.length()*TextElement.BIGMONOWIDTH/2);
+					}
 				},
-				new MenuSelection(new Rectangle(50,50,50,50), "RESET SETTINGS") {
+				new MenuSelection(new Rectangle(Game.WIDTH/2-40,50,50,60), "RESET SETTINGS",textColour,hoverColour) {
 					@Override
 					public void select() {
 						SantaJam.getGame().getSettings().resetSettings();
 						StateManager.setCurrentState(new PauseState(mainState));
+					}
+					@Override
+					public void render(Graphics g) {
+						super.render(g);
+						bounds.x=Game.WIDTH/2-(name.length()*TextElement.BIGMONOWIDTH/2);
 					}
 				},
 							
@@ -74,9 +103,7 @@ public class SettingsState implements State{
 
 	@Override
 	public void update() {
-		
 		menu.update();
-	
 		if(stateToSwitch!=null) {
 			StateManager.setCurrentState(stateToSwitch);
 		}
@@ -90,13 +117,18 @@ public class SettingsState implements State{
 
 	@Override
 	public void render(Graphics2D g) {
-		g.setColor(new Color(78,16,69));
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		g.setColor(Color.white);
-		g.setFont(Assets.font);
-		g.drawString("SETTINGS", 150, 10);
+		g.drawImage(Assets.settingsScreen,0,0, null);
+		g.setColor(new Color(200,254,255));
+		g.setFont(Assets.bigFont);
+		g.drawString("Settings", 133, 24);
+		
+		int hoverWidth= ((MenuSelection) menu.getHovered()).getName().length()*TextElement.BIGMONOWIDTH;
+		g.drawImage(Assets.menuMarker,Game.WIDTH/2-hoverWidth/2-12,63+menu.getHoveredIndex()*10, null);
+		g.drawImage(Assets.menuMarker,Game.WIDTH/2+hoverWidth/2+12,63+menu.getHoveredIndex()*10,
+				-Assets.menuMarker.getWidth(),Assets.menuMarker.getHeight(), null);
 		menu.render(g);
-		g.drawString("ABIL.", 365, 100);
+		
+		
 	}
 
 	@Override

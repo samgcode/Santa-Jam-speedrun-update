@@ -39,18 +39,21 @@ public class Camera {
 		double targetX= Math.round((entityX*entityWeight+locX*locWeight)/(entityWeight*locWeight));
 		double targetY= Math.round((entityY*entityWeight+locY*locWeight)/(entityWeight*locWeight));
 		if(currentRoom!=null) {
-			while(targetX<currentRoom.getX()) {
-				targetX++;		
+			if(targetX+screenWidth>currentRoom.getX()+currentRoom.getWidth()) {
+				targetX=currentRoom.getX()+currentRoom.getWidth()-screenWidth;
 			}
-			while(targetX+screenWidth>currentRoom.getX()+currentRoom.getWidth()) {
-				targetX--;			
+			if(targetX<currentRoom.getX()) {
+				targetX=currentRoom.getX();
 			}
-			while(targetY<currentRoom.getY()) {
-				targetY++;		
+			
+			
+			if(targetY+screenHeight>currentRoom.getY()+currentRoom.getHeight()) {
+				targetY=currentRoom.getY()+currentRoom.getHeight()-screenHeight;
 			}
-			while(targetY+screenHeight>currentRoom.getY()+currentRoom.getHeight()) {
-				targetY--;
+			if(targetY<currentRoom.getY()) {
+				targetY=currentRoom.getY();		
 			}
+			
 		}
 		xOffset+=speed*(targetX-xOffset);
 		yOffset+=speed*(targetY-yOffset);
