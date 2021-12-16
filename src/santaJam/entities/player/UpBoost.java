@@ -13,7 +13,7 @@ public class UpBoost extends PlayerState{
 	PlayerState prevState;
 	
 	private boolean firstFrame=true;
-	private int chargeTime=35;
+	private int chargeTime=28;
 	private double boostVel;
 	
 	

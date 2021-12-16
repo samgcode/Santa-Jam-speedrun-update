@@ -8,14 +8,13 @@ public class RectElement extends UIElement{
 	 * this class is for parts of ui that are a picture it is its own class so it can be added to the 
 	 * uiManager and be rendered ontop if other things
 	 */
-	int width, height, arcSize;
+	protected int width, height, arcSize;
 	Color colour;
 	//this constructor takes the location and picture
-	public RectElement(int x, int y, int width,int height, int arcSize, Color colour) {
+	public RectElement(int x, int y, int width,int height, Color colour) {
 		super(x,y);
 		this.width=width;
 		this.height=height;
-		this.arcSize=arcSize;
 		this.colour = colour;
 	}
 	

@@ -10,23 +10,26 @@ import javax.sound.sampled.LineUnavailableException;
 import santaJam.SantaJam;
 
 public class SplitSong extends Sound {
-	private String startPath, loopPath;
 	private Clip startClip, loopClip;
 	private boolean starting = true, fadeOut = false;
 	
 
 	public SplitSong(String startPath, String loopPath) {
-		this.startPath = startPath;
-		this.loopPath = loopPath;
 		try {
 			loadAudioStream(startPath);
 			startClip = AudioSystem.getClip();
+			startClip.open(audioStream);
 			loadAudioStream(loopPath);
 			loopClip = AudioSystem.getClip();
+			loopClip.open(audioStream);
+			
 
 		} catch (LineUnavailableException ex) {
 			System.out.println("Audio line for playing back is unavailable.");
 			ex.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -36,7 +39,8 @@ public class SplitSong extends Sound {
 		}
 		if(volume<=-2) {
 			playing=false;
-			close();
+			startClip.stop();
+			loopClip.stop();
 		}
 		if (playing || fadeOut) {
 			FloatControl gainControl;
@@ -68,28 +72,20 @@ public class SplitSong extends Sound {
 		gainControl.setValue(Sound.volumeToDb(volume));
 		loopClip.start();
 		startClip.stop();
-		startClip.close();
+		
 	}
 
 	public void play() {
 		volume = SantaJam.getGame().getSettings().getMusic()/100f;
 		playing = true;
 		fadeOut=false;
-		if (startClip.isOpen() || loopClip.isOpen()) {
-			close();
-		}
-		try {
-			loadAudioStream(startPath);
-			startClip.open(audioStream);
-			loadAudioStream(loopPath);
-			loopClip.open(audioStream);
-		} catch (LineUnavailableException | IOException e) {
-			System.out.println("Audio line for playing back is unavailable.");
-			e.printStackTrace();
-		}
+		
+		
 		FloatControl gainControl;
 		gainControl = (FloatControl) startClip.getControl(FloatControl.Type.MASTER_GAIN);
 		gainControl.setValue(Sound.volumeToDb(volume));
+		startClip.setMicrosecondPosition(0);
+		loopClip.setMicrosecondPosition(0);
 		startClip.start();
 		
 
@@ -97,8 +93,6 @@ public class SplitSong extends Sound {
 
 	public void stop() {
 		fadeOut = true;
-		
-
 	}
 
 	public void close() {

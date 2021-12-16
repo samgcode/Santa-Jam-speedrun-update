@@ -1,5 +1,9 @@
 package santaJam.audio;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
+
 import santaJam.SantaJam;
 
 public class MusicManager extends Thread{
@@ -7,20 +11,55 @@ public class MusicManager extends Thread{
 	private int currentSong=-1;
 	private int nextSong=-1;
 	
-	public static final int FOREST=1, ICECAVE=2,PEAK=3,HOME=4,MENU=0;
+	public static final int MENU=0,FOREST=1, ICECAVE=2,PEAK=3,HOME=4;
+	public static final SoundEffect[] smash = new SoundEffect[] {
+			new SoundEffect("res/sound/ice smash1.wav"), new SoundEffect("res/sound/ice smash2.wav")
+	};
+	public static final SoundEffect[] walking = new SoundEffect[] {
+			new SoundEffect("res/sound/walking1.wav"),new SoundEffect("res/sound/walking2.wav"),new SoundEffect("res/sound/walking3.wav"),
+			new SoundEffect("res/sound/walking4.wav"),new SoundEffect("res/sound/walking5.wav"),new SoundEffect("res/sound/walking6.wav")
+	};
+	public static final SoundEffect[] spring = new SoundEffect[] {
+			new SoundEffect("res/sound/spring1.wav"),new SoundEffect("res/sound/spring2.wav"),new SoundEffect("res/sound/spring3.wav")			
+	};
+	public static final SoundEffect crack = new SoundEffect("res/sound/ice crack.wav");
 	private static final Sound forest = new SplitSong("res/sound/forest start.wav","res/sound/forest loop.wav");
 	private static final Sound iceCave = new SplitSong("res/sound/iceCaveStart.wav","res/sound/iceCave.wav");
 	private static final Song peak = new Song("res/sound/peak.wav",true);
 	private static final Song home = new Song("res/sound/home.wav",true);
 	
+	private ArrayList<SoundEffect> sounds = new ArrayList<>();
+	
 	@Override
 	public void run() {
-	
-		while(run) {
 		
+		final int FPS = 100, DELAY = 1000000000 / FPS;
+		while(run) {
+
+			
+			double startTime= System.nanoTime();//getting the time at the start of the frame
+			
+			for(int i=sounds.size()-1;i>=0;i--) {
+				sounds.get(i).update();
+				if(!sounds.get(i).isPlaying()) {
+					sounds.remove(i);
+					
+				}
+			}
 			forest.update();
 			iceCave.update();
 			peak.update();
+			crack.update();
+			for(SoundEffect i:smash) {
+				i.update();
+			}
+			for(SoundEffect i:walking) {
+				i.update();
+			}
+			for(SoundEffect i:spring) {
+				i.update();
+			}
+			
 			//System.out.println("playing: "+currentSong+" next:"+nextSong);
 			if(nextSong!=currentSong) {
 				if(getSong(currentSong)!=null) {
@@ -42,16 +81,21 @@ public class MusicManager extends Thread{
 			}
 			
 			
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			double endTime= System.nanoTime();//the time at the end of the frame
+			double delta=endTime-startTime;//how long the fame took
+			while(delta<(DELAY)) {
+				endTime= System.nanoTime();
+				delta=endTime-startTime;
 			}
 			
 		}
-		if(getSong(currentSong)!=null) {
-			getSong(currentSong).stop();
+		forest.close();
+		iceCave.close();
+		peak.close();
+		home.close();
+		crack.close();
+		for(SoundEffect i:smash) {
+			i.close();
 		}
 	}
 	
@@ -81,6 +125,30 @@ public class MusicManager extends Thread{
 	}
 	public synchronized void applyVolume() {
 		getSong(currentSong).setVolume(SantaJam.getGame().getSettings().getMusic()/100f);
+	}
+	
+	public static void playSound(SoundEffect[] sounds) {
+		ArrayList<SoundEffect> soundArr =new ArrayList<>(Arrays.asList(sounds));
+		boolean playable=false;
+		int index=0;
+		while(soundArr.size()>=1&&!playable) {
+			
+			index=ThreadLocalRandom.current().nextInt(soundArr.size());
+			
+			if(soundArr.get(index).isPlaying()) {
+				soundArr.remove(index);
+			}else{
+				playable=true;
+			}
+		}
+		
+		if(soundArr.size()==0) {
+			sounds[ThreadLocalRandom.current().nextInt(sounds.length)].play();
+		}else {
+			soundArr.get(index).play();
+		}
+	
+	
 	}
 	
 	

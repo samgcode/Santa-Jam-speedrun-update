@@ -59,7 +59,11 @@ public class Assets {
 	public static BufferedImage chocolateIcon= loadImage("ui/chocolate icon.png");
 	public static BufferedImage milkIcon= loadImage("ui/milk icon.png");
 	public static BufferedImage playerIcon= loadImage("ui/player icon.png");
+	
+	public static BufferedImage chair= loadImage("chair.png");
 
+	public static BufferedImage upgradeTop= loadImage("ui/upgrade top.png");
+	public static BufferedImage upgradeBottom= loadImage("ui/upgrade bottom.png");
 	
 	public static BufferedImage menuMarker= loadImage("ui/menu marker.png");
 	public static BufferedImage menuMarkerGreen= loadImage("ui/selection green.png");

@@ -17,8 +17,8 @@ public class UpBoostItem extends Upgrade{
 	
 	public UpBoostItem(int x, int y) {
 		super(x,y);
-		name = "up boost thing";
-		description = "press "+Inputs.up().getKey()+" to convert forward momentum into vertical momentum";
+		name = "up boost";
+		description = "press "+Inputs.up().getKey()+" while sliding to boost up with current momentum";
 	}
 	
 

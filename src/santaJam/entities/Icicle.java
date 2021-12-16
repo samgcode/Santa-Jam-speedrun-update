@@ -1,18 +1,17 @@
 package santaJam.entities;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.SantaJam;
+import santaJam.audio.MusicManager;
 import santaJam.entities.player.Player;
 import santaJam.graphics.Animation;
 import santaJam.graphics.Camera;
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.ImgShape;
-import santaJam.graphics.particles.shapes.OvalParticle;
-import santaJam.graphics.particles.shapes.colourers.Timed;
 import santaJam.graphics.particles.spawners.RectangleSpawn;
 
 public class Icicle extends Entity{
@@ -42,6 +41,7 @@ public class Icicle extends Entity{
 				updateBounds();
 				if(velY==0) {
 					killed=true;
+					MusicManager.playSound(MusicManager.smash);
 					new RectangleSpawn(3, bounds.x-3, bounds.y+bounds.height-3, bounds.width+10,5,new Straight(0, 0, -90,60,1),
 							new ImgShape(Assets.iceParticle,6,2), true);
 				}
@@ -54,6 +54,7 @@ public class Icicle extends Entity{
 				if(i.bounds.intersects(fallBounds)&&!falling) {
 					falling=true;
 					anim.setPaused(false);
+					MusicManager.crack.play();
 					new RectangleSpawn(2, bounds.x-3, bounds.y, bounds.width+10,5,new Straight(0, 0, 90,60,0.75),
 							new ImgShape(Assets.iceParticle,10,5), true);
 				}

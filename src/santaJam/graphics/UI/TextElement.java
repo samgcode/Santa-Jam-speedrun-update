@@ -128,7 +128,7 @@ public class TextElement extends UIElement{
 	
 	
 	/**
-	 * adds spaces to each line so that all lines are centred horizontally
+	 * adds spaces to each line so that all lines are centered horizontally
 	 * only works with monospace fonts
 	 */
 	public void centre(int lineWidth) {

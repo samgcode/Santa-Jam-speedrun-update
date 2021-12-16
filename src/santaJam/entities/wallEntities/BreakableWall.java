@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.util.concurrent.ThreadLocalRandom;
 
 import santaJam.Assets;
+import santaJam.audio.MusicManager;
 import santaJam.graphics.Camera;
 
 public class BreakableWall extends WallEntity{
@@ -25,6 +26,7 @@ public class BreakableWall extends WallEntity{
 	}
 	
 	public void smash() {
+		MusicManager.playSound(MusicManager.smash);
 		killed=true;
 	}
 	

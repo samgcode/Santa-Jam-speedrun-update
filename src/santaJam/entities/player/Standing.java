@@ -3,6 +3,7 @@ package santaJam.entities.player;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import santaJam.audio.MusicManager;
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.OvalParticle;
 import santaJam.graphics.particles.shapes.colourers.Timed;
@@ -10,9 +11,11 @@ import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
 
 public class Standing extends PlayerState{
+	private final int WALKTIME=15;
 	
-	private int coyoteTime;
+	private int coyoteTime, walkTimer=15;
 	private boolean firstFrame=true;
+	
 	
 	@Override
 	public void start(PlayerState prevState) {
@@ -44,6 +47,11 @@ public class Standing extends PlayerState{
 		
 		if(player.getCurrentAnim()!=Player.landing||player.getCurrentAnim().getFrameIndex()==player.getCurrentAnim().getlength()-1) {
 			if(Math.abs(player.getVelX())>0) {
+				walkTimer++;
+				if(walkTimer>=WALKTIME) {
+					walkTimer=0;
+					MusicManager.playSound(MusicManager.walking);
+				}
 				player.setAnim(Player.walking);
 			}else {
 				player.setAnim(Player.idle);

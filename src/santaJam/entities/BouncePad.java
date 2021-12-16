@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import santaJam.Assets;
+import santaJam.audio.MusicManager;
 import santaJam.entities.player.Falling;
 import santaJam.entities.player.Player;
 import santaJam.graphics.Animation;
@@ -44,6 +45,7 @@ public class BouncePad extends Entity{
 		
 		for(Entity i:entityCollide()) {
 			if(i instanceof Player) {
+				MusicManager.playSound(MusicManager.spring);
 				
 				anim.setPaused(false);
 				if(direction=='l') {

@@ -17,7 +17,7 @@ import santaJam.states.StateManager;
 
 public class Player extends Entity {
 	private int maxHealth=5;
-	private PlayerState currentState = new Standing();
+	private PlayerState currentState = new Falling();
 	public static final Animation idle = new Animation(new BufferedImage[] { Assets.walking[0]},3,0);
 	public static final Animation landing = new Animation(Assets.landing,3,1,-1);
 	public static final Animation walking = new Animation(Assets.walking,3,0);
@@ -29,7 +29,7 @@ public class Player extends Entity {
 	public static final Animation grappleThrow = new Animation(Assets.grappleThrow,2,5,2);
 	public static final Animation grapplePull = new Animation(Assets.grapplePull,2,0);
 	public static final Animation dance = new Animation(Assets.dance,3,1);
-	public static final Animation boostStart = new Animation(Assets.boostStart,5,5,2);
+	public static final Animation boostStart = new Animation(Assets.boostStart,4,5,2);
 	public static final Animation boost = new Animation(Assets.boost,5,4,1);
 
 

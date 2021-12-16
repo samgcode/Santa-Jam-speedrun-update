@@ -21,10 +21,18 @@ public class Song extends Sound{
 			loadAudioStream(path);
 			// create clip reference
 			clip = AudioSystem.getClip();
+			clip.open(audioStream);
+			
 		}catch (LineUnavailableException ex) {
 			System.out.println("Audio line for playing back is unavailable.");
 			ex.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
+		
 
 	}
 	public void update() {
@@ -33,7 +41,7 @@ public class Song extends Sound{
 		}
 		if(volume<=-2) {
 			playing=false;
-			close();
+			clip.stop();
 		}
 		if (playing || fadeOut) {
 			FloatControl gainControl;
@@ -49,28 +57,15 @@ public class Song extends Sound{
 		fadeOut=false;
 		playing=true;
 		volume = SantaJam.getGame().getSettings().getMusic()/100f;
-		if(clip.isOpen()) {
-			stop();
-		}
+		
 		FloatControl gainControl;
-		
-		
-		try {
-			loadAudioStream(path);
-			clip.open(audioStream);
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		gainControl.setValue(Sound.volumeToDb(volume));
+		clip.setMicrosecondPosition(0);
+		clip.start();
 		if(loops) {
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 		}
-		clip.start();
 
 	}
 

@@ -1,6 +1,7 @@
 package santaJam.entities.upgrades;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import santaJam.Assets;
@@ -26,7 +27,7 @@ public abstract class Upgrade extends Entity{
 	protected void onCollect(Player player) {
 		StateManager.getGameState().saveData(player.getBounds().x,player.getBounds().y);
 		(player).setAnim(Player.dance);
-		TextElement text = new TextElement(true, Game.WIDTH/2-65,Game.HEIGHT/2-50,6,7,120,
+		TextElement text = new TextElement(true, Game.WIDTH/2-60,Game.HEIGHT/2-50,TextElement.BIGMONOWIDTH,7,120,
 				"--"+name.toUpperCase()+"-- \n \n "+description+" \n \n "+Inputs.jump().getKey()+" TO CONTINUE", Assets.font) {
 			@Override
 			protected void onSelect() {
@@ -35,11 +36,17 @@ public abstract class Upgrade extends Entity{
 			}
 		};
 		
-		RectElement rect = new RectElement(text.getX()-3,text.getY()-3,text.getWidth()+6,text.getHeight()+6,10, Color.DARK_GRAY) {
+		RectElement rect = new RectElement(text.getX()-3,text.getY()-3,126,text.getHeight()+6, new Color(6,50,52)) {
 			@Override
 			protected void onSelect() {
 				visible=false;
 				remove=true;
+			}
+			@Override
+			public void render(Graphics g) {
+				super.render(g);
+				g.drawImage(Assets.upgradeTop,x-8,y-3, null);
+				g.drawImage(Assets.upgradeBottom,x-8,y+height-3, null);
 			}
 		};
 		
