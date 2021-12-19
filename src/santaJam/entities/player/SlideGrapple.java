@@ -1,5 +1,6 @@
 package santaJam.entities.player;
 
+import santaJam.audio.MusicManager;
 import santaJam.states.StateManager;
 
 public class SlideGrapple extends Grapple{
@@ -22,15 +23,20 @@ public class SlideGrapple extends Grapple{
 			normalMoveLeftRight(player);
 			return prevState;
 		}
+		if(!canGrapple||!StateManager.getGameState().getSave().hasGrapple()) {
+			return prevState;
+		}
+		drawGrapple=true;
+		if(firstFrame) {
+			MusicManager.playSound(MusicManager.grappleThrow);
+		}
 		player.changeBounds(width, height);
 		grappleY=player.getBounds().y+3;
 		if(shooting) {
 			slideGravity(player);
 		}
 		
-		if(!canGrapple||!StateManager.getGameState().getSave().hasGrapple()) {
-			return prevState;
-		}		
+			
 		
 		duration++;
 		

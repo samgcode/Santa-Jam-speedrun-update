@@ -14,10 +14,13 @@ import org.json.simple.parser.ParseException;
 
 import santaJam.Assets;
 import santaJam.SantaJam;
+import santaJam.audio.MusicManager;
 import santaJam.entities.BouncePad;
 import santaJam.entities.Entity;
+import santaJam.entities.FirePlace;
 import santaJam.entities.GrapplePoint;
 import santaJam.entities.Icicle;
+import santaJam.entities.Radio;
 import santaJam.entities.SaveStatue;
 import santaJam.entities.SpikeSubstitute;
 import santaJam.entities.upgrades.Binoculars;
@@ -168,8 +171,15 @@ public class Room {
 	}
 	
 	public void loadRoom() {
+	
 		System.out.println("loading "+name);
-		SantaJam.getGame().getMusic().switchSong(area);
+		if(area!=4) {
+			SantaJam.getGame().getMusic().switchSong(area);
+		}else {
+			System.out.println("eeeee");
+			MusicManager.fire.play();
+		}
+		
 		if(particles!=null) {
 			particles.start();
 		}
@@ -218,6 +228,10 @@ public class Room {
 					Entity.getManager().addEntity(new GrapplePoint(this.x+x*Map.TILESIZE+Map.TILESIZE/2,this.y+y*Map.TILESIZE+Map.TILESIZE/2));
 				}else if(tiles[x][y]==Map.SMASHWALL+infoStart) {
 					Entity.getManager().addEntity(new BreakableWall(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.FIREPLACE+infoStart) {
+					Entity.getManager().addEntity(new FirePlace(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.RADIO+infoStart) {
+					Entity.getManager().addEntity(new Radio(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}
 				
 				if(!collected) {
@@ -232,7 +246,11 @@ public class Room {
 			}
 		}
 	}
-	public void unload() {		
+	public void unload() {
+		if(area==4) {
+			System.out.println("i");
+			MusicManager.fire.stop();
+		}
 	}
 	protected boolean wallTile(int tile) {
 		

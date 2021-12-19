@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.audio.MusicManager;
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
 import santaJam.graphics.UI.RectElement;
@@ -25,7 +26,9 @@ public abstract class Upgrade extends Entity{
 	}
 	
 	protected void onCollect(Player player) {
-		StateManager.getGameState().saveData(player.getBounds().x,player.getBounds().y);
+		MusicManager.itemGet.play();
+		
+		StateManager.getGameState().saveData(bounds.x+bounds.width/2,bounds.y+bounds.height/2);
 		(player).setAnim(Player.dance);
 		TextElement text = new TextElement(true, Game.WIDTH/2-60,Game.HEIGHT/2-50,TextElement.BIGMONOWIDTH,7,120,
 				"--"+name.toUpperCase()+"-- \n \n "+description+" \n \n "+Inputs.jump().getKey()+" TO CONTINUE", Assets.font) {

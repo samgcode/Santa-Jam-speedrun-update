@@ -12,7 +12,7 @@ public class Assets {
 	public static Font font = loadFont("res/monofont.ttf",16);
 	public static Font bigFont = loadFont("res/setback-tt-brk.ttf",13);
 	
-	public static BufferedImage[] tiles = splitSpriteSheet(loadImage("tileset.png"), 8, 8, 12, 37);
+	public static BufferedImage[] tiles = splitSpriteSheet(loadImage("tileset.png"), 8, 8, 12, 46);
 
 	public static BufferedImage[] walking = splitSpriteSheet(loadImage("walking.png"), 9, 13, 8, 1);
 	public static BufferedImage[] landing = splitSpriteSheet(loadImage("landing.png"), 7, 12, 3, 1);
@@ -35,7 +35,7 @@ public class Assets {
 	public static BufferedImage[] grappleIcon = splitSpriteSheet(loadImage("grapple icon.png"), 10,10, 16, 1);
 	public static BufferedImage[] doubleJumpIcon = splitSpriteSheet(loadImage("double jump icon.png"), 10,10, 16, 1);
 	public static BufferedImage[] boostIcon = splitSpriteSheet(loadImage("boost icon.png"), 10,10, 16, 1);
-	public static BufferedImage[] binoculars = splitSpriteSheet(loadImage("boost icon.png"), 10,10, 16, 1);
+	public static BufferedImage[] binoculars = splitSpriteSheet(loadImage("binocular icon.png"), 10,10, 8, 1);
 	
 	
 	public static BufferedImage[] marshmallow = splitSpriteSheet(loadImage("marshmallow.png"), 8,10, 8, 1);
@@ -60,10 +60,16 @@ public class Assets {
 	public static BufferedImage milkIcon= loadImage("ui/milk icon.png");
 	public static BufferedImage playerIcon= loadImage("ui/player icon.png");
 	
-	public static BufferedImage chair= loadImage("chair.png");
+	public static BufferedImage firePlace= loadImage("fireplace.png");
+	public static BufferedImage[] radio = splitSpriteSheet(loadImage("radio.png"), 16,24, 6, 1);
 
 	public static BufferedImage upgradeTop= loadImage("ui/upgrade top.png");
 	public static BufferedImage upgradeBottom= loadImage("ui/upgrade bottom.png");
+	public static BufferedImage winTop= loadImage("ui/win top.png");
+	public static BufferedImage winBottom= loadImage("ui/win bottom.png");
+	
+	public static BufferedImage completeHotChocolate= loadImage("100%.png");
+	
 	
 	public static BufferedImage menuMarker= loadImage("ui/menu marker.png");
 	public static BufferedImage menuMarkerGreen= loadImage("ui/selection green.png");
@@ -73,6 +79,11 @@ public class Assets {
 	public static BufferedImage pauseScreen= loadImage("ui/pause.png");
 	public static BufferedImage mapScreen= loadImage("ui/map.png");
 	public static BufferedImage settingsScreen= loadImage("ui/settings.png");
+	public static BufferedImage creditScreen= loadImage("ui/credits.png");
+	
+	public static BufferedImage peak= loadImage("peak.png");
+	public static BufferedImage iceCave= loadImage("ice cave.png");
+	public static BufferedImage forest= loadImage("forest.png");
 	
 	
 	

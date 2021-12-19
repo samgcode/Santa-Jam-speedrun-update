@@ -3,6 +3,7 @@ package santaJam.entities.player;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import santaJam.audio.MusicManager;
 import santaJam.entities.Entity;
 import santaJam.inputs.Inputs;
 import santaJam.maps.Room;
@@ -12,6 +13,7 @@ public class Grapple extends PlayerState {
 	protected double GRAPPLESTRENGTH = 1.5, MAXSPEED = 4.6, CHECKSPERFRAME = 4, SHOTSPEED = 20, SHOTDURATION = 15,
 			PULLDURATION = 30;
 	protected static boolean canGrapple = true;
+	protected boolean drawGrapple=false;
 
 	protected boolean firstFrame = true, facingLeft, shooting = true;
 	protected int grappleX, grappleY, duration;
@@ -36,13 +38,16 @@ public class Grapple extends PlayerState {
 		if (!canGrapple || !StateManager.getGameState().getSave().hasGrapple()) {
 			normalGravity(player);
 			normalMoveLeftRight(player);
+			
 			return prevState;
 		}
+		drawGrapple=true;
 		if (firstFrame) {
 			// stopping the player and checking direction if it is the first frame
 			player.setVelX(0);
 			player.setVelY(0);
 			player.changeBounds(width, height);
+			MusicManager.playSound(MusicManager.grappleThrow);
 		}
 
 		duration++;
@@ -117,18 +122,23 @@ public class Grapple extends PlayerState {
 			if (r.intersects(checkBox)) {
 				for (Rectangle i : smoothWalls) {
 					if (i == r) {
+						MusicManager.playSound(MusicManager.grappleClank);
+						System.out.println("eee");
 						canGrapple = false;
 						return prevState;
 					}
 				}
+				MusicManager.grappleYoink.play();
 				shooting = false;
 			}
 		}
 		for (Entity i : Entity.getManager().getEntities()) {
 			if (i.getBounds().intersects(checkBox) && !(i instanceof Player)) {
 				if (i.isGrappleable()) {
+					MusicManager.grappleYoink.play();
 					shooting = false;
 				} else {
+					MusicManager.playSound(MusicManager.grappleClank);
 					canGrapple = false;
 					return prevState;
 				}
@@ -191,6 +201,9 @@ public class Grapple extends PlayerState {
 	}
 	public int getCheckY() {
 		return grappleY;
+	}
+	public boolean isDrawGrapple() {
+		return drawGrapple;
 	}
 
 	public static void refreshGrapple() {

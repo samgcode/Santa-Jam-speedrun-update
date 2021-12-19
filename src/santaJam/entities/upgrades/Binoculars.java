@@ -29,7 +29,7 @@ public class Binoculars extends Upgrade{
 
 	@Override
 	protected void onCollect(Player player) {
-		//StateManager.getGameState().getSave().unlockBinoculars(player);
+		StateManager.getGameState().getSave().unlockBinoculars(player);
 		StateManager.getGameState().saveData(player.getBounds().x,player.getBounds().y);
 		player.setAnim(Player.dance);
 		

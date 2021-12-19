@@ -13,7 +13,7 @@ public class TextElement extends UIElement{
 	 */
 	public static final int SMALLMONOWIDTH=4,SMALLMONOHEIGHT=7,BIGMONOWIDTH=6,BIGMONOHEIGHT=7;
 	private Font font=Assets.font;
-	private int width,charWidth=SMALLMONOWIDTH,height, lineHeight=SMALLMONOHEIGHT+1;
+	private int width,charWidth=SMALLMONOWIDTH,height, lineHeight=SMALLMONOHEIGHT+1 ;
 	String[] lines= new String[1];
 	String text;//only really used to return the text back if it is needed
 	

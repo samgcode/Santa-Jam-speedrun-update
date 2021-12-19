@@ -63,7 +63,7 @@ public abstract class Entity {
 		//if we on;y check wall near the entity it will be faster, but thats kinda complicted for now
 		//ArrayList<Rectangle> relaventWalls = StateManager.getGameState().getMap().getWalls();
  		Rectangle newBounds=bounds.getBounds();
-		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,3);
+		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,2);
 		newBounds.x+=Math.round(velX);
 		boolean xCollide=false, yCollide=false;
 		//horizontal collisions

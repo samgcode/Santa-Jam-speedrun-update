@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import santaJam.audio.MusicManager;
 import santaJam.inputs.Inputs;
 
 public class Menu extends MenuSelection{
@@ -36,6 +37,7 @@ public class Menu extends MenuSelection{
 		
 		
 		if(Inputs.down().isPressed()) {
+			MusicManager.menuMove.play();
 			
 			hovered++;
 			if(hovered>menuObjects.length-1) {
@@ -43,6 +45,7 @@ public class Menu extends MenuSelection{
 			}
 		}
 		if(Inputs.up().isPressed()) {
+			MusicManager.menuMove.play();
 			hovered--;
 			if(hovered<0) {
 				hovered=menuObjects.length-1;
@@ -53,6 +56,9 @@ public class Menu extends MenuSelection{
 		
 		
 		if(Inputs.jump().isPressed()) {
+			if(!(menuObjects[hovered] instanceof MenuText)) {
+				MusicManager.menuSelect.play();
+			}
 			if(selection!=-1) {
 				menuObjects[selection].deselect();
 			}

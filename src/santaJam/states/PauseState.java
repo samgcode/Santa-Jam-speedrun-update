@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.audio.MusicManager;
 import santaJam.entities.upgrades.Binoculars;
 import santaJam.entities.upgrades.Collectible;
 import santaJam.entities.upgrades.DoubleJumpItem;
@@ -14,18 +15,17 @@ import santaJam.entities.upgrades.GrappleItem;
 import santaJam.entities.upgrades.SlideItem;
 import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.graphics.UI.TextElement;
-import santaJam.graphics.particles.Particle;
 import santaJam.inputs.Inputs;
 import santaJam.maps.Map;
 import santaJam.maps.Room;
 import santaJam.states.menus.Menu;
-import santaJam.states.menus.MenuSelection;
+import santaJam.states.menus.MenuText;
 
 public class PauseState implements State{
 
 	GameState gameState;
 	Menu menu;
-	MenuSelection slide, grapple, doubleJump, boost, binoculars, milk, chocolate, marshmellow;
+	MenuText slide, grapple, doubleJump, boost, binoculars, milk, chocolate, marshmellow;
 	TextElement itemText;
 	int itemTextWidth=108;
 	
@@ -44,16 +44,16 @@ public class PauseState implements State{
 		}
 		Color textColour = new Color(200,254,255),hoverColour =  new Color(14,117,50);
 		
-		slide =new MenuSelection(new Rectangle(60,50,50,10), "SLIDE",textColour,hoverColour);
-		grapple =new MenuSelection(new Rectangle(60,60,50,10), "GRAPPLE",textColour,hoverColour);
-		doubleJump =new MenuSelection(new Rectangle(60,70,50,10), "DOUBLE JUMP",textColour,hoverColour);
-		boost =new MenuSelection(new Rectangle(60,80,50,10), "BOOST THING",textColour,hoverColour);
-		binoculars =new MenuSelection(new Rectangle(60,90,50,10), "BINOCULARS",textColour,hoverColour);
-		milk =new MenuSelection(new Rectangle(60,150,50,10), "MILK:"+milkNum,textColour,hoverColour);
-		chocolate =new MenuSelection(new Rectangle(110,150,50,10), "CHOCOLATE:"+chocolateNum,textColour,hoverColour);
-		marshmellow =new MenuSelection(new Rectangle(190,150,50,10), "MARSHMALLOW:"+marshmellowNum,textColour,hoverColour);
+		slide =new MenuText(new Rectangle(60,50,50,10), "SLIDE",textColour,hoverColour);
+		grapple =new MenuText(new Rectangle(60,60,50,10), "GRAPPLE",textColour,hoverColour);
+		doubleJump =new MenuText(new Rectangle(60,70,50,10), "DOUBLE JUMP",textColour,hoverColour);
+		boost =new MenuText(new Rectangle(60,80,50,10), "UP BOOST",textColour,hoverColour);
+		binoculars =new MenuText(new Rectangle(60,90,50,10), "BINOCULARS",textColour,hoverColour);
+		milk =new MenuText(new Rectangle(60,150,50,10), "MILK:"+milkNum,textColour,hoverColour);
+		chocolate =new MenuText(new Rectangle(110,150,50,10), "CHOCOLATE:"+chocolateNum,textColour,hoverColour);
+		marshmellow =new MenuText(new Rectangle(190,150,50,10), "MARSHMALLOW:"+marshmellowNum,textColour,hoverColour);
 		
-		ArrayList<MenuSelection> abilities = new ArrayList<>();
+		ArrayList<MenuText> abilities = new ArrayList<>();
 		if(StateManager.getGameState().getSave().hasSlide()) {
 			abilities.add(slide);
 		}
@@ -72,7 +72,7 @@ public class PauseState implements State{
 		abilities.add(milk);
 		abilities.add(chocolate);
 		abilities.add(marshmellow);
-		menu = new Menu(new Rectangle(),abilities.toArray(new MenuSelection[abilities.size()]));
+		menu = new Menu(new Rectangle(),abilities.toArray(new MenuText[abilities.size()]));
 		
 		menu.select();
 		
@@ -87,10 +87,13 @@ public class PauseState implements State{
 	public void update() {
 		menu.update();
 		if(Inputs.pause().isPressed()) {
+			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(gameState);
 		}if(Inputs.right().isPressed()) {
+			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(new MapState(gameState));
 		}if(Inputs.left().isPressed()) {
+			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(new SettingsState(gameState));
 		}
 		

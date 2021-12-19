@@ -1,5 +1,6 @@
 package santaJam.entities.player;
 
+import santaJam.audio.MusicManager;
 import santaJam.inputs.Inputs;
 import santaJam.states.StateManager;
 
@@ -33,6 +34,7 @@ public class SlideFalling extends PlayerState{
 		
 		//going back to sliding if the hit the ground
 		if(player.isGrounded()) {
+			MusicManager.playSound(MusicManager.landing);
 			return new Sliding();
 		}
 		

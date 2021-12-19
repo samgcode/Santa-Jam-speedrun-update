@@ -55,8 +55,7 @@ public class SplitSong extends Sound {
 		}
 
 		if (playing && startClip.getFramePosition() >= startClip.getFrameLength() && starting) {
-			System.out.println(
-					"switched song at frame " + startClip.getFramePosition() + "/" + startClip.getFrameLength());
+			System.out.println("switched song at frame " + startClip.getFramePosition() + "/" + startClip.getFrameLength());
 			switchClips();
 			System.out.println("switched");
 

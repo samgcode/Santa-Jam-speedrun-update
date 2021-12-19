@@ -10,12 +10,14 @@ import java.util.Properties;
 import santaJam.entities.player.Player;
 
 public class Save {
+	public static final double maxCompletion = 13;
+	private long timeOfSave=0, playTime = 0;
 	private Properties propertiesFile=new Properties();
 	private String filePath="res/saves/save.properties";
 	
 	private boolean started;
 	private boolean doubleJump, grapple, upBoost, slide,binoculars;
-	private int startX, startY, startHealth;
+	private int startX, startY;
 	private int[] openedRooms;
 	private String[] collectibles;
 	
@@ -37,9 +39,8 @@ public class Save {
 		upBoost=Boolean.valueOf(propertiesFile.getProperty("upBoost"));
 		binoculars=Boolean.valueOf(propertiesFile.getProperty("binoculars"));
 		startX=Integer.parseInt(propertiesFile.getProperty("startX"));
-		startY=Integer.parseInt(propertiesFile.getProperty("startY"));
-		startHealth=Integer.parseInt(propertiesFile.getProperty("health"));
-		
+		startY=Integer.parseInt(propertiesFile.getProperty("startY"));		
+		playTime=Integer.parseInt(propertiesFile.getProperty("time"));		
 		String[] openedRoomsText = propertiesFile.getProperty("openedRooms").split(",");
 		openedRooms = new int[openedRoomsText.length];
 		for(int i=0;i<openedRoomsText.length;i++) {
@@ -92,35 +93,37 @@ public class Save {
 		propertiesFile.setProperty("collectibles",val);
 		writeproperties(propertiesFile);
 	}
-	public void savePlayerData(int x, int y, int health) {
+	public void savePlayerData(int x, int y) {
 		System.out.println("saving");
+		long timefromSave = System.currentTimeMillis()-timeOfSave;
+		timeOfSave=System.currentTimeMillis();
+		propertiesFile.setProperty("time",""+(playTime+timefromSave));
 		propertiesFile.setProperty("started",""+true);
 		propertiesFile.setProperty("startX",""+x);
 		propertiesFile.setProperty("startY",""+y);
-		propertiesFile.setProperty("health",""+health);
 		writeproperties(propertiesFile);
 	}
 	
 	public void unlockDoubleJump(Player player) {
 		propertiesFile.setProperty("doubleJump",""+true);
-		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
+		savePlayerData(player.getBounds().x, player.getBounds().y);
 	}
 	public void unlockSlide(Player player) {
 		propertiesFile.setProperty("slide",""+true);
-		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
+		savePlayerData(player.getBounds().x, player.getBounds().y);
 	}
 	
 	public void unlockGrapple(Player player) {
 		propertiesFile.setProperty("grapple",""+true);
-		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
+		savePlayerData(player.getBounds().x, player.getBounds().y);
 	}
 	public void unlockUpBoost(Player player) {
 		propertiesFile.setProperty("upBoost",""+true);
-		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
+		savePlayerData(player.getBounds().x, player.getBounds().y);
 	}
 	public void unlockBinoculars(Player player) {
 		propertiesFile.setProperty("binoculars",""+true);
-		savePlayerData(player.getBounds().x, player.getBounds().y, player.getHealth());
+		savePlayerData(player.getBounds().x, player.getBounds().y);
 	}
 	public void resetSave() {
 		Properties blankSave = loadProperties("res/saves/blankSave.properties");
@@ -145,9 +148,6 @@ public class Save {
 	public boolean hasBinoculars() {
 		return binoculars;
 	}
-	public int getStartHealth() {
-		return startHealth;
-	}
 	public int getStartX() {
 		return startX;
 	}
@@ -159,6 +159,12 @@ public class Save {
 	}
 	public String[] getCollectibles() {
 		return collectibles;
+	}
+	public long getPlayTime() {
+		return playTime;
+	}
+	public void startTimer() {
+		timeOfSave = System.currentTimeMillis();
 	}
 	
 

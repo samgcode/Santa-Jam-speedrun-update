@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.audio.MusicManager;
 import santaJam.graphics.Camera;
 import santaJam.inputs.Inputs;
 import santaJam.maps.Room;
@@ -34,6 +35,7 @@ public class TitleScreen implements State{
 		home.update();
 		bgCam.update(home);
 		if(Inputs.jump().isPressed()) {
+			MusicManager.menuSelect.play();
 			StateManager.setCurrentState(new MainMenu(home, lastRoom, bgCam));
 		}
 	}

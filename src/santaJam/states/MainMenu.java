@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import santaJam.Assets;
 import santaJam.Game;
 import santaJam.SantaJam;
+import santaJam.audio.MusicManager;
 import santaJam.graphics.Camera;
 import santaJam.graphics.UI.TextElement;
 import santaJam.graphics.particles.Particle;
@@ -122,6 +123,7 @@ public class MainMenu implements State{
 		
 		menu.update();
 		if(Inputs.grapple().isPressed()) {
+			MusicManager.menuBack.play();
 			StateManager.setCurrentState(new TitleScreen(home, lastRoom, bgCam));
 		}
 		if(stateToSwitch!=null) {
@@ -132,7 +134,7 @@ public class MainMenu implements State{
 
 	@Override
 	public void render(Graphics2D g) {
-		
+		g.drawImage(Assets.peak,0,0, null);
 		Particle.getParticleManager().renderFront(g, bgCam);
 		home.render(g, bgCam);
 		lastRoom.render(g, bgCam);

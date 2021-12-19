@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import santaJam.Assets;
+import santaJam.audio.MusicManager;
 
 
 public class MenuSelection extends MenuObject{
@@ -36,6 +37,12 @@ public class MenuSelection extends MenuObject{
 		g.setColor(colour);//setting the colour for the menu text
 		g.drawString(name.toUpperCase(), bounds.x, bounds.y+bounds.height-1);
 		isHovered=false;
+	}
+	@Override
+	public void select() {
+		super.select();
+		//MusicManager.menuSelect.play();
+
 	}
 	@Override
 	public void hover() {

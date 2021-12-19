@@ -11,13 +11,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import santaJam.Assets;
 import santaJam.graphics.Camera;
 import santaJam.states.StateManager;
 
 public class Map {
 	public static final int TILESIZE=8, MILK=0,MARSHMELLOW=1,CHOCOLATE=2,SMASHWALL=3,SAVEPOINT=4,SLIDE=5,GRAPPLE=6, DOUBLEJUMP=7,UPBOOST=8, 
-			BINOCULARS=18,GRAPPLEPOINT=9,UPSPIKE=10,DOWNSPIKE=11,RIGHTSPIKE=12,LEFTSPIKE=13,ICICLE=14,RIGHTBOUNCE=15,LEFTBOUNCE=16,UPBOUNCE=17;
-	protected static final int wallStart=0, wallEnd=383, smoothStart=384, smoothEnd=419;
+			BINOCULARS=18,GRAPPLEPOINT=9,UPSPIKE=10,DOWNSPIKE=11,RIGHTSPIKE=12,LEFTSPIKE=13,ICICLE=14,RIGHTBOUNCE=15,LEFTBOUNCE=16,UPBOUNCE=17,
+			FIREPLACE=19, RADIO=20;
+	protected static final int wallStart=0, wallEnd=383, smoothStart=384, smoothEnd=547;
 	private ArrayList<Rectangle> loadBounds = new ArrayList<Rectangle>();
 	private ArrayList<Room> rooms = new ArrayList<Room>();
 	private Room[] currentRooms = new Room[3];
@@ -79,6 +81,15 @@ public class Map {
 	}
 	
 	public void render(Graphics2D g, Camera camera) {
+		if(playerRoom.getArea()==3) {
+			g.drawImage(Assets.peak,0,0, null);
+		}
+		if(playerRoom.getArea()==2) {
+			g.drawImage(Assets.iceCave,0,0, null);
+		}
+		if(playerRoom.getArea()==1) {
+			g.drawImage(Assets.forest,0,0, null);
+		}
 		
 		for(Room r:rooms) {
 			if(r.getBounds().intersects(camera.getBounds())) {

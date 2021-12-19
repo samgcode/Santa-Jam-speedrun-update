@@ -3,6 +3,7 @@ package santaJam.entities.player;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import santaJam.audio.MusicManager;
 import santaJam.graphics.Animation;
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.OvalParticle;
@@ -33,6 +34,7 @@ public class Jumping extends PlayerState{
 		
 		
 		if(firstFrame) {
+			MusicManager.playSound(MusicManager.jump);
 			Rectangle pBounds = player.getBounds();
 			new RectangleSpawn(5, pBounds.x-3, pBounds.y+pBounds.height-3, pBounds.width+10,5,new Straight(0, 0, -90,60,0.5),
 					new OvalParticle(2, new Timed(Color.white,10,5)) , true);

@@ -28,7 +28,7 @@ public class Player extends Entity {
 	public static final Animation slideFall = new Animation(Assets.slideFall,1,0);
 	public static final Animation grappleThrow = new Animation(Assets.grappleThrow,2,5,2);
 	public static final Animation grapplePull = new Animation(Assets.grapplePull,2,0);
-	public static final Animation dance = new Animation(Assets.dance,3,1);
+	public static final Animation dance = new Animation(Assets.dance,4,2);
 	public static final Animation boostStart = new Animation(Assets.boostStart,4,5,2);
 	public static final Animation boost = new Animation(Assets.boost,5,4,1);
 
@@ -39,10 +39,10 @@ public class Player extends Entity {
 	
 	
 	
-	public Player(int x, int y, int health) {
-		super(x,y,8,13);
+	public Player(int x, int y) {
+		super(x-4,y-7,8,13);
 		System.out.println("reloading player");
-		this.health=health;
+		this.health=maxHealth;
 		damage=0;
 		maxInvincibility=30;
 		team=0;
@@ -85,7 +85,7 @@ public class Player extends Entity {
 			}
 		}
  		Rectangle newBounds=bounds.getBounds();
-		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,3);
+		Rectangle groundedBounds = new Rectangle(bounds.x,bounds.y+bounds.height,bounds.width,2);
 		newBounds.x+=Math.round(velX);
 		grounded=false;
 		
@@ -177,7 +177,7 @@ public class Player extends Entity {
 	@Override
 	public void render(Graphics2D g, Camera camera) {
 		currentAnim.update();
-		if(currentState instanceof Grapple&&StateManager.getGameState().getSave().hasGrapple()) {
+		if(currentState instanceof Grapple&&((Grapple) currentState).drawGrapple) {
 			g.setColor(new Color(66,39,37));
 			int grappleX=((Grapple) currentState).getCheckX()-camera.getxOffset();
 			int grappleY=((Grapple) currentState).getCheckY()-camera.getyOffset();
@@ -246,7 +246,7 @@ public class Player extends Entity {
 	}
 	public boolean isSliding() {
 		if(currentState instanceof Sliding||currentState instanceof SlideFalling||currentState instanceof SlideJump||
-				currentState instanceof SlideDoubleJump||currentState instanceof UpBoost) {
+				currentState instanceof SlideDoubleJump||currentState instanceof SlideGrapple||currentState instanceof UpBoost) {
 			return true;
 		}
 		return false;

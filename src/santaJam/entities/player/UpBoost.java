@@ -3,6 +3,7 @@ package santaJam.entities.player;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import santaJam.audio.MusicManager;
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.RectangleShape;
 import santaJam.graphics.particles.shapes.colourers.Timed;
@@ -40,11 +41,13 @@ public class UpBoost extends PlayerState{
 			player.setVelX(0);
 			player.setVelY(0);
 			player.setAnim(Player.boostStart);
+			MusicManager.boostStart.play();
 			firstFrame=false;
 			System.out.println("stopped");
 			
 		}
 		if(chargeTime==0) {
+			MusicManager.boostShoot.play();
 			player.setAnim(Player.boost);
 			player.setVelY(-boostVel*1.75);
 			System.out.println("boost");

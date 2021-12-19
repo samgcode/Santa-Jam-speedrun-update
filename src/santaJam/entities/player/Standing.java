@@ -11,9 +11,9 @@ import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
 
 public class Standing extends PlayerState{
-	private final int WALKTIME=15;
+	private final int WALKTIME=25;
 	
-	private int coyoteTime, walkTimer=15;
+	private int coyoteTime, walkTimer=25;
 	private boolean firstFrame=true;
 	
 	
@@ -32,12 +32,14 @@ public class Standing extends PlayerState{
 			
 		}
 		if(firstFrame) {
+			
 			Rectangle pBounds = player.getBounds();
 			new RectangleSpawn(2, pBounds.x-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, 180,30,0.5),
 					new OvalParticle(2, new Timed(Color.white,10)) , true);
 			new RectangleSpawn(2, pBounds.x+pBounds.width-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, 0,30,0.5),
 					new OvalParticle(2, new Timed(Color.white,10)) , true);
 			player.changeBounds(width, height);
+			MusicManager.playSound(MusicManager.landing);
 			player.setAnim(Player.landing);
 			firstFrame=false;
 		}
@@ -54,6 +56,7 @@ public class Standing extends PlayerState{
 				}
 				player.setAnim(Player.walking);
 			}else {
+				walkTimer=20;
 				player.setAnim(Player.idle);
 			}
 		}
@@ -72,7 +75,6 @@ public class Standing extends PlayerState{
 		}
 		
 		if(player.getVelY()<0) {
-			System.out.println();
 			return new Falling();
 		}
 		//transitioning to the falling state if the are not on the ground, and it is after coyote time

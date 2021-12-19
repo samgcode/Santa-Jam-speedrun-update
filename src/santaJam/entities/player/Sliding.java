@@ -3,6 +3,7 @@ package santaJam.entities.player;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import santaJam.audio.MusicManager;
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.RectangleShape;
 import santaJam.graphics.particles.shapes.colourers.Timed;
@@ -37,6 +38,7 @@ public class Sliding extends PlayerState{
 			return prevState;
 		}
 		super.update(player);
+		MusicManager.slide.play();
 		player.setAnim(Player.sliding);
 		slideGravity(player);
 		
@@ -77,8 +79,7 @@ public class Sliding extends PlayerState{
 
 	@Override
 	public void end() {
-		// TODO Auto-generated method stub
-		
+		MusicManager.slide.stop();
 	}
 
 }

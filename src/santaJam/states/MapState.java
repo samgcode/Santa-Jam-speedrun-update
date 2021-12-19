@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.audio.MusicManager;
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
 import santaJam.inputs.Inputs;
@@ -218,11 +219,13 @@ public class MapState implements State{
 	
 		if(Inputs.left().isPressed()) {
 			if(scale<=MINSCALE) {
+				MusicManager.menuBack.play();
 				StateManager.setCurrentState(new PauseState(gameState));
 			}else {
 				
 			}
 		}if(Inputs.pause().isPressed()) {
+			MusicManager.menuBack.play();
 			StateManager.setCurrentState(gameState);
 		}
 		
@@ -236,7 +239,7 @@ public class MapState implements State{
 		int mapDrawY=Game.HEIGHT/2+mapY;
 		g.setColor(new Color(10,84,62));
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		g.drawImage(mapImg,mapDrawX-mapImg.getWidth()/2,mapDrawY-mapImg.getHeight()/2+10, null);
+		g.drawImage(mapImg,mapDrawX-mapImg.getWidth()/2,mapDrawY-mapImg.getHeight()/2+5, null);
 	
 		
 		if(scale<=MINSCALE) {
@@ -246,6 +249,8 @@ public class MapState implements State{
 			g.setFont(Assets.bigFont);
 			g.drawString("Map", Game.WIDTH/2-11, 24);
 			
+			g.setFont(Assets.font);
+			g.drawString(Inputs.jump().getKey()+"/"+Inputs.grapple().getKey()+" TO ZOOM", Game.WIDTH/2-34, 166);
 		
 		
 		

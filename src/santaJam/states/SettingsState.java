@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import santaJam.Assets;
 import santaJam.Game;
 import santaJam.SantaJam;
+import santaJam.audio.MusicManager;
 import santaJam.graphics.UI.TextElement;
 import santaJam.inputs.Inputs;
 import santaJam.states.menus.Menu;
@@ -108,8 +109,10 @@ public class SettingsState implements State{
 			StateManager.setCurrentState(stateToSwitch);
 		}
 		if(Inputs.right().isPressed()) {
+			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(new PauseState(mainState));
 		}if(Inputs.pause().isPressed()) {
+			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(mainState);
 			
 		}

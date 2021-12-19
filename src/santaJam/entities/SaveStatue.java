@@ -29,7 +29,7 @@ public class SaveStatue extends Entity{
 				if(saveTimer<=0) {
 					Player player = StateManager.getGameState().getPlayer();
 					player.health=player.getMaxHealth();
-					StateManager.getGameState().saveData(player.getBounds().x,player.getBounds().y);
+					StateManager.getGameState().saveData(bounds.x+bounds.width/2,bounds.y+bounds.height/2);
 					
 					saveTimer=maxSaveTime;
 				}
