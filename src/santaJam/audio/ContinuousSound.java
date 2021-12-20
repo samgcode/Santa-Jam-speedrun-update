@@ -48,7 +48,6 @@ public class ContinuousSound extends Sound{
 	public void play() {
 		playing=true;
 		volume = SantaJam.getGame().getSettings().getSounds()/100f;
-		System.out.println(path);
 		
 		FloatControl gainControl;
 		gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

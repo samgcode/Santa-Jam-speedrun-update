@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.audio.MusicManager;
 import santaJam.entities.player.Player;
 import santaJam.graphics.Animation;
 import santaJam.graphics.Camera;
@@ -29,6 +30,7 @@ public class Binoculars extends Upgrade{
 
 	@Override
 	protected void onCollect(Player player) {
+		MusicManager.itemGet.play();
 		StateManager.getGameState().getSave().unlockBinoculars(player);
 		StateManager.getGameState().saveData(player.getBounds().x,player.getBounds().y);
 		player.setAnim(Player.dance);

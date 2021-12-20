@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import santaJam.SantaJam;
 
-public class MusicManager extends Thread{
+public class MusicManager{
 	boolean run=true;
 	private int currentSong=-1;
 	private int nextSong=-1;
@@ -65,90 +65,68 @@ public class MusicManager extends Thread{
 	
 	private ArrayList<SoundEffect> sounds = new ArrayList<>();
 	
-	@Override
-	public void run() {
-		
-		final int FPS = 100, DELAY = 1000000000 / FPS;
-		while(run) {
-
-			
-			double startTime= System.nanoTime();//getting the time at the start of the frame
-			
-			for(int i=sounds.size()-1;i>=0;i--) {
-				sounds.get(i).update();
-				if(!sounds.get(i).isPlaying()) {
-					sounds.remove(i);
-					
-				}
-			}
-			forest.update();
-			iceCave.update();
-			peak.update();
-			home.update();
-			radioForest.update();
-			radioPeak.update();
-			goose1.update();
-			goose2.update();
-			crack.update();
-			menuBack.update();
-			menuMove.update();
-			menuSelect.update();
-			slide.update();
-			fire.update();
-			for(SoundEffect i:smash) {
-				i.update();
-			}
-			for(SoundEffect i:walking) {
-				i.update();
-			}
-			for(SoundEffect i:landing) {
-				i.update();
-			}
-			for(SoundEffect i:grappleThrow) {
-				i.update();
-			}
-			for(SoundEffect i:grappleClank) {
-				i.update();
-			}
-			for(SoundEffect i:spring) {
-				i.update();
-			}
-			
-			
-			//System.out.println("playing: "+currentSong+" next:"+nextSong);
-			if(nextSong!=currentSong) {
-				if(getSong(currentSong)!=null) {
-					getSong(currentSong).stop();
-				}else {
-					getSong(nextSong).play();
-					currentSong=nextSong;
-				}
-				
-				if(getSong(nextSong)!=null&&!getSong(currentSong).isPlaying()) {
-					getSong(nextSong).play();
-					currentSong=nextSong;
-					System.out.println("ee");
-				}
+	
+	public void update() {			
+		for(int i=sounds.size()-1;i>=0;i--) {
+			sounds.get(i).update();
+			if(!sounds.get(i).isPlaying()) {
+				sounds.remove(i);
 				
 			}
-			
-			double endTime= System.nanoTime();//the time at the end of the frame
-			double delta=endTime-startTime;//how long the fame took
-			while(delta<(DELAY)) {
-				endTime= System.nanoTime();
-				delta=endTime-startTime;
-			}
-			
 		}
-		forest.close();
-		iceCave.close();
-		peak.close();
-		home.close();
-		crack.close();
+		forest.update();
+		iceCave.update();
+		peak.update();
+		home.update();
+		radioForest.update();
+		radioPeak.update();
+		goose1.update();
+		goose2.update();
+		crack.update();
+		menuBack.update();
+		menuMove.update();
+		menuSelect.update();
+		slide.update();
+		fire.update();
 		for(SoundEffect i:smash) {
-			i.close();
+			i.update();
+		}
+		for(SoundEffect i:walking) {
+			i.update();
+		}
+		for(SoundEffect i:landing) {
+			i.update();
+		}
+		for(SoundEffect i:grappleThrow) {
+			i.update();
+		}
+		for(SoundEffect i:grappleClank) {
+			i.update();
+		}
+		for(SoundEffect i:spring) {
+			i.update();
+		}
+		
+		
+		//System.out.println("playing: "+currentSong+" next:"+nextSong);
+		if(nextSong!=currentSong) {
+			if(getSong(currentSong)!=null) {
+				getSong(currentSong).stop();
+			}else {
+				getSong(nextSong).play();
+				currentSong=nextSong;
+			}
+			
+			if(!getSong(currentSong).isPlaying()) {
+				getSong(nextSong).play();
+				currentSong=nextSong;
+				System.out.println("ee");
+			}
+			
 		}
 	}
+	
+	
 	
 	private Sound getSong(int index) {
 		if(index==FOREST) {
@@ -169,12 +147,13 @@ public class MusicManager extends Thread{
 			return goose1 ;
 		}else if(index==GOOSE2) {
 			return goose2 ;
+			
 		}
 		
 		return null;
 	}
 	
-	public synchronized void switchSong(int nextSong) {
+	public void switchSong(int nextSong) {
 		//System.out.println("switching from "+this.nextSong+" to "+nextSong);
 		if(currentSong==this.nextSong) {
 			this.nextSong=nextSong;
@@ -182,8 +161,26 @@ public class MusicManager extends Thread{
 	
 		
 	}
-	public synchronized void close() {
-		run=false;
+	public void close() {
+		forest.close();
+		iceCave.close();
+		peak.close();
+		home.close();
+		radioForest.close();
+		radioPeak.close();
+		goose1.close();
+		goose2.close();
+		
+		crack.close();
+		for(SoundEffect i:smash) {
+			i.close();
+		}
+		for(SoundEffect i:walking) {
+			i.close();
+		}
+		for(SoundEffect i:jump) {
+			i.close();
+		}
 	}
 	public synchronized void applyVolume() {
 		getSong(currentSong).setVolume(SantaJam.getGame().getSettings().getMusic()/100f);

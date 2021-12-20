@@ -65,8 +65,6 @@ public class TitleScreen implements State{
 		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-59, 141);
 		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-60, 141);
 		g.setColor(Color.white);
-
-	
 		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-60, 140);
 
 	}

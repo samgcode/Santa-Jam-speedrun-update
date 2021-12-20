@@ -17,7 +17,6 @@ public class Game {
 	public Game() {
 		window = new Window(WIDTH,HEIGHT);
 		settings = new Settings();
-		music.start();
 		Inputs.setKeyBinds(settings.getKeyBinds());
 	}
 	
@@ -31,6 +30,7 @@ public class Game {
 			
 			Inputs.update();
 			StateManager.update();
+			music.update();
 			window.render();
 			
 			
