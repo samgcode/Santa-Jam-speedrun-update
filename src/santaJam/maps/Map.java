@@ -81,7 +81,8 @@ public class Map {
 	}
 	
 	public void render(Graphics2D g, Camera camera) {
-		if(playerRoom.getArea()==3) {
+		if(playerRoom.getArea()==3||playerRoom.getArea()==4
+				) {
 			g.drawImage(Assets.peak,0,0, null);
 		}
 		if(playerRoom.getArea()==2) {

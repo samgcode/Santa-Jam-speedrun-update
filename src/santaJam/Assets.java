@@ -12,7 +12,7 @@ public class Assets {
 	public static Font font = loadFont("res/monofont.ttf",16);
 	public static Font bigFont = loadFont("res/setback-tt-brk.ttf",13);
 	
-	public static BufferedImage[] tiles = splitSpriteSheet(loadImage("tileset.png"), 8, 8, 12, 46);
+	public static BufferedImage[] tiles = splitSpriteSheet(loadImage("tileset.png"), 8, 8, 12, 50);
 
 	public static BufferedImage[] walking = splitSpriteSheet(loadImage("walking.png"), 9, 13, 8, 1);
 	public static BufferedImage[] landing = splitSpriteSheet(loadImage("landing.png"), 7, 12, 3, 1);

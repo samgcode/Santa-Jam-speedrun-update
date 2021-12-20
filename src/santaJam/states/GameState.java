@@ -113,6 +113,7 @@ public class GameState implements State {
 	}
 	public void gameOver() {
 		player.setAnim(Player.falling);
+		player.getCurrentState().end();
 		MusicManager.death.play();
 		
 		resetting=true;

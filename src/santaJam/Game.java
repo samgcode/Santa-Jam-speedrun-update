@@ -18,13 +18,12 @@ public class Game {
 		window = new Window(WIDTH,HEIGHT);
 		settings = new Settings();
 		music.start();
-		StateManager.setCurrentState(new TitleScreen());
 		Inputs.setKeyBinds(settings.getKeyBinds());
 	}
 	
 	public void run() {
 		final int FPS = 60, DELAY = 1000000000 / FPS;
-
+		StateManager.setCurrentState(new TitleScreen());
 		while(running) {
 			double startTime= System.nanoTime();//getting the time at the start of the frame
 			

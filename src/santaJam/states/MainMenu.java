@@ -153,7 +153,7 @@ public class MainMenu implements State{
 				-Assets.menuMarkerGreen.getWidth(),Assets.menuMarkerGreen.getHeight(), null);
 		g.setColor(green);
 		g.setFont(Assets.font);
-		g.drawString("TITLE NAME", Game.WIDTH/2-30, 40);
+		g.drawString("THE QUEST UP PENGUIN PEAK", Game.WIDTH/2-75, 40);
 		
 		g.drawImage(Assets.mainMenuScreen, 0, 0, null);
 		
