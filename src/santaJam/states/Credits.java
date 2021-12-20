@@ -17,11 +17,14 @@ public class Credits implements State{
 			+ "art: bab chunko + agoogaloo \n "
 			+ "music: popbirdprogression \n "
 			+ "incredible penguin: you \n "
-			+ "\n --"+Inputs.jump().getKey()+" to continue--";
+			+ "\n title font: Setback TT BRK by aenigma Fonts \n "
+			+ "sounds: alexo400, voxlab, cylon8472, dland, mallement, soundscalpel.com, and j_p_higgins from freesound.org \n "
+			
+			+ "\n ---- "+Inputs.jump().getKey()+" to continue ----";
 	public Credits(GameState gameState) {
 		this.gameState = gameState;
 		
-		itemText = new TextElement(false, 20,60,TextElement.BIGMONOWIDTH,TextElement.SMALLMONOHEIGHT+3,Game.WIDTH-40,
+		itemText = new TextElement(false, 20,40,TextElement.BIGMONOWIDTH,TextElement.SMALLMONOHEIGHT+3,Game.WIDTH-40,
 				credits, Assets.font);
 		itemText.centre(Game.WIDTH-40);
 		

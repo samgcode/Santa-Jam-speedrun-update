@@ -151,7 +151,7 @@ public class Room {
 		if(area==3) {
 			StateManager.setBgColour(new Color(72,206,240));
 		}if(area==4) {
-			StateManager.setBgColour(new Color(42,22,24));
+			StateManager.setBgColour(new Color(73,53,52));
 		}
 		
 		for(int y=0;y<height;y++) {

@@ -54,13 +54,20 @@ public class TitleScreen implements State{
 		radio.render(g, bgCam);
 		g.drawImage(Assets.titleScreen,0, 0, null);
 		g.setFont(Assets.bigFont);
-		//g.setColor(Color.black);
-		//g.drawString("Title Name", Game.WIDTH/2-40, 51);
+		
+		g.setColor(new Color(6,50,52));
+		g.drawString("THE QUEST UP PENGUIN PEAK", Game.WIDTH/2-98, 51);
+		g.drawString("THE QUEST UP PENGUIN PEAK", Game.WIDTH/2-99, 51);
 		g.setColor(Color.white);
 		g.drawString("THE QUEST UP PENGUIN PEAK", Game.WIDTH/2-99, 50);
-		
+		g.setColor(new Color(6,50,52));
 		g.setFont(Assets.font);
+		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-50, 141);
+		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-49, 141);
+		g.setColor(Color.white);
+
 		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-50, 140);
+
 	}
 
 	@Override
