@@ -6,10 +6,14 @@ import java.awt.event.KeyEvent;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.graphics.UI.TextElement;
 import santaJam.inputs.Inputs;
 
 public class RebindControls implements State{
 	State returnState;
+	TextElement action  = new TextElement(false, 40,50,TextElement.BIGMONOWIDTH,TextElement.SMALLMONOHEIGHT+1,Game.WIDTH-80,
+			"", Assets.font), rebind  = new TextElement(false, 40,70,TextElement.BIGMONOWIDTH,TextElement.SMALLMONOHEIGHT+1,Game.WIDTH-80,
+					"", Assets.font);
 
 	
 	private String[] actionNames = new String[] {"up", "down", "left", "right","jump/confirm","grapple"};
@@ -28,6 +32,16 @@ public class RebindControls implements State{
 	@Override
 	
 	public void update() {
+		action.update("  PRESS BUTTON FOR "+actionNames[currentAction].toUpperCase()+" \n ESCAPE TO CANCEL");
+		action.centre(Game.WIDTH-80);
+		
+		
+		if(currentAction>0) {
+			rebind.update("\n \n BINDED KEY "+KeyEvent.getKeyText(keyCodes[currentAction-1]).toUpperCase()+" TO "+
+		actionNames[currentAction-1].toUpperCase());
+			rebind.centre(Game.WIDTH-80);
+		}
+		
 		
 		if(Inputs.pause().isPressed()) {
 			StateManager.setCurrentState(returnState);
@@ -41,20 +55,19 @@ public class RebindControls implements State{
 			Inputs.setKeyBinds(keyCodes);
 			StateManager.setCurrentState(returnState);
 		}
+		
 	}
 
 	@Override
 	public void render(Graphics2D g) {
-		g.setColor(new Color(78,16,69));
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		g.drawImage(Assets.creditScreen,0,0,null);
 		g.setColor(Color.white);
-		g.setFont(Assets.font);
-		g.drawString("REBIND CONTROLS", 150, 10);
-		g.drawString("PRESS BUTTON FOR "+actionNames[currentAction].toUpperCase()+"  (ESCAPE TO CANCEL)", 70, 50);
-		if(currentAction>0) {
-			g.drawString("BINDED KEY "+KeyEvent.getKeyText(keyCodes[currentAction-1]).toUpperCase()+" TO "+
-		actionNames[currentAction-1].toUpperCase(), 130, 70);
-		}
+		g.setFont(Assets.bigFont);
+		g.drawString("Set Controls", 118, 24);
+		
+		action.render(g);
+		rebind.render(g);
+
 		
 	}
 
