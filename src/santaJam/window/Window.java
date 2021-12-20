@@ -54,6 +54,7 @@ public class Window {
 		
 		//frame.setResizable(false);// not letting you resize the window so it doesn't mess things up when rendering
 		display = new Display(width, height, scale);//making the display
+		frame.setTitle("The Quest Up Penguin Peak");
 		frame.add(display);// adding the display to the window so it can actually show it
 		frame.pack();// making the window fit the panel perfectly
 		frame.setLocationRelativeTo(null);// centers the window

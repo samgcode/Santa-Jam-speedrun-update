@@ -157,7 +157,7 @@ public class FirePlace extends Entity{
 			text="how is this possible did you cheat?";
 		}
 		
-		if(minutes<4) {
+		if(minutes<10) {
 			text="wow, that was so fast you didnt even get cold!";
 		}
 		if(!save.hasDoubleJump()) {

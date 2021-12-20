@@ -85,6 +85,8 @@ public class MusicManager extends Thread{
 			iceCave.update();
 			peak.update();
 			home.update();
+			radioForest.update();
+			radioPeak.update();
 			goose1.update();
 			goose2.update();
 			crack.update();
@@ -129,10 +131,6 @@ public class MusicManager extends Thread{
 				}
 				
 			}
-			if(getSong(currentSong)!=null) {
-				getSong(currentSong).update();
-			}
-			
 			
 			double endTime= System.nanoTime();//the time at the end of the frame
 			double delta=endTime-startTime;//how long the fame took

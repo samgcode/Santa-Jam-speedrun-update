@@ -52,7 +52,7 @@ public class Radio extends Entity{
 	private void playerCollide(Player player) {
 		int nextSong =currentSong;
 		while(nextSong==currentSong) {
-			nextSong= ThreadLocalRandom.current().nextInt(MusicManager.HOME,MusicManager.GOOSE2);
+			nextSong= ThreadLocalRandom.current().nextInt(MusicManager.HOME,MusicManager.GOOSE2+1);
 		}
 		currentSong=nextSong;
 		System.out.println(nextSong);

@@ -62,11 +62,12 @@ public class TitleScreen implements State{
 		g.drawString("THE QUEST UP PENGUIN PEAK", Game.WIDTH/2-99, 50);
 		g.setColor(new Color(6,50,52));
 		g.setFont(Assets.font);
-		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-50, 141);
-		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-49, 141);
+		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-59, 141);
+		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-60, 141);
 		g.setColor(Color.white);
 
-		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-50, 140);
+	
+		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-60, 140);
 
 	}
 
