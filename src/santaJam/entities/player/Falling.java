@@ -1,6 +1,7 @@
 package santaJam.entities.player;
 
 import santaJam.inputs.Inputs;
+import santaJam.states.StateManager;
 
 public class Falling extends PlayerState{
 
@@ -39,12 +40,16 @@ public class Falling extends PlayerState{
 			return new Sliding();
 		}*/
 		//grappling if the buffer an grapple
-		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0) {
+		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0&&!Inputs.grapple().isInputUsed()) {
+			Inputs.grapple().useInput();
 			return new Grapple(this, player);
 		}
 		//trying to double jump if they push jump
-		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()) {
+		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()
+				&&DoubleJump.canDoubleJump()&&StateManager.getGameState().getSave().hasDoubleJump()) {
+			System.out.println("e");
 			Inputs.jump().useInput();
+			
 			return new 	DoubleJump(this);
 			
 		}

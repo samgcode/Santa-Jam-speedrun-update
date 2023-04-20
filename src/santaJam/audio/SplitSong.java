@@ -2,6 +2,7 @@ package santaJam.audio;
 
 import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
@@ -10,18 +11,22 @@ import javax.sound.sampled.LineUnavailableException;
 import santaJam.SantaJam;
 
 public class SplitSong extends Sound {
+	private AudioInputStream loopStream;
 	private Clip startClip, loopClip;
 	private boolean starting = true, fadeOut = false;
 	
 
 	public SplitSong(String startPath, String loopPath) {
 		try {
+			loadAudioStream(loopPath);
+			loopClip = AudioSystem.getClip();
+			loopStream = audioStream;
+			loopClip.open(loopStream);
+			
 			loadAudioStream(startPath);
 			startClip = AudioSystem.getClip();
 			startClip.open(audioStream);
-			loadAudioStream(loopPath);
-			loopClip = AudioSystem.getClip();
-			loopClip.open(audioStream);
+			
 			
 
 		} catch (LineUnavailableException ex) {
@@ -86,6 +91,7 @@ public class SplitSong extends Sound {
 		startClip.setMicrosecondPosition(0);
 		loopClip.setMicrosecondPosition(0);
 		startClip.start();
+		starting = true;
 		
 
 	}

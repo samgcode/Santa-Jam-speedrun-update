@@ -22,7 +22,7 @@ public class DoubleJump extends Jumping{
 		if(canDoubleJump()&&StateManager.getGameState().getSave().hasDoubleJump()) {
 			PlayerState returnSate=super.update(player);
 			if(returnSate!=null) {
-				usedDoubleJump();
+				useDoubleJump();
 			}
 			return returnSate;
 		}
@@ -40,7 +40,7 @@ public class DoubleJump extends Jumping{
 	public static boolean canDoubleJump() {
 		return canDoubleJump;
 	}
-	public static void usedDoubleJump() {
+	public static void useDoubleJump() {
 		canDoubleJump=false;
 	}
 }

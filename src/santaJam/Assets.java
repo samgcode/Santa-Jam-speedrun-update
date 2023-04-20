@@ -63,6 +63,11 @@ public class Assets {
 	public static BufferedImage firePlace= loadImage("fireplace.png");
 	public static BufferedImage[] radio = splitSpriteSheet(loadImage("radio.png"), 16,24, 6, 1);
 
+	public static BufferedImage[] goose = splitSpriteSheet(loadImage("bonus/goose.png"), 28,	31, 2, 1);
+	public static BufferedImage[] gunSpire = splitSpriteSheet(loadImage("bonus/gun spire.png"), 9,17, 6, 1);
+	public static BufferedImage[] cheeseFighter = splitSpriteSheet(loadImage("bonus/cheese.png"), 18,18, 4, 1);
+	public static BufferedImage[] electroNode = splitSpriteSheet(loadImage("bonus/electronode.png"), 8,8, 2, 1);
+
 	public static BufferedImage upgradeTop= loadImage("ui/upgrade top.png");
 	public static BufferedImage upgradeBottom= loadImage("ui/upgrade bottom.png");
 	public static BufferedImage winTop= loadImage("ui/win top.png");
@@ -84,6 +89,8 @@ public class Assets {
 	public static BufferedImage peak= loadImage("peak.png");
 	public static BufferedImage iceCave= loadImage("ice cave.png");
 	public static BufferedImage forest= loadImage("forest.png");
+
+
 	
 	
 	

@@ -39,7 +39,8 @@ public class SlideFalling extends PlayerState{
 		}
 		
 		//trying to double jump if they push jump
-		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()) {
+		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()
+			&&DoubleJump.canDoubleJump()&&StateManager.getGameState().getSave().hasDoubleJump()) {
 			Inputs.jump().useInput();
 			return new 	SlideDoubleJump(this);
 		}

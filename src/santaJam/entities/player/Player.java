@@ -36,9 +36,6 @@ public class Player extends Entity {
 	
 	private Animation currentAnim = walking;
 	
-	
-	
-	
 	public Player(int x, int y) {
 		super(x-4,y-7,8,13);
 		System.out.println("reloading player");

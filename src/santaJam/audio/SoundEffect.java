@@ -22,7 +22,6 @@ public class SoundEffect extends Sound{
 			System.out.println("Audio line for playing back is unavailable.");
 			ex.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

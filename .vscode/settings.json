@@ -1,0 +1,14 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "penguin peak.jar",
+            "json-simple-1.1.jar"
+        ],
+        "exclude": [
+            "c:\\Santa Jam\\lib\\json-simple-1.1.jar",
+            "c:\\Santa Jam\\dhfgdhdhfgdlib\\json-simple-1.1.jar",
+            "c:\\Santa Jam\\json-simple-1.1.jar"
+        ]
+    }
+}

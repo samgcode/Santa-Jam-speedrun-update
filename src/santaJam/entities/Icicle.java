@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 
 import santaJam.Assets;
 import santaJam.Game;
-import santaJam.SantaJam;
 import santaJam.audio.MusicManager;
 import santaJam.entities.player.Player;
 import santaJam.graphics.Animation;

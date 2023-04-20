@@ -53,6 +53,7 @@ public class MusicManager{
 	
 	public static final SoundEffect radioStatic = new SoundEffect("res/sound/static.wav");
 	
+	
 	private static final Sound forest = new SplitSong("res/sound/forest start.wav","res/sound/forest loop.wav");
 	private static final Sound iceCave = new SplitSong("res/sound/iceCaveStart.wav","res/sound/iceCave.wav");
 	private static final SplitSong peak = new SplitSong("res/sound/peak start.wav","res/sound/peak loop.wav");
@@ -182,7 +183,7 @@ public class MusicManager{
 			i.close();
 		}
 	}
-	public synchronized void applyVolume() {
+	public void applyVolume() {
 		getSong(currentSong).setVolume(SantaJam.getGame().getSettings().getMusic()/100f);
 	}
 	
@@ -212,9 +213,5 @@ public class MusicManager{
 	
 	
 	}
-	
-	
-	
-	
 
 }

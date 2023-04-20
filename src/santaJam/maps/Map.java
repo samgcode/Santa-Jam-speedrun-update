@@ -18,7 +18,7 @@ import santaJam.states.StateManager;
 public class Map {
 	public static final int TILESIZE=8, MILK=0,MARSHMELLOW=1,CHOCOLATE=2,SMASHWALL=3,SAVEPOINT=4,SLIDE=5,GRAPPLE=6, DOUBLEJUMP=7,UPBOOST=8, 
 			BINOCULARS=18,GRAPPLEPOINT=9,UPSPIKE=10,DOWNSPIKE=11,RIGHTSPIKE=12,LEFTSPIKE=13,ICICLE=14,RIGHTBOUNCE=15,LEFTBOUNCE=16,UPBOUNCE=17,
-			FIREPLACE=19, RADIO=20;
+			FIREPLACE=19, RADIO=20, GUNSPIRE = 21, GOOSE = 22, CHEESE = 23, ELECTRO = 24;
 	protected static final int wallStart=0, wallEnd=419, smoothStart=420, smoothEnd=547;
 	private ArrayList<Rectangle> loadBounds = new ArrayList<Rectangle>();
 	private ArrayList<Room> rooms = new ArrayList<Room>();

@@ -60,11 +60,10 @@ public class Standing extends PlayerState{
 				player.setAnim(Player.idle);
 			}
 		}
-		
-		
-		
+	
 		//if they pressed/buffered a jump, then they should jump
 		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()) {
+			System.out.println("jumping");
 			Inputs.jump().useInput();
 			return new Jumping();
 		}
@@ -86,7 +85,7 @@ public class Standing extends PlayerState{
 			}
 		}else {
 			//resetting coyote time if they are touching the ground
-			coyoteTime=5;
+			coyoteTime=COYOTETIME;
 		}
 		return null;
 		

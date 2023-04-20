@@ -24,6 +24,7 @@ public class BouncePad extends Entity{
 			anim = new Animation(Assets.bounceLeft,5,1);
 		}else if(direction == 'u') {
 			y+=Map.TILESIZE-2;
+			x+=1;
 			anim = new Animation(Assets.bounceUp,1,5);
 			
 		}

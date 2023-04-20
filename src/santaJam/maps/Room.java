@@ -23,6 +23,10 @@ import santaJam.entities.Icicle;
 import santaJam.entities.Radio;
 import santaJam.entities.SaveStatue;
 import santaJam.entities.SpikeSubstitute;
+import santaJam.entities.bonus.Cheese;
+import santaJam.entities.bonus.ElectroNode;
+import santaJam.entities.bonus.Goose;
+import santaJam.entities.bonus.GunSpire;
 import santaJam.entities.upgrades.Binoculars;
 import santaJam.entities.upgrades.Collectible;
 import santaJam.entities.upgrades.DoubleJumpItem;
@@ -232,7 +236,17 @@ public class Room {
 					Entity.getManager().addEntity(new FirePlace(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.RADIO+infoStart) {
 					Entity.getManager().addEntity(new Radio(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.GUNSPIRE+infoStart) {
+					System.out.println("time for towerin'");
+					Entity.getManager().addEntity(new GunSpire(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.GOOSE+infoStart) {
+					Entity.getManager().addEntity(new Goose(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.ELECTRO+infoStart) {
+					Entity.getManager().addEntity(new ElectroNode(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.CHEESE+infoStart) {
+					Entity.getManager().addEntity(new Cheese(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}
+				
 				
 				if(!collected) {
 					if(tiles[x][y]==Map.MILK+infoStart) {

@@ -21,7 +21,7 @@ public class SlideDoubleJump extends SlideJump{
 		if(DoubleJump.canDoubleJump()&&StateManager.getGameState().getSave().hasDoubleJump()) {
 			PlayerState returnSate=super.update(player);
 			if(returnSate!=null) {
-				DoubleJump.usedDoubleJump();
+				DoubleJump.useDoubleJump();
 			}
 			return returnSate;
 		}
