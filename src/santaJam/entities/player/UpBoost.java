@@ -29,11 +29,11 @@ public class UpBoost extends PlayerState{
 	}
 	@Override
 	public PlayerState update(Player player) {
-		super.update(player);
 		if(!StateManager.getGameState().getSave().hasUpBoost()) {
 			slideGravity(player);
 			return prevState;
 		}
+		super.update(player);
 		
 		
 		chargeTime--;

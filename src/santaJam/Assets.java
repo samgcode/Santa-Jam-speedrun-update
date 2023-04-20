@@ -36,7 +36,7 @@ public class Assets {
 	public static BufferedImage[] doubleJumpIcon = splitSpriteSheet(loadImage("double jump icon.png"), 10,10, 16, 1);
 	public static BufferedImage[] boostIcon = splitSpriteSheet(loadImage("boost icon.png"), 10,10, 16, 1);
 	public static BufferedImage[] binoculars = splitSpriteSheet(loadImage("binocular icon.png"), 10,10, 8, 1);
-	
+	public static BufferedImage[] mapIcon = splitSpriteSheet(loadImage("map icon.png"), 10,10, 16, 1);
 	
 	public static BufferedImage[] marshmallow = splitSpriteSheet(loadImage("marshmallow.png"), 8,10, 8, 1);
 	public static BufferedImage[] milk = splitSpriteSheet(loadImage("milk.png"), 8,8, 8, 1);
@@ -52,6 +52,7 @@ public class Assets {
 	public static BufferedImage[] bounceUp = splitSpriteSheet(loadImage("bounce pad u.png"), 8,7, 6, 1);
 	public static BufferedImage[] bounceLeft = splitSpriteSheet(loadImage("bounce pad l.png"), 7,8, 6, 1);
 	public static BufferedImage[] bounceRight = splitSpriteSheet(loadImage("bounce pad r.png"), 7,8, 6, 1);
+	public static BufferedImage[] save = splitSpriteSheet(loadImage("save.png"), 31,24, 8, 1);
 	public static BufferedImage grappplePoint = loadImage("grapple point.png");
 	
 	
@@ -59,6 +60,7 @@ public class Assets {
 	public static BufferedImage chocolateIcon= loadImage("ui/chocolate icon.png");
 	public static BufferedImage milkIcon= loadImage("ui/milk icon.png");
 	public static BufferedImage playerIcon= loadImage("ui/player icon.png");
+	public static BufferedImage houseIcon= loadImage("ui/house icon.png");
 	
 	public static BufferedImage firePlace= loadImage("fireplace.png");
 	public static BufferedImage[] radio = splitSpriteSheet(loadImage("radio.png"), 16,24, 6, 1);

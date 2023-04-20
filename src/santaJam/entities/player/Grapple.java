@@ -1,10 +1,15 @@
 package santaJam.entities.player;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import santaJam.audio.MusicManager;
 import santaJam.entities.Entity;
+import santaJam.graphics.particles.movers.Straight;
+import santaJam.graphics.particles.shapes.OvalParticle;
+import santaJam.graphics.particles.shapes.colourers.Timed;
+import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
 import santaJam.maps.Room;
 import santaJam.states.StateManager;
@@ -123,11 +128,19 @@ public class Grapple extends PlayerState {
 				for (Rectangle i : smoothWalls) {
 					if (i == r) {
 						MusicManager.playSound(MusicManager.grappleClank);
-						System.out.println("eee");
+						System.out.println("clanked");
 						canGrapple = false;
+						new RectangleSpawn(3, checkBox.x-3, checkBox.y+checkBox.height-3, 6,5,new Straight(0, 0, 90,30,0.6),
+							new OvalParticle(2, new Timed(Color.white,15)) , true);
+						new RectangleSpawn(3, checkBox.x+checkBox.width-3, checkBox.y+checkBox.height-3, 6,5,new Straight(0, 0, -90,30,0.6),
+							new OvalParticle(2, new Timed(Color.white,15)) , true);
 						return prevState;
 					}
 				}
+				new RectangleSpawn(3, checkBox.x-3, checkBox.y+checkBox.height-3, 6,5,new Straight(0, 0, 90,30,0.6),
+						new OvalParticle(2, new Timed(Color.white,15)) , true);
+				new RectangleSpawn(3, checkBox.x+checkBox.width-3, checkBox.y+checkBox.height-3, 6,5,new Straight(0, 0, -90,30,0.6),
+						new OvalParticle(2, new Timed(Color.white,15)) , true);
 				MusicManager.grappleYoink.play();
 				shooting = false;
 			}
@@ -136,10 +149,16 @@ public class Grapple extends PlayerState {
 			if (i.getBounds().intersects(checkBox) && !(i instanceof Player)) {
 				if (i.isGrappleable()) {
 					MusicManager.grappleYoink.play();
+					new RectangleSpawn(8, checkBox.x-3, checkBox.y+checkBox.height-3, 6,5,new Straight(0, 0, 0,
+						360,0.6), new OvalParticle(2, new Timed(Color.white,15)), true);
 					shooting = false;
 				} else {
 					MusicManager.playSound(MusicManager.grappleClank);
 					canGrapple = false;
+					new RectangleSpawn(3, checkBox.x-3, checkBox.y+checkBox.height-3, 6,5,new Straight(0, 0, 90,30,0.6),
+							new OvalParticle(2, new Timed(Color.white,15)) , true);
+					new RectangleSpawn(3, checkBox.x+checkBox.width-3, checkBox.y+checkBox.height-3, 6,5,new Straight(0, 0, -90,30,0.6),
+							new OvalParticle(2, new Timed(Color.white,15)) , true);
 					return prevState;
 				}
 			}

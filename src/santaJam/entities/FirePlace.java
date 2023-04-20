@@ -163,6 +163,9 @@ public class FirePlace extends Entity{
 		if(!save.hasDoubleJump()) {
 			text="wait you didnt even get all the upgrades you must be in quite the rush";
 		}
+		if(!save.hasDoubleJump()&&milkNum==3&&chocolateNum==3&&marshmellowNum==3){
+			text="you got everything but the double jump? thats pretty impressive!";
+		}
 		
 		if(image!=null) {
 			

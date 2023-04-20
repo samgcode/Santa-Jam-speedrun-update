@@ -31,6 +31,7 @@ import santaJam.entities.upgrades.Binoculars;
 import santaJam.entities.upgrades.Collectible;
 import santaJam.entities.upgrades.DoubleJumpItem;
 import santaJam.entities.upgrades.GrappleItem;
+import santaJam.entities.upgrades.MapItem;
 import santaJam.entities.upgrades.SlideItem;
 import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.entities.wallEntities.BreakableWall;
@@ -147,13 +148,13 @@ public class Room {
 	
 	public void render(Graphics2D g, Camera camera) {
 		if(area==1) {
-			StateManager.setBgColour(new Color(72,206,240));
+			StateManager.setBgColour(new Color(35,84,69));
 		}
 		if(area==2) {
-			StateManager.setBgColour(new Color(17,11,36));
+			StateManager.setBgColour(new Color(32,55,108));
 		}
 		if(area==3) {
-			StateManager.setBgColour(new Color(72,206,240));
+			StateManager.setBgColour(new Color(167,185,224));
 		}if(area==4) {
 			StateManager.setBgColour(new Color(73,53,52));
 		}
@@ -224,6 +225,8 @@ public class Room {
 					Entity.getManager().addEntity(new UpBoostItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.BINOCULARS+infoStart&&!StateManager.getGameState().getSave().hasBinoculars()) {
 					Entity.getManager().addEntity(new Binoculars(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
+				}else if(tiles[x][y]==Map.MAP+infoStart&&!StateManager.getGameState().getSave().hasSlide()) {
+					Entity.getManager().addEntity(new MapItem(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}
 				
 				else if(tiles[x][y]==Map.SAVEPOINT+infoStart) {
