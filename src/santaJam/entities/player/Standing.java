@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import santaJam.audio.MusicManager;
 import santaJam.graphics.particles.movers.Straight;
 import santaJam.graphics.particles.shapes.OvalParticle;
+import santaJam.graphics.particles.shapes.RectangleShape;
 import santaJam.graphics.particles.shapes.colourers.Timed;
 import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
@@ -34,14 +35,18 @@ public class Standing extends PlayerState{
 		if(firstFrame) {
 			
 			Rectangle pBounds = player.getBounds();
-			new RectangleSpawn(2, pBounds.x-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, 180,30,0.5),
-					new OvalParticle(2, new Timed(Color.white,10)) , true);
-			new RectangleSpawn(2, pBounds.x+pBounds.width-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, 0,30,0.5),
-					new OvalParticle(2, new Timed(Color.white,10)) , true);
-			player.changeBounds(width, height);
+			new RectangleSpawn(3, pBounds.x-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, 210,30,0.6),
+					new OvalParticle(2, new Timed(Color.white,15)) , true);
+			new RectangleSpawn(3, pBounds.x+pBounds.width-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, -20,30,0.6),
+					new OvalParticle(2, new Timed(Color.white,15)) , true);
+			if(!player.changeBounds(width, height)){
+				return new Crawling();
+			}
+			
 			MusicManager.playSound(MusicManager.landing);
 			player.setAnim(Player.landing);
 			firstFrame=false;
+			
 		}
 		
 		normalMoveLeftRight(player);//moving the player
@@ -53,6 +58,9 @@ public class Standing extends PlayerState{
 				if(walkTimer>=WALKTIME) {
 					walkTimer=0;
 					MusicManager.playSound(MusicManager.walking);
+					Rectangle pBounds = player.getBounds();
+					new RectangleSpawn(3, pBounds.x-2, pBounds.y+pBounds.height-3, pBounds.width+4,5,new Straight(0, 0, -90,90,0.3),
+						new RectangleShape(1,1, new Timed(Color.white,10,5)) , true);
 				}
 				player.setAnim(Player.walking);
 			}else {

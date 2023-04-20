@@ -34,8 +34,23 @@ public abstract class PlayerState {
 				player.setVelX(TOPWALKSPEED);
 			}
 		}
-		
-		
+	}
+	protected void slowMoveLeftRight(Player player) {
+		doFriction(player);
+		if(Inputs.left().isHeld()&&player.getVelX()>-TOPWALKSPEED/2) {
+			player.addVelX(-WALKACCELERATION);
+			player.setDirection(true);
+			if(player.getVelX()<-TOPWALKSPEED/2) {
+				player.setVelX(-TOPWALKSPEED/2);
+			}
+			
+		}if(Inputs.right().isHeld()&&player.getVelX()<TOPWALKSPEED/2) {
+			player.addVelX(WALKACCELERATION);
+			player.setDirection(false);
+			if(player.getVelX()>TOPWALKSPEED/2) {
+				player.setVelX(TOPWALKSPEED/2);
+			}
+		}
 		
 	}
 	

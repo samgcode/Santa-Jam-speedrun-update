@@ -29,7 +29,8 @@ public class UpBoost extends PlayerState{
 	}
 	@Override
 	public PlayerState update(Player player) {
-		if(!StateManager.getGameState().getSave().hasUpBoost()||!player.changeBounds(width, height)) {
+		super.update(player);
+		if(!StateManager.getGameState().getSave().hasUpBoost()) {
 			slideGravity(player);
 			return prevState;
 		}
@@ -56,7 +57,7 @@ public class UpBoost extends PlayerState{
 		if(chargeTime<0) {
 			if(chargeTime%2==0) {
 				Rectangle pBounds = player.getBounds();
-				new RectangleSpawn(1, pBounds.x-3, pBounds.y+pBounds.height-3, pBounds.width+10,5,new Straight(0, 0, 90,0,0.75),
+				new RectangleSpawn(1, pBounds.x-3, pBounds.y+pBounds.height-3, pBounds.width+6,5,new Straight(0, 0, 90,0,0.75),
 						new RectangleShape(2,2, new Timed(Color.white,10,5)) , true);
 			}
 			

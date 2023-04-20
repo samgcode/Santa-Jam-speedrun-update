@@ -5,9 +5,11 @@ import java.awt.Rectangle;
 
 import santaJam.audio.MusicManager;
 import santaJam.graphics.particles.movers.Straight;
+import santaJam.graphics.particles.shapes.OvalParticle;
 import santaJam.graphics.particles.shapes.RectangleShape;
 import santaJam.graphics.particles.shapes.colourers.Timed;
 import santaJam.graphics.particles.spawners.EvenRectSpawn;
+import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
 import santaJam.states.StateManager;
 
@@ -15,6 +17,7 @@ public class Sliding extends PlayerState{
 	int coyoteTime=0;
 	PlayerState prevState;
 	private EvenRectSpawn bigParticles, smallParticles;
+	private boolean firstFrame=true;
 	
 	@Override
 	public void start(PlayerState prevState) {
@@ -38,6 +41,22 @@ public class Sliding extends PlayerState{
 			return prevState;
 		}
 		super.update(player);
+		if(firstFrame) {
+			
+			Rectangle pBounds = player.getBounds();
+			new RectangleSpawn(4, pBounds.x-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, 210,30,0.6),
+					new OvalParticle(2, new Timed(Color.white,15)) , true);
+			new RectangleSpawn(4, pBounds.x+pBounds.width-3, pBounds.y+pBounds.height-3, 6,5,new Straight(0, 0, -20,30,0.6),
+					new OvalParticle(2, new Timed(Color.white,15)) , true);
+			if(!player.changeBounds(width, height)){
+				return new Crawling();
+			}
+			
+			MusicManager.playSound(MusicManager.landing);
+			player.setAnim(Player.landing);
+			firstFrame=false;
+			
+		}
 		MusicManager.slide.play();
 		player.setAnim(Player.sliding);
 		slideGravity(player);
