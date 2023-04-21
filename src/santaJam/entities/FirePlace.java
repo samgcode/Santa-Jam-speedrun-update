@@ -145,7 +145,7 @@ public class FirePlace extends Entity{
 					}else if(marshmellowNum==0) {
 						text+="marshmallows. ";
 					}
-					text+="at least i have a fire to keep warm.";
+					text+="at least i have a nice fire to keep warm.";
 		}else {
 			text = "time to relax with a nice cup of hot chocolate";
 		}
@@ -154,7 +154,7 @@ public class FirePlace extends Entity{
 			image = Assets.completeHotChocolate;
 		}
 		if(completion>100) {
-			text="how is this possible did you cheat?";
+			text="how is this possible, did you cheat?";
 		}
 		
 		if(minutes<10) {

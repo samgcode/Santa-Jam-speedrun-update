@@ -331,10 +331,10 @@
         },
         {
             "fileName": "3-a.json",
-            "height": 184,
+            "height": 240,
             "width": 320,
             "x": 1416,
-            "y": -3472
+            "y": -3528
         },
         {
             "fileName": "peak-forest a.json",
@@ -359,10 +359,10 @@
         },
         {
             "fileName": "3-b.json",
-            "height": 280,
+            "height": 288,
             "width": 320,
             "x": 808,
-            "y": -2240
+            "y": -2248
         },
         {
             "fileName": "2-b.json",

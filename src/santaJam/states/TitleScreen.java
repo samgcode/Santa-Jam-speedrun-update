@@ -37,7 +37,7 @@ public class TitleScreen implements State{
 
 	@Override
 	public void update() {
-		firePlace.update();
+		//firePlace.update();
 		home.update();
 		bgCam.update(home);
 		if(Inputs.jump().isPressed()) {
@@ -48,8 +48,10 @@ public class TitleScreen implements State{
 
 	@Override
 	public void render(Graphics2D g) {
+		g.drawImage(Assets.forest,0,0, null);
 		lastRoom.render(g, bgCam);
 		home.render(g, bgCam);
+		StateManager.setBgColour(new Color(35,84,69));
 		firePlace.render(g, bgCam);
 		radio.render(g, bgCam);
 		g.drawImage(Assets.titleScreen,0, 0, null);
@@ -70,9 +72,6 @@ public class TitleScreen implements State{
 	}
 
 	@Override
-	public void end() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void end() {}
 
 }
