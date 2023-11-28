@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.SantaJam;
 import santaJam.graphics.UI.TextElement;
 import santaJam.inputs.Inputs;
 
@@ -17,11 +18,15 @@ public class RebindControls implements State{
 
 	
 	private String[] actionNames = new String[] {"up", "down", "left", "right","jump/confirm","grapple"};
-	private int[] keyCodes = new int[actionNames.length+1];
+	private String[] speedActionNames = new String[] {"up", "down", "left", "right","jump/confirm","grapple", "savestate", "reset save" };
+	private int[] keyCodes = new int[speedActionNames.length+1];
 	private int currentAction=0;
 	
 	public RebindControls(State returnState) {
 		this.returnState = returnState;
+		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
+			actionNames = speedActionNames;
+		}
 	}
 	
 	@Override

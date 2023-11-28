@@ -82,6 +82,8 @@ public class Inputs implements KeyListener{
 		jump.update(jumpPushed);
 		grapple.update(grapplePushed);
 		pause.update(pausePushed);
+		savestate.update(savestatePushed);
+		reset.update(grapplePushed);
 	}
 	public static void setKeyBinds(int[] newKeyCodes) {
 		keyCodes=newKeyCodes;
@@ -91,6 +93,8 @@ public class Inputs implements KeyListener{
 		down = new InputButton(keyCodes[downIndex]);
 		jump = new InputButton(keyCodes[jumpIndex]);
 		grapple = new InputButton(keyCodes[grappleIndex]);
+		savestate = new InputButton(keyCodes[savestateIndex]);
+		reset = new InputButton(keyCodes[resetIndex]);
 		
 		if(SantaJam.getGame()!=null) {
 			SantaJam.getGame().getSettings().setKeyBinds(newKeyCodes);
