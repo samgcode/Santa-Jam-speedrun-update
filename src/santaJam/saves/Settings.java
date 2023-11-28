@@ -16,6 +16,7 @@ public class Settings {
 	
 	private int[] keyBinds;
 	private int music, sounds;
+	private boolean speedrunEnabled;
 	
 	public Settings() {
 		loadFile(filePath);
@@ -36,6 +37,7 @@ public class Settings {
 		
 		music=Integer.parseInt(propertiesFile.getProperty("music"));
 		sounds=Integer.parseInt(propertiesFile.getProperty("sounds"));
+		speedrunEnabled=Boolean.valueOf(propertiesFile.getProperty("speedrun"));
 
 	}
 	
@@ -94,9 +96,18 @@ public class Settings {
 	public int getSounds() {
 		return sounds;
 	}
+	public boolean getSpeedrunEnabled() {
+		return speedrunEnabled;
+	}
+	
+	public void toggleSpeedrun() {
+		speedrunEnabled = !speedrunEnabled;
+		propertiesFile.setProperty("speedrun",speedrunEnabled+"");
+		writeproperties(propertiesFile);
+	}
+
 	public void setSounds(int sounds) {
 		propertiesFile.setProperty("sounds",sounds+"");
 		writeproperties(propertiesFile);
 	}
-	
 }

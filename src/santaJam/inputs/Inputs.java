@@ -6,13 +6,13 @@ import java.awt.event.KeyListener;
 import santaJam.SantaJam;
 
 public class Inputs implements KeyListener{
-	private static int[] keyCodes = new int[] {0,0,0,0,0,0,0};
+	private static int[] keyCodes = new int[] {0,0,0,0,0,0,0,0,0,0};
 
-	private static int upIndex=0,downIndex=1,leftIndex=2, rightIndex=3,jumpIndex=4, grappleIndex = 5, pauseIndex=6;
+	private static int upIndex=0,downIndex=1,leftIndex=2, rightIndex=3,jumpIndex=4, grappleIndex = 5, savestateIndex=6, resetIndex=7, pauseIndex=8;
 	private static boolean leftPushed=false, rightPushed=false,upPushed=false,downPushed=false, jumpPushed=false,
-		 grapplePushed=false, pausePushed=false;
+		 grapplePushed=false, pausePushed=false,savestatePushed=false,resetPushed=false;
 	private static InputButton left = new InputButton(0), right = new InputButton(0),up = new InputButton(0),down = new InputButton(0), 
-			jump = new InputButton(0), grapple = new InputButton(0), pause = new InputButton(0);
+			jump = new InputButton(0), grapple = new InputButton(0), pause = new InputButton(0), savestate = new InputButton(0), reset = new InputButton(0);
 	
 	private static boolean keyPressed=false;
 	private static int lastKeyCode=-1;
@@ -39,6 +39,12 @@ public class Inputs implements KeyListener{
 			grapplePushed=true;
 		}else if(e.getKeyCode()==keyCodes[pauseIndex]) {
 			pausePushed=true;
+		}else if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
+			if(e.getKeyCode()==keyCodes[savestateIndex]) {
+				savestatePushed=true;
+			}else if(e.getKeyCode()==keyCodes[pauseIndex]) {
+				pausePushed=true;
+			}
 		}
 	}
 
@@ -59,8 +65,13 @@ public class Inputs implements KeyListener{
 			grapplePushed=false;
 		}else if(e.getKeyCode()==keyCodes[pauseIndex]) {
 			pausePushed=false;
+		}else if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
+			if(e.getKeyCode()==keyCodes[savestateIndex]) {
+				savestatePushed=false;
+			}else if(e.getKeyCode()==keyCodes[pauseIndex]) {
+				pausePushed=false;
+			}
 		}
-		
 	}
 	public static void update() {
 		anyKey.update(keyPressed);

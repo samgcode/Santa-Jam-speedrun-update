@@ -7,11 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import santaJam.components.Timer;
 import santaJam.entities.player.Player;
 
 public class Save {
 	public static final double maxCompletion = 13;
-	private long timeOfSave=0, playTime = 0;
+	private long timeOfSave=0, playRealTime = 0;
 	private Properties propertiesFile=new Properties();
 	private String filePath="res/saves/save.properties";
 	
@@ -29,6 +30,7 @@ public class Save {
 		loadFile(filePath);
 	}
 	public void loadFile(String filePath) {
+		System.out.println("loading");
 		propertiesFile=loadProperties(filePath);
 		
 		//setting all the variables from the properties file
@@ -40,7 +42,9 @@ public class Save {
 		binoculars=Boolean.valueOf(propertiesFile.getProperty("binoculars"));
 		startX=Integer.parseInt(propertiesFile.getProperty("startX"));
 		startY=Integer.parseInt(propertiesFile.getProperty("startY"));		
-		playTime=Integer.parseInt(propertiesFile.getProperty("time"));		
+		playRealTime=Integer.parseInt(propertiesFile.getProperty("realtime"));		
+		Timer.setFrames(Integer.parseInt(propertiesFile.getProperty("gametime")));
+
 		String[] openedRoomsText = propertiesFile.getProperty("openedRooms").split(",");
 		openedRooms = new int[openedRoomsText.length];
 		for(int i=0;i<openedRoomsText.length;i++) {
@@ -82,8 +86,13 @@ public class Save {
 		}
 		propertiesFile.setProperty("openedRooms",val);
 		writeproperties(propertiesFile);
-		
 	} 
+	public void saveGameTime() {
+		String val="";
+		propertiesFile.setProperty("gametime",""+Timer.getFrames());
+		writeproperties(propertiesFile);
+	} 
+
 	public void addCollectible(String roomName) {
 		String val="";
 		for(String i:collectibles) {
@@ -97,7 +106,9 @@ public class Save {
 		System.out.println("saving");
 		long timefromSave = System.currentTimeMillis()-timeOfSave;
 		timeOfSave=System.currentTimeMillis();
-		propertiesFile.setProperty("time",""+(playTime+timefromSave));
+		propertiesFile.setProperty("realtime",""+(playRealTime+timefromSave));
+		System.out.println(Timer.getTimeString());
+		propertiesFile.setProperty("gametime",""+Timer.getFrames());
 		propertiesFile.setProperty("started",""+true);
 		propertiesFile.setProperty("startX",""+x);
 		propertiesFile.setProperty("startY",""+y);
@@ -160,8 +171,8 @@ public class Save {
 	public String[] getCollectibles() {
 		return collectibles;
 	}
-	public long getPlayTime() {
-		return playTime;
+	public long getPlayRealTime() {
+		return playRealTime;
 	}
 	public void startTimer() {
 		timeOfSave = System.currentTimeMillis();

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import santaJam.Assets;
 import santaJam.Game;
+import santaJam.components.Timer;
 import santaJam.entities.player.Player;
 import santaJam.graphics.Camera;
 import santaJam.graphics.UI.PicElement;
@@ -81,17 +82,24 @@ public class FirePlace extends Entity{
 		}
 		System.out.println(collected+" / "+Save.maxCompletion+" : "+ (double)(collected)/Save.maxCompletion);
 		int completion =(int) ((double)collected/Save.maxCompletion*100);
+		String completionText = "--CONGRATULATIONS-- \n \n COMPLETION: " + completion + "% \n \n ";
 		
-		long millis =save.getPlayTime();
-		long seconds =save.getPlayTime()/(1000);
+		String gameTime = "TIME: " + Timer.getTimeString() + " \n (" + Timer.getFrames() + " frames) \n \n ";
+
+		long millis =save.getPlayRealTime();
+		long seconds =save.getPlayRealTime()/(1000);
 		long minutes =seconds/60;
 		long hours =minutes/60;
+		String realTimeText = "REAL TIME: "+hours+":"
+			+String.format("%02d",minutes%60)+":"
+			+String.format("%02d",seconds%60) +"."
+			+String.format("%03d",millis%1000)+"";
 		
 		System.out.println(millis);
+
 		
 		TextElement text = new TextElement(true, Game.WIDTH/2-80,Game.HEIGHT/2-80,TextElement.BIGMONOWIDTH,8,166,
-				"--CONGRATULATIONS-- \n  \n COMPLETION: "+completion+"% \n  TIME: "
-		+hours+":"+String.format("%02d",minutes%60)+":"+String.format("%02d",seconds%60) +"."+String.format("%03d",millis%1000)+"", Assets.font) {
+				completionText + gameTime + realTimeText, Assets.font) {
 			@Override
 			protected void onSelect() {
 				StateManager.setCurrentState(new Credits(StateManager.getGameState()));
@@ -123,7 +131,7 @@ public class FirePlace extends Entity{
 	private void winText(Save save, int completion) {
 		String text = "you won!";
 		BufferedImage image = null;
-		long minutes =save.getPlayTime()/(1000*60);
+		long minutes =save.getPlayRealTime()/(1000*60);
 		
 		int milkNum = 0, chocolateNum=0, marshmellowNum=0;
 		for(Room r:StateManager.getGameState().getMap().getAllRooms()) {

@@ -5,10 +5,14 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import santaJam.Game;
+import santaJam.SantaJam;
 import santaJam.audio.MusicManager;
+import santaJam.components.Timer;
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
 import santaJam.graphics.Camera;
+import santaJam.graphics.UI.RectElement;
+import santaJam.graphics.UI.TextElement;
 import santaJam.graphics.UI.UIElement;
 import santaJam.graphics.particles.Particle;
 import santaJam.inputs.Inputs;
@@ -17,6 +21,7 @@ import santaJam.saves.Save;
 
 public class GameState implements State {
 	int x=0, y=0,xVel=0,yVel=0;
+	int frames = 0;
 	
 	private double deathTransition=0;
 	private boolean resetting=false;
@@ -28,6 +33,8 @@ public class GameState implements State {
 	private ArrayList<Integer> openedRooms = new ArrayList<>();
 	private boolean stalled=false;
 	
+	TextElement timerText = new TextElement(3, 0, "00:00:00.000");
+	RectElement timerBG = new RectElement(timerText.getX()-3,timerText.getY()-3,80,timerText.getHeight()+6, new Color(6,50,52));
 
 	public GameState(Save saveFile) {
 		this.save=saveFile;
@@ -44,13 +51,20 @@ public class GameState implements State {
 	
 	@Override
 	public void start(State prevState) {
-		
+		showTimer();
+	}
+	
+	public void showTimer() {
+		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
+			UIElement.getUIManager().addElement(timerBG);
+			UIElement.getUIManager().addElement(timerText);
+		}
 	}
 	
 	@Override
 	public void update() {
+		Timer.update();
 		if(resetting) {
-			//System.out.println("e");
 			deathTransition+=0.1;
 			
 		}
@@ -62,15 +76,13 @@ public class GameState implements State {
 				Entity.getManager().addEntity(player);
 				map.getPlayerRoom().loadRoom();
 				UIElement.getUIManager().clear();
+				showTimer();
 			}
 			if(!resetting) {
 				deathTransition-=0.1;
 			}else {
 				return;
-			}
-			
-			
-			
+			}		
 		}
 		
 		stalled=false;
@@ -85,6 +97,9 @@ public class GameState implements State {
 		map.update();
 		camera.moveToEntity(player);
 		camera.update(map.getPlayerRoom());
+		
+		timerText.update(Timer.getTimeString());
+		
 		UIElement.getUIManager().update();
 		Particle.getParticleManager().update();
 		
@@ -120,8 +135,13 @@ public class GameState implements State {
 		
 	}
 	public void saveData(int x, int y) {
+		save.saveGameTime();
 		save.saveOpenedRooms(openedRooms);
 		save.savePlayerData(x,y);
+	}
+	
+	public void saveTime() {
+		save.saveGameTime();
 	}
 
 	@Override

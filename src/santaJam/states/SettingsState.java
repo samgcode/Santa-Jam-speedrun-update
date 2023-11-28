@@ -33,6 +33,7 @@ public class SettingsState implements State{
 				new MenuSelection(new Rectangle(Game.WIDTH/2-40,50,50,20), "QUIT TO TITLE", textColour,hoverColour) {
 					@Override
 					public void select() {
+						mainState.saveTime();
 						stateToSwitch =  new TitleScreen();
 					}
 					@Override
@@ -89,6 +90,19 @@ public class SettingsState implements State{
 					public void select() {
 						SantaJam.getGame().getSettings().resetSettings();
 						StateManager.setCurrentState(new PauseState(mainState));
+					}
+					@Override
+					public void render(Graphics g) {
+						super.render(g);
+						bounds.x=Game.WIDTH/2-(name.length()*TextElement.BIGMONOWIDTH/2);
+					}
+				},
+				new MenuSelection(new Rectangle(Game.WIDTH/2-40,50,50,70), "SPEEDRUN MODE:" + SantaJam.getGame().getSettings().getSpeedrunEnabled(), textColour,hoverColour) {
+					@Override
+					public void select() {
+						SantaJam.getGame().getSettings().toggleSpeedrun();
+						name = "SPEEDRUN MODE:" + SantaJam.getGame().getSettings().getSpeedrunEnabled();
+						
 					}
 					@Override
 					public void render(Graphics g) {

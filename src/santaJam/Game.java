@@ -13,6 +13,7 @@ public class Game {
 	private boolean running=true;
 	private Settings settings;
 	private MusicManager music = new MusicManager();
+	static int FPS = 60, DELAY = 1000000000 / FPS;
 	
 	public Game() {
 		window = new Window(WIDTH,HEIGHT);
@@ -21,7 +22,6 @@ public class Game {
 	}
 	
 	public void run() {
-		final int FPS = 60, DELAY = 1000000000 / FPS;
 		StateManager.setCurrentState(new TitleScreen());
 		while(running) {
 			double startTime= System.nanoTime();//getting the time at the start of the frame
@@ -73,6 +73,11 @@ public class Game {
 		return music;
 	}
 	
-	
-
+	public static int getFps() {
+		return FPS;
+	}
+	public static void setFps(int newFps) {
+		FPS = newFps;
+		DELAY = 1000000000 / FPS;
+	}
 }
