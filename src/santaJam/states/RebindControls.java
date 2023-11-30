@@ -9,6 +9,7 @@ import santaJam.Game;
 import santaJam.SantaJam;
 import santaJam.graphics.UI.TextElement;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 
 public class RebindControls implements State{
 	State returnState;
@@ -16,17 +17,11 @@ public class RebindControls implements State{
 	"", Assets.font), rebind  = new TextElement(false, 40,70,TextElement.BIGMONOWIDTH,TextElement.SMALLMONOHEIGHT+1,Game.WIDTH-80,
 	"", Assets.font);
 	
-	
-	private String[] actionNames = new String[] {"up", "down", "left", "right","jump/confirm","grapple"};
-	private String[] speedActionNames = new String[] {"up", "down", "left", "right","jump/confirm","grapple", "savestate", "reset save" };
-	private int[] keyCodes = new int[speedActionNames.length];
+	private int[] keyCodes = new int[Keybind.values().length];
 	private int currentAction=0;
 
 	public RebindControls(State returnState) {
 		this.returnState = returnState;
-		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
-			actionNames = speedActionNames;
-		}
 	}
 	
 	@Override
@@ -35,32 +30,34 @@ public class RebindControls implements State{
 	}
 
 	@Override
-	
 	public void update() {
-		action.update("  PRESS BUTTON FOR "+actionNames[currentAction].toUpperCase()+" \n ESCAPE TO CANCEL");
-		action.centre(Game.WIDTH-80);
-		
-		
-		if(currentAction>0) {
-			rebind.update("\n \n BINDED KEY "+KeyEvent.getKeyText(keyCodes[currentAction-1]).toUpperCase()+" TO "+
-		actionNames[currentAction-1].toUpperCase());
-			rebind.centre(Game.WIDTH-80);
+		Keybind current = Keybind.values()[currentAction];
+		int index = current.index;
+
+		if(!current.speedrun || SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
+			action.update("  PRESS BUTTON FOR "+ current.name.toUpperCase()+" \n ESCAPE TO CANCEL");
+			action.centre(Game.WIDTH-80);
+			
+			
+			if(currentAction > 0) {
+				rebind.update("\n \n BINDED KEY "+KeyEvent.getKeyText(keyCodes[index-1]).toUpperCase() + " TO "+ Keybind.values()[currentAction-1].name.toUpperCase());
+				rebind.centre(Game.WIDTH-80);
+			}
+			
+			
+			if(Inputs.getKey(Keybind.PAUSE).isPressed()) {
+				StateManager.setCurrentState(returnState);
+			}
+			if(Inputs.AnyKey().isPressed() && currentAction < keyCodes.length) {
+				keyCodes[index]=Inputs.getLastKeyCode();
+				currentAction++;
+			}
+			if(index == Keybind.PAUSE.index) {
+				// keyCodes[currentAction]=KeyEvent.VK_ESCAPE;
+				Inputs.setKeyBinds(keyCodes);
+				StateManager.setCurrentState(returnState);
+			}
 		}
-		
-		
-		if(Inputs.pause().isPressed()) {
-			StateManager.setCurrentState(returnState);
-		}
-		if(Inputs.AnyKey().isPressed()&&currentAction<actionNames.length) {
-			keyCodes[currentAction]=Inputs.getLastKeyCode();
-			currentAction++;
-		}
-		if(currentAction==actionNames.length) {
-			// keyCodes[currentAction]=KeyEvent.VK_ESCAPE;
-			Inputs.setKeyBinds(keyCodes);
-			StateManager.setCurrentState(returnState);
-		}
-		
 	}
 
 	@Override

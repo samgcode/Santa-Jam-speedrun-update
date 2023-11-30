@@ -6,14 +6,14 @@ import java.awt.event.KeyListener;
 import santaJam.SantaJam;
 
 public class Inputs implements KeyListener{
-	private static int[] keyCodes = new int[] {0,0,0,0,0,0,0,0,0,0};
-
-	private static int upIndex=0,downIndex=1,leftIndex=2, rightIndex=3,jumpIndex=4, grappleIndex = 5, savestateIndex=6, resetIndex=7;
-	private static boolean leftPushed=false, rightPushed=false,upPushed=false,downPushed=false, jumpPushed=false,
-		 grapplePushed=false, pausePushed=false,savestatePushed=false, resetPushed=false;
-	private static InputButton left = new InputButton(0), right = new InputButton(0),up = new InputButton(0),down = new InputButton(0), 
-			jump = new InputButton(0), grapple = new InputButton(0), pause = new InputButton(0), savestate = new InputButton(0), reset = new InputButton(0);
 	
+	private static InputButton left = new InputButton(0), right = new InputButton(0),up = new InputButton(0),down = new InputButton(0), 
+	jump = new InputButton(0), grapple = new InputButton(0), pause = new InputButton(0), savestate = new InputButton(0), reset = new InputButton(0);
+	
+	private static int[] keyCodes = new int[Keybind.values().length];
+	private static boolean[] keyStates = new boolean[Keybind.values().length];
+	private static InputButton[] inputButtons = new InputButton[Keybind.values().length];
+
 	private static boolean keyPressed=false;
 	private static int lastKeyCode=-1;
 	private static InputButton anyKey = new InputButton(0);
@@ -25,25 +25,9 @@ public class Inputs implements KeyListener{
 	public void keyPressed(KeyEvent e) {	
 		keyPressed=true;
 		lastKeyCode=e.getKeyCode();
-		if(e.getKeyCode()==keyCodes[leftIndex]) {
-			leftPushed=true;
-		}else if(e.getKeyCode()==keyCodes[rightIndex]) {
-			rightPushed=true;
-		}else if(e.getKeyCode()==keyCodes[upIndex]) {
-			upPushed=true;		
-		}else if(e.getKeyCode()==keyCodes[downIndex]) {
-			downPushed=true;
-		}else if(e.getKeyCode()==keyCodes[jumpIndex]) {
-			jumpPushed=true;
-		}else if(e.getKeyCode()==keyCodes[grappleIndex]) {
-			grapplePushed=true;
-		}else if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-			pausePushed=true;
-		}else if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
-			if(e.getKeyCode()==keyCodes[savestateIndex]) {
-				savestatePushed=true;
-			}else if(e.getKeyCode()==keyCodes[resetIndex]) {
-				resetPushed=true;
+		for (Keybind keybind : Keybind.values()) {
+			if(e.getKeyCode() == keyCodes[keybind.index]) {
+				keyStates[keybind.index] = true;
 			}
 		}
 	}
@@ -51,88 +35,37 @@ public class Inputs implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		keyPressed=false;
-		if(e.getKeyCode()==keyCodes[leftIndex]) {
-			leftPushed=false;
-		}else if(e.getKeyCode()==keyCodes[rightIndex]) {
-			rightPushed=false;
-		}else if(e.getKeyCode()==keyCodes[upIndex]) {
-			upPushed=false;
-		}else if(e.getKeyCode()==keyCodes[downIndex]) {
-			downPushed=false;
-		}else if(e.getKeyCode()==keyCodes[jumpIndex]) {
-			jumpPushed=false;
-		}else if(e.getKeyCode()==keyCodes[grappleIndex]) {
-			grapplePushed=false;
-		}else if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-			pausePushed=false;
-		}else if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
-			if(e.getKeyCode()==keyCodes[savestateIndex]) {
-				savestatePushed=false;
-			}else if(e.getKeyCode()==keyCodes[resetIndex]) {
-				resetPushed=false;
+		for (Keybind keybind : Keybind.values()) {
+			if(e.getKeyCode() == keyCodes[keybind.index]) {
+				keyStates[keybind.index] = false;
 			}
 		}
 	}
+
 	public static void update() {
 		anyKey.update(keyPressed);
-		left.update(leftPushed);
-		right.update(rightPushed);
-		up.update(upPushed);
-		down.update(downPushed);
-		jump.update(jumpPushed);
-		grapple.update(grapplePushed);
-		pause.update(pausePushed);
-		savestate.update(savestatePushed);
-		reset.update(resetPushed);
+		for (Keybind keybind : Keybind.values()) {
+			inputButtons[keybind.index].update(keyStates[keybind.index]);
+		}
 	}
 	public static void setKeyBinds(int[] newKeyCodes) {
 		keyCodes=newKeyCodes;
-		left = new InputButton(keyCodes[leftIndex]);
-		right = new InputButton(keyCodes[rightIndex]);
-		up = new InputButton(keyCodes[upIndex]);
-		down = new InputButton(keyCodes[downIndex]);
-		jump = new InputButton(keyCodes[jumpIndex]);
-		grapple = new InputButton(keyCodes[grappleIndex]);
-		if(SantaJam.getGame() != null && SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
-			savestate = new InputButton(keyCodes[savestateIndex]);
-			reset = new InputButton(keyCodes[resetIndex]);
+		for (Keybind keybind : Keybind.values()) {
+			inputButtons[keybind.index] = new InputButton(newKeyCodes[keybind.index]);
 		}
 		
 		if(SantaJam.getGame()!=null) {
 			SantaJam.getGame().getSettings().setKeyBinds(newKeyCodes);
 		}
 	}
+	
 	public static InputButton AnyKey() {
 		return anyKey;
 	}
 	public static int getLastKeyCode() {
 		return lastKeyCode;
 	}
-	public static InputButton left() {
-		return left;
-	}
-	public static InputButton right() {
-		return right;
-	}
-	public static InputButton up() {
-		return up;
-	}
-	public static InputButton down() {
-		return down;
-	}
-	public static InputButton jump() {
-		return jump;
-	}
-	public static InputButton grapple() {
-		return grapple;
-	}
-	public static InputButton pause() {
-		return pause;
-	}
-	public static InputButton savestate() {
-		return savestate;
-	}
-	public static InputButton reset() {
-		return reset;
+	public static InputButton getKey(Keybind keybind) {
+		return inputButtons[keybind.index];
 	}
 }
