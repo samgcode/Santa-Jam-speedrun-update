@@ -12,8 +12,12 @@ import santaJam.entities.wallEntities.BreakableWall;
 import santaJam.entities.wallEntities.WallEntity;
 import santaJam.graphics.Animation;
 import santaJam.graphics.Camera;
+import santaJam.inputs.Inputs;
 import santaJam.maps.Room;
+import santaJam.saves.Save;
+import santaJam.states.GameState;
 import santaJam.states.StateManager;
+import santaJam.states.TitleScreen;
 
 public class Player extends Entity {
 	private int maxHealth=5;
@@ -51,7 +55,6 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-	
 		//System.out.println(bounds.x);
 		//System.out.println(currentState);
 		
@@ -67,9 +70,16 @@ public class Player extends Entity {
 		PlayerState nextState = currentState.update(this);
 		setState(nextState);
 		
-	
+		
 		hitWallEntities();
 		updateBounds();
+		if(Inputs.savestate().isPressed()) {
+			StateManager.getGameState().saveData(this.bounds.x, this.bounds.y);
+		}
+		if(Inputs.reset().isPressed()) {
+			new Save().resetSave();
+			StateManager.setCurrentState(new TitleScreen());
+		}
 	}
 	
 	private void hitWallEntities() {		

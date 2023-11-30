@@ -13,15 +13,15 @@ import santaJam.inputs.Inputs;
 public class RebindControls implements State{
 	State returnState;
 	TextElement action  = new TextElement(false, 40,50,TextElement.BIGMONOWIDTH,TextElement.SMALLMONOHEIGHT+1,Game.WIDTH-80,
-			"", Assets.font), rebind  = new TextElement(false, 40,70,TextElement.BIGMONOWIDTH,TextElement.SMALLMONOHEIGHT+1,Game.WIDTH-80,
-					"", Assets.font);
-
+	"", Assets.font), rebind  = new TextElement(false, 40,70,TextElement.BIGMONOWIDTH,TextElement.SMALLMONOHEIGHT+1,Game.WIDTH-80,
+	"", Assets.font);
+	
 	
 	private String[] actionNames = new String[] {"up", "down", "left", "right","jump/confirm","grapple"};
 	private String[] speedActionNames = new String[] {"up", "down", "left", "right","jump/confirm","grapple", "savestate", "reset save" };
-	private int[] keyCodes = new int[speedActionNames.length+1];
+	private int[] keyCodes = new int[speedActionNames.length];
 	private int currentAction=0;
-	
+
 	public RebindControls(State returnState) {
 		this.returnState = returnState;
 		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
@@ -55,8 +55,8 @@ public class RebindControls implements State{
 			keyCodes[currentAction]=Inputs.getLastKeyCode();
 			currentAction++;
 		}
-		if(currentAction==keyCodes.length-1) {
-			keyCodes[currentAction]=KeyEvent.VK_ESCAPE;
+		if(currentAction==actionNames.length) {
+			// keyCodes[currentAction]=KeyEvent.VK_ESCAPE;
 			Inputs.setKeyBinds(keyCodes);
 			StateManager.setCurrentState(returnState);
 		}
