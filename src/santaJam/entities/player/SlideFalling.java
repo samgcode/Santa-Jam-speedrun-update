@@ -2,6 +2,7 @@ package santaJam.entities.player;
 
 import santaJam.audio.MusicManager;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.states.StateManager;
 
 public class SlideFalling extends PlayerState{
@@ -39,17 +40,17 @@ public class SlideFalling extends PlayerState{
 		}
 		
 		//trying to double jump if they push jump
-		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()
+		if(Inputs.getKey(Keybind.JUMP).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.JUMP).getHoldLength()>0&&!Inputs.getKey(Keybind.JUMP).isInputUsed()
 			&&DoubleJump.canDoubleJump()&&StateManager.getGameState().getSave().hasDoubleJump()) {
-			Inputs.jump().useInput();
+			Inputs.getKey(Keybind.JUMP).useInput();
 			return new 	SlideDoubleJump(this);
 		}
-		if(Inputs.up().getHoldLength()<BUFFERLENGTH&&Inputs.up().getHoldLength()>0&&!Inputs.up().isInputUsed()) {
-			Inputs.up().useInput();
+		if(Inputs.getKey(Keybind.UP).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.UP).getHoldLength()>0&&!Inputs.getKey(Keybind.UP).isInputUsed()) {
+			Inputs.getKey(Keybind.UP).useInput();
 			return new UpBoost(this, player);
 		}
-		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0&&!Inputs.grapple().isInputUsed()) {
-			Inputs.grapple().useInput();
+		if(Inputs.getKey(Keybind.GRAPPLE).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.GRAPPLE).getHoldLength()>0&&!Inputs.getKey(Keybind.GRAPPLE).isInputUsed()) {
+			Inputs.getKey(Keybind.GRAPPLE).useInput();
 			return new SlideGrapple(this,player);
 		}
 		return null;

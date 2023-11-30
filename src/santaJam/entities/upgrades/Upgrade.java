@@ -13,6 +13,7 @@ import santaJam.graphics.UI.RectElement;
 import santaJam.graphics.UI.TextElement;
 import santaJam.graphics.UI.UIElement;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.states.StateManager;
 
 public abstract class Upgrade extends Entity{
@@ -31,7 +32,7 @@ public abstract class Upgrade extends Entity{
 		StateManager.getGameState().saveData(bounds.x+bounds.width/2,bounds.y+bounds.height/2);
 		(player).setAnim(Player.dance);
 		TextElement text = new TextElement(true, Game.WIDTH/2-60,Game.HEIGHT/2-50,TextElement.BIGMONOWIDTH,7,120,
-				"--"+name.toUpperCase()+"-- \n \n "+description+" \n \n "+Inputs.jump().getKey()+" TO CONTINUE", Assets.font) {
+				"--"+name.toUpperCase()+"-- \n \n "+description+" \n \n "+Inputs.getKey(Keybind.JUMP).getKey()+" TO CONTINUE", Assets.font) {
 			@Override
 			protected void onSelect() {
 				visible=false;

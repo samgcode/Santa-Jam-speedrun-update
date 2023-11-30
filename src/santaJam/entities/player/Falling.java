@@ -1,6 +1,7 @@
 package santaJam.entities.player;
 
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.states.StateManager;
 
 public class Falling extends PlayerState{
@@ -40,15 +41,15 @@ public class Falling extends PlayerState{
 			return new Sliding();
 		}*/
 		//grappling if the buffer an grapple
-		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0&&!Inputs.grapple().isInputUsed()) {
-			Inputs.grapple().useInput();
+		if(Inputs.getKey(Keybind.GRAPPLE).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.GRAPPLE).getHoldLength()>0&&!Inputs.getKey(Keybind.GRAPPLE).isInputUsed()) {
+			Inputs.getKey(Keybind.GRAPPLE).useInput();
 			return new Grapple(this, player);
 		}
 		//trying to double jump if they push jump
-		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()
+		if(Inputs.getKey(Keybind.JUMP).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.JUMP).getHoldLength()>0&&!Inputs.getKey(Keybind.JUMP).isInputUsed()
 				&&DoubleJump.canDoubleJump()&&StateManager.getGameState().getSave().hasDoubleJump()) {
 			System.out.println("e");
-			Inputs.jump().useInput();
+			Inputs.getKey(Keybind.JUMP).useInput();
 			
 			return new 	DoubleJump(this);
 			

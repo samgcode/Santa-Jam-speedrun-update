@@ -11,6 +11,7 @@ import santaJam.graphics.particles.shapes.colourers.Timed;
 import santaJam.graphics.particles.spawners.EvenRectSpawn;
 import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.states.StateManager;
 
 public class Sliding extends PlayerState{
@@ -70,16 +71,16 @@ public class Sliding extends PlayerState{
 		if(Math.abs(player.getVelX())<=TOPWALKSPEED) {	
 			return new Falling();
 		}
-		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0&&!Inputs.grapple().isInputUsed()) {
-			Inputs.grapple().useInput();
+		if(Inputs.getKey(Keybind.GRAPPLE).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.GRAPPLE).getHoldLength()>0&&!Inputs.getKey(Keybind.GRAPPLE).isInputUsed()) {
+			Inputs.getKey(Keybind.GRAPPLE).useInput();
 			return new SlideGrapple(this,player);
 		}
-		if(Inputs.jump().getHoldLength()<BUFFERLENGTH&&Inputs.jump().getHoldLength()>0&&!Inputs.jump().isInputUsed()) {
-			Inputs.jump().useInput();
+		if(Inputs.getKey(Keybind.JUMP).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.JUMP).getHoldLength()>0&&!Inputs.getKey(Keybind.JUMP).isInputUsed()) {
+			Inputs.getKey(Keybind.JUMP).useInput();
 			return new SlideJump();
 		}
-		if(Inputs.up().getHoldLength()<BUFFERLENGTH&&Inputs.up().getHoldLength()>0&&!Inputs.up().isInputUsed()) {
-			Inputs.up().useInput();
+		if(Inputs.getKey(Keybind.UP).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.UP).getHoldLength()>0&&!Inputs.getKey(Keybind.UP).isInputUsed()) {
+			Inputs.getKey(Keybind.UP).useInput();
 			return new UpBoost(this,player);	
 		}
 		

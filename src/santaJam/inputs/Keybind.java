@@ -9,7 +9,7 @@ public enum Keybind {
   GRAPPLE("grapple", 5, false),
   PAUSE("pause", 6, false),
   SAVE_STATE("save state", 7, true),
-  RESET("reset", 8, true),
+  RESET("reset", 8, false),
   FULL_RESET("hard reset", 9, true);
 
 

@@ -1,6 +1,7 @@
 package santaJam.entities.player;
 
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 
 public abstract class PlayerState {
 	private static PlayerState currentState = new Standing();
@@ -20,14 +21,14 @@ public abstract class PlayerState {
 	
 	protected void normalMoveLeftRight(Player player) {
 		doFriction(player);
-		if(Inputs.left().isHeld()&&player.getVelX()>-TOPWALKSPEED) {
+		if(Inputs.getKey(Keybind.LEFT).isHeld()&&player.getVelX()>-TOPWALKSPEED) {
 			player.addVelX(-WALKACCELERATION);
 			player.setDirection(true);
 			if(player.getVelX()<-TOPWALKSPEED) {
 				player.setVelX(-TOPWALKSPEED);
 			}
 			
-		}if(Inputs.right().isHeld()&&player.getVelX()<TOPWALKSPEED) {
+		}if(Inputs.getKey(Keybind.RIGHT).isHeld()&&player.getVelX()<TOPWALKSPEED) {
 			player.addVelX(WALKACCELERATION);
 			player.setDirection(false);
 			if(player.getVelX()>TOPWALKSPEED) {
@@ -37,14 +38,14 @@ public abstract class PlayerState {
 	}
 	protected void slowMoveLeftRight(Player player) {
 		doFriction(player);
-		if(Inputs.left().isHeld()&&player.getVelX()>-TOPWALKSPEED/2) {
+		if(Inputs.getKey(Keybind.LEFT).isHeld()&&player.getVelX()>-TOPWALKSPEED/2) {
 			player.addVelX(-WALKACCELERATION);
 			player.setDirection(true);
 			if(player.getVelX()<-TOPWALKSPEED/2) {
 				player.setVelX(-TOPWALKSPEED/2);
 			}
 			
-		}if(Inputs.right().isHeld()&&player.getVelX()<TOPWALKSPEED/2) {
+		}if(Inputs.getKey(Keybind.RIGHT).isHeld()&&player.getVelX()<TOPWALKSPEED/2) {
 			player.addVelX(WALKACCELERATION);
 			player.setDirection(false);
 			if(player.getVelX()>TOPWALKSPEED/2) {

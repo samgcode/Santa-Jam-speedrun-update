@@ -7,6 +7,7 @@ import santaJam.entities.player.Player;
 import santaJam.graphics.Animation;
 import santaJam.graphics.Camera;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.states.StateManager;
 
 public class UpBoostItem extends Upgrade{
@@ -18,7 +19,7 @@ public class UpBoostItem extends Upgrade{
 	public UpBoostItem(int x, int y) {
 		super(x,y);
 		name = "up boost";
-		description = "press "+Inputs.up().getKey()+" while sliding to shoot up with current momentum";
+		description = "press "+Inputs.getKey(Keybind.UP).getKey()+" while sliding to shoot up with current momentum";
 	}
 	
 

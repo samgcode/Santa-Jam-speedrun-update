@@ -34,29 +34,35 @@ public class RebindControls implements State{
 		Keybind current = Keybind.values()[currentAction];
 		int index = current.index;
 
-		if(!current.speedrun || SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
-			action.update("  PRESS BUTTON FOR "+ current.name.toUpperCase()+" \n ESCAPE TO CANCEL");
-			action.centre(Game.WIDTH-80);
-			
-			
+		action.update("  PRESS BUTTON FOR "+ current.name.toUpperCase()+" \n ESCAPE TO CANCEL");
+		action.centre(Game.WIDTH-80);
+		
+		if(current.speedrun && !SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
+			currentAction++;
+		} else {
 			if(currentAction > 0) {
 				rebind.update("\n \n BINDED KEY "+KeyEvent.getKeyText(keyCodes[index-1]).toUpperCase() + " TO "+ Keybind.values()[currentAction-1].name.toUpperCase());
 				rebind.centre(Game.WIDTH-80);
 			}
 			
-			
 			if(Inputs.getKey(Keybind.PAUSE).isPressed()) {
 				StateManager.setCurrentState(returnState);
 			}
-			if(Inputs.AnyKey().isPressed() && currentAction < keyCodes.length) {
+	
+			if(Inputs.AnyKey().isPressed()) {
 				keyCodes[index]=Inputs.getLastKeyCode();
 				currentAction++;
 			}
+	
 			if(index == Keybind.PAUSE.index) {
-				// keyCodes[currentAction]=KeyEvent.VK_ESCAPE;
-				Inputs.setKeyBinds(keyCodes);
-				StateManager.setCurrentState(returnState);
+				keyCodes[index] = KeyEvent.VK_ESCAPE;
+				currentAction++;
 			}
+		}
+
+		if(currentAction == keyCodes.length) {
+			Inputs.setKeyBinds(keyCodes);
+			StateManager.setCurrentState(returnState);
 		}
 	}
 

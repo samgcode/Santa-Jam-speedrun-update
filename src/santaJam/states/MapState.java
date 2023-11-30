@@ -11,6 +11,7 @@ import santaJam.audio.MusicManager;
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.maps.Map;
 import santaJam.maps.Room;
 
@@ -212,11 +213,11 @@ public class MapState implements State{
 	@Override
 	public void update() { 
 		mapImg = buildMap(gameState.getMap());
-		if(Inputs.jump().isHeld()&&scale<1-scale/20) {
+		if(Inputs.getKey(Keybind.JUMP).isHeld()&&scale<1-scale/20) {
 			scale+=scale/20;
 		
 		}
-		if(Inputs.grapple().isHeld()) {
+		if(Inputs.getKey(Keybind.GRAPPLE).isHeld()) {
 			if(scale>MINSCALE) {
 				scale-=scale/20;
 			}else {
@@ -224,28 +225,28 @@ public class MapState implements State{
 			}
 		}		
 		
-		if(Inputs.left().isHeld()&&scale>MINSCALE) {
+		if(Inputs.getKey(Keybind.LEFT).isHeld()&&scale>MINSCALE) {
 			mapX+=4;
 		}
-		if(Inputs.right().isHeld()&&scale>MINSCALE) {
+		if(Inputs.getKey(Keybind.RIGHT).isHeld()&&scale>MINSCALE) {
 			mapX-=4;
 		}
 		
-		if(Inputs.up().isHeld()&&scale>MINSCALE) {
+		if(Inputs.getKey(Keybind.UP).isHeld()&&scale>MINSCALE) {
 			mapY+=4;
 		}
-		if(Inputs.down().isHeld()&&scale>MINSCALE) {
+		if(Inputs.getKey(Keybind.DOWN).isHeld()&&scale>MINSCALE) {
 			mapY-=4;
 		}
 	
-		if(Inputs.left().isPressed()) {
+		if(Inputs.getKey(Keybind.LEFT).isPressed()) {
 			if(scale<=MINSCALE) {
 				MusicManager.menuBack.play();
 				StateManager.setCurrentState(new PauseState(gameState));
 			}else {
 				
 			}
-		}if(Inputs.pause().isPressed()) {
+		}if(Inputs.getKey(Keybind.PAUSE).isPressed()) {
 			MusicManager.menuBack.play();
 			StateManager.setCurrentState(gameState);
 		}
@@ -276,7 +277,7 @@ public class MapState implements State{
 			g.drawString("Map", Game.WIDTH/2-11, 24);
 			
 			g.setFont(Assets.font);
-			g.drawString(Inputs.jump().getKey()+"/"+Inputs.grapple().getKey()+" TO ZOOM", Game.WIDTH/2-34, 166);
+			g.drawString(Inputs.getKey(Keybind.JUMP).getKey()+"/"+Inputs.getKey(Keybind.GRAPPLE).getKey()+" TO ZOOM", Game.WIDTH/2-34, 166);
 		
 		
 		

@@ -17,6 +17,7 @@ import santaJam.graphics.particles.shapes.RectangleShape;
 import santaJam.graphics.particles.shapes.colourers.FadeOut;
 import santaJam.graphics.particles.spawners.EvenRectSpawn;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.maps.Room;
 import santaJam.saves.Save;
 import santaJam.states.menus.Menu;
@@ -122,7 +123,7 @@ public class MainMenu implements State{
 		
 		
 		menu.update();
-		if(Inputs.grapple().isPressed()) {
+		if(Inputs.getKey(Keybind.GRAPPLE).isPressed()) {
 			MusicManager.menuBack.play();
 			StateManager.setCurrentState(new TitleScreen(home, lastRoom, bgCam));
 		}

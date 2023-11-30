@@ -2,6 +2,7 @@ package santaJam;
 
 import santaJam.audio.MusicManager;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.saves.Settings;
 import santaJam.states.StateManager;
 import santaJam.states.TitleScreen;

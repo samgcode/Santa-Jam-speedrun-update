@@ -16,6 +16,7 @@ import santaJam.graphics.UI.TextElement;
 import santaJam.graphics.UI.UIElement;
 import santaJam.graphics.particles.Particle;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.maps.Map;
 import santaJam.saves.Save;
 
@@ -103,7 +104,7 @@ public class GameState implements State {
 		UIElement.getUIManager().update();
 		Particle.getParticleManager().update();
 		
-		if(Inputs.pause().isPressed()) {
+		if(Inputs.getKey(Keybind.PAUSE).isPressed()) {
 			MusicManager.menuSelect.play();
 			StateManager.setCurrentState(new PauseState(this));
 			UIElement.getUIManager().clear();

@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 
 import santaJam.audio.MusicManager;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
+
 
 public class Menu extends MenuSelection{
 	
@@ -36,7 +38,7 @@ public class Menu extends MenuSelection{
 		}
 		
 		
-		if(Inputs.down().isPressed()) {
+		if(Inputs.getKey(Keybind.DOWN).isPressed()) {
 			MusicManager.menuMove.play();
 			
 			hovered++;
@@ -44,7 +46,7 @@ public class Menu extends MenuSelection{
 				hovered=0;
 			}
 		}
-		if(Inputs.up().isPressed()) {
+		if(Inputs.getKey(Keybind.UP).isPressed()) {
 			MusicManager.menuMove.play();
 			hovered--;
 			if(hovered<0) {
@@ -55,7 +57,7 @@ public class Menu extends MenuSelection{
 		
 		
 		
-		if(Inputs.jump().isPressed()) {
+		if(Inputs.getKey(Keybind.JUMP).isPressed()) {
 			if(!(menuObjects[hovered] instanceof MenuText)) {
 				MusicManager.menuSelect.play();
 			}

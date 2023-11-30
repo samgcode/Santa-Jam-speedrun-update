@@ -13,6 +13,7 @@ import santaJam.entities.wallEntities.WallEntity;
 import santaJam.graphics.Animation;
 import santaJam.graphics.Camera;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.maps.Room;
 import santaJam.saves.Save;
 import santaJam.states.GameState;
@@ -58,13 +59,13 @@ public class Player extends Entity {
 		//System.out.println(bounds.x);
 		//System.out.println(currentState);
 		
-		/*if(Inputs.up().isHeld()) {
+		/*if(Inputs.getKey(Keybind.UP).isHeld()) {
 			bounds.y-=3;
-		}if(Inputs.down().isHeld()) {
+		}if(Inputs.getKey(Keybind.DOWN).isHeld()) {
 			bounds.y+=3;
-		}if(Inputs.left().isHeld()) {
+		}if(Inputs.getKey(Keybind.LEFT).isHeld()) {
 			bounds.x-=3;
-		}if(Inputs.right().isHeld()) {
+		}if(Inputs.getKey(Keybind.RIGHT).isHeld()) {
 			bounds.x+=3;
 		}*/
 		PlayerState nextState = currentState.update(this);
@@ -73,10 +74,10 @@ public class Player extends Entity {
 		
 		hitWallEntities();
 		updateBounds();
-		if(Inputs.savestate().isPressed()) {
+		if(Inputs.getKey(Keybind.SAVE_STATE).isPressed()) {
 			StateManager.getGameState().saveData(this.bounds.x, this.bounds.y);
 		}
-		if(Inputs.reset().isPressed()) {
+		if(Inputs.getKey(Keybind.FULL_RESET).isPressed()) {
 			new Save().resetSave();
 			StateManager.setCurrentState(new TitleScreen());
 		}

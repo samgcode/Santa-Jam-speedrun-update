@@ -16,6 +16,7 @@ import santaJam.entities.upgrades.SlideItem;
 import santaJam.entities.upgrades.UpBoostItem;
 import santaJam.graphics.UI.TextElement;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.maps.Map;
 import santaJam.maps.Room;
 import santaJam.states.menus.Menu;
@@ -86,13 +87,13 @@ public class PauseState implements State{
 	@Override
 	public void update() {
 		menu.update();
-		if(Inputs.pause().isPressed()) {
+		if(Inputs.getKey(Keybind.PAUSE).isPressed()) {
 			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(gameState);
-		}if(Inputs.right().isPressed()) {
+		}if(Inputs.getKey(Keybind.RIGHT).isPressed()) {
 			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(new MapState(gameState));
-		}if(Inputs.left().isPressed()) {
+		}if(Inputs.getKey(Keybind.LEFT).isPressed()) {
 			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(new SettingsState(gameState));
 		}

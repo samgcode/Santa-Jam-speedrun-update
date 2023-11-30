@@ -11,7 +11,9 @@ import santaJam.entities.FirePlace;
 import santaJam.entities.Radio;
 import santaJam.graphics.Camera;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.maps.Room;
+
 
 public class TitleScreen implements State{
 	Room home,lastRoom;
@@ -40,7 +42,7 @@ public class TitleScreen implements State{
 		//firePlace.update();
 		home.update();
 		bgCam.update(home);
-		if(Inputs.jump().isPressed()) {
+		if(Inputs.getKey(Keybind.JUMP).isPressed()) {
 			MusicManager.menuSelect.play();
 			StateManager.setCurrentState(new MainMenu(home, lastRoom, bgCam));
 		}
@@ -64,10 +66,10 @@ public class TitleScreen implements State{
 		g.drawString("THE QUEST UP PENGUIN PEAK", Game.WIDTH/2-99, 50);
 		g.setColor(new Color(6,50,52));
 		g.setFont(Assets.font);
-		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-59, 141);
-		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-60, 141);
+		g.drawString("--PRESS "+Inputs.getKey(Keybind.JUMP).getKey().toUpperCase()+" TO START--", Game.WIDTH/2-59, 141);
+		g.drawString("--PRESS "+Inputs.getKey(Keybind.JUMP).getKey().toUpperCase()+" TO START--", Game.WIDTH/2-60, 141);
 		g.setColor(Color.white);
-		g.drawString("--PRESS "+Inputs.jump().getKey().toUpperCase()+" TO START--", Game.WIDTH/2-60, 140);
+		g.drawString("--PRESS "+Inputs.getKey(Keybind.JUMP).getKey().toUpperCase()+" TO START--", Game.WIDTH/2-60, 140);
 
 	}
 

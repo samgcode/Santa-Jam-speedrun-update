@@ -10,6 +10,7 @@ import santaJam.graphics.particles.shapes.OvalParticle;
 import santaJam.graphics.particles.shapes.colourers.Timed;
 import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 
 public class Jumping extends PlayerState{
 	public static final double JUMPSTRENGTH=5, STOPSTRENGTH=0.75;
@@ -42,13 +43,13 @@ public class Jumping extends PlayerState{
 			firstFrame=false;
 		}
 		
-		if(Inputs.grapple().getHoldLength()<BUFFERLENGTH&&Inputs.grapple().getHoldLength()>0&&!Inputs.grapple().isInputUsed()) {
-			Inputs.grapple().useInput();
+		if(Inputs.getKey(Keybind.GRAPPLE).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.GRAPPLE).getHoldLength()>0&&!Inputs.getKey(Keybind.GRAPPLE).isInputUsed()) {
+			Inputs.getKey(Keybind.GRAPPLE).useInput();
 			return new Grapple(this,player);
 			
 		}
 		if(player.getVelY()<=0) {
-			if(!Inputs.jump().isHeld()) {
+			if(!Inputs.getKey(Keybind.JUMP).isHeld()) {
 				player.addVelY(STOPSTRENGTH);
 			}	
 		}else {

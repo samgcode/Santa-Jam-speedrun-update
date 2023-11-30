@@ -11,6 +11,7 @@ import santaJam.SantaJam;
 import santaJam.audio.MusicManager;
 import santaJam.graphics.UI.TextElement;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.states.menus.Menu;
 import santaJam.states.menus.MenuObject;
 import santaJam.states.menus.MenuSelection;
@@ -122,10 +123,10 @@ public class SettingsState implements State{
 		if(stateToSwitch!=null) {
 			StateManager.setCurrentState(stateToSwitch);
 		}
-		if(Inputs.right().isPressed()) {
+		if(Inputs.getKey(Keybind.RIGHT).isPressed()) {
 			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(new PauseState(mainState));
-		}if(Inputs.pause().isPressed()) {
+		}if(Inputs.getKey(Keybind.PAUSE).isPressed()) {
 			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(mainState);
 			

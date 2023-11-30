@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 
 public abstract class UIElement {
 	/*
@@ -24,7 +25,7 @@ public abstract class UIElement {
 	}
 
 	public void update() {
-		if(Inputs.jump().isPressed()) {
+		if(Inputs.getKey(Keybind.JUMP).isPressed()) {
 			onSelect();
 		}
 	}

@@ -7,6 +7,7 @@ import santaJam.entities.player.Player;
 import santaJam.graphics.Animation;
 import santaJam.graphics.Camera;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.states.StateManager;
 
 public class GrappleItem extends Upgrade{
@@ -18,7 +19,7 @@ public class GrappleItem extends Upgrade{
 	public GrappleItem(int x, int y) {
 		super(x,y);
 		name = "grappling hook";
-		description = "grapple onto things by pressing "+Inputs.grapple().getKey();
+		description = "grapple onto things by pressing "+Inputs.getKey(Keybind.GRAPPLE).getKey();
 	}
 	
 

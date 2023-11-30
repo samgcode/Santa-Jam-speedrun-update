@@ -7,6 +7,7 @@ import santaJam.Game;
 import santaJam.audio.MusicManager;
 import santaJam.graphics.UI.TextElement;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 
 public class Credits implements State{
 
@@ -20,7 +21,7 @@ public class Credits implements State{
 			+ "\n title font: Setback TT BRK by aenigma Fonts \n "
 			+ "sounds: alexo400, voxlab, cylon8472, dland, mallement, soundscalpel.com, and j_p_higgins from freesound.org \n "
 			
-			+ "\n ---- "+Inputs.jump().getKey()+" to continue ----";
+			+ "\n ---- "+Inputs.getKey(Keybind.JUMP).getKey()+" to continue ----";
 	public Credits(GameState gameState) {
 		this.gameState = gameState;
 		
@@ -35,7 +36,7 @@ public class Credits implements State{
 	@Override
 	public void update() {
 		
-		if(Inputs.pause().isPressed()||Inputs.jump().isPressed()) {
+		if(Inputs.getKey(Keybind.PAUSE).isPressed()||Inputs.getKey(Keybind.JUMP).isPressed()) {
 			MusicManager.playSound(MusicManager.menuBack);
 			StateManager.setCurrentState(gameState);
 		}

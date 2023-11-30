@@ -14,6 +14,7 @@ import santaJam.graphics.UI.RectElement;
 import santaJam.graphics.UI.TextElement;
 import santaJam.graphics.UI.UIElement;
 import santaJam.inputs.Inputs;
+import santaJam.inputs.Keybind;
 import santaJam.states.MapState;
 import santaJam.states.StateManager;
 
@@ -24,7 +25,7 @@ public class MapItem extends Upgrade{
 	public MapItem(int x, int y) {
 		super(x,y);
 		name = "Map";
-		description = "view the map by pressing "+ Inputs.right().getKey()+" in the pause menu";
+		description = "view the map by pressing "+ Inputs.getKey(Keybind.RIGHT).getKey()+" in the pause menu";
 	}
 	
 
@@ -36,7 +37,7 @@ public class MapItem extends Upgrade{
 		
 		
 		TextElement text = new TextElement(true, Game.WIDTH/2-60,Game.HEIGHT/2-50,6,7,120,
-				"--"+name.toUpperCase()+"-- \n \n "+description+" \n \n "+Inputs.jump().getKey()+" TO CONTINUE", Assets.font) {
+				"--"+name.toUpperCase()+"-- \n \n "+description+" \n \n "+Inputs.getKey(Keybind.JUMP).getKey()+" TO CONTINUE", Assets.font) {
 			@Override
 			protected void onSelect() {
 				StateManager.setCurrentState(new MapState(StateManager.getGameState()));
