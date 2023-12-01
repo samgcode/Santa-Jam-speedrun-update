@@ -19,6 +19,7 @@ import santaJam.saves.Save;
 import santaJam.states.GameState;
 import santaJam.states.StateManager;
 import santaJam.states.TitleScreen;
+import santaJam.SantaJam;
 
 public class Player extends Entity {
 	private int maxHealth=5;
@@ -56,30 +57,23 @@ public class Player extends Entity {
 
 	@Override
 	public void update() {
-		//System.out.println(bounds.x);
-		//System.out.println(currentState);
-		
-		/*if(Inputs.getKey(Keybind.UP).isHeld()) {
-			bounds.y-=3;
-		}if(Inputs.getKey(Keybind.DOWN).isHeld()) {
-			bounds.y+=3;
-		}if(Inputs.getKey(Keybind.LEFT).isHeld()) {
-			bounds.x-=3;
-		}if(Inputs.getKey(Keybind.RIGHT).isHeld()) {
-			bounds.x+=3;
-		}*/
 		PlayerState nextState = currentState.update(this);
 		setState(nextState);
 		
 		
 		hitWallEntities();
 		updateBounds();
-		if(Inputs.getKey(Keybind.SAVE_STATE).isPressed()) {
-			StateManager.getGameState().saveData(this.bounds.x, this.bounds.y);
+		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
+			if(Inputs.getKey(Keybind.SAVE_STATE).isPressed()) {
+				StateManager.getGameState().saveData(this.bounds.x, this.bounds.y);
+			}
+			if(Inputs.getKey(Keybind.FULL_RESET).isPressed()) {
+				new Save().resetSave();
+				StateManager.setCurrentState(new TitleScreen());
+			}
 		}
-		if(Inputs.getKey(Keybind.FULL_RESET).isPressed()) {
-			new Save().resetSave();
-			StateManager.setCurrentState(new TitleScreen());
+		if(Inputs.getKey(Keybind.RESET).isPressed()) {
+			StateManager.setCurrentState(new GameState(new Save()));
 		}
 	}
 	

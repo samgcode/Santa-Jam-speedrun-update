@@ -109,7 +109,6 @@ public class GameState implements State {
 			StateManager.setCurrentState(new PauseState(this));
 			UIElement.getUIManager().clear();
 		}
-		
 	}
 
 	@Override
