@@ -33,9 +33,11 @@ public class GameState implements State {
 	private Save save;
 	private ArrayList<Integer> openedRooms = new ArrayList<>();
 	private boolean stalled=false;
+
+	private TasPlayback tas;
 	
 	TextElement timerText = new TextElement(3, 0, "00:00:00.000");
-	RectElement timerBG = new RectElement(timerText.getX()-3,timerText.getY()-3,80,timerText.getHeight()+6, new Color(6,50,52));
+	RectElement timerBG = new RectElement(timerText.getX()-3,timerText.getY()-3,800,timerText.getHeight()+6, new Color(6,50,52));
 
 	public GameState(Save saveFile) {
 		this.save=saveFile;
@@ -48,10 +50,14 @@ public class GameState implements State {
 		for(int i:save.getOpenedRooms()) {
 			openedRooms.add(i);
 		}
+		if(Timer.TASPlayback) {
+			tas = new TasPlayback();
+		}
 	}
 	
 	@Override
 	public void start(State prevState) {
+		if(Timer.TASPlayback) { tas.update(); }
 		showTimer();
 	}
 	
@@ -64,6 +70,8 @@ public class GameState implements State {
 	
 	@Override
 	public void update() {
+		if(Timer.TASPlayback) { tas.update(); }
+
 		Timer.update();
 		if(resetting) {
 			deathTransition+=0.1;
@@ -105,6 +113,7 @@ public class GameState implements State {
 		Particle.getParticleManager().update();
 		
 		if(Inputs.getKey(Keybind.PAUSE).isPressed()) {
+			System.out.println(Timer.getTimeString());
 			MusicManager.menuSelect.play();
 			StateManager.setCurrentState(new PauseState(this));
 			UIElement.getUIManager().clear();

@@ -68,4 +68,13 @@ public class Inputs implements KeyListener{
 	public static InputButton getKey(Keybind keybind) {
 		return inputButtons[keybind.index];
 	}
+
+	public static void simulateKeyPress(Keybind keybind) {
+		keyPressed=true;
+		keyStates[keybind.index] = true;
+	}
+	public static void simulateKeyRelease(Keybind keybind) {
+		keyPressed=false;
+		keyStates[keybind.index] = false;
+	}
 }

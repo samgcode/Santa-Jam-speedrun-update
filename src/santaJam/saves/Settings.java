@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import santaJam.SantaJam;
+import santaJam.components.Timer;
 import santaJam.inputs.Inputs;
 import santaJam.inputs.Keybind;
 
@@ -39,7 +40,7 @@ public class Settings {
 		music=Integer.parseInt(propertiesFile.getProperty("music"));
 		sounds=Integer.parseInt(propertiesFile.getProperty("sounds"));
 		speedrunEnabled=Boolean.valueOf(propertiesFile.getProperty("speedrun"));
-
+		Timer.TASPlayback=Boolean.valueOf(propertiesFile.getProperty("tas"));
 	}
 	
 	private Properties loadProperties(String path) {

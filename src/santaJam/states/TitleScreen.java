@@ -13,6 +13,7 @@ import santaJam.graphics.Camera;
 import santaJam.inputs.Inputs;
 import santaJam.inputs.Keybind;
 import santaJam.maps.Room;
+import santaJam.saves.Save;
 
 
 public class TitleScreen implements State{
@@ -43,6 +44,7 @@ public class TitleScreen implements State{
 		home.update();
 		bgCam.update(home);
 		if(Inputs.getKey(Keybind.JUMP).isPressed()) {
+			new Save().resetSave();
 			MusicManager.menuSelect.play();
 			StateManager.setCurrentState(new MainMenu(home, lastRoom, bgCam));
 		}

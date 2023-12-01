@@ -4,6 +4,7 @@ import santaJam.Game;
 
 public class Timer {
   static int frames;
+  public static boolean TASPlayback; 
 
   public static void update() {
     frames++;
@@ -30,6 +31,6 @@ public class Timer {
       String.format("%02d",hours) + ":" + 
       String.format("%02d",minutes) + ":" + 
       String.format("%02d",displaySeconds) + "." + 
-      String.format("%03d",(int)Math.floor(seconds*1000)) ;
+      String.format("%03d",(int)Math.floor(seconds*1000)) + String.format("   (frame: %d)", frames);
   }
 }
