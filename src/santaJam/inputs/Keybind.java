@@ -10,7 +10,6 @@ public enum Keybind {
   PAUSE("pause", 6, false),
   SAVE_STATE("save state", 7, true),
   RESET("reset", 8, false),
-  TASTEST("test", 10, true),
   FULL_RESET("hard reset", 9, true);
 
 
