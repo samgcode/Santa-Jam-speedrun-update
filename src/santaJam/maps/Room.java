@@ -177,7 +177,7 @@ public class Room {
 	
 	public void loadRoom() {
 	
-		System.out.println("loading "+name);
+		// System.out.println("loading "+name);
 		if(area!=4) {
 			SantaJam.getGame().getMusic().switchSong(area);
 		}else {

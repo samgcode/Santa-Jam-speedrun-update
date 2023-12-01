@@ -1,13 +1,128 @@
-// format: [action] [duration(frames)]
-// for fps: fps [framerate]
-fps 10
-wait 100
+// format:
+// [key] [pressed(0:1)]
+// wait [duration(frames)]
+// -- wait 0 does nothing
+// fps [new fps value]
+// -- setting fps takes 1 frame to avoid having multiple inputs on the same frame
+//
+// screen 1
+right 1
+fps 60
+wait 63
 jump 1
-left 10
-wait 30
-jump 15
+jump 0
+wait 23
+jump 1
+wait 1
+jump 0
+wait 9
+jump 1
+wait 3
+jump 0
+// screen 2
+wait 45
+jump 1
+wait 7
+jump 0
+wait 2
+jump 1
+wait 8
+jump 0
+wait 5
+jump 1
+wait 12
+jump 0
+wait 41
+right 0
+wait 14
+left 1
+wait 50
+left 0
+right 1
+wait 44
+jump 1
+wait 5
+jump 0
+// screen 3
+wait 29
+jump 1
+wait 8
+jump 0
+wait 20
+jump 1
+jump 0
+wait 18
+jump 1
+wait 6
+jump 0
+wait 24
+jump 1
+wait 7
+jump 0
+wait 22
+right 0
+left 1
+wait 19
+jump 1
+jump 0
+// screen 4
+wait 28
+left 0
+wait 1
+right 1
+wait 26
+right 0
+left 1
+wait 9
+// collect slide
+jump 1
+jump 0
+wait 12
+jump 1
+jump 0
+wait 51
+jump 1
+wait 2
+left 0
+wait 20
+jump 0
+wait 33
+jump 1
+wait 2
+jump 0
+// screen 5
+wait 81
+// screen 6
+right 1
+wait 28
+right 0
+wait 1
+left 1
+wait 47
+jump 1
+wait 1
+left 0
+wait 10
+jump 0
+wait 18
+jump 1
+wait 25
+jump 0
+wait 53
+right 1
+wait 57
+jump 1
 wait 15
-wait 55
-right 5
-fps 2
-// 
+jump 0
+wait 3
+jump 1
+jump 0
+wait 21
+jump 1
+jump 0
+wait 16
+right 0
+wait 41
+left 1
+wait 39
+left 0

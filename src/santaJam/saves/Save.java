@@ -30,7 +30,7 @@ public class Save {
 		loadFile(filePath);
 	}
 	public void loadFile(String filePath) {
-		System.out.println("loading");
+		// System.out.println("loading");
 		propertiesFile=loadProperties(filePath);
 		
 		//setting all the variables from the properties file

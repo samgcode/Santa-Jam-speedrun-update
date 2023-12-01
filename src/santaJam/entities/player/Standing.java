@@ -72,7 +72,7 @@ public class Standing extends PlayerState{
 	
 		//if they pressed/buffered a jump, then they should jump
 		if(Inputs.getKey(Keybind.JUMP).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.JUMP).getHoldLength()>0&&!Inputs.getKey(Keybind.JUMP).isInputUsed()) {
-			System.out.println("jumping");
+			// System.out.println("jumping");
 			Inputs.getKey(Keybind.JUMP).useInput();
 			return new Jumping();
 		}

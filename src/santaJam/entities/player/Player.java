@@ -44,7 +44,7 @@ public class Player extends Entity {
 	
 	public Player(int x, int y) {
 		super(x-4,y-7,8,13);
-		System.out.println("reloading player");
+		// System.out.println("reloading player");
 		this.health=maxHealth;
 		damage=0;
 		maxInvincibility=30;

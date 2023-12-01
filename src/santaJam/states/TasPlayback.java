@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Comparator;
 
 import santaJam.Game;
 import santaJam.components.Timer;
@@ -35,23 +36,16 @@ public class TasPlayback {
         
         if(!line[0].equals("//")) {
           String action = line[0];
-          int frames = Integer.parseInt(line[1]);
+          int payload = Integer.parseInt(line[1]);
 
           if(action.equals("wait")) {
-            globalFrame += frames;
+            globalFrame += payload;
           } else {
             actions.add(new Action(
-              globalFrame, action, true, frames
+              globalFrame, action, (payload==1), payload
             ));
-            System.out.println(actions.get(actions.size()-1).frame + ", " + action + ", true");
-  
-            if(!action.equals("fps")) {
-              actions.add(new Action(
-                globalFrame + frames, action, false, frames
-              ));
-            }
+            globalFrame++;
           }
-          
         }
       }
       myReader.close();
@@ -60,14 +54,19 @@ public class TasPlayback {
       e.printStackTrace();
     }
 
+    actions.sort(new CompareAction());
+
+    System.out.println("Loaded TAS input: ");
     for (int i = 0; i < actions.size(); i++) {
       Action action = actions.get(i);
       if(action.bind.equals("fps")) {
-        System.out.println(action.frame + ", " + action.bind + ", " + action.payload);
+        System.out.println(action.frame + ": " + action.bind + " " + action.payload);
       } else {
-        System.out.println(action.frame + ", " + action.bind + ", " + action.pressed);
+        System.out.println(action.frame + ": " + action.bind + " " + action.pressed);
       }
     }
+    
+    System.out.println("-- TAS START --");
   }
   
   
@@ -78,10 +77,10 @@ public class TasPlayback {
       
       if(action.frame == frames) {
         if(action.bind.equals("fps")) {
-          System.out.println(action.frame + ", " + action.bind + ", " + action.payload);
+          System.out.println(action.frame + ": " + action.bind + ", " + action.payload);
           Game.setFps(action.payload);
         } else {
-          System.out.println(action.frame + ", " + action.bind + ", " + action.pressed);
+          System.out.println(action.frame + ": " + action.bind + ", " + action.pressed);
           if(action.pressed) { Inputs.simulateKeyPress(keys.get(action.bind)); }
           else { Inputs.simulateKeyRelease(keys.get(action.bind)); }
         }
@@ -101,6 +100,15 @@ public class TasPlayback {
       this.bind = bind;
       this.pressed = pressed;
       this.payload = payload;
+    }
+  }
+
+  private class CompareAction implements Comparator<Action> {
+    @Override
+    public int compare(Action o1, Action o2) {
+      if(o1.frame > o2.frame) return 1;
+      if(o1.frame < o2.frame) return -1;
+      return 0;
     }
   }
 }

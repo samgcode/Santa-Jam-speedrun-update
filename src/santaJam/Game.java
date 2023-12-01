@@ -5,6 +5,7 @@ import santaJam.inputs.Inputs;
 import santaJam.inputs.Keybind;
 import santaJam.saves.Settings;
 import santaJam.states.StateManager;
+import santaJam.states.TasPlayback;
 import santaJam.states.TitleScreen;
 import santaJam.window.Window;
 
@@ -24,6 +25,7 @@ public class Game {
 	
 	public void run() {
 		StateManager.setCurrentState(new TitleScreen());
+		new TasPlayback();
 		while(running) {
 			double startTime= System.nanoTime();//getting the time at the start of the frame
 			
@@ -42,9 +44,10 @@ public class Game {
 			//saying that things are lagging if it took more than 1/60th of a second
 			if(delta >= DELAY) {
 				
-				System.out.println("\nuh oh things are lagging");
-				System.out.println("it is "+(delta-DELAY) +" nanoseconds behind");
-				System.out.println("FPS is "+1f/(delta/1000000000f));
+				// System.out.println("\nuh oh things are lagging");
+				// System.out.println("it is "+(delta-DELAY) +" nanoseconds behind");
+				// System.out.println("FPS is "+1f/(delta/1000000000f));
+				// System.out.println("FPS: "+1f/(delta/1000000000f) + "(lag)");
 				
 			}
 			//stopping the main loop until it has been 1/60th of a second after the start of the frame
