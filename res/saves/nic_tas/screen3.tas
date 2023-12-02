@@ -1,0 +1,22 @@
+// screen 3
+wait 29
+jump 1
+wait 8
+jump 0
+wait 20
+jump 1
+jump 0
+wait 18
+jump 1
+wait 6
+jump 0
+wait 24
+jump 1
+wait 7
+jump 0
+wait 22
+right 0
+left 1
+wait 19
+jump 1
+jump 0

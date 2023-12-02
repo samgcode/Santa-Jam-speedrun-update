@@ -1,0 +1,25 @@
+// screen 4
+wait 28
+left 0
+wait 1
+right 1
+wait 26
+right 0
+left 1
+wait 9
+// collect slide
+jump 1
+jump 0
+wait 12
+jump 1
+jump 0
+wait 51
+jump 1
+wait 2
+left 0
+wait 20
+jump 0
+wait 33
+jump 1
+wait 2
+jump 0

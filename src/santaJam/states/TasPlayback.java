@@ -25,7 +25,7 @@ public class TasPlayback {
   ArrayList<Action> actions = new ArrayList<Action>();
 
   public TasPlayback() {
-    loadTasFile("tas.txt", 0);
+    loadTasFile("nic.tas", 0);
 
     actions.sort(new CompareAction());
 
@@ -87,11 +87,9 @@ public class TasPlayback {
       
       if(action.frame == frames) {
         if(action.bind.equals("fps")) {
-          // System.out.println(action.frame + ": set fps, " + action.payload);
           System.out.println(action.frame + "| " + action.file + "::" + action.lineNumber + ": " + ": set fps, " + action.payload);
           Game.setFps(action.payload);
         } else {
-          // System.out.println(action.frame + ": " + action.bind + ", " + action.pressed);
           System.out.println(action.frame + "| " + action.file + "::" + action.lineNumber + ": " + action.bind + ", " + action.pressed);
           if(action.pressed) { Inputs.simulateKeyPress(keys.get(action.bind)); }
           else { Inputs.simulateKeyRelease(keys.get(action.bind)); }

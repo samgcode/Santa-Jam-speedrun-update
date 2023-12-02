@@ -1,0 +1,37 @@
+// format:
+// [key] [pressed(0:1)]
+// wait [duration(frames)]
+// -- wait 0 does nothing
+// fps [new fps value]
+// -- setting fps takes 1 frame to avoid having multiple inputs on the same frame
+//
+right 1
+wait 20
+fps 600000
+file nic_tas/screen1.tas
+file nic_tas/screen2.tas
+file nic_tas/screen3.tas
+file nic_tas/screen4.tas
+// screen 5
+wait 81
+file nic_tas/screen6.tas
+file nic_tas/screen7.tas
+file nic_tas/screen8.tas
+file nic_tas/screen9.tas
+file nic_tas/screen10.tas
+file nic_tas/screen11.tas
+file nic_tas/screen12.tas
+file nic_tas/screen13.tas
+// screen 14
+wait 6
+grapple 1
+grapple 0
+wait 6
+jump 1
+wait 2
+jump 0
+file nic_tas/screen15.tas
+file nic_tas/screen16.tas
+// screen 17
+wait 30
+file nic_tas/pause.tas

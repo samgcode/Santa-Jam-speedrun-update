@@ -1,0 +1,24 @@
+// screen 2
+wait 45
+jump 1
+wait 7
+jump 0
+wait 2
+jump 1
+wait 8
+jump 0
+wait 5
+jump 1
+wait 12
+jump 0
+wait 41
+right 0
+wait 14
+left 1
+wait 50
+left 0
+right 1
+wait 44
+jump 1
+wait 5
+jump 0
