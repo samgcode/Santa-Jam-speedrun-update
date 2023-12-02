@@ -25,34 +25,7 @@ public class TasPlayback {
   ArrayList<Action> actions = new ArrayList<Action>();
 
   public TasPlayback() {
-    int globalFrame = 0;
-    try {
-      File myObj = new File("res/saves/tas.txt");
-      Scanner myReader = new Scanner(myObj);
-      while (myReader.hasNextLine()) {
-        String data = myReader.nextLine();
-        
-        String[] line = data.split(" ");
-        
-        if(!line[0].equals("//")) {
-          String action = line[0];
-          int payload = Integer.parseInt(line[1]);
-
-          if(action.equals("wait")) {
-            globalFrame += payload;
-          } else {
-            actions.add(new Action(
-              globalFrame, action, (payload==1), payload
-            ));
-            globalFrame++;
-          }
-        }
-      }
-      myReader.close();
-    } catch (FileNotFoundException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
+    loadTasFile("tas.txt", 0);
 
     actions.sort(new CompareAction());
 
@@ -68,7 +41,44 @@ public class TasPlayback {
 
     System.out.println("-- TAS START --");
   }
-  
+
+  public int loadTasFile(String filepath, int currentFrame) {
+    int globalFrame = currentFrame;
+    int lineNumber = 0;
+    try {
+      File myObj = new File("res/saves/" + filepath);
+      Scanner myReader = new Scanner(myObj);
+      while (myReader.hasNextLine()) {
+        String data = myReader.nextLine();
+        
+        String[] line = data.split(" ");
+        lineNumber++;
+        
+        if(!line[0].equals("//")) {
+          String action = line[0];
+          if(action.equals("file")) {
+            globalFrame = loadTasFile(line[1], globalFrame);
+          }  else {
+            int payload = Integer.parseInt(line[1]);
+            
+            if(action.equals("wait")) {
+              globalFrame += payload;
+            } else {
+              actions.add(new Action(
+                globalFrame, action, (payload==1), payload, filepath, lineNumber
+              ));
+              globalFrame++;
+            }
+          }
+        }
+      }
+      myReader.close();
+    } catch (FileNotFoundException e) {
+      System.out.println("Could not read file");
+      e.printStackTrace();
+    }
+    return globalFrame;
+  }
   
   public void update() {
     int frames = Timer.getFrames();
@@ -77,10 +87,12 @@ public class TasPlayback {
       
       if(action.frame == frames) {
         if(action.bind.equals("fps")) {
-          System.out.println(action.frame + ": set fps, " + action.payload);
+          // System.out.println(action.frame + ": set fps, " + action.payload);
+          System.out.println(action.frame + "| " + action.file + "::" + action.lineNumber + ": " + ": set fps, " + action.payload);
           Game.setFps(action.payload);
         } else {
-          System.out.println(action.frame + ": " + action.bind + ", " + action.pressed);
+          // System.out.println(action.frame + ": " + action.bind + ", " + action.pressed);
+          System.out.println(action.frame + "| " + action.file + "::" + action.lineNumber + ": " + action.bind + ", " + action.pressed);
           if(action.pressed) { Inputs.simulateKeyPress(keys.get(action.bind)); }
           else { Inputs.simulateKeyRelease(keys.get(action.bind)); }
         }
@@ -94,12 +106,16 @@ public class TasPlayback {
     public String bind;
     public int payload;
     public boolean pressed;
+    public String file;
+    public int lineNumber;
   
-    public Action(int frame, String bind, boolean pressed, int payload) {
+    public Action(int frame, String bind, boolean pressed, int payload, String file, int lineNumber) {
       this.frame = frame;
       this.bind = bind;
       this.pressed = pressed;
       this.payload = payload;
+      this.file = file;
+      this.lineNumber = lineNumber;
     }
   }
 
