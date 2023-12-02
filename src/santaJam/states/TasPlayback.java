@@ -60,12 +60,12 @@ public class TasPlayback {
     for (int i = 0; i < actions.size(); i++) {
       Action action = actions.get(i);
       if(action.bind.equals("fps")) {
-        System.out.println(action.frame + ": " + action.bind + " " + action.payload);
+        System.out.println(action.frame + ": set fps, " + action.payload);
       } else {
         System.out.println(action.frame + ": " + action.bind + " " + action.pressed);
       }
     }
-    
+
     System.out.println("-- TAS START --");
   }
   
@@ -77,7 +77,7 @@ public class TasPlayback {
       
       if(action.frame == frames) {
         if(action.bind.equals("fps")) {
-          System.out.println(action.frame + ": " + action.bind + ", " + action.payload);
+          System.out.println(action.frame + ": set fps, " + action.payload);
           Game.setFps(action.payload);
         } else {
           System.out.println(action.frame + ": " + action.bind + ", " + action.pressed);
@@ -112,5 +112,3 @@ public class TasPlayback {
     }
   }
 }
-
-
