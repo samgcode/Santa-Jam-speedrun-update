@@ -33,11 +33,18 @@ public class EntityManager {
 		
 	}
 	public void render(Graphics2D g, Camera camera) {
-		for(Entity i:entities) {
-			if(!( i instanceof Player)) {
-				i.render(g, camera);
+		try {
+			for(Entity i:entities) {
+				if(!( i instanceof Player)) {
+					try {
+						i.render(g, camera);
+					} catch(Exception e) {
+						// object removed during render
+					}
+				}
 			}
-			
+		} catch (Exception e) {
+			// something to do with concurrency ig 
 		}
 		StateManager.getGameState().getPlayer().render(g, camera);
 		

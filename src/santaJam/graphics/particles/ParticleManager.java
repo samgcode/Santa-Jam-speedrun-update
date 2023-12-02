@@ -38,13 +38,21 @@ public class ParticleManager {
 	//drawing the particles that should be above the entities
 	public void renderFront(Graphics g, Camera camera) {
 		for(int i=frontParticles.size()-1;i>=0;i--) {
-			frontParticles.get(i).render(g, camera);
+			try {
+				frontParticles.get(i).render(g, camera);
+			} catch(Exception err) {
+				// particle removed during render
+			}
 		}
 	}
 	//rendering the particles that should go below the entities
 	public void renderBack(Graphics g, Camera camera) {
 		for(int i=backParticles.size()-1;i>=0;i--) {
-			backParticles.get(i).render(g, camera);
+			try {
+				backParticles.get(i).render(g, camera);
+			} catch(Exception err) {
+				// particle removed during render
+			}
 		}
 	}
 
