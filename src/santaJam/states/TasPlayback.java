@@ -87,7 +87,7 @@ public class TasPlayback {
       
       if(action.frame == frames) {
         if(action.bind.equals("fps")) {
-          System.out.println(action.frame + "| " + action.file + "::" + action.lineNumber + ": " + ": set fps, " + action.payload);
+          System.out.println(action.frame + "| " + action.file + "::" + action.lineNumber + ": " + "set fps, " + action.payload);
           Game.setFps(action.payload);
         } else {
           System.out.println(action.frame + "| " + action.file + "::" + action.lineNumber + ": " + action.bind + ", " + action.pressed);

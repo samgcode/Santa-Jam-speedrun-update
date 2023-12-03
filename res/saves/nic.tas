@@ -7,13 +7,13 @@
 //
 right 1
 wait 20
-fps 600000
+fps 60
 file nic_tas/screen1.tas
 file nic_tas/screen2.tas
 file nic_tas/screen3.tas
 file nic_tas/screen4.tas
 // screen 5
-wait 81
+wait 41
 file nic_tas/screen6.tas
 file nic_tas/screen7.tas
 file nic_tas/screen8.tas
@@ -32,6 +32,20 @@ wait 2
 jump 0
 file nic_tas/screen15.tas
 file nic_tas/screen16.tas
-// screen 17
-wait 30
-file nic_tas/pause.tas
+file nic_tas/screen17.tas
+file nic_tas/screen18.tas
+file nic_tas/screen19.tas
+file nic_tas/screen20.tas
+file nic_tas/screen21.tas
+file nic_tas/screen22.tas
+file nic_tas/getslide.tas
+file nic_tas/screen26.tas
+file nic_tas/screen27.tas
+file nic_tas/screen28.tas
+file nic_tas/screen29.tas
+file nic_tas/screen30.tas
+// screen 31
+wait 64
+// screen 32
+wait 20
+jump 1
