@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import santaJam.Game;
 import santaJam.SantaJam;
 import santaJam.audio.MusicManager;
+import santaJam.components.InputDisplay;
 import santaJam.components.Timer;
 import santaJam.entities.Entity;
 import santaJam.entities.player.Player;
@@ -38,6 +39,7 @@ public class GameState implements State {
 	
 	TextElement timerText = new TextElement(3, 0, "00:00:00.000");
 	RectElement timerBG = new RectElement(timerText.getX()-3,timerText.getY()-3,800,timerText.getHeight()+6, new Color(6,50,52));
+	InputDisplay inputDisplay = new InputDisplay();
 
 	public GameState(Save saveFile) {
 		this.save=saveFile;
@@ -65,6 +67,7 @@ public class GameState implements State {
 		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
 			UIElement.getUIManager().addElement(timerBG);
 			UIElement.getUIManager().addElement(timerText);
+			inputDisplay.show();
 		}
 	}
 	
@@ -73,6 +76,10 @@ public class GameState implements State {
 		if(Timer.TASPlayback) { tas.update(); }
 
 		Timer.update();
+		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
+			inputDisplay.update();
+		}
+
 		if(resetting) {
 			deathTransition+=0.1;
 			

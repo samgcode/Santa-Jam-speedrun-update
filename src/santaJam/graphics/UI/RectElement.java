@@ -9,7 +9,7 @@ public class RectElement extends UIElement{
 	 * uiManager and be rendered ontop if other things
 	 */
 	protected int width, height, arcSize;
-	Color colour;
+	public Color colour;
 	//this constructor takes the location and picture
 	public RectElement(int x, int y, int width,int height, Color colour) {
 		super(x,y);
