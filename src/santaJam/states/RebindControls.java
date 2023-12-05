@@ -34,7 +34,7 @@ public class RebindControls implements State{
 		Keybind current = Keybind.values()[currentAction];
 		int index = current.index;
 
-		action.update("  PRESS BUTTON FOR "+ current.name.toUpperCase()+" \n ESCAPE TO CANCEL");
+		action.update("  PRESS BUTTON FOR "+ current.name.toUpperCase()+" \n ESCAPE TO CANCEL, ENTER FOR DEFAULT");
 		action.centre(Game.WIDTH-80);
 		
 		if(current.speedrun && !SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
@@ -45,25 +45,34 @@ public class RebindControls implements State{
 				rebind.centre(Game.WIDTH-80);
 			}
 			
+			if(!current.bindable) {
+				keyCodes[index] = current.default_bind;
+				currentAction++;
+			}
+
 			if(Inputs.getKey(Keybind.PAUSE).isPressed()) {
 				StateManager.setCurrentState(returnState);
 			}
 	
-			if(Inputs.AnyKey().isPressed()) {
+			if(Inputs.getKey(Keybind.ENTER).isPressed()) {
+				System.out.println(current.default_bind);
+
+				keyCodes[index] = current.default_bind;
+				currentAction++;
+			} else if(Inputs.AnyKey().isPressed()) {
 				keyCodes[index]=Inputs.getLastKeyCode();
 				currentAction++;
 			}
-	
-			if(index == Keybind.PAUSE.index) {
-				keyCodes[index] = KeyEvent.VK_ESCAPE;
-				currentAction++;
-			}
+			
 		}
 
 		if(currentAction == keyCodes.length) {
 			Inputs.setKeyBinds(keyCodes);
 			StateManager.setCurrentState(returnState);
 		}
+		// if(Inputs.AnyKey().isPressed()) {
+		// 	System.out.println(Inputs.getLastKeyCode());
+		// }
 	}
 
 	@Override

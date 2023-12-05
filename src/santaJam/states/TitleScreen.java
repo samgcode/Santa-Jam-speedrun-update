@@ -44,6 +44,7 @@ public class TitleScreen implements State{
 		home.update();
 		bgCam.update(home);
 		if(Inputs.getKey(Keybind.JUMP).isPressed()) {
+			new Save().resetSave();
 			MusicManager.menuSelect.play();
 			StateManager.setCurrentState(new MainMenu(home, lastRoom, bgCam));
 		}

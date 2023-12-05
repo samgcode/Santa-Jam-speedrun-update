@@ -1,25 +1,30 @@
 package santaJam.inputs;
 
 public enum Keybind {
-  UP("up", 0, false),
-  DOWN("down", 1, false),
-  LEFT("left", 2, false),
-  RIGHT("right", 3, false),
-  JUMP("jump", 4, false),
-  GRAPPLE("grapple", 5, false),
-  PAUSE("pause", 6, false),
-  SAVE_STATE("save state", 7, true),
-  RESET("reset", 8, false),
-  FULL_RESET("hard reset", 9, true);
+  UP        ("up",        0, false,true, 38),
+  DOWN      ("down",      1, false,true, 40),
+  LEFT      ("left",      2, false,true, 37),
+  RIGHT     ("right",     3, false,true, 39),
+  JUMP      ("jump",      4, false,true, 67),
+  GRAPPLE   ("grapple",   5, false,true, 88),
+  SAVE_STATE("save state",6, true, true, 65),
+  RESET     ("reset",     7, false,true, 32),
+  FULL_RESET("hard reset",8, true, true, 82),
+  ENTER     ("enter",     9, false,false,10),
+  PAUSE     ("pause",     10,false,false,27);
 
-
+//192, 59, 76
   public String name;
   public int index;
   public boolean speedrun;
+  public boolean bindable;
+  public int default_bind;
 
-  Keybind(String name, int index, boolean speedrun) {
-    this.name = name;
-    this.index = index;
-    this.speedrun = speedrun;
+  Keybind(String n, int i, boolean s, boolean b, int db) {
+    this.name = n;
+    this.index = i;
+    this.speedrun = s;
+    this.bindable = b;
+    this.default_bind = db;
   }
 }
