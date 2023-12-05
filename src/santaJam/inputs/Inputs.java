@@ -22,7 +22,7 @@ public class Inputs implements KeyListener{
 	public void keyTyped(KeyEvent e) {}
 
 	@Override
-	public void keyPressed(KeyEvent e) {	
+	public void keyPressed(KeyEvent e) {
 		keyPressed=true;
 		lastKeyCode=e.getKeyCode();
 		for (Keybind keybind : Keybind.values()) {
@@ -49,9 +49,14 @@ public class Inputs implements KeyListener{
 		}
 	}
 	public static void setKeyBinds(int[] newKeyCodes) {
-		keyCodes=newKeyCodes;
 		for (Keybind keybind : Keybind.values()) {
-			inputButtons[keybind.index] = new InputButton(newKeyCodes[keybind.index]);
+			try {
+				keyCodes[keybind.index] = newKeyCodes[keybind.index];
+				inputButtons[keybind.index] = new InputButton(newKeyCodes[keybind.index]);
+			} catch(Exception e) {
+				keyCodes[keybind.index] = keybind.default_bind;
+				inputButtons[keybind.index] = new InputButton(keybind.default_bind);
+			}
 		}
 		
 		if(SantaJam.getGame()!=null) {

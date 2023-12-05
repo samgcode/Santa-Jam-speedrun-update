@@ -11,7 +11,9 @@ public enum Keybind {
   RESET     ("reset",     7, false,true, 32),
   FULL_RESET("hard reset",8, true, true, 82),
   ENTER     ("enter",     9, false,false,10),
-  PAUSE     ("pause",     10,false,false,27);
+  PAUSE     ("pause",     10,false,false,27),
+  DEBUG     ("debug",     11,false,false,27),
+  ;
 
 //192, 59, 76
   public String name;
