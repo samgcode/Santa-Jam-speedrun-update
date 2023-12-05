@@ -48,6 +48,10 @@ public class Inputs implements KeyListener{
 			inputButtons[keybind.index].update(keyStates[keybind.index]);
 		}
 	}
+	public static void update(Keybind keybind) {
+		inputButtons[keybind.index].update(keyStates[keybind.index]);
+	}
+
 	public static void setKeyBinds(int[] newKeyCodes) {
 		for (Keybind keybind : Keybind.values()) {
 			try {
@@ -72,6 +76,9 @@ public class Inputs implements KeyListener{
 	}
 	public static InputButton getKey(Keybind keybind) {
 		return inputButtons[keybind.index];
+	}
+	public static boolean getKeyState(Keybind keybind) {
+		return keyStates[keybind.index];
 	}
 
 	public static void simulateKeyPress(Keybind keybind) {

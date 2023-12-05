@@ -1,5 +1,7 @@
 package santaJam.inputs;
 
+import java.awt.event.KeyEvent;
+
 public enum Keybind {
   UP        ("up",        0, false,true, 38),
   DOWN      ("down",      1, false,true, 40),
@@ -11,11 +13,12 @@ public enum Keybind {
   RESET     ("reset",     7, false,true, 32),
   FULL_RESET("hard reset",8, true, true, 82),
   ENTER     ("enter",     9, false,false,10),
-  PAUSE     ("pause",     10,false,false,27),
-  DEBUG     ("debug",     11,false,false,27),
+  PAUSE     ("pause",     10,false,false, KeyEvent.VK_ESCAPE),
+  DEBUG     ("debug",     11,true, false, KeyEvent.getExtendedKeyCodeForChar('`')),
+  FRAME_ADV ("",          12,true, false, KeyEvent.getExtendedKeyCodeForChar('=')),
+  FA_PLAY   ("",          13,true, false, KeyEvent.getExtendedKeyCodeForChar('-')),
   ;
 
-//192, 59, 76
   public String name;
   public int index;
   public boolean speedrun;

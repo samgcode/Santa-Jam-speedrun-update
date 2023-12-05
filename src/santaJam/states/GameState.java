@@ -78,6 +78,9 @@ public class GameState implements State {
 		Timer.update();
 		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
 			inputDisplay.update();
+			if(Inputs.getKey(Keybind.DEBUG).isPressed()) {
+				Game.setFps(0);
+			}
 		}
 
 		if(resetting) {
