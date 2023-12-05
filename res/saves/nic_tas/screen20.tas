@@ -7,12 +7,13 @@ wait 10
 jump 0
 grapple 1
 wait 3
-jump 1
 grapple 0
-wait 4
+jump 1
+wait 1
 jump 0
 jump 1
 grapple 1
 grapple 0
-wait 7
+wait 8
 jump 0
+wait 1

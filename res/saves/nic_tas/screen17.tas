@@ -1,25 +1,34 @@
 // screen 17
-wait 30
-jump 0
-wait 8
+// <top route>
+wait 41
 jump 1
-wait 23
-grapple 1
-wait 2
+wait 24
 jump 0
-grapple 0
-wait 4
-jump 1
-wait 18
-grapple 1
-wait 1
-jump 0
-grapple 0
-jump 1
-wait 12
-grapple 1
-jump 0
-wait 1
-jump 1
-grapple 0
-left 0
+wait 9
+// <\top route>
+// <bottom route>
+// wait 30
+// jump 0
+// wait 8
+// jump 1
+// wait 23
+// grapple 1
+// wait 2
+// jump 0
+// grapple 0
+// wait 4
+// jump 1
+// wait 18
+// grapple 1
+// wait 1
+// jump 0
+// grapple 0
+// jump 1
+// wait 12
+// grapple 1
+// jump 0
+// wait 1
+// jump 1
+// grapple 0
+// left 0
+// </bottom route>

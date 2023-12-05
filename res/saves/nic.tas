@@ -7,7 +7,7 @@
 //
 right 1
 wait 20
-fps 360
+fps 100000
 file nic_tas/screen1.tas
 file nic_tas/screen2.tas
 file nic_tas/screen3.tas

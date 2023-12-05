@@ -85,3 +85,4 @@ jump 0
 jump 1
 grapple 1
 grapple 0
+wait 1
