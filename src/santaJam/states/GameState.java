@@ -23,7 +23,6 @@ import santaJam.saves.Save;
 
 public class GameState implements State {
 	int x=0, y=0,xVel=0,yVel=0;
-	int frames = 0;
 	
 	private double deathTransition=0;
 	private boolean resetting=false;
@@ -37,8 +36,8 @@ public class GameState implements State {
 
 	private TasPlayback tas;
 	
-	TextElement timerText = new TextElement(3, 0, "00:00:00.000");
-	RectElement timerBG = new RectElement(timerText.getX()-3,timerText.getY()-3,800,timerText.getHeight()+6, new Color(6,50,52));
+	TextElement timerText = new TextElement(2, 0, 3, 7, "00:00:00.000 \n frame: 0000");
+	RectElement timerBG = new RectElement(timerText.getX()-2,timerText.getY()-2,140,timerText.getHeight()+4, new Color(6,50,52));
 	InputDisplay inputDisplay = new InputDisplay();
 
 	public GameState(Save saveFile) {
@@ -117,7 +116,9 @@ public class GameState implements State {
 		camera.moveToEntity(player);
 		camera.update(map.getPlayerRoom());
 		
-		timerText.update(Timer.getTimeString());
+		timerText.update(Timer.getTimeString() + 
+			String.format("\nframe: %d,", Timer.getFrames()) + 
+			String.format(" fps: %d", Game.getFps()));
 		
 		UIElement.getUIManager().update();
 		Particle.getParticleManager().update();

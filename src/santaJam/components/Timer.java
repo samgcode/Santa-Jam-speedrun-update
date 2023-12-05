@@ -31,6 +31,6 @@ public class Timer {
       String.format("%02d",hours) + ":" + 
       String.format("%02d",minutes) + ":" + 
       String.format("%02d",displaySeconds) + "." + 
-      String.format("%03d",(int)Math.floor(seconds*1000)) + String.format("   (frame: %d)", frames);
+      String.format("%03d",(int)Math.floor(seconds*1000));
   }
 }
