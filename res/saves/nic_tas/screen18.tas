@@ -1,13 +1,5 @@
 // screen 18
 // <top route>
-wait 30
-right 1
-wait 1
-jump 1
-wait 1
-jump 0
-wait 30
-right 0
 wait 50
 grapple 1
 grapple 0
@@ -27,20 +19,21 @@ jump 0
 jump 1
 grapple 1
 grapple 0
-wait 12
+wait 9
 jump 0
 jump 1
 grapple 1
 grapple 0
-wait 12
-jump 0
-left 1
-wait 4
 // land on platform
-jump 1
-wait 1
+wait 10
+left 1
+wait 3
 left 0
+jump 0
+jump 1
+grapple 1
 right 1
+grapple 0
 // grapple left side
 wait 18
 right 0
@@ -51,7 +44,7 @@ left 0
 jump 1
 right 1
 grapple 0
-wait 5
+wait 6
 right 0
 left 1
 left 0
@@ -66,7 +59,7 @@ jump 0
 jump 1
 grapple 1
 grapple 0
-wait 8
+wait 9
 right 0
 jump 0
 jump 1

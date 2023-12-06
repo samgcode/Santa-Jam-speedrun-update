@@ -5,9 +5,9 @@
 // fps [new fps value]
 // -- setting fps takes 1 frame to avoid having multiple inputs on the same frame
 // 
-// current: 4872
-// prev: 4884 (+12)
-// original: 4915 (+43)
+// current: 4866
+// prev: 4872 (+6)
+// original: 4915 (+49)
 right 1
 wait 20
 fps 60

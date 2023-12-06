@@ -4,7 +4,17 @@ wait 41
 jump 1
 wait 24
 jump 0
-wait 9
+wait 25
+right 1
+wait 18
+grapple 1
+wait 3
+jump 1
+jump 0
+grapple 0
+wait 10
+right 0
+wait 10
 // <\top route>
 // <bottom route>
 // wait 30
