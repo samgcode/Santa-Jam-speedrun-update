@@ -4,10 +4,13 @@
 // -- wait 0 does nothing
 // fps [new fps value]
 // -- setting fps takes 1 frame to avoid having multiple inputs on the same frame
-//
+// 
+// current: 4872
+// prev: 4884 (+12)
+// original: 4915 (+43)
 right 1
 wait 20
-fps 100000
+fps 60
 file nic_tas/screen1.tas
 file nic_tas/screen2.tas
 file nic_tas/screen3.tas

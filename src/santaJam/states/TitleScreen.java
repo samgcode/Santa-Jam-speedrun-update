@@ -18,7 +18,7 @@ import santaJam.saves.Save;
 
 public class TitleScreen implements State{
 	Room home,lastRoom;
-	Camera bgCam  ;
+	Camera bgCam;
 	Entity radio, firePlace = new FirePlace(568,216);
 	
 	public TitleScreen(Room home, Room lastRoom, Camera bgCam) {

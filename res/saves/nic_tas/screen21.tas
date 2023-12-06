@@ -1,5 +1,4 @@
-wait 61
-right 0
+wait 62
 left 1
 wait 8
 jump 1
