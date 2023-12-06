@@ -53,7 +53,6 @@ public class Song extends Sound{
 	}
 
 	public void play() {
-		System.out.println("playing:"+path);
 		fadeOut=false;
 		playing=true;
 		volume = SantaJam.getGame().getSettings().getMusic()/100f;

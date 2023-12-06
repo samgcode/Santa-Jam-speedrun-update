@@ -46,7 +46,7 @@ public class EvenRectSpawn extends Spawner{
 	}
 	public void stop() {
 		running=false;
-		System.out.println("stopping");
+		// System.out.println("stopping");
 	}
 	public void move(int x, int y, int width, int height, int amount) {
 		

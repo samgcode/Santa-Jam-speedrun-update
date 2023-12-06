@@ -24,7 +24,7 @@ public class Crawling extends PlayerState{
 	
 	@Override
 	public PlayerState update(Player player) {
-		System.out.println("crawlin time");
+		//System.out.println("crawlin time");
 		super.update(player);
 		//letting them slide
 		if(Math.abs(player.getVelX())>TOPWALKSPEED) {

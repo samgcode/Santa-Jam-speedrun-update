@@ -32,7 +32,6 @@ public class Window {
              Component c = (Component)evt.getSource();
              windowWidth=c.getWidth()-WIDTHOFFSET;
              windowHeight = c.getHeight()-HEIGHTOFFSET;
-             System.out.println(windowWidth+",  "+windowHeight);
              scale=5;
              while(Game.WIDTH*scale>windowWidth||Game.HEIGHT*scale>windowHeight) {
             	 scale--;            	 
@@ -42,7 +41,6 @@ public class Window {
              }
              xOffset=(windowWidth-Game.WIDTH*scale)/2;
              yOffset=(windowHeight-Game.HEIGHT*scale)/2;
-             System.out.println(scale+" - "+xOffset+", "+yOffset);
          }
 		
 	};

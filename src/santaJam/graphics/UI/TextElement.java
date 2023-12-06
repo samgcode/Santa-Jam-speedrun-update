@@ -13,7 +13,7 @@ public class TextElement extends UIElement{
 	 */
 	public static final int SMALLMONOWIDTH=4,SMALLMONOHEIGHT=7,BIGMONOWIDTH=6,BIGMONOHEIGHT=7;
 	private Font font=Assets.font;
-	private int width,charWidth=SMALLMONOWIDTH,height, lineHeight=SMALLMONOHEIGHT+1 ;
+	private int width,charWidth=SMALLMONOWIDTH,height, lineHeight=SMALLMONOHEIGHT+1, opacity=255;
 	String[] lines= new String[1];
 	String text;//only really used to return the text back if it is needed
 	
@@ -44,11 +44,15 @@ public class TextElement extends UIElement{
 		this(x,y,text);
 		this.font=font;
 	}
+
+	public void setOpacity(int opacity) {
+		this.opacity = opacity;
+	}
 	
 	
 	@Override
 	public void render(Graphics g) {
-		g.setColor(new Color(250,250,250));//we could have a variable to change font colours later but its fine for now
+		g.setColor(new Color(250,250,250, opacity));//we could have a variable to change font colours later but its fine for now
 		g.setFont(font);//setting the font to the right font
 		for(int i=0;i<lines.length;i++) {
 			g.drawString(lines[i].toUpperCase(), x,y+(lineHeight*(i+1)));

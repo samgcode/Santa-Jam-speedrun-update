@@ -44,6 +44,7 @@ public class Save {
 		startY=Integer.parseInt(propertiesFile.getProperty("startY"));		
 		playRealTime=Integer.parseInt(propertiesFile.getProperty("realtime"));		
 		Timer.setFrames(Integer.parseInt(propertiesFile.getProperty("gametime")));
+		Timer.resets = (Integer.parseInt(propertiesFile.getProperty("resets")));
 
 		String[] openedRoomsText = propertiesFile.getProperty("openedRooms").split(",");
 		openedRooms = new int[openedRoomsText.length];
@@ -137,7 +138,9 @@ public class Save {
 		savePlayerData(player.getBounds().x, player.getBounds().y);
 	}
 	public void resetSave() {
+		if(!Timer.TASPlayback) { Timer.resets++; }
 		Properties blankSave = loadProperties("res/saves/blankSave.properties");
+		blankSave.setProperty("resets",""+Timer.resets);
 		writeproperties(blankSave);
 	}
 	

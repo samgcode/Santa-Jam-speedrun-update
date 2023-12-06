@@ -20,7 +20,7 @@ public class UpBoost extends PlayerState{
 	
 	public UpBoost(PlayerState prevState, Player player) {
 		boostVel=Math.abs(player.getVelX());
-		System.out.println("boosting with "+boostVel);
+		//	System.out.println("boosting with "+boostVel);
 		this.prevState = prevState;
 	}
 	@Override
@@ -44,14 +44,14 @@ public class UpBoost extends PlayerState{
 			player.setAnim(Player.boostStart);
 			MusicManager.boostStart.play();
 			firstFrame=false;
-			System.out.println("stopped");
+			//System.out.println("stopped");
 			
 		}
 		if(chargeTime==0) {
 			MusicManager.boostShoot.play();
 			player.setAnim(Player.boost);
 			player.setVelY(-boostVel*1.75);
-			System.out.println("boost");
+			// System.out.println("boost");
 			
 		}
 		if(chargeTime<0) {
@@ -64,7 +64,7 @@ public class UpBoost extends PlayerState{
 			normalGravity(player);
 			normalMoveLeftRight(player);
 			if(player.getVelY()>=0) {
-				System.out.println("returning");
+				// System.out.println("returning");
 				return new Falling();
 			}
 			

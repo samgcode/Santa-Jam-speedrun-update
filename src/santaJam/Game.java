@@ -39,6 +39,7 @@ public class Game {
 			} else {
 				Inputs.update(Keybind.FRAME_ADV);
 				Inputs.update(Keybind.DEBUG);
+				StateManager.getGameState().updateInputDisplay();
 				if(
 					Inputs.getKey(Keybind.FRAME_ADV).isPressed() || 
 					Inputs.getKeyState(Keybind.FA_PLAY)

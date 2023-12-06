@@ -55,7 +55,6 @@ public class Radio extends Entity{
 			nextSong= ThreadLocalRandom.current().nextInt(MusicManager.HOME,MusicManager.GOOSE2+1);
 		}
 		currentSong=nextSong;
-		System.out.println(nextSong);
 		
 		MusicManager.radioStatic.play();
 		SantaJam.getGame().getMusic().switchSong(nextSong);	

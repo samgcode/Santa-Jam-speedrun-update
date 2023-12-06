@@ -23,7 +23,6 @@ public class EntityManager {
 				
 				if(entities.get(i) instanceof Player && entities.get(i).isKilled() ) {
 					StateManager.getGameState().gameOver();
-					System.out.println("ee");
 				}else if(!(entities.get(i) instanceof Player)){
 					entities.remove(i); //If an other entity besides the player gets hit remove that entity
 				}

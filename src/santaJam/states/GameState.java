@@ -36,8 +36,8 @@ public class GameState implements State {
 
 	private TasPlayback tas;
 	
-	TextElement timerText = new TextElement(2, 0, 3, 7, "00:00:00.000 \n frame: 0000");
-	RectElement timerBG = new RectElement(timerText.getX()-2,timerText.getY()-2,140,timerText.getHeight()+4, new Color(6,50,52));
+	TextElement timerText = new TextElement(2, 0, 2, 7, "1 \n 2");
+	RectElement timerBG = new RectElement(timerText.getX()-2,timerText.getY()-2,160,timerText.getHeight()+3, new Color(6,50,52, 150));
 	InputDisplay inputDisplay = new InputDisplay();
 
 	public GameState(Save saveFile) {
@@ -54,11 +54,13 @@ public class GameState implements State {
 		if(Timer.TASPlayback) {
 			tas = new TasPlayback();
 		}
+		timerText.setOpacity(150);
 	}
 	
 	@Override
 	public void start(State prevState) {
 		if(Timer.TASPlayback) { tas.update(); }
+		UIElement.getUIManager().clear();
 		showTimer();
 	}
 	
@@ -69,17 +71,32 @@ public class GameState implements State {
 			inputDisplay.show();
 		}
 	}
+
+	public void hardReset() {
+		new Save().resetSave();
+		StateManager.setCurrentState(new TitleScreen());
+	}
+
+	public void updateInputDisplay() {
+		inputDisplay.update();
+	}
 	
 	@Override
 	public void update() {
-		if(Timer.TASPlayback) { tas.update(); }
-
 		Timer.update();
+
 		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
-			inputDisplay.update();
+			updateInputDisplay();
 			if(Inputs.getKey(Keybind.DEBUG).isPressed()) {
 				Game.setFps(0);
 			}
+			if(Inputs.getKey(Keybind.FULL_RESET).isPressed()) {
+				hardReset();
+			}
+			if(Timer.TASPlayback) { tas.update(); }
+		}
+		if(Inputs.getKey(Keybind.RESET).isPressed()) {
+			StateManager.setCurrentState(new GameState(new Save()));
 		}
 
 		if(resetting) {
@@ -117,9 +134,10 @@ public class GameState implements State {
 		camera.update(map.getPlayerRoom());
 		
 		timerText.update(Timer.getTimeString() + 
-			String.format("\nframe: %d,", Timer.getFrames()) + 
-			String.format(" fps: %d", Game.getFps()));
-		
+			String.format("  frame: %d\nfps: %d, resets: %d", 
+				Timer.getFrames(), Game.getFps(), Timer.resets
+			));
+
 		UIElement.getUIManager().update();
 		Particle.getParticleManager().update();
 		

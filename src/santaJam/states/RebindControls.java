@@ -55,8 +55,6 @@ public class RebindControls implements State{
 			}
 	
 			if(Inputs.getKey(Keybind.ENTER).isPressed()) {
-				System.out.println(current.default_bind);
-
 				keyCodes[index] = current.default_bind;
 				currentAction++;
 			} else if(Inputs.AnyKey().isPressed()) {

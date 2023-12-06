@@ -80,23 +80,20 @@ public class FirePlace extends Entity{
 		if(save.hasUpBoost()) {
 			collected++;
 		}
-		System.out.println(collected+" / "+Save.maxCompletion+" : "+ (double)(collected)/Save.maxCompletion);
 		int completion =(int) ((double)collected/Save.maxCompletion*100);
 		String completionText = "--CONGRATULATIONS-- \n \n COMPLETION: " + completion + "% \n \n ";
 		
-		String gameTime = "TIME: " + Timer.getTimeString() + " \n (" + Timer.getFrames() + " frames) \n \n ";
+		String gameTime = "TIME: " + Timer.getTimeString() + 
+			String.format(" \n (frame: %d, fps: %d) resets: %d", 
+			Timer.getFrames(), Game.getFps(), Timer.resets
+			) + " \n \n ";
 
 		long millis =save.getPlayRealTime();
 		long seconds =save.getPlayRealTime()/(1000);
 		long minutes =seconds/60;
 		long hours =minutes/60;
 		String realTimeText = "REAL TIME: "+hours+":"
-			+String.format("%02d",minutes%60)+":"
-			+String.format("%02d",seconds%60) +"."
-			+String.format("%03d",millis%1000)+"";
-		
-		System.out.println(millis);
-
+			+String.format("%02d:%02d.%03d",minutes%60, seconds%60, millis%1000);;
 		
 		TextElement text = new TextElement(true, Game.WIDTH/2-80,Game.HEIGHT/2-80,TextElement.BIGMONOWIDTH,8,166,
 				completionText + gameTime + realTimeText, Assets.font) {

@@ -118,7 +118,7 @@ public class Room {
 			areaObject = (JSONObject)properties.get(0);
 			area=(int)((long)areaObject.get("value"));
 		} catch (NullPointerException e) {
-			System.out.println("room:"+name+", is missing some properties (maybe the area)");
+			// System.out.println("room:"+name+", is missing some properties (maybe the area)");
 			e.printStackTrace();
 		}
 		
@@ -181,7 +181,6 @@ public class Room {
 		if(area!=4) {
 			SantaJam.getGame().getMusic().switchSong(area);
 		}else {
-			System.out.println("eeeee");
 			MusicManager.fire.play();
 		}
 		
@@ -240,7 +239,6 @@ public class Room {
 				}else if(tiles[x][y]==Map.RADIO+infoStart) {
 					Entity.getManager().addEntity(new Radio(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.GUNSPIRE+infoStart) {
-					System.out.println("time for towerin'");
 					Entity.getManager().addEntity(new GunSpire(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
 				}else if(tiles[x][y]==Map.GOOSE+infoStart) {
 					Entity.getManager().addEntity(new Goose(this.x+x*Map.TILESIZE ,this.y+y*Map.TILESIZE));
@@ -265,7 +263,6 @@ public class Room {
 	}
 	public void unload() {
 		if(area==4) {
-			System.out.println("i");
 			MusicManager.fire.stop();
 		}
 	}

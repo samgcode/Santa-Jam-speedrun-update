@@ -41,7 +41,7 @@ public class InputDisplay {
 
   public void update() {
     for (Keybind keybind : displays.keySet()) {
-      if(Inputs.getKey(keybind).isHeld()) {
+      if(Inputs.getKeyState(keybind)) {
         displays.get(keybind).colour = activeColor;
       } else {
         displays.get(keybind).colour = deactiveColor;

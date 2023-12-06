@@ -5,6 +5,7 @@ import santaJam.Game;
 public class Timer {
   static int frames;
   public static boolean TASPlayback; 
+  public static int resets;
 
   public static void update() {
     frames++;

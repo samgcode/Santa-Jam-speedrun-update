@@ -48,7 +48,6 @@ public class Falling extends PlayerState{
 		//trying to double jump if they push jump
 		if(Inputs.getKey(Keybind.JUMP).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.JUMP).getHoldLength()>0&&!Inputs.getKey(Keybind.JUMP).isInputUsed()
 				&&DoubleJump.canDoubleJump()&&StateManager.getGameState().getSave().hasDoubleJump()) {
-			System.out.println("e");
 			Inputs.getKey(Keybind.JUMP).useInput();
 			
 			return new 	DoubleJump(this);

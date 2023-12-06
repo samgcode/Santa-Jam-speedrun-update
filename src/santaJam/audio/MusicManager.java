@@ -121,9 +121,7 @@ public class MusicManager{
 			if(!getSong(currentSong).isPlaying()) {
 				getSong(nextSong).play();
 				currentSong=nextSong;
-				System.out.println("ee");
 			}
-			
 		}
 	}
 	

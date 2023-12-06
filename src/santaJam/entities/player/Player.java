@@ -67,13 +67,6 @@ public class Player extends Entity {
 			if(Inputs.getKey(Keybind.SAVE_STATE).isPressed()) {
 				StateManager.getGameState().saveData(this.bounds.x, this.bounds.y);
 			}
-			if(Inputs.getKey(Keybind.FULL_RESET).isPressed()) {
-				new Save().resetSave();
-				StateManager.setCurrentState(new TitleScreen());
-			}
-		}
-		if(Inputs.getKey(Keybind.RESET).isPressed()) {
-			StateManager.setCurrentState(new GameState(new Save()));
 		}
 	}
 	

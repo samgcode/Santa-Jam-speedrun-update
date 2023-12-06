@@ -135,7 +135,6 @@ public class Map {
 				returnRooms[index]=rooms.get(i);
 				index++;
 				if(index==4) {
-					System.out.println("room array filled");
 					return returnRooms;
 				}
 			}
