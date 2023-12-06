@@ -25,24 +25,20 @@ public class TasPlayback {
   ArrayList<Action> actions = new ArrayList<Action>();
 
   public TasPlayback() {
-    loadTasFile("nic.tas", 0);
+    loadTasFile("nic.tas", 0, "res/saves");
 
     actions.sort(new CompareAction());
 
     System.out.println("Loaded TAS input: ");
     for (int i = 0; i < actions.size(); i++) {
       Action action = actions.get(i);
-      if(action.bind.equals("fps")) {
-        System.out.println(action.frame + ": set fps, " + action.payload);
-      } else {
-        System.out.println(action.frame + ": " + action.bind + " " + action.pressed);
-      }
+      action.print();
     }
 
-    System.out.println("-- TAS START --");
+    System.out.println("\n\n\n\n-- TAS START --");
   }
 
-  public int loadTasFile(String filepath, int currentFrame) {
+  public int loadTasFile(String filepath, int currentFrame, String stackTrace) {
     int globalFrame = currentFrame;
     int lineNumber = 0;
     try {
@@ -57,7 +53,9 @@ public class TasPlayback {
         if(!line[0].equals("//")) {
           String action = line[0];
           if(action.equals("file")) {
-            globalFrame = loadTasFile(line[1], globalFrame);
+            globalFrame = loadTasFile(line[1], globalFrame,
+            stackTrace + "/" + (extractFileName(filepath)) + "::" + lineNumber
+            );
           }  else {
             int payload = Integer.parseInt(line[1]);
             
@@ -65,7 +63,8 @@ public class TasPlayback {
               globalFrame += payload;
             } else {
               actions.add(new Action(
-                globalFrame, action, (payload==1), payload, filepath, lineNumber
+                globalFrame, action, (payload==1), payload, 
+                stackTrace + "/" + (extractFileName(filepath)) + "::" + lineNumber
               ));
               globalFrame++;
             }
@@ -79,6 +78,11 @@ public class TasPlayback {
     }
     return globalFrame;
   }
+
+  String extractFileName(String path) {
+    String[] line = path.split("/");
+    return line[line.length-1];
+  }
   
   public void update() {
     int frames = Timer.getFrames();
@@ -86,11 +90,10 @@ public class TasPlayback {
       Action action = actions.get(i);
       
       if(action.frame == frames) {
+        action.print();
         if(action.bind.equals("fps")) {
-          System.out.println(action.frame + "| " + action.file + "::" + action.lineNumber + ": " + "set fps, " + action.payload);
           Game.setFps(action.payload);
         } else {
-          System.out.println(action.frame + "| " + action.file + "::" + action.lineNumber + ": " + action.bind + ", " + action.pressed);
           if(action.pressed) { Inputs.simulateKeyPress(keys.get(action.bind)); }
           else { Inputs.simulateKeyRelease(keys.get(action.bind)); }
         }
@@ -105,15 +108,21 @@ public class TasPlayback {
     public int payload;
     public boolean pressed;
     public String file;
-    public int lineNumber;
   
-    public Action(int frame, String bind, boolean pressed, int payload, String file, int lineNumber) {
+    public Action(int frame, String bind, boolean pressed, int payload, String file) {
       this.frame = frame;
       this.bind = bind;
       this.pressed = pressed;
       this.payload = payload;
       this.file = file;
-      this.lineNumber = lineNumber;
+    }
+
+    public void print() {
+      if(bind.equals("fps")) {
+        System.out.println(frame + "| " + file + ":  " + "set fps, " + payload);
+      } else {
+        System.out.println(frame + "| " + file + ":  " + bind + ", " + pressed);
+      }
     }
   }
 
