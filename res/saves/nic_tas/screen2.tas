@@ -1,5 +1,5 @@
 // screen 2
-wait 45
+wait 44
 jump 1
 wait 7
 jump 0
@@ -7,18 +7,21 @@ wait 2
 jump 1
 wait 8
 jump 0
-wait 5
+wait 6
 jump 1
 wait 12
 jump 0
-wait 41
+wait 20
 right 0
-wait 14
-left 1
-wait 50
-left 0
 right 1
-wait 44
+wait 21
+right 0
+wait 2
+left 1
+wait 55
+right 1
+left 0
+wait 43
 jump 1
 wait 5
 jump 0

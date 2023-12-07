@@ -1,12 +1,7 @@
 // screen 23
-wait 21
+wait 30
 jump 0
-grapple 1
-jump 1
-grapple 0
-wait 6
-jump 0
-wait 12
+wait 14
 jump 1
 jump 0
 wait 20

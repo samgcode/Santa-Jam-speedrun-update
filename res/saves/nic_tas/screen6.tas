@@ -1,22 +1,19 @@
 // screen 6
-right 1
-wait 28
-right 0
-wait 1
+wait 15
 left 1
-wait 47
+wait 58
 jump 1
 wait 1
 left 0
 wait 10
 jump 0
-wait 18
+wait 24
 jump 1
 wait 25
 jump 0
 wait 53
 right 1
-wait 57
+wait 56
 jump 1
-wait 15
+wait 16
 jump 0

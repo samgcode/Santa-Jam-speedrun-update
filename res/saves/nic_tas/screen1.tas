@@ -2,7 +2,7 @@
 wait 43
 jump 1
 jump 0
-wait 23
+wait 22
 jump 1
 wait 1
 jump 0
@@ -10,3 +10,4 @@ wait 9
 jump 1
 wait 3
 jump 0
+// 389

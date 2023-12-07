@@ -1,9 +1,9 @@
 // screen 4
-wait 28
+wait 27
 left 0
 wait 1
 right 1
-wait 26
+wait 25
 right 0
 left 1
 wait 9
