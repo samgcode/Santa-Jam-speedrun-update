@@ -4,10 +4,10 @@
 // -- wait 0 does nothing
 // fps [new fps value]
 // -- setting fps takes 1 frame to avoid having multiple inputs on the same frame
-// nic% tas, v5
-// current: 4852
-// prev: 4866 (+14)
-// original: 4915 (+63)
+// nic% tas, v6
+// current: 4822
+// prev: 4852 (+30)
+// original: 4915 (+93)
 right 1
 wait 21
 fps 60
@@ -30,12 +30,13 @@ file nic_tas/screen11.tas
 file nic_tas/screen12.tas
 file nic_tas/screen13.tas
 // screen 14
-wait 6
+wait 9
 grapple 1
 grapple 0
-wait 6
+wait 5
 jump 1
-wait 2
+wait 4
+left 0
 jump 0
 file nic_tas/screen15.tas
 file nic_tas/screen16.tas

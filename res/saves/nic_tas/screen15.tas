@@ -1,23 +1,11 @@
 // <top route>
 wait 24
 jump 1
-wait 16
+wait 15
 jump 0
-wait 11
+wait 9
 jump 1
-wait 8
+wait 10
 jump 0
-wait 18
+wait 19
 // <\top route>
-// <bottom route>
-// wait 27
-// wait 15
-// jump 1
-// wait 1
-// jump 0
-// wait 10
-// right 1
-// wait 5
-// right 0
-// wait 10
-// </bottom route>
