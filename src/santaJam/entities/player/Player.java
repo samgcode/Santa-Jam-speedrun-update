@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import santaJam.Assets;
+import santaJam.Game;
 import santaJam.entities.Entity;
 import santaJam.entities.wallEntities.BreakableWall;
 import santaJam.entities.wallEntities.WallEntity;
@@ -186,7 +187,6 @@ public class Player extends Entity {
 			}
 		}
 		
-		//g.setColor(Color.red);
 		
 		
 		BufferedImage currentFrame = currentAnim.getCurrentFrame();
@@ -194,9 +194,13 @@ public class Player extends Entity {
 			g.drawImage(currentFrame,bounds.x-camera.getxOffset()-currentAnim.getxOffset(), bounds.y-camera.getyOffset()-currentAnim.getyOffset(), null);
 		}else {
 			g.drawImage(currentFrame,bounds.x-camera.getxOffset()+bounds.width+currentAnim.getxOffset()+1, 
-					bounds.y-camera.getyOffset()-currentAnim.getyOffset(),-currentFrame.getWidth(),currentFrame.getHeight(), null);
+			bounds.y-camera.getyOffset()-currentAnim.getyOffset(),-currentFrame.getWidth(),currentFrame.getHeight(), null);
 		}
-		//g.drawRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width-1, bounds.height-1);
+
+		if(Game.DEBUG_ENABLED) {
+			g.setColor(Color.red);
+			g.drawRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width-1, bounds.height-1);
+		}
 	}
 	
 

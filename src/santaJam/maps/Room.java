@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import santaJam.Assets;
+import santaJam.Game;
 import santaJam.SantaJam;
 import santaJam.audio.MusicManager;
 import santaJam.entities.BouncePad;
@@ -164,7 +165,10 @@ public class Room {
 				int tile=tiles[x][y]-tileSetStart;
 				if(tile>=0&&tile<Assets.tiles.length) {
 					g.drawImage(Assets.tiles[tile],this.x+x*Map.TILESIZE-camera.getxOffset(),this.y+y*Map.TILESIZE-camera.getyOffset(),null);
-				//g.fillRect(this.x+x*Map.TILESIZE-camera.getxOffset(),this.y+y*Map.TILESIZE-camera.getyOffset(), Map.TILESIZE,Map.TILESIZE);
+					if(Game.DEBUG_ENABLED) {
+						g.setColor(Color.blue);
+						g.drawRect(this.x+x*Map.TILESIZE-camera.getxOffset(),this.y+y*Map.TILESIZE-camera.getyOffset(), Map.TILESIZE-1,Map.TILESIZE-1);
+					}
 				}
 			}
 			

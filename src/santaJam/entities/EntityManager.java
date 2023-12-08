@@ -1,9 +1,14 @@
 package santaJam.entities;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import santaJam.Game;
 import santaJam.entities.player.Player;
+import santaJam.entities.upgrades.Collectible;
+import santaJam.entities.wallEntities.WallEntity;
 import santaJam.graphics.Camera;
 import santaJam.states.StateManager;
 
@@ -37,6 +42,20 @@ public class EntityManager {
 				if(!( i instanceof Player)) {
 					try {
 						i.render(g, camera);
+						
+						if(Game.DEBUG_ENABLED) {
+							Rectangle bounds = i.getBounds();
+							if(i instanceof BouncePad || i instanceof GrapplePoint) {
+								g.setColor(Color.green);
+							} else if(i instanceof WallEntity) {
+								g.setColor(Color.magenta);
+							} else if(i instanceof SpikeSubstitute) {
+								g.setColor(Color.red);
+							} else {
+								g.setColor(Color.yellow);
+							}
+							g.drawRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width-1, bounds.height-1);
+						}
 					} catch(Exception e) {
 						// object removed during render
 					}

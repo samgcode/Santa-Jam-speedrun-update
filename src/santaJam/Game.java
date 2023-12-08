@@ -18,6 +18,7 @@ public class Game {
 	static int FPS = 60, DELAY = 1000000000 / FPS;
 
 	private static boolean frame_advance = false;
+	public static boolean DEBUG_ENABLED = false;
 	
 	public Game() {
 		window = new Window(WIDTH,HEIGHT);
@@ -96,8 +97,10 @@ public class Game {
 		if(newFps == 0) {
 			FPS = 30;
 			frame_advance = true;
+			DEBUG_ENABLED = true;
 		} else {
 			frame_advance = false;
+			DEBUG_ENABLED = false;
 			FPS = newFps;
 		}
 		DELAY = 1000000000 / FPS;
