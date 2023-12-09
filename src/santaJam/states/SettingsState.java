@@ -9,6 +9,7 @@ import santaJam.Assets;
 import santaJam.Game;
 import santaJam.SantaJam;
 import santaJam.audio.MusicManager;
+import santaJam.components.Timer;
 import santaJam.graphics.UI.TextElement;
 import santaJam.inputs.Inputs;
 import santaJam.inputs.Keybind;
@@ -35,6 +36,7 @@ public class SettingsState implements State{
 					@Override
 					public void select() {
 						mainState.saveTime();
+						if(!Timer.TASPlayback) { StateManager.getGameState().saveTas(); }
 						stateToSwitch =  new TitleScreen();
 					}
 					@Override

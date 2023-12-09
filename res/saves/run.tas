@@ -1,0 +1,9 @@
+// format:
+// [key] [pressed(0:1)]
+// wait [duration(frames)]
+// -- wait 0 does nothing
+// fps [new fps value]
+// -- setting fps takes 1 frame to avoid having multiple inputs on the same frame
+fps 600
+wait -1
+file recording.tas

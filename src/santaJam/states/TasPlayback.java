@@ -2,6 +2,8 @@ package santaJam.states;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -24,17 +26,20 @@ public class TasPlayback {
 
   ArrayList<Action> actions = new ArrayList<Action>();
 
-  public TasPlayback() {
-    loadTasFile("nic.tas", 0, "res/saves");
-
+  int waitTime = 0;
+  int inputsProcessed = 0;
+  
+  public void initPlayback() {
+    loadTasFile("run.tas", 0, "res/saves");
+  
     actions.sort(new CompareAction());
-
+  
     System.out.println("Loaded TAS input: ");
     for (int i = 0; i < actions.size(); i++) {
       Action action = actions.get(i);
       action.print();
     }
-
+  
     System.out.println("\n\n\n\n-- TAS START --");
   }
 
@@ -86,9 +91,10 @@ public class TasPlayback {
   
   public void update() {
     int frames = Timer.getFrames();
+
     for (int i = 0; i < actions.size(); i++) {
       Action action = actions.get(i);
-      
+
       if(action.frame == frames) {
         action.print();
         if(action.bind.equals("fps")) {
@@ -97,8 +103,57 @@ public class TasPlayback {
           if(action.pressed) { Inputs.simulateKeyPress(keys.get(action.bind)); }
           else { Inputs.simulateKeyRelease(keys.get(action.bind)); }
         }
-        actions.remove(i);
       }
+    }
+  }
+
+  public void initRecording() {
+    for (String inputName : keys.keySet()) {
+      if(Inputs.getKey(keys.get(inputName)).isHeld()) {
+        if(inputsProcessed != 0) {
+          addAction("wait", -1);
+        }
+        addAction(inputName, 1);
+      }
+    }
+  }
+
+  public void updateRecord() {    
+    for (String inputName : keys.keySet()) {
+      if(Inputs.getKey(keys.get(inputName)).isPressed()) {
+        addAction("wait", waitTime-1);
+        addAction(inputName, 1);
+        waitTime = 0;
+      } else if(Inputs.getKey(keys.get(inputName)).isReleased()) {
+        addAction("wait", waitTime-1);
+        addAction(inputName, 0);
+        waitTime = 0;
+      }
+    }
+    waitTime++;
+  }
+
+  public void addAction(String bind, int payload) {
+    actions.add(new Action(
+      Timer.getFrames(), bind, (payload==1), payload, 
+      "run.tas::" + actions.size()
+    ));
+    inputsProcessed++;
+  }
+
+  public void saveInputs() {
+    try {
+      FileWriter file = new FileWriter("res/saves/recording.tas");
+
+      for (int i = 0; i < actions.size(); i++) {
+        Action action = actions.get(i);
+        file.write(action.bind + " " + action.payload + "\n");
+      }
+      
+      file.close();
+    } catch (IOException e) {
+      System.out.println("Could not write to file");
+      e.printStackTrace();
     }
   }
 

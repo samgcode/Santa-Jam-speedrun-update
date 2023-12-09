@@ -51,15 +51,18 @@ public class GameState implements State {
 		for(int i:save.getOpenedRooms()) {
 			openedRooms.add(i);
 		}
+		tas = new TasPlayback();
 		if(Timer.TASPlayback) {
-			tas = new TasPlayback();
+			tas.initPlayback();
 		}
 		timerText.setOpacity(150);
 	}
 	
 	@Override
 	public void start(State prevState) {
-		if(Timer.TASPlayback) { tas.update(); }
+		if(Timer.TASPlayback) { tas.update(); } 
+		else { tas.initRecording(); }
+		
 		UIElement.getUIManager().clear();
 		showTimer();
 	}
@@ -94,6 +97,7 @@ public class GameState implements State {
 				hardReset();
 			}
 			if(Timer.TASPlayback) { tas.update(); }
+			else { tas.updateRecord(); }
 		}
 		if(Inputs.getKey(Keybind.RESET).isPressed()) {
 			StateManager.setCurrentState(new GameState(new Save()));
@@ -180,6 +184,10 @@ public class GameState implements State {
 	
 	public void saveTime() {
 		save.saveGameTime();
+	}
+
+	public void saveTas() {
+		tas.saveInputs();
 	}
 
 	@Override
