@@ -2,17 +2,19 @@
 // <top route>
 wait 41
 jump 1
-wait 24
-jump 0
 wait 25
-right 1
-wait 18
-grapple 1
-wait 3
-jump 1
 jump 0
+wait 26
+right 1
+wait 19
+grapple 1
+wait 4
+jump 1
+wait 1
+jump 0
+wait 1
 grapple 0
-wait 10
+wait 11
 right 0
-wait 10
 // <\top route>
+wait 11

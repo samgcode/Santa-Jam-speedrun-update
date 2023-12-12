@@ -28,11 +28,8 @@ public class Game {
 	
 	public void run() {
 		StateManager.setCurrentState(new TitleScreen());
-		// new TasPlayback();
 		while(running) {
 			double startTime= System.nanoTime();//getting the time at the start of the frame
-			
-			//updating
 			
 			if(!frame_advance) {
 				Inputs.update();

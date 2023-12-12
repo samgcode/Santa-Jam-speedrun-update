@@ -1,13 +1,13 @@
 // screen 9
 jump 1
+wait 13
+jump 0
+wait 17
+jump 1
 wait 12
 jump 0
-wait 16
-jump 1
-wait 11
-jump 0
-wait 20
+wait 21
 left 1
-wait 6
-left 0
 wait 7
+left 0
+wait 8

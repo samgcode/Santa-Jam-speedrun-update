@@ -3,8 +3,7 @@
 // prev: 4852 (+30)
 // original: 4915 (+93)
 right 1
-wait 21
-fps 60
+wait 23
 file nic_tas/screen1.tas
 file nic_tas/screen2.tas
 file nic_tas/screen3.tas
@@ -12,9 +11,9 @@ file nic_tas/screen4.tas
 // screen 5
 wait 17
 jump 1
-wait 5
+wait 6
 jump 0
-wait 13
+wait 14
 file nic_tas/screen6.tas
 file nic_tas/screen7.tas
 file nic_tas/screen8.tas
@@ -24,13 +23,15 @@ file nic_tas/screen11.tas
 file nic_tas/screen12.tas
 file nic_tas/screen13.tas
 // screen 14
-wait 9
+wait 10
 grapple 1
+wait 1
 grapple 0
-wait 5
+wait 6
 jump 1
-wait 4
+wait 5
 left 0
+wait 1
 jump 0
 file nic_tas/screen15.tas
 file nic_tas/screen16.tas

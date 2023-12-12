@@ -2,6 +2,7 @@
 // <top route>
 wait 20
 jump 1
-wait 26
+wait 27
 jump 0
 // <\top route>
+wait 1

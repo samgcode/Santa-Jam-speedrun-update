@@ -15,6 +15,9 @@ import santaJam.inputs.Inputs;
 import santaJam.inputs.Keybind;
 
 public class TasPlayback {
+  String playbackFile = "run.tas";
+  String recordingFile = "recording.tas";
+
   HashMap<String, Keybind> keys = new HashMap<String, Keybind>() {{
     put("up", Keybind.UP);
     put("down", Keybind.DOWN);
@@ -30,7 +33,7 @@ public class TasPlayback {
   int inputsProcessed = 0;
   
   public void initPlayback() {
-    loadTasFile("run.tas", 0, "res/saves");
+    loadTasFile(playbackFile, 0, "res/saves");
   
     actions.sort(new CompareAction());
   
@@ -71,7 +74,6 @@ public class TasPlayback {
                 globalFrame, action, (payload==1), payload, 
                 stackTrace + "/" + (extractFileName(filepath)) + "::" + lineNumber
               ));
-              globalFrame++;
             }
           }
         }
@@ -110,9 +112,6 @@ public class TasPlayback {
   public void initRecording() {
     for (String inputName : keys.keySet()) {
       if(Inputs.getKey(keys.get(inputName)).isHeld()) {
-        if(inputsProcessed != 0) {
-          addAction("wait", -1);
-        }
         addAction(inputName, 1);
       }
     }
@@ -121,11 +120,15 @@ public class TasPlayback {
   public void updateRecord() {    
     for (String inputName : keys.keySet()) {
       if(Inputs.getKey(keys.get(inputName)).isPressed()) {
-        addAction("wait", waitTime-1);
+        if(waitTime != 0) {
+          addAction("wait", waitTime);
+        }
         addAction(inputName, 1);
         waitTime = 0;
       } else if(Inputs.getKey(keys.get(inputName)).isReleased()) {
-        addAction("wait", waitTime-1);
+        if(waitTime != 0) {
+          addAction("wait", waitTime);
+        }
         addAction(inputName, 0);
         waitTime = 0;
       }
@@ -143,7 +146,7 @@ public class TasPlayback {
 
   public void saveInputs() {
     try {
-      FileWriter file = new FileWriter("res/saves/recording.tas");
+      FileWriter file = new FileWriter("res/saves/" + recordingFile);
 
       for (int i = 0; i < actions.size(); i++) {
         Action action = actions.get(i);
