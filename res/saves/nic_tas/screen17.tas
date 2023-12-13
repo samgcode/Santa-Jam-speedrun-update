@@ -12,9 +12,8 @@ wait 4
 jump 1
 wait 1
 jump 0
-wait 1
 grapple 0
-wait 11
+wait 12
 right 0
 // <\top route>
 wait 11

@@ -21,6 +21,7 @@ grapple 1
 wait 4
 grapple 0
 wait 1
+// collect upboost
 jump 1
 wait 1
 jump 0
@@ -34,11 +35,59 @@ wait 1
 jump 0
 wait 1
 grapple 0
-wait 51
+// wait 51
+wait 6
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 4
+//
 jump 1
 wait 1
 jump 0
-wait 16
+// wait 16
+wait 8
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 2
+//
 jump 1
 wait 11
 jump 0

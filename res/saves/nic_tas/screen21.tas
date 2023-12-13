@@ -1,10 +1,10 @@
-wait 60
+wait 63
 left 1
 wait 9
 jump 1
 wait 26
 jump 0
-wait 16
+wait 15
 jump 1
 wait 17
 jump 0

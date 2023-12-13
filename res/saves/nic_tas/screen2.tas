@@ -15,13 +15,12 @@ wait 21
 right 0
 wait 1
 right 1
-wait 22
+wait 23
 right 0
-wait 3
-left 1
-wait 56
-right 1
 wait 1
+left 1
+wait 58
+right 1
 left 0
 wait 44
 jump 1

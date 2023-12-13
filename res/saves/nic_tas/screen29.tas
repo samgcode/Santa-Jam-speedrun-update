@@ -19,6 +19,7 @@ jump 1
 wait 10
 up 1
 wait 1
+up 0
 left 0
 wait 1
 jump 0

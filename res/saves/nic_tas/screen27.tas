@@ -1,5 +1,18 @@
 // screen 27
-wait 21
+// wait 21
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 4
+grapple 1
+wait 1
+grapple 0
+wait 10
+// 
 jump 1
 wait 24
 left 0

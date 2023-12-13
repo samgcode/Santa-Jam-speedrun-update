@@ -1,9 +1,10 @@
-// nic% tas, v6
-// current: 4822
-// prev: 4852 (+30)
-// original: 4915 (+93)
+// nic% tas, v7
+// current: 4794
+// prev: 4822 (+28)
+// original: 4915 (+121)
 right 1
 wait 23
+fps 60
 file nic_tas/screen1.tas
 file nic_tas/screen2.tas
 file nic_tas/screen3.tas
@@ -47,8 +48,16 @@ file nic_tas/screen28.tas
 file nic_tas/screen29.tas
 file nic_tas/screen30.tas
 // screen 31
-wait 64
+fps 60
+wait 63
 // screen 32
+grapple 1
 wait 20
 jump 1
-fps 60
+grapple 0
+wait 20
+jump 0
+wait 7
+grapple 1
+wait 1
+grapple 0

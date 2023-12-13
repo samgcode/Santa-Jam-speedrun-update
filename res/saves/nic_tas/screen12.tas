@@ -1,5 +1,5 @@
 // screen 12
-wait 11
+wait 21
 left 0
 wait 46
 jump 1
@@ -9,11 +9,10 @@ wait 15
 jump 1
 wait 16
 jump 0
-wait 8
+wait 10
 jump 1
 wait 4
 jump 0
-wait 1
 right 1
 wait 29
 jump 1
@@ -21,6 +20,6 @@ wait 21
 jump 0
 wait 4
 jump 1
-wait 2
+wait 4
 right 0
 wait 1
