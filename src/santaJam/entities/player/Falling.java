@@ -40,10 +40,12 @@ public class Falling extends PlayerState{
 		/*if(Inputs.attack().getHoldLength()<5&&Inputs.attack().getHoldLength()>0) {
 			return new Sliding();
 		}*/
-		//grappling if the buffer an grapple
-		if(Inputs.getKey(Keybind.GRAPPLE).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.GRAPPLE).getHoldLength()>0&&!Inputs.getKey(Keybind.GRAPPLE).isInputUsed()) {
-			Inputs.getKey(Keybind.GRAPPLE).useInput();
-			return new Grapple(this, player);
+		if(StateManager.getGameState().getSave().hasGrapple()) {
+			//grappling if the buffer an grapple
+			if(Inputs.getKey(Keybind.GRAPPLE).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.GRAPPLE).getHoldLength()>0&&!Inputs.getKey(Keybind.GRAPPLE).isInputUsed()) {
+				Inputs.getKey(Keybind.GRAPPLE).useInput();
+				return new Grapple(this, player);
+			}
 		}
 		//trying to double jump if they push jump
 		if(Inputs.getKey(Keybind.JUMP).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.JUMP).getHoldLength()>0&&!Inputs.getKey(Keybind.JUMP).isInputUsed()

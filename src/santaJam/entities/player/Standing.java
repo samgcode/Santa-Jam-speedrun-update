@@ -11,6 +11,7 @@ import santaJam.graphics.particles.shapes.colourers.Timed;
 import santaJam.graphics.particles.spawners.RectangleSpawn;
 import santaJam.inputs.Inputs;
 import santaJam.inputs.Keybind;
+import santaJam.states.StateManager;
 
 public class Standing extends PlayerState{
 	private final int WALKTIME=25;
@@ -76,10 +77,13 @@ public class Standing extends PlayerState{
 			Inputs.getKey(Keybind.JUMP).useInput();
 			return new Jumping();
 		}
-		//if they pressed/buffered an grapple, they should grapple
-		if(Inputs.getKey(Keybind.GRAPPLE).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.GRAPPLE).getHoldLength()>0&&!Inputs.getKey(Keybind.GRAPPLE).isInputUsed()) {
-			Inputs.getKey(Keybind.GRAPPLE).useInput();
-			return new Grapple(this,player);
+		if(StateManager.getGameState().getSave().hasGrapple()) {
+			//if they pressed/buffered an grapple, they should grapple
+			if(Inputs.getKey(Keybind.GRAPPLE).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.GRAPPLE).getHoldLength()>0&&!Inputs.getKey(Keybind.GRAPPLE).isInputUsed()) {
+				Inputs.getKey(Keybind.GRAPPLE).useInput();
+				System.out.println("I think I found the issue");
+				return new Grapple(this,player);
+			}
 		}
 		
 		if(player.getVelY()<0) {

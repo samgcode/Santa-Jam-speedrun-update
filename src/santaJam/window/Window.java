@@ -3,12 +3,16 @@ package santaJam.window;
 import java.awt.Component;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
 import santaJam.Game;
+import santaJam.components.Timer;
 import santaJam.inputs.Inputs;
 import santaJam.inputs.Keybind;
+import santaJam.states.StateManager;
 
 /*
  * this class represents the window that the game is played on and uses java
@@ -25,7 +29,7 @@ public class Window {
 	public static final int WIDTHOFFSET=14, HEIGHTOFFSET=37;
 	private JFrame frame;
 	private Display display;
-	private int scale = 3, xOffset, yOffset, windowWidth, windowHeight;
+	private int scale = 5, xOffset, yOffset, windowWidth, windowHeight;
 	
 	ComponentAdapter screenResize = new ComponentAdapter() {
 		 public void componentResized(ComponentEvent evt) {
@@ -64,8 +68,13 @@ public class Window {
 		frame.setVisible(true);// making the window visible
 		
 
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				if(!Timer.TASPlayback) { StateManager.getGameState().saveTas(); }
+			}
+		});
 	}
-
+	
 	public void render() {
 		display.repaint();
 	}

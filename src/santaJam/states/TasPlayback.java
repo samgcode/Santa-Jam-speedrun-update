@@ -25,6 +25,8 @@ public class TasPlayback {
     put("right", Keybind.RIGHT);
     put("jump", Keybind.JUMP);
     put("grapple", Keybind.GRAPPLE);
+    put("pause", Keybind.PAUSE);
+    put("reset", Keybind.RESET);
   }};
 
   ArrayList<Action> actions = new ArrayList<Action>();
