@@ -42,8 +42,10 @@ public class Save {
 		binoculars=Boolean.valueOf(propertiesFile.getProperty("binoculars"));
 		startX=Integer.parseInt(propertiesFile.getProperty("startX"));
 		startY=Integer.parseInt(propertiesFile.getProperty("startY"));		
-		playRealTime=Integer.parseInt(propertiesFile.getProperty("realtime"));		
-		Timer.setFrames(Integer.parseInt(propertiesFile.getProperty("gametime")));
+		playRealTime=Integer.parseInt(propertiesFile.getProperty("realtime"));	
+		if(Timer.getFrames() == 0) {
+			Timer.setFrames(Integer.parseInt(propertiesFile.getProperty("gametime")));
+		}	
 		Timer.resets = (Integer.parseInt(propertiesFile.getProperty("resets")));
 
 		String[] openedRoomsText = propertiesFile.getProperty("openedRooms").split(",");
@@ -139,6 +141,7 @@ public class Save {
 	}
 	public void resetSave() {
 		if(!Timer.TASPlayback) { Timer.resets++; }
+		Timer.setFrames(0);
 		Properties blankSave = loadProperties("res/saves/blankSave.properties");
 		blankSave.setProperty("resets",""+Timer.resets);
 		writeproperties(blankSave);

@@ -3,7 +3,7 @@ package santaJam.components;
 import santaJam.Game;
 
 public class Timer {
-  static int frames;
+  static int frames = 0;
   public static boolean TASPlayback; 
   public static int resets;
 
