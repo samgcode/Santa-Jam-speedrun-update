@@ -62,6 +62,3 @@ wait 1
 grapple 0
 wait 7
 jump 1
-wait 23
-jump 0
-wait 1

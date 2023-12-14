@@ -35,10 +35,9 @@ wait 6
 jump 0
 wait 25
 jump 1
-wait 13
+wait 12
 jump 0
 wait 7
 jump 1
 wait 16
 jump 0
-wait 1
