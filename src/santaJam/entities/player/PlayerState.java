@@ -11,6 +11,8 @@ public abstract class PlayerState {
 	protected final static int BUFFERLENGTH = 10, COYOTETIME = 5;
 	
 	protected int width=4, height=13, slideWidth=12,slideHeight=6;
+
+	protected PlayerState prevState;
 	
 	public abstract void start(PlayerState prevState);
 	public PlayerState update(Player player) {
@@ -92,9 +94,9 @@ public abstract class PlayerState {
 		currentState.end();
 		newState.start(currentState);
 		currentState=newState;
-		
 	}
-	
-	
 
+	public static void loadState(PlayerState state) {
+		currentState = state;
+	}
 }

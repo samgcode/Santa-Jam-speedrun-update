@@ -6,7 +6,6 @@ import santaJam.inputs.Keybind;
 import santaJam.states.StateManager;
 
 public class SlideFalling extends PlayerState{
-	PlayerState prevState;
 	@Override
 	public void start(PlayerState prevState) {
 		width=slideWidth;

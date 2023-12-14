@@ -22,14 +22,14 @@ import santaJam.maps.Map;
 import santaJam.saves.Save;
 
 public class GameState implements State {
-	int x=0, y=0,xVel=0,yVel=0;
+	int x=0, y=0,xVel=0,yVel=0, stateTime = 0;
 	
 	private double deathTransition=0;
 	private boolean resetting=false;
 	
 	private Map map;
 	private Camera camera;
-	private Player player;
+	private Player player, savedPlayer;
 	private Save save;
 	private ArrayList<Integer> openedRooms = new ArrayList<>();
 	private boolean stalled=false;
@@ -96,6 +96,20 @@ public class GameState implements State {
 			if(Inputs.getKey(Keybind.FULL_RESET).isPressed()) {
 				hardReset();
 			}
+			if(Inputs.getKey(Keybind.SAVE_STATE).isPressed()) {
+				stateTime = Timer.getFrames();
+				savedPlayer = new Player(player, player.getBounds().x, player.getBounds().y);
+			}
+			if(Inputs.getKey(Keybind.LOAD_STATE).isPressed()) {
+				if(savedPlayer instanceof Player) {
+					Timer.setFrames(stateTime);
+					player = new Player(savedPlayer, savedPlayer.getBounds().x, savedPlayer.getBounds().y);
+					Entity.getManager().reset();
+					Entity.getManager().addEntity(player);
+					map.getPlayerRoom().loadRoom();
+				}
+			}
+
 			if(Timer.TASPlayback) { tas.update(); }
 			else { tas.updateRecord(); }
 		}

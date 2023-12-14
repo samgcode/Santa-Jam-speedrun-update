@@ -16,7 +16,6 @@ import santaJam.states.StateManager;
 
 public class Sliding extends PlayerState{
 	int coyoteTime=0;
-	PlayerState prevState;
 	private EvenRectSpawn bigParticles, smallParticles;
 	private boolean firstFrame=true;
 	

@@ -24,8 +24,6 @@ public class Grapple extends PlayerState {
 	protected boolean firstFrame = true, facingLeft, shooting = true;
 	protected int grappleX, grappleY, duration;
 
-	protected PlayerState prevState;
-
 	public Grapple(PlayerState prevState, Player player) {
 		this.prevState = prevState;
 		duration = 0;

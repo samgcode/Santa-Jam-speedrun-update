@@ -4,7 +4,6 @@ import santaJam.states.StateManager;
 
 public class SlideDoubleJump extends SlideJump{
 	public static final double JUMPSTRENGTH=9, STOPSTRENGTH=0.75;
-	private PlayerState prevState;
 
 	
 	public SlideDoubleJump(PlayerState prevState) {

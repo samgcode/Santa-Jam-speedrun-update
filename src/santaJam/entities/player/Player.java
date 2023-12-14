@@ -56,6 +56,17 @@ public class Player extends Entity {
 		doubleJump.setLooping(false);
 	}
 
+	public Player(Player player, int x, int y) {
+		super(player, x-1, y, 8, 13);
+		this.currentState = player.currentState;
+		PlayerState.loadState(player.currentState);
+
+		landing.setLooping(false);
+		jumping.setLooping(false);
+		grappleThrow.setLooping(false);
+		doubleJump.setLooping(false);
+	}
+
 	@Override
 	public void update() {
 		PlayerState nextState = currentState.update(this);
@@ -64,11 +75,6 @@ public class Player extends Entity {
 		
 		hitWallEntities();
 		updateBounds();
-		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
-			if(Inputs.getKey(Keybind.SAVE_STATE).isPressed()) {
-				StateManager.getGameState().saveData(this.bounds.x, this.bounds.y);
-			}
-		}
 	}
 	
 	private void hitWallEntities() {		

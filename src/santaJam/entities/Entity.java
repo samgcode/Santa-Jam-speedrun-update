@@ -32,6 +32,25 @@ public abstract class Entity {
 		this.y=y;
 	}
 	
+	public Entity(Entity clone, int x, int y, int width, int height) {
+		bounds = new Rectangle(x,y,width,height);
+		this.bounds = clone.bounds;
+		this.x = x;
+		this.y = y;
+		this.friction = clone.friction;
+		this.velX = clone.velX;
+		this.velY = clone.velY;
+		this.health = clone.health;
+		this.maxInvincibility = clone.maxInvincibility;
+		this.invincibility = clone.invincibility;
+		this.damage = clone.damage;
+		this.team = clone.team;
+		this.grounded = clone.grounded;
+		this.killed = clone.killed;
+		this.faceLeft = clone.faceLeft;
+		this.grappleable = clone.grappleable;
+	}
+	
 	public abstract void update();
 	public abstract void render(Graphics2D g, Camera camera);
 	
