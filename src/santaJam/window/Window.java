@@ -29,7 +29,7 @@ public class Window {
 	public static final int WIDTHOFFSET=14, HEIGHTOFFSET=37;
 	private JFrame frame;
 	private Display display;
-	private int scale = 5, xOffset, yOffset, windowWidth, windowHeight;
+	private int scale = 4, xOffset, yOffset, windowWidth, windowHeight;
 	
 	ComponentAdapter screenResize = new ComponentAdapter() {
 		 public void componentResized(ComponentEvent evt) {
