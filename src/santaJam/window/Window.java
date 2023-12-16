@@ -12,6 +12,7 @@ import santaJam.Game;
 import santaJam.components.Timer;
 import santaJam.inputs.Inputs;
 import santaJam.inputs.Keybind;
+import santaJam.states.GameState;
 import santaJam.states.StateManager;
 
 /*
@@ -70,7 +71,9 @@ public class Window {
 
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				if(!Timer.TASPlayback) { StateManager.getGameState().saveTas(); }
+				if(StateManager.getGameState() instanceof GameState) {
+					if(!Timer.TASPlayback) { StateManager.getGameState().saveTas(); }
+				}
 			}
 		});
 	}

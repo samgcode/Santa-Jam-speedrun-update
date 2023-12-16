@@ -81,7 +81,6 @@ public class Standing extends PlayerState{
 			//if they pressed/buffered an grapple, they should grapple
 			if(Inputs.getKey(Keybind.GRAPPLE).getHoldLength()<BUFFERLENGTH&&Inputs.getKey(Keybind.GRAPPLE).getHoldLength()>0&&!Inputs.getKey(Keybind.GRAPPLE).isInputUsed()) {
 				Inputs.getKey(Keybind.GRAPPLE).useInput();
-				System.out.println("I think I found the issue");
 				return new Grapple(this,player);
 			}
 		}
