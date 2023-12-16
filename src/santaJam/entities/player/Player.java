@@ -206,6 +206,8 @@ public class Player extends Entity {
 		if(Game.DEBUG_ENABLED) {
 			g.setColor(Color.red);
 			g.drawRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width-1, bounds.height-1);
+			g.setColor(Color.green);
+			g.drawRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), 0, 0);
 		}
 	}
 	
@@ -271,6 +273,10 @@ public class Player extends Entity {
 			currentState=nextState;
 		}
 	}
+
+	public String getStateName() {
+		return currentState.getClass().getSimpleName();
+	}
 	
 	protected void addVelX(double amount) {
 		velX+=amount;
@@ -283,6 +289,12 @@ public class Player extends Entity {
 	}
 	public void setVelY(double amount) {
 		velY = amount;
+	}
+	public double getVelX() {
+		return velX;
+	}
+	public double getVelY() {
+		return velY;
 	}
 	protected void setDirection(boolean facingLeft) {
 		faceLeft=facingLeft;

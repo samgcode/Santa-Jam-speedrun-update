@@ -38,6 +38,7 @@ public class GameState implements State {
 	
 	TextElement timerText = new TextElement(2, 0, 2, 7, "1 \n 2");
 	RectElement timerBG = new RectElement(timerText.getX()-2,timerText.getY()-2,160,timerText.getHeight()+3, new Color(6,50,52, 150));
+	TextElement infoText = new TextElement(2, 50, 1, 7, "");
 	InputDisplay inputDisplay = new InputDisplay();
 
 	public GameState(Save saveFile) {
@@ -71,6 +72,8 @@ public class GameState implements State {
 		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
 			UIElement.getUIManager().addElement(timerBG);
 			UIElement.getUIManager().addElement(timerText);
+			UIElement.getUIManager().addElement(infoText);
+			infoText.update("");
 			inputDisplay.show();
 		}
 	}
@@ -98,25 +101,36 @@ public class GameState implements State {
 			}
 			if(Inputs.getKey(Keybind.SAVE_STATE).isPressed()) {
 				stateTime = Timer.getFrames();
+				System.out.println("saved state");
 				savedPlayer = new Player(player, player.getBounds().x, player.getBounds().y);
 			}
 			if(Inputs.getKey(Keybind.LOAD_STATE).isPressed()) {
 				if(savedPlayer instanceof Player) {
 					Timer.setFrames(stateTime);
+					System.out.println("loaded state");
 					player = new Player(savedPlayer, savedPlayer.getBounds().x, savedPlayer.getBounds().y);
 					Entity.getManager().reset();
 					Entity.getManager().addEntity(player);
 					map.getPlayerRoom().loadRoom();
 				}
 			}
-
+			
 			if(Timer.TASPlayback) { tas.update(); }
 			else { tas.updateRecord(); }
 		}
+		
+		if(Game.DEBUG_ENABLED) {
+			infoText.update(String.format("pos|x:%d,y:%d\nvel|x:%.2f,y:%.2f\n", 
+				player.getBounds().x, player.getBounds().y, player.getVelX(), player.getVelY()
+			) + "State|" + player.getStateName());
+		} else {
+			infoText.update("");
+		}
+		
 		if(Inputs.getKey(Keybind.RESET).isPressed()) {
 			StateManager.setCurrentState(new GameState(new Save()));
 		}
-
+		
 		if(resetting) {
 			deathTransition+=0.1;
 			
@@ -165,6 +179,7 @@ public class GameState implements State {
 			StateManager.setCurrentState(new PauseState(this));
 			UIElement.getUIManager().clear();
 		}
+
 	}
 
 	@Override

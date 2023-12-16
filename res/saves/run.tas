@@ -4,6 +4,6 @@
 // -- wait 0 does nothing
 // fps [new fps value]
 fps 60
-// file recording.tas
+file recording.tas
 // file human_theory.tas
-file nic_tas/nic.tas
+// file nic_tas/nic.tas
