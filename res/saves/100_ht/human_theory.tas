@@ -1,0 +1,10 @@
+// human theory tas of 100%
+right 1
+jump 1
+wait 5
+jump 0
+wait 20
+fps 60
+file 100_ht/get_grapple.tas
+file 100_ht/standard_route/standard_route.tas
+// file 100_ht/_route.tas
