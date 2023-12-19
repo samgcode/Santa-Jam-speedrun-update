@@ -32,7 +32,7 @@ public class TasPlayback {
 
   ArrayList<Action> actions = new ArrayList<Action>();
 
-  int waitTime = 0;
+  public int waitTime = 0;
   int inputsProcessed = 0;
   
   public void initPlayback() {
@@ -97,11 +97,14 @@ public class TasPlayback {
   public void update() {
     int frames = Timer.getFrames();
 
+    waitTime++;
     for (int i = 0; i < actions.size(); i++) {
       Action action = actions.get(i);
 
       if(action.frame == frames) {
+        waitTime = 0;
         action.print();
+
         if(action.bind.equals("fps")) {
           Game.setFps(action.payload);
         } else {
@@ -120,7 +123,8 @@ public class TasPlayback {
     }
   }
 
-  public void updateRecord() {    
+  public void updateRecord() {
+    waitTime++;
     for (String inputName : keys.keySet()) {
       if(Inputs.getKey(keys.get(inputName)).isPressed()) {
         if(waitTime != 0) {
@@ -136,7 +140,6 @@ public class TasPlayback {
         waitTime = 0;
       }
     }
-    waitTime++;
   }
 
   public void addAction(String bind, int payload) {

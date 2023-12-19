@@ -223,8 +223,12 @@ public class Grapple extends PlayerState {
 	public boolean isDrawGrapple() {
 		return drawGrapple;
 	}
+	public boolean isShooting() {
+		return shooting;
+	}
 
 	public static void refreshGrapple() {
 		canGrapple = true;
 	}
+
 }

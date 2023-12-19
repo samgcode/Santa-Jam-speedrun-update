@@ -13,13 +13,15 @@ public class TextElement extends UIElement{
 	 */
 	public static final int SMALLMONOWIDTH=4,SMALLMONOHEIGHT=7,BIGMONOWIDTH=6,BIGMONOHEIGHT=7;
 	private Font font=Assets.font;
-	private int width,charWidth=SMALLMONOWIDTH,height, lineHeight=SMALLMONOHEIGHT+1, opacity=255;
+	private int width,charWidth=SMALLMONOWIDTH,height, lineHeight=SMALLMONOHEIGHT+1;
+	private Color color;
 	String[] lines= new String[1];
 	String text;//only really used to return the text back if it is needed
 	
 	//this constructor takes the location and value of the text and uses the default font
 	public TextElement(int x, int y, String text) {
 		super(x, y);
+		this.color = new Color(250, 250, 250);
 		update(text);//adding line breaks if there is a new line in the text
 	}
 	
@@ -30,7 +32,7 @@ public class TextElement extends UIElement{
 		
 	}
 	public TextElement(boolean pauseGame, int x, int y, int charWidth, int lineHeight, int maxTextWidth, String text, Font font) {
-		super(x,y);
+		this(x,y,text);
 		this.lineHeight=lineHeight;
 		this.charWidth=charWidth;
 		this.font=font;
@@ -46,13 +48,22 @@ public class TextElement extends UIElement{
 	}
 
 	public void setOpacity(int opacity) {
-		this.opacity = opacity;
+		this.color = new Color(
+			color.getRed(),
+			color.getGreen(),
+			color.getBlue(),
+			opacity
+		);
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 	
 	@Override
 	public void render(Graphics g) {
-		g.setColor(new Color(250,250,250, opacity));//we could have a variable to change font colours later but its fine for now
+		g.setColor(color);//we could have a variable to change font colours later but its fine for now
 		g.setFont(font);//setting the font to the right font
 		for(int i=0;i<lines.length;i++) {
 			g.drawString(lines[i].toUpperCase(), x,y+(lineHeight*(i+1)));

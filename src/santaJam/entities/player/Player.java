@@ -303,4 +303,15 @@ public class Player extends Entity {
 		return maxHealth;
 	}
 	
+	public boolean canJump() {
+		// this is the stupidest thing I have ever seen but the state system is such a mess and its not worth it to fix at this point
+		return (
+			isGrounded() ||
+			(StateManager.getGameState().getSave().hasDoubleJump() && DoubleJump.canDoubleJump()) && (
+				currentState instanceof Falling ||
+				currentState instanceof SlideFalling
+			)	||
+			currentState instanceof Grapple && !((Grapple)currentState).isShooting()
+		);
+	}
 }

@@ -38,7 +38,8 @@ public class GameState implements State {
 	
 	TextElement timerText = new TextElement(2, 0, 2, 7, "1 \n 2");
 	RectElement timerBG = new RectElement(timerText.getX()-2,timerText.getY()-2,160,timerText.getHeight()+3, new Color(6,50,52, 150));
-	TextElement infoText = new TextElement(2, 50, 1, 7, "");
+	TextElement infoText = new TextElement(3, 51, 1, 7, "");
+	TextElement infoText2 = new TextElement(2, 50, 1, 7, "");
 	InputDisplay inputDisplay = new InputDisplay();
 
 	public GameState(Save saveFile) {
@@ -57,6 +58,7 @@ public class GameState implements State {
 			tas.initPlayback();
 		}
 		timerText.setOpacity(150);
+		infoText2.setColor(new Color(0, 0, 0));
 	}
 	
 	@Override
@@ -72,7 +74,9 @@ public class GameState implements State {
 		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
 			UIElement.getUIManager().addElement(timerBG);
 			UIElement.getUIManager().addElement(timerText);
+			UIElement.getUIManager().addElement(infoText2);
 			UIElement.getUIManager().addElement(infoText);
+			infoText2.update("");
 			infoText.update("");
 			inputDisplay.show();
 		}
@@ -119,14 +123,6 @@ public class GameState implements State {
 			else { tas.updateRecord(); }
 		}
 		
-		if(Game.DEBUG_ENABLED) {
-			infoText.update(String.format("pos|x:%d,y:%d\nvel|x:%.2f,y:%.2f\n", 
-				player.getBounds().x, player.getBounds().y, player.getVelX(), player.getVelY()
-			) + "State|" + player.getStateName());
-		} else {
-			infoText.update("");
-		}
-		
 		if(Inputs.getKey(Keybind.RESET).isPressed()) {
 			StateManager.setCurrentState(new GameState(new Save()));
 		}
@@ -161,14 +157,29 @@ public class GameState implements State {
 		if(!stalled) {
 			Entity.getManager().update();
 		}
+
 		map.update();
 		camera.moveToEntity(player);
 		camera.update(map.getPlayerRoom());
 		
 		timerText.update(Timer.getTimeString() + 
 			String.format("  frame: %d\nfps: %d, resets: %d", 
-				Timer.getFrames(), Game.getFps(), Timer.resets
-			));
+			Timer.getFrames(), Game.getFps(), Timer.resets
+		));
+
+		if(Game.DEBUG_ENABLED) {
+			String info = String.format("pos|x:%d,y:%d\nvel|x:%.2f,y:%.2f\n", 
+				player.getBounds().x, player.getBounds().y, player.getVelX(), player.getVelY()
+				) + "State|" + player.getStateName() + "\n"
+				+ "Can jump|" + player.canJump() + "\n"
+				+ "Frames since input|" + tas.waitTime + "\n"
+			;
+			infoText2.update(info);
+			infoText.update(info);
+		} else {
+			infoText2.update("");
+			infoText.update("");
+		}
 
 		UIElement.getUIManager().update();
 		Particle.getParticleManager().update();
