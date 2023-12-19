@@ -15,6 +15,7 @@ import santaJam.inputs.Inputs;
 import santaJam.inputs.Keybind;
 
 public class TasPlayback {
+  String basePath = "res/tas/";
   String playbackFile = "run.tas";
   String recordingFile = "recording.tas";
 
@@ -35,7 +36,7 @@ public class TasPlayback {
   int inputsProcessed = 0;
   
   public void initPlayback() {
-    loadTasFile(playbackFile, 0, "res/saves");
+    loadTasFile(playbackFile, 0, basePath);
   
     actions.sort(new CompareAction());
   
@@ -52,7 +53,7 @@ public class TasPlayback {
     int globalFrame = currentFrame;
     int lineNumber = 0;
     try {
-      File myObj = new File("res/saves/" + filepath);
+      File myObj = new File(basePath + filepath);
       Scanner myReader = new Scanner(myObj);
       while (myReader.hasNextLine()) {
         String data = myReader.nextLine();
@@ -148,7 +149,7 @@ public class TasPlayback {
 
   public void saveInputs() {
     try {
-      FileWriter file = new FileWriter("res/saves/" + recordingFile);
+      FileWriter file = new FileWriter(basePath + recordingFile);
 
       for (int i = 0; i < actions.size(); i++) {
         Action action = actions.get(i);

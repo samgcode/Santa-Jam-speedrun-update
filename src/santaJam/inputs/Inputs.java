@@ -55,8 +55,13 @@ public class Inputs implements KeyListener{
 	public static void setKeyBinds(int[] newKeyCodes) {
 		for (Keybind keybind : Keybind.values()) {
 			try {
-				keyCodes[keybind.index] = newKeyCodes[keybind.index];
-				inputButtons[keybind.index] = new InputButton(newKeyCodes[keybind.index]);
+				if(keybind.bindable) {
+					keyCodes[keybind.index] = newKeyCodes[keybind.index];
+					inputButtons[keybind.index] = new InputButton(newKeyCodes[keybind.index]);
+				} else {
+					keyCodes[keybind.index] = keybind.default_bind;
+					inputButtons[keybind.index] = new InputButton(keybind.default_bind);
+				}
 			} catch(Exception e) {
 				keyCodes[keybind.index] = keybind.default_bind;
 				inputButtons[keybind.index] = new InputButton(keybind.default_bind);

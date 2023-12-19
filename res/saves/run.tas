@@ -1,9 +1,0 @@
-// format:
-// [key] [pressed(0:1)]
-// wait [duration(frames)]
-// -- wait 0 does nothing
-// fps [new fps value]
-fps 60
-// file recording.tas
-file 100_ht/human_theory.tas
-// file nic_tas/nic.tas

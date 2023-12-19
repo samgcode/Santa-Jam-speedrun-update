@@ -1,0 +1,19 @@
+// to run, set tas to true in res/saves/save.properties
+// speedrun must also be enabled
+//
+// press ` or set fps to 0 to pause and enter debug mode
+// -- when in debug mode press + to step forward one frame
+// -- when in debug mode hold - to advance at 30fps
+// -- pressing ` again will resume playback at 60 fps
+//
+// format:
+// [key] [pressed(0:1)]
+// wait [duration(frames)]
+// -- wait 0 does nothing
+// fps [new fps value]
+// -- this changes the game speed to 60/fps
+// ---- eg: 30fps is 0.5x speed, 120fps is 2x speed
+// file [path, always relative to res/tas]
+// -- files are loaded at "compile time" meaning recursive files will never load
+fps 60
+file examples/grapple.tas
