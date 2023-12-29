@@ -4,7 +4,7 @@
 // original: 4915 (+136)
 right 1
 wait 23
-fps 60
+fps 180
 file nic_tas/screen1.tas
 file nic_tas/screen2.tas
 file nic_tas/screen3.tas

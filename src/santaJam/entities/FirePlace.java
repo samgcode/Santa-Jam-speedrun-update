@@ -59,6 +59,7 @@ public class FirePlace extends Entity{
 		
 	}
 	private void playerCollide(Player player) {
+		Timer.end();
 		StateManager.getGameState().saveData(bounds.x-20,bounds.y+bounds.height/2);
 		(player).setAnim(Player.dance);
 		Save save = StateManager.getGameState().getSave();

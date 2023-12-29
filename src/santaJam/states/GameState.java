@@ -36,7 +36,8 @@ public class GameState implements State {
 
 	private TasPlayback tas;
 	
-	TextElement timerText = new TextElement(2, 0, 2, 7, "1 \n 2");
+	TextElement timerText = new TextElement(2, 0, 2, 7, "1 \n 2 \n 3 \n 4");
+	String splitText = "";
 	RectElement timerBG = new RectElement(timerText.getX()-2,timerText.getY()-2,160,timerText.getHeight()+3, new Color(6,50,52, 150));
 	TextElement infoText = new TextElement(3, 51, 1, 7, "");
 	TextElement infoText2 = new TextElement(2, 50, 1, 7, "");
@@ -63,6 +64,7 @@ public class GameState implements State {
 	
 	@Override
 	public void start(State prevState) {
+		Timer.start();
 		if(Timer.TASPlayback) { tas.update(); } 
 		else { tas.initRecording(); }
 		
@@ -90,10 +92,14 @@ public class GameState implements State {
 	public void updateInputDisplay() {
 		inputDisplay.update();
 	}
+
+	public void setSplitText(String text) {
+		splitText = text;
+	}
 	
 	@Override
 	public void update() {
-		Timer.update();
+		Timer.update(map.getPlayerRoom(), save);
 
 		if(SantaJam.getGame().getSettings().getSpeedrunEnabled()) {
 			updateInputDisplay();
@@ -162,15 +168,20 @@ public class GameState implements State {
 		camera.moveToEntity(player);
 		camera.update(map.getPlayerRoom());
 		
-		timerText.update(Timer.getTimeString() + 
-			String.format("  frame: %d\nfps: %d, resets: %d", 
-			Timer.getFrames(), Game.getFps(), Timer.resets
-		));
+		timerText.update(
+			Timer.getTimeString() + "\n" + 
+			Timer.getSplitString() + "\n" +
+			String.format("resets: %d", Timer.resets)
+		);
 
 		if(Game.DEBUG_ENABLED) {
 			String info = String.format("pos|x:%d,y:%d\nvel|x:%.2f,y:%.2f\n", 
 				player.getBounds().x, player.getBounds().y, player.getVelX(), player.getVelY()
-				) + "State|" + player.getStateName() + "\n"
+				) 
+				+ String.format("frame: %d fps: %d\n", 
+					Timer.getFrames(), Game.getFps()
+				)
+				+ "State|" + player.getStateName() + "\n"
 				+ "Can jump|" + player.canJump() + "\n"
 				+ "Frames since input|" + tas.waitTime + "\n"
 			;
