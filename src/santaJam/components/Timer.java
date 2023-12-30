@@ -38,6 +38,8 @@ public class Timer {
   public static void start() {
     recordRoute = false; doSplits = true;
     frames = 0; split = 0; sumOfBest = 0;
+
+    basePath = getSplitPath("res/splits/");
  
     best = loadSplitFile(bestFile);
     comparison = loadSplitFile(comparisonFile);
@@ -148,6 +150,25 @@ public class Timer {
         }
       }
     }
+  }
+
+  static String getSplitPath(String prefix) {
+    ArrayList<Split> splits = new ArrayList<Split>();
+    try {
+      File myObj = new File("res/splits/splits.txt");
+      Scanner myReader = new Scanner(myObj);
+      while (myReader.hasNextLine()) {
+        String data = myReader.nextLine();
+        myReader.close();
+        return prefix + data;
+      }
+      myReader.close();
+    } catch (FileNotFoundException e) {
+      System.out.println("Could not read file");
+      e.printStackTrace();
+    }
+    
+    return prefix;
   }
   
   static ArrayList<Split> loadSplitFile(String filepath) {

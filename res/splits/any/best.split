@@ -1,0 +1,6 @@
+r: 1-slide.json, c: 0, s: true, g: false, d: false, u: false, b: false, t: 799
+r: 1-12(grapple).json, c: 0, s: true, g: true, d: false, u: false, b: false, t: 2031
+r: 2-1.json, c: 0, s: true, g: true, d: false, u: false, b: false, t: 2640
+r: peak-cave 2.json, c: 0, s: true, g: true, d: false, u: false, b: false, t: 3090
+r: 3-5(boost).json, c: 0, s: true, g: true, d: false, u: true, b: false, t: 6184
+r: END, c: 0, s: true, g: true, d: false, u: true, b: false, t: 7664

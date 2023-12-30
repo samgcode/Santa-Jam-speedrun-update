@@ -1,0 +1,14 @@
+r: 1-slide.json, c: 0, s: true, g: false, d: false, u: false, b: false, t: 583
+r: 1-12(grapple).json, c: 0, s: true, g: true, d: false, u: false, b: false, t: 1748
+r: 1-a.json, c: 1, s: true, g: true, d: false, u: false, b: false, t: 1228
+r: 2-1.json, c: 2, s: true, g: true, d: false, u: false, b: false, t: 1306
+r: 2-b.json, c: 3, s: true, g: true, d: false, u: false, b: false, t: 543
+r: 2-4.json, c: 4, s: true, g: true, d: false, u: false, b: false, t: 500
+r: 2-5(X2jump).json, c: 4, s: true, g: true, d: true, u: false, b: false, t: 508
+r: 2-a.json, c: 5, s: true, g: true, d: true, u: false, b: false, t: 474
+r: 1-4.json, c: 6, s: true, g: true, d: true, u: false, b: false, t: 1043
+r: peak-forest a.json, c: 7, s: true, g: true, d: true, u: false, b: false, t: 958
+r: 3-5(boost).json, c: 7, s: true, g: true, d: true, u: true, b: false, t: 1509
+r: 3-b.json, c: 8, s: true, g: true, d: true, u: true, b: false, t: 253
+r: 3-a.json, c: 9, s: true, g: true, d: true, u: true, b: false, t: 877
+r: END, c: 9, s: true, g: true, d: true, u: true, b: false, t: 301
